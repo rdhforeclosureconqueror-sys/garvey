@@ -1,6052 +1,1640 @@
-"use strict";
-
-const express = require("express");
-const { buildYouthDevelopmentResult } = require("../youth-development/measurement/resultBuilder");
-const { buildYouthDevelopmentDashboard } = require("../youth-development/measurement/dashboardBuilder");
-const { buildParentDashboardPageModel } = require("../youth-development/presentation/parentDashboardPageModel");
-const { renderYouthDevelopmentParentDashboardPage } = require("./youthDevelopmentRenderer");
-const { buildAdaptiveParentDashboardSummary, isFakeLearnerName } = require("./adaptiveParentDashboardSummary");
-const {
-  YOUTH_QUESTION_BANK,
-  YOUTH_PARENT_INSTRUCTIONS,
-  YOUTH_ANSWER_SCALE,
-} = require("../youth-development/question-engine/youthQuestionBank");
-const { getQuestionFlowState, validateAnswers } = require("../youth-development/question-engine/youthQuestionFlow");
-const { runYouthIntakeScoring } = require("../youth-development/question-engine/youthScoringMap");
-const { PROGRAM_WEEKS } = require("../youth-development/tde/programRail");
-const { buildSessionPlan } = require("../youth-development/tde/sessionBuilderService");
-const { listActivitiesByComponent } = require("../youth-development/tde/activityBankService");
-const { getAuthoredWeekContent, auditWeeklyContentSources, STEP_SEQUENCE } = require("../youth-development/content/weeklyProgramContent");
-const {
-  defaultExecutionState,
-  normalizeExecutionState,
-  buildWeeklyExecutionCoverageReport,
-  validateWeeklyExecutionActionPayload,
-  WEEKLY_EXECUTION_ACTIONS,
-} = require("../youth-development/tde/weeklyExecutionContract");
-const {
-  normalizeParentCommitmentPlan,
-  validateParentCommitmentSetup,
-  isParentCommitmentSetupComplete,
-} = require("../youth-development/tde/parentCommitmentSetupContract");
-
-const PREVIEW_AGGREGATED_ROWS = Object.freeze([
-  Object.freeze({
-    trait_code: "SR",
-    baseline_score: 61,
-    current_score: 82,
-    change_score: 21,
-    confidence_score: 86,
-    evidence_mix_score: 79,
-    trend_direction: "increasing",
-  }),
-  Object.freeze({
-    trait_code: "PS",
-    baseline_score: 44,
-    current_score: 34,
-    change_score: -10,
-    confidence_score: 72,
-    evidence_mix_score: 66,
-    trend_direction: "decreasing",
-  }),
-  Object.freeze({
-    trait_code: "CQ",
-    baseline_score: 58,
-    current_score: 63,
-    change_score: 5,
-    confidence_score: 49,
-    evidence_mix_score: 54,
-    trend_direction: "stable",
-  }),
-]);
-
-const PREVIEW_OPTIONS = Object.freeze({
-  generatedAt: "2026-01-01T00:00:00.000Z",
-  evidenceSummary: Object.freeze({
-    sources_used: Object.freeze(["child_task", "teacher_observation", "assessor_observation"]),
-    confidence_caveats: Object.freeze([
-      "Preview fixture only: this output is for renderer verification, not production interpretation.",
-    ]),
-  }),
-  environmentNotes: Object.freeze([
-    "Preview fixture note: this page is test-only and uses deterministic sample rows.",
-  ]),
-});
-
-const INTAKE_TEST_FIXTURE = Object.freeze({
-  schema_version: "1.0",
-  session_id: "session-1",
-  child_id: "child-1",
-  submitted_at: "2026-03-01T12:00:00.000Z",
-  task_results: Object.freeze([
-    Object.freeze({
-      task: Object.freeze({
-        task_id: "YT_B1_CQ_01",
-        trait_code: "CQ",
-        task_class: "SCT",
-        expected_signal_types: Object.freeze(["inquiry_depth", "justification_quality", "decision_quality"]),
-        scoring_type: "rubric",
-        evidence_source: "child_scenario",
-      }),
-      raw_input: Object.freeze({
-        timestamp: "2026-03-01T12:01:00.000Z",
-        metrics: Object.freeze({
-          inquiry_depth: 3,
-          justification_quality: 3,
-          decision_quality: 2,
-        }),
-        measurement_window: "current",
-        is_current: true,
-      }),
-    }),
-  ]),
-  options: Object.freeze({
-    ignore_contaminated: true,
-  }),
-});
-
-const ACTIVITY_LABELS = Object.freeze({
-  guided_skill_practice: "Guided skill practice",
-  scenario_decision_lab: "Scenario decision lab",
-  project_build_cycle: "Project build cycle",
-  peer_feedback_exchange: "Peer feedback exchange",
-});
-
-const STRETCH_LABELS = Object.freeze({
-  complexity_increase: "Complexity increase challenge",
-  time_constraint_variant: "Time-constraint variant",
-  novel_domain_transfer: "Novel domain transfer",
-  leadership_micro_role: "Leadership micro-role",
-});
-
-const PROGRAM_CONNECTIVITY_CONTROLS = Object.freeze([
-  Object.freeze({ label: "Snapshot Cards Read-Aloud", surface: "parent dashboard snapshot cards", handler: "data-voice-card.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
-  Object.freeze({ label: "Top Strengths Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=topStrengths.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
-  Object.freeze({ label: "Areas to Strengthen Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=areasToStrengthen.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
-  Object.freeze({ label: "Weekly Support Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=weeklySupport.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
-  Object.freeze({ label: "Weekly Goals Read-Aloud", surface: "program page / weekly goals", handler: "readWeeklyGoalsBtn.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Program Support Read-Aloud", surface: "program page / support sections", handler: "readProgramSupportBtn.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Progress Summary Read-Aloud", surface: "program page / progress dashboard", handler: "readProgressSummaryBtn.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Build Your Weekly Plan", surface: "weekly planner", handler: "saveCommitmentBtn.click", endpoint: "POST /api/youth-development/program/commitment", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Preferred Time Picker", surface: "weekly planner setup", handler: "commitTimeHourInput.change | commitTimeMinuteInput.change | commitTimeMeridiemInput.change", endpoint: "payload.preferred_time + payload.preferred_time_window", scope: "child/week commitment setup", status: "working" }),
-  Object.freeze({ label: "Preferred Days Selector", surface: "weekly planner setup", handler: "commitPreferredDaysGroup.change[data-day-checkbox]", endpoint: "payload.preferred_days[]", scope: "child/week commitment setup", status: "working" }),
-  Object.freeze({ label: "Setup Required Message", surface: "weekly planner state message", handler: "derivePlannerSurfaceState(state=setup_required)", endpoint: "client-render:plannerStateCopy", scope: "child/week planner gating", status: "working" }),
-  Object.freeze({ label: "No Sessions Yet Message", surface: "weekly planner + lesson plan + adherence", handler: "derivePlannerSurfaceState(state=no_sessions_yet|setup_complete_generating_sessions)", endpoint: "client-render:empty-state-copy", scope: "child/week schedule gating", status: "working" }),
-  Object.freeze({ label: "Lesson Plan Empty State", surface: "lesson plan", handler: "renderLessonPlan(null, week)", endpoint: "client-render:lesson-plan-empty", scope: "child/week/session local view", status: "working" }),
-  Object.freeze({ label: "Progress Empty State", surface: "parent progress dashboard", handler: "renderProgressDashboard(no sessions)", endpoint: "client-render:progress-empty", scope: "child/week accountability view", status: "working" }),
-  Object.freeze({ label: "Start Today‚Äôs Session", surface: "program page / Today", handler: "startTodaySessionBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week+session", status: "working" }),
-  Object.freeze({ label: "Resume Session", surface: "program page / Today + lesson plan + agenda", handler: "resumeTodaySessionBtn.click | resumeSessionBtn.click | data-action=resume-session", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week+session", status: "working" }),
-  Object.freeze({ label: "View Weekly Plan", surface: "program page / Today", handler: "viewWeeklyPlanBtn.click", endpoint: "client-scroll:#plannerCalendarGrid", scope: "child/week local view", status: "working" }),
-  Object.freeze({ label: "Open Scheduled Session", surface: "weekly planner", handler: "openNextSessionBtn.click", endpoint: "client-render:lesson-plan", scope: "child/week/session local view", status: "working" }),
-  Object.freeze({ label: "Open Lesson Plan", surface: "weekly planner calendar", handler: "plannerCalendarGrid.click[data-action=open-session]", endpoint: "client-render:lesson-plan", scope: "child/week/session local view", status: "working" }),
-  Object.freeze({ label: "Mark Session Complete", surface: "weekly planner + lesson plan + agenda", handler: "markNextSessionCompleteBtn.click | completeSelectedSessionBtn.click | data-action=complete-session", endpoint: "POST /api/youth-development/program/session-complete", scope: "tenant+email+child+week+session", status: "working" }),
-  Object.freeze({ label: "Save Reflection", surface: "current week guided experience", handler: "saveReflectionBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Save Observation", surface: "current week guided experience", handler: "saveObservationBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Mark Step Complete", surface: "current week guided experience", handler: "markStepCompleteBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week+step", status: "working" }),
-  Object.freeze({ label: "Continue to Next Step", surface: "current week guided experience", handler: "continueStepBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Continue Next Week", surface: "current week guided experience", handler: "continueNextWeekBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Return to Dashboard", surface: "program page", handler: "dashboardBtn.href", endpoint: "GET /youth-development/parent-dashboard", scope: "tenant+email+child", status: "working" }),
-  Object.freeze({ label: "Start Program / Continue Program", surface: "intake + parent dashboard + program launch", handler: "launchBtn.click", endpoint: "POST /api/youth-development/program/launch", scope: "tenant+email+child", status: "working" }),
-  Object.freeze({ label: "Previous week", surface: "current week guided experience", handler: "prevWeekBtn.click", endpoint: "client-nav:renderWeekDetails", scope: "child/week local view", status: "working" }),
-  Object.freeze({ label: "Next Week", surface: "current week guided experience", handler: "nextWeekBtn.click", endpoint: "client-nav:renderWeekDetails", scope: "child/week local view", status: "working" }),
-]);
-
-const REFLECTION_LABELS = Object.freeze({
-  self_explanation_journal: "Self-explanation journal",
-  mentor_dialogue_prompt: "Mentor dialogue prompt",
-  goal_adjustment_review: "Goal adjustment review",
-});
-
-const OBSERVATION_LABELS = Object.freeze({
-  task_event_observation: "Task-event observation",
-  teacher_observation_note: "Teacher observation note",
-  parent_observation_note: "Parent observation note",
-  self_report_observation: "Self-report observation",
-});
-
-const SUPPORT_ACTION_LABELS = Object.freeze({
-  family_reflection_prompt: "Family reflection prompt",
-  teacher_alignment_note: "Teacher alignment note",
-  mentor_checkin: "Mentor check-in",
-  routine_reset_micro_plan: "Routine reset micro-plan",
-  resource_scaffold_pack: "Resource scaffold pack",
-});
-
-const CANONICAL_PARENT_ROUTES = Object.freeze({
-  entry: "/youth-development/intake",
-  dashboard: "/youth-development/parent-dashboard",
-  program: "/youth-development/program",
-});
-
-const CANONICAL_CTA_LABELS = Object.freeze({
-  startProgram: "Start Program",
-  continueProgram: "View Weekly Plan",
-  returnToDashboard: "Return to Dashboard",
-  resumeWeekPrefix: "Resume Week",
-  saveReflection: "Save Reflection",
-  saveObservation: "Save Observation",
-});
-
-function safeTrim(value) {
-  return String(value ?? "").trim();
-}
-
-function isCommitmentSetupComplete(commitment = {}) {
-  return isParentCommitmentSetupComplete(commitment);
-}
-
-function resolvePlannerSurfaceState({ commitment = null, scheduledSessions = [], executionState = null } = {}) {
-  const setupComplete = isCommitmentSetupComplete(commitment || {});
-  const scheduledCount = Array.isArray(scheduledSessions) ? scheduledSessions.length : 0;
-  const weekStatus = String(executionState?.week_status || "").toLowerCase();
-  if (!setupComplete) {
-    return {
-      state: "setup_required",
-      label: "Setup required",
-      message: "Build Your Weekly Plan to unlock today/next session cards, planner calendar, and adherence dashboard.",
-      setup_complete: false,
-      scheduled_session_count: 0,
-    };
-  }
-  if (scheduledCount <= 0 && weekStatus === "generating_sessions") {
-    return {
-      state: "setup_complete_generating_sessions",
-      label: "Setup complete, generating sessions",
-      message: "Weekly setup is complete. Sessions are being generated now.",
-      setup_complete: true,
-      scheduled_session_count: 0,
-    };
-  }
-  if (scheduledCount <= 0) {
-    return {
-      state: "no_sessions_yet",
-      label: "No sessions yet",
-      message: "Commitment is saved, but no sessions are scheduled yet. Re-save Build Your Weekly Plan to regenerate this week‚Äôs sessions.",
-      setup_complete: true,
-      scheduled_session_count: 0,
-    };
-  }
-  if (weekStatus === "in_progress") {
-    return {
-      state: "execution_in_progress",
-      label: "Execution in progress",
-      message: "Session execution is in progress for this week.",
-      setup_complete: true,
-      scheduled_session_count: scheduledCount,
-    };
-  }
-  return {
-    state: "setup_complete_with_sessions",
-    label: "Planner ready",
-    message: "Planner setup complete and scheduled sessions are available.",
-    setup_complete: true,
-    scheduled_session_count: scheduledCount,
-  };
-}
-
-function normalizeAccountContext(source = {}) {
-  return {
-    tenant: safeTrim(source.tenant || source.tenant_slug).toLowerCase(),
-    email: safeTrim(source.email).toLowerCase(),
-    name: safeTrim(source.name),
-    cid: safeTrim(source.cid),
-    crid: safeTrim(source.crid || source.rid),
-  };
-}
-
-function resolveRequestAccountContext(req, body = {}) {
-  const authCtx = normalizeAccountContext({
-    tenant: req.authActor?.tenantSlug,
-    email: req.authActor?.email,
-    name: req.authActor?.name,
-  });
-  const queryCtx = normalizeAccountContext(req.query || {});
-  const bodyCtx = normalizeAccountContext(body || {});
-  const headerCtx = normalizeAccountContext({
-    tenant: req.headers["x-tenant-slug"],
-    email: req.headers["x-user-email"],
-    name: req.headers["x-user-name"],
-  });
-  if (authCtx.tenant && authCtx.email) {
-    return {
-      tenant: authCtx.tenant,
-      email: authCtx.email,
-      name: authCtx.name || bodyCtx.name || queryCtx.name || headerCtx.name,
-      cid: bodyCtx.cid || queryCtx.cid,
-      crid: bodyCtx.crid || queryCtx.crid,
-    };
-  }
-  return {
-    tenant: bodyCtx.tenant || queryCtx.tenant || headerCtx.tenant,
-    email: bodyCtx.email || queryCtx.email || headerCtx.email,
-    name: bodyCtx.name || queryCtx.name || headerCtx.name,
-    cid: bodyCtx.cid || queryCtx.cid,
-    crid: bodyCtx.crid || queryCtx.crid,
-  };
-}
-
-function isInternalSurfaceRequestAllowed(req) {
-  if (process.env.NODE_ENV !== "production") return true;
-  if (req?.isAdmin === true) return true;
-  if (req?.authActor?.isAdmin === true) return true;
-  const internalQuery = String(req?.query?.internal || "").trim();
-  return internalQuery === "1";
-}
-
-function labelFor(map, code) {
-  if (!code) return null;
-  return map[code] || String(code);
-}
-
-const COMPONENT_GROUPS = Object.freeze({
-  core: Object.freeze(["RULE_BASED_REGULATION", "ATTENTION_MINDFULNESS"]),
-  stretch: "CHALLENGE_SUSTAINED_FOCUS",
-  reflection: "REFLECTION_COACHING",
-  opening: "OPENING_ROUTINE",
-  transition: "TRANSITION_ROUTINE",
-  closing: "CLOSING_ROUTINE",
-  observation: "OBSERVATION_SUPPORT",
-});
-
-const DAYS = Object.freeze(["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
-
-function buildRoadmap(currentWeek) {
-  return [currentWeek - 1, currentWeek, currentWeek + 1]
-    .filter((week) => week >= 1 && week <= 36)
-    .map((weekNumber) => {
-      const model = PROGRAM_WEEKS.find((entry) => Number(entry.week_number) === Number(weekNumber));
-      return {
-        week_number: weekNumber,
-        phase_name: String(model?.phase_name || "Foundation"),
-        weekly_goal: String(getAuthoredWeekContent(weekNumber)?.objective || model?.weekly_goal || `Week ${weekNumber} objective unavailable.`),
-        status: weekNumber < currentWeek ? "completed" : (weekNumber === currentWeek ? "current" : "upcoming"),
-      };
-    });
-}
-
-function normalizeActivity(activity = {}) {
-  return {
-    activity_id: String(activity.activity_id || ""),
-    component_type: String(activity.component_type || ""),
-    category: String(activity.category || ""),
-    subcategory: String(activity.subcategory || ""),
-    title: String(activity.title || "Untitled activity"),
-    description: String(activity.description || "Activity details unavailable."),
-    estimated_duration: Number(activity.estimated_duration || 0),
-    materials_needed: Array.isArray(activity.materials_needed) ? activity.materials_needed : [],
-    facilitation_instructions: String(activity.facilitation_instructions || ""),
-    target_traits: Array.isArray(activity.target_traits) ? activity.target_traits : [],
-    available_variations: Array.isArray(activity.available_variations || activity.variations)
-      ? (activity.available_variations || activity.variations).map((variation) => ({
-        variation_id: String(variation.variation_id || ""),
-        variation_level: String(variation.variation_level || ""),
-        variation_type: String(variation.variation_type || ""),
-        instructions: String(variation.instructions || ""),
-        duration: Number(variation.duration || 0),
-        materials: Array.isArray(variation.materials) ? variation.materials : [],
-      }))
-      : [],
-  };
-}
-
-function buildActivitySurface({ childId, phaseNumber, parentCustomization = null }) {
-  const safeChildId = String(childId || "").trim() || "child-week-preview";
-  const sessionPlan = buildSessionPlan({
-    child_id: safeChildId,
-    phase_number: Number(phaseNumber || 1),
-    facilitator_role: "parent",
-    parent_customization: parentCustomization || undefined,
-  });
-  const selectedActivities = sessionPlan?.ok === true && Array.isArray(sessionPlan.session_plan?.selected_activities)
-    ? sessionPlan.session_plan.selected_activities.map((entry) => normalizeActivity(entry))
-    : [];
-  const pickFromSelected = (componentType) => selectedActivities.find((entry) => String(entry.component_type || entry.componentType || "").trim() === componentType);
-  const coreBankOptions = COMPONENT_GROUPS.core.flatMap((componentType) => {
-    const listed = listActivitiesByComponent(componentType);
-    return Array.isArray(listed.activities) ? listed.activities.map((entry) => normalizeActivity(entry)) : [];
-  });
-  return {
-    session_plan: sessionPlan?.ok === true ? {
-      session_id: String(sessionPlan.session_plan.session_id || ""),
-      facilitator_role: String(sessionPlan.session_plan.facilitator_role || "parent"),
-      selected_activity_ids: Array.isArray(sessionPlan.session_plan.selected_activity_ids) ? sessionPlan.session_plan.selected_activity_ids : [],
-      selected_variation_ids: Array.isArray(sessionPlan.session_plan.selected_variation_ids) ? sessionPlan.session_plan.selected_variation_ids : [],
-      component_count: Number(sessionPlan.session_plan.component_count || selectedActivities.length || 0),
-      parent_customization: sessionPlan.session_plan.parent_customization || null,
-      component_choices: sessionPlan.session_plan.component_choices || {},
-    } : null,
-    selected_path: {
-      core_activity: pickFromSelected("RULE_BASED_REGULATION") || pickFromSelected("ATTENTION_MINDFULNESS") || null,
-      stretch_challenge: pickFromSelected(COMPONENT_GROUPS.stretch) || null,
-      reflection: pickFromSelected(COMPONENT_GROUPS.reflection) || null,
-    },
-    banks: {
-      core_activity: coreBankOptions,
-      stretch_challenge: listActivitiesByComponent(COMPONENT_GROUPS.stretch).activities.map((entry) => normalizeActivity(entry)),
-      reflection: listActivitiesByComponent(COMPONENT_GROUPS.reflection).activities.map((entry) => normalizeActivity(entry)),
-      opening_routine: listActivitiesByComponent(COMPONENT_GROUPS.opening).activities.map((entry) => normalizeActivity(entry)),
-      transition_routine: listActivitiesByComponent(COMPONENT_GROUPS.transition).activities.map((entry) => normalizeActivity(entry)),
-      closing_routine: listActivitiesByComponent(COMPONENT_GROUPS.closing).activities.map((entry) => normalizeActivity(entry)),
-      observation_support: listActivitiesByComponent(COMPONENT_GROUPS.observation).activities.map((entry) => normalizeActivity(entry)),
-    },
-  };
-}
-
-function auditActivityBankDepth(activitySurface = {}) {
-  const banks = activitySurface.banks || {};
-  const read = (key) => Array.isArray(banks[key]) ? banks[key] : [];
-  const summarize = (key, minimum, requiredSubcategories) => {
-    const items = read(key);
-    const count = items.length;
-    const activityCountsBySubcategory = items.reduce((acc, item) => {
-      const subcategory = String(item?.subcategory || "uncategorized");
-      acc[subcategory] = (acc[subcategory] || 0) + 1;
-      return acc;
-    }, {});
-    const variationCountsByActivity = items.reduce((acc, item) => {
-      acc[String(item.activity_id || "")] = Array.isArray(item.available_variations) ? item.available_variations.length : 0;
-      return acc;
-    }, {});
-    const missingSubcategories = requiredSubcategories.filter((name) => !Object.prototype.hasOwnProperty.call(activityCountsBySubcategory, name));
-    const subcategoriesBelowDepthThreshold = Object.entries(activityCountsBySubcategory)
-      .filter(([, subCount]) => Number(subCount) < 5)
-      .map(([subcategory, subCount]) => ({ subcategory, count: subCount, threshold: 5 }));
-    const activitiesBelowVariationThreshold = Object.entries(variationCountsByActivity)
-      .filter(([, variationCount]) => Number(variationCount) < 2)
-      .map(([activity_id, variationCount]) => ({ activity_id, count: variationCount, threshold: 2 }));
-    return {
-      category: key,
-      current_count: count,
-      depth_limit: count < minimum ? `too_thin_for_weekly_planning (${count}/${minimum})` : "usable",
-      activity_counts_by_subcategory: activityCountsBySubcategory,
-      variation_counts_by_activity: variationCountsByActivity,
-      missing_subcategories: missingSubcategories,
-      subcategories_below_depth_threshold: subcategoriesBelowDepthThreshold,
-      activities_below_variation_threshold: activitiesBelowVariationThreshold,
-    };
-  };
-  return {
-    generated_at: new Date().toISOString(),
-    soft_targets: {
-      minimum_activities_per_subcategory: 5,
-      minimum_variations_per_activity: 2,
-    },
-    areas: [
-      summarize("core_activity", 4, ["focus_control", "emotional_regulation", "task_initiation", "problem_solving", "working_memory", "cognitive_flexibility"]),
-      summarize("stretch_challenge", 3, ["complexity_increase", "time_pressure", "multi_step_challenge", "distraction_resistance", "transfer_challenge"]),
-      summarize("reflection", 3, ["verbal_reflection", "visual_reflection", "guided_questions", "self_rating", "story_reflection"]),
-      summarize("observation_support", 2, ["parent_observation", "habit_anchor"]),
-      summarize("opening_routine", 1, ["calm_entry", "energy_activation", "attention_reset", "routine_anchor"]),
-      summarize("transition_routine", 1, ["reset_refocus", "movement_transition", "countdown_transition"]),
-      summarize("closing_routine", 1, ["child_summary", "reinforcement"]),
-    ],
-  };
-}
-
-function buildSessionTemplate({ activitySurface, durationMinutes, scheduledAt, selectedActivityIds = [] }) {
-  const banks = activitySurface?.banks || {};
-  const selectedById = new Map();
-  Object.values(banks).flat().forEach((item) => selectedById.set(item.activity_id, item));
-  const picked = selectedActivityIds.map((id) => selectedById.get(id)).filter(Boolean);
-  const selected = {
-    opening: picked.find((item) => item.component_type === COMPONENT_GROUPS.opening) || (banks.opening_routine || [])[0] || null,
-    core: picked.find((item) => COMPONENT_GROUPS.core.includes(item.component_type)) || (banks.core_activity || [])[0] || null,
-    stretch: picked.find((item) => item.component_type === COMPONENT_GROUPS.stretch) || (banks.stretch_challenge || [])[0] || null,
-    reflection: picked.find((item) => item.component_type === COMPONENT_GROUPS.reflection) || (banks.reflection || [])[0] || null,
-    observation: picked.find((item) => item.component_type === COMPONENT_GROUPS.observation) || (banks.observation_support || [])[0] || null,
-    transition: (banks.transition_routine || [])[0] || null,
-    close: (banks.closing_routine || [])[0] || null,
-  };
-  const block = (segment, minutes, activity) => ({
-    segment,
-    minutes,
-    activity_id: activity?.activity_id || null,
-    title: activity?.title || null,
-    subcategory: activity?.subcategory || null,
-    available_variation_count: Array.isArray(activity?.available_variations) ? activity.available_variations.length : 0,
-  });
-  return {
-    scheduled_at: scheduledAt || null,
-    total_minutes: Number(durationMinutes || 30),
-    blocks: [
-      block("opening_routine", 4, selected.opening),
-      block("prep_time", 3, null),
-      block("core_activity", 12, selected.core),
-      block("transition", 2, selected.transition),
-      block("stretch_challenge", 6, selected.stretch),
-      block("transition", 1, selected.transition),
-      block("reflection", 4, selected.reflection),
-      block("observation_close", 3, selected.observation || selected.close),
-    ],
-  };
-}
-
-function buildWeekContentFromRail(weekModel, bridgeState = {}, planningState = {}) {
-  if (!weekModel || typeof weekModel !== "object") return null;
-  const weekNumber = Number(weekModel.week_number) || 1;
-  const phaseName = String(weekModel.phase_name || "Foundation");
-  const phaseNumber = Number(weekModel.phase_number || 1);
-  const activityLabel = labelFor(ACTIVITY_LABELS, weekModel.core_activity_type);
-  const stretchLabel = labelFor(STRETCH_LABELS, weekModel.stretch_challenge_type);
-  const reflectionLabel = labelFor(REFLECTION_LABELS, weekModel.reflection_loop_type);
-  const observationLabel = labelFor(OBSERVATION_LABELS, weekModel.observation_entry_type);
-  const authored = getAuthoredWeekContent(weekNumber);
-  const supportActionLabel = weekModel.optional_support_action
-    ? labelFor(SUPPORT_ACTION_LABELS, weekModel.optional_support_action)
-    : "Keep the current home routine and capture one parent observation note.";
-  const targetTraits = Array.isArray(weekModel.target_traits) ? weekModel.target_traits : [];
-  const progressPercent = Math.max(0, Math.min(100, Math.round((weekNumber / 36) * 100)));
-  const parentCustomization = planningState?.commitment_plan?.parent_customization
-    || (planningState?.commitment_plan
-      ? {
-        difficulty_level: planningState.commitment_plan.difficulty_level,
-        session_length: planningState.commitment_plan.session_length || planningState.commitment_plan.session_duration_minutes || planningState.commitment_plan.target_session_length,
-        energy_type: planningState.commitment_plan.energy_type,
-        weekly_frequency: planningState.commitment_plan.weekly_frequency,
-      }
-      : null);
-  const activitySurface = buildActivitySurface({ childId: bridgeState.child_id, phaseNumber, parentCustomization });
-  const commitment = planningState.commitment_plan ? normalizeParentCommitmentPlan(planningState.commitment_plan) : null;
-  const setupComplete = isCommitmentSetupComplete(commitment || {});
-  const plannedSessions = Array.isArray(planningState.scheduled_sessions) ? planningState.scheduled_sessions : [];
-  const plannerSurfaceState = resolvePlannerSurfaceState({ commitment, scheduledSessions: plannedSessions });
-  const sessionTemplate = buildSessionTemplate({
-    activitySurface,
-    durationMinutes: commitment?.session_duration_minutes || commitment?.target_session_length || 30,
-    scheduledAt: plannedSessions[0]?.scheduled_at || null,
-    selectedActivityIds: plannedSessions[0]?.selected_activity_ids || [],
-  });
-  const stepSequence = Array.isArray(authored?.step_sequence) ? authored.step_sequence : STEP_SEQUENCE;
-  return {
-    week_number: weekNumber,
-    title: String(authored?.title || `Week ${weekNumber} ¬∑ ${phaseName}`),
-    objective: String(authored?.objective || weekModel.weekly_goal || `Week ${weekNumber} objective unavailable.`),
-    phase_week_context: `Phase ${weekModel.phase_number || 1} (${phaseName}), Week ${weekNumber} of 36.`,
-    week_purpose: String(authored?.week_purpose || `This week strengthens ${targetTraits.join(" + ") || "core developmental traits"} through repeatable parent-guided sessions.`),
-    weekly_goals: [
-      `Complete the core session flow at least 2 times this week using ${activityLabel || "the guided core activity"}.`,
-      `Use ${stretchLabel || "the stretch challenge"} once after the core routine feels stable.`,
-      `Capture one reflection and one parent observation before week close.`,
-    ],
-    content_blocks: {
-      core_activity: activityLabel || "Core activity not mapped",
-      stretch_challenge: stretchLabel || "Stretch challenge not mapped",
-      reflection_loop: reflectionLabel || "Reflection loop not mapped",
-      observation_entry: observationLabel || "Observation entry not mapped",
-      optional_support_action: supportActionLabel,
-    },
-    parent_guidance: Array.isArray(authored?.parent_guidance) ? [...authored.parent_guidance] : [
-      `Prepare materials before session start and set a predictable time window.`,
-      `Name the target traits (${targetTraits.join(", ") || "current targets"}) before beginning.`,
-      `Use brief coaching language and keep sessions short enough for consistency.`,
-    ],
-    parent_guidance_setup: `Set up ${activityLabel || "the core activity"} and cue ${targetTraits.join(" + ") || "current trait targets"} before the session.`,
-    current_activity_session_plan: `Run ${activityLabel || "the core activity"}, then apply ${stretchLabel || "a stretch challenge"} to build week momentum.`,
-    reflection_checkin_support: `Close with ${reflectionLabel || "a reflection loop"}, capture ${observationLabel || "an observation"}, and apply ${supportActionLabel}.`,
-    session_flow: stepSequence.map((step) => ({
-      step_key: step.step_key,
-      step: step.label,
-      detail: step.step_key === "core_activity"
-        ? `Run ${activityLabel || "core activity"} and capture one quick win.`
-        : step.step_key === "stretch_challenge"
-          ? `Use ${stretchLabel || "stretch challenge"} for transfer and resilience practice.`
-          : step.step_key === "reflection_checkin"
-            ? `Prompt ${reflectionLabel || "reflection loop"} and ask child what changed.`
-            : `Record ${observationLabel || "observation note"} and schedule ${supportActionLabel}.`,
-    })),
-    observation_support_area: `Observation focus: ${observationLabel || "Parent observation note"}. Support action: ${supportActionLabel}.`,
-    parent_prompts: {
-      reflection_prompt: String(authored?.reflection_prompt || "What helped your child improve this week?"),
-      observation_prompt: String(authored?.observation_prompt || "What support pattern did you notice this week?"),
-    },
-    completion_labels: authored?.completion_labels || null,
-    progression_labels: authored?.progression_labels || null,
-    content_audit: auditWeeklyContentSources(),
-    activity_bank_surface: activitySurface,
-    bank_depth_audit: auditActivityBankDepth(activitySurface),
-    planner_setup_required: !setupComplete,
-    commitment_setup_status: setupComplete ? "complete" : "required",
-    commitment_plan: commitment,
-    scheduled_sessions: plannedSessions,
-    planner_surface_state: plannerSurfaceState,
-    lesson_plan_template: sessionTemplate,
-    accountability: planningState.accountability || null,
-    progress: {
-      current_week: weekNumber,
-      total_weeks: 36,
-      percent_complete: progressPercent,
-      completion_status: weekNumber <= 1 ? "starting" : "in_progress",
-      completed_weeks_estimate: Math.max(0, weekNumber - 1),
-    },
-    roadmap: buildRoadmap(weekNumber),
-    next_action: String(bridgeState.next_recommended_action || `Continue Week ${weekNumber}`),
-  };
-}
-
-function buildProgramWeekContentState({ bridgeState, childId, childProfiles, executionState = null, planningState = null }) {
-  if (!childId) {
-    const options = Array.isArray(childProfiles) ? childProfiles : [];
-    const multiple = options.length > 1;
-    return {
-      ok: true,
-      state: "child_scope_required",
-      state_label: multiple ? "Choose a child to continue" : "Child scope required",
-      messages: multiple
-        ? ["Multiple child profiles detected. Select the child to open the current week content."]
-        : ["Child scope is required before week content can be loaded."],
-      child_scope_options: options.map((entry) => ({
-        child_id: entry.child_id || null,
-        child_name: entry.child_name || null,
-      })),
-      next_action: "Select a child in Parent Dashboard, then continue.",
-      parent_program_state: {
-        child_scope: {
-          required: true,
-          selected_child_id: null,
-        },
-        program_status: "setup_required",
-        current_week: null,
-        next_action: "Select child scope",
-        blocked_reason: "child_scope_required",
-        cta: null,
-      },
-    };
-  }
-  if (!bridgeState || bridgeState.ok !== true) {
-    return {
-      ok: true,
-      state: "bridge_unavailable",
-      state_label: "Program state unavailable",
-      messages: ["Program bridge state could not be resolved for this child."],
-      next_action: "Return to Parent Dashboard and retry.",
-      parent_program_state: {
-        child_scope: {
-          required: true,
-          selected_child_id: childId,
-        },
-        program_status: "unknown",
-        current_week: null,
-        next_action: "Return to Parent Dashboard",
-        blocked_reason: "program_bridge_unavailable",
-        cta: {
-          label: CANONICAL_CTA_LABELS.returnToDashboard,
-          href: `${CANONICAL_PARENT_ROUTES.dashboard}?child_id=${encodeURIComponent(childId)}`,
-          action: "return_to_dashboard",
-        },
-      },
-    };
-  }
-  if (bridgeState.setup_needed === true || bridgeState.launch_allowed !== true) {
-    return {
-      ok: true,
-      state: "setup_incomplete",
-      state_label: "Setup incomplete",
-      messages: ["Program setup is incomplete. Week content will appear after setup is complete."],
-      next_action: String(bridgeState.next_recommended_action || "Complete setup"),
-      parent_program_state: {
-        child_scope: {
-          required: true,
-          selected_child_id: childId,
-        },
-        program_status: "setup_required",
-        current_week: null,
-        next_action: String(bridgeState.next_recommended_action || "Complete setup"),
-        blocked_reason: String(bridgeState.reason || "setup_incomplete"),
-        cta: bridgeState.cta || null,
-      },
-    };
-  }
-  if (bridgeState.has_enrollment !== true) {
-    return {
-      ok: true,
-      state: "no_enrollment_found",
-      state_label: "Enrollment not started",
-      messages: ["No active enrollment found for this child. Start the program to unlock Week 1 content."],
-      next_action: String(bridgeState.next_recommended_action || "Begin Week 1"),
-      parent_program_state: {
-        child_scope: {
-          required: true,
-          selected_child_id: childId,
-        },
-        program_status: "not_started",
-        current_week: 1,
-        next_action: String(bridgeState.next_recommended_action || "Start Program"),
-        blocked_reason: "enrollment_missing",
-        cta: bridgeState.cta || null,
-      },
-    };
-  }
-  const currentWeek = Math.max(1, Math.min(36, Number(bridgeState.current_week) || 1));
-  const weekModel = PROGRAM_WEEKS.find((entry) => Number(entry.week_number) === currentWeek);
-  if (!weekModel) {
-    return {
-      ok: true,
-      state: "week_content_missing",
-      state_label: "Current week content missing",
-      messages: [`No rail definition was found for week ${currentWeek}.`],
-      next_action: "Contact support to restore week contract wiring.",
-      parent_program_state: {
-        child_scope: {
-          required: true,
-          selected_child_id: childId,
-        },
-        program_status: "active",
-        current_week: currentWeek,
-        next_action: "Contact support",
-        blocked_reason: "week_content_missing",
-        cta: {
-          label: CANONICAL_CTA_LABELS.returnToDashboard,
-          href: `${CANONICAL_PARENT_ROUTES.dashboard}?child_id=${encodeURIComponent(childId)}`,
-          action: "return_to_dashboard",
-        },
-      },
-    };
-  }
-  const normalizedExecutionState = normalizeExecutionState(executionState || defaultExecutionState(), currentWeek);
-  const bridgeParentState = bridgeState.parent_program_state && typeof bridgeState.parent_program_state === "object"
-    ? bridgeState.parent_program_state
-    : {};
-  return {
-    ok: true,
-    state: "content_ready",
-    state_label: "Week content ready",
-    child_id: childId,
-    current_week: currentWeek,
-    week_content: buildWeekContentFromRail(weekModel, bridgeState, planningState || {}),
-    execution_state: normalizedExecutionState,
-    execution_contract: {
-      allowed_actions: WEEKLY_EXECUTION_ACTIONS,
-      child_scope_required: true,
-      week_scope_required: true,
-      note_required_actions: ["save_reflection", "save_observation"],
-      step_required_action: "mark_step_complete",
-    },
-    next_action: String(bridgeState.next_recommended_action || `Continue Week ${currentWeek}`),
-    parent_program_state: {
-      child_scope: bridgeParentState.child_scope || {
-        required: true,
-        selected_child_id: childId,
-      },
-      program_status: String(bridgeState.program_status || "active"),
-      current_phase_name: bridgeState.current_phase_name || null,
-      current_week: currentWeek,
-      next_action: String(bridgeState.next_recommended_action || `Continue Week ${currentWeek}`),
-      blocked_reason: normalizedExecutionState.blocked_reason || null,
-      cta: bridgeParentState.cta || bridgeState.cta || null,
-      weekly_execution: {
-        week_status: normalizedExecutionState.week_status,
-        active_step_key: normalizedExecutionState.active_step_key,
-        blocked_reason: normalizedExecutionState.blocked_reason || null,
-      },
-    },
-  };
-}
-
-function renderYouthDevelopmentIntakeTestPage() {
-  const fixture = JSON.stringify(INTAKE_TEST_FIXTURE, null, 2);
-  return `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Youth Development Intake Test (Internal)</title>
-    <style>
-      :root {
-        --bg: #030712;
-        --panel: linear-gradient(150deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.88));
-        --line: rgba(148, 163, 184, 0.38);
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-      }
-      * { box-sizing: border-box; }
-      body {
-        font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-        margin: 0;
-        padding: 18px;
-        background: radial-gradient(circle at 5% 0%, #111827, #020617 60%);
-        color: var(--text);
-      }
-      main { max-width: 1180px; margin: 0 auto; display: grid; gap: 12px; }
-      section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
-      .intro-header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-start; }
-      .preview-banner { font-weight: 700; color: #fed7aa; background: rgba(124, 45, 18, 0.35); border: 1px solid rgba(251, 146, 60, 0.45); border-radius: 999px; padding: 6px 10px; font-size: 12px; display: inline-block; }
-      .status-ok { color: #4ade80; font-weight: 700; }
-      .status-bad { color: #fca5a5; font-weight: 700; }
-      textarea { width: 100%; min-height: 280px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; border-radius: 8px; border: 1px solid var(--line); background: rgba(2, 6, 23, 0.8); color: #dbeafe; padding: 10px; }
-      button { border: 1px solid #22d3ee; background: linear-gradient(120deg, #0f172a, #1e293b); color: #f8fafc; border-radius: 999px; padding: 9px 14px; font-size: 13px; cursor: pointer; }
-      button:hover { filter: brightness(1.08); }
-      code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-      pre { white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: rgba(2, 6, 23, 0.75); color: #bfdbfe; }
-      .warn-list { color: #fdba74; }
-      .err-list { color: #fca5a5; font-weight: 600; }
-      .summary-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-      table { width: 100%; border-collapse: collapse; }
-      th, td { border: 1px solid var(--line); padding: 6px; text-align: left; }
-      .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-      .preset-btn { background: rgba(15, 23, 42, 0.9); border-color: #64748b; }
-      .status-panel { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
-      .status-code { font-size: 32px; font-weight: 800; }
-      .status-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
-      .status-note { color: #cbd5e1; font-size: 13px; }
-      .callout-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-      .callout { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: rgba(15, 23, 42, 0.65); }
-      .callout h4 { margin: 0 0 8px 0; font-size: 14px; }
-      .trait-summary { border: 1px solid rgba(56, 189, 248, 0.5); background: rgba(12, 74, 110, 0.35); border-radius: 8px; padding: 10px; }
-      .trait-summary h3 { margin: 0 0 8px 0; font-size: 15px; }
-      .trait-summary p { margin: 4px 0; }
-      .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
-      .qa-card { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: rgba(2, 6, 23, 0.5); }
-      .qa-card h3 { margin: 0 0 6px 0; font-size: 14px; }
-      .qa-card p { margin: 0; font-size: 13px; color: #cbd5e1; }
-      .consent-wrap { display: grid; gap: 10px; border: 1px solid rgba(34, 211, 238, 0.45); border-radius: 10px; background: rgba(2, 132, 199, 0.12); padding: 12px; }
-      .consent-row { display: flex; gap: 10px; align-items: flex-start; }
-      .consent-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-      .consent-status { color: #cbd5e1; min-height: 18px; }
-    </style>
-  </head>
-  <body>
-    <style>
-      body.youth-scene {
-        background-image: linear-gradient(180deg,rgba(3,10,17,.68),rgba(3,10,17,.88)),var(--youth-scene-url) !important;
-        background-size: cover !important;
-        background-position: center top !important;
-        background-attachment: fixed !important;
-      }
-      body.youth-scene .panel { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-    </style>
-    <script>
-      (function(){
-        const scenes=[
-          '/adinkra-library/0DFE3FAC-312A-4FC0-BD75-A74D75470324.png',
-          '/adinkra-library/7CEF4610-7396-4594-A483-D19976817873.png',
-          '/adinkra-library/EC9A9306-4483-41A2-BD77-73ACEBDE601C.png'
-        ];
-        let i=0;
-        try { i=(Number(sessionStorage.getItem('youthSceneIndex')||'-1')+1)%scenes.length;sessionStorage.setItem('youthSceneIndex',String(i)); }
-        catch (_) { i=Math.floor(Math.random()*scenes.length); }
-        document.body.classList.add('youth-scene');
-        document.body.style.setProperty('--youth-scene-url','url("'+scenes[i]+'")');
-      })();
-    </script>
-    <main>
-      <section>
-        <div class="intro-header">
-          <div>
-            <p class="preview-banner">Internal / preview / test-only UI. Not a production user flow.</p>
-            <h1>Youth Development Intake Test Runner</h1>
-            <p>Endpoint: <code id="endpointLabel">/api/youth-development/intake/task-session</code></p>
-          </div>
-          <div class="quick-actions" aria-label="dashboard quick actions">
-            <div class="qa-card"><h3>One-click verify</h3><p>Use preset payloads and run tests without leaving this page.</p></div>
-            <div class="qa-card"><h3>Visible confidence</h3><p>Track warnings, low-confidence counts, and trait trends immediately.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="consent-wrap">
-          <h2>Permission required before test start</h2>
-          <p>This internal runner processes youth-development test payloads. Confirm permission before starting a run.</p>
-          <label class="consent-row">
-            <input id="consentCheck" type="checkbox" />
-            <span>I have permission to run this youth-development test payload.</span>
-          </label>
-          <div class="consent-actions">
-            <button id="consentAcceptButton" type="button">Accept and continue</button>
-            <button id="consentDeclineButton" type="button" class="preset-btn">Decline</button>
-          </div>
-          <div id="consentStatus" class="consent-status" aria-live="polite">Permission is required before starting tests.</div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Payload editor</h2>
-        <p>Default payload is prefilled from the known-good fixture used in youth intake tests.</p>
-        <div class="toolbar">
-          <button id="presetStrongButton" class="preset-btn" type="button">Load preset: strong / high-confidence</button>
-          <button id="presetSupportButton" class="preset-btn" type="button">Load preset: support-needed</button>
-          <button id="presetLowConfidenceButton" class="preset-btn" type="button">Load preset: low-confidence</button>
-          <button id="resetPayloadButton" class="preset-btn" type="button">Reset to known-good payload</button>
-        </div>
-        <textarea id="payloadEditor" aria-label="Task session payload">${fixture}</textarea>
-        <p><button id="runTestButton" type="button">Run Test</button></p>
-      </section>
-
-      <section>
-        <h2>Response summary</h2>
-        <div class="status-panel">
-          <div>
-            <div class="status-label">HTTP status</div>
-            <div id="statusText" class="status-code">not run</div>
-          </div>
-          <div id="statusNote" class="status-note">Awaiting request.</div>
-        </div>
-        <div class="summary-grid">
-          <div><strong>Mode:</strong> <span id="modeText">-</span></div>
-          <div><strong>Processed signals:</strong> <span id="signalCountText">-</span></div>
-        </div>
-        <div id="traitSummaryBlock" class="trait-summary">
-          <h3>Trait summary (compact)</h3>
-          <p><strong>Total rows:</strong> <span id="traitSummaryCount">0</span></p>
-          <p><strong>Top trait:</strong> <span id="traitSummaryTop">-</span></p>
-          <p><strong>Low-confidence rows (&lt;60):</strong> <span id="traitSummaryLowConfidence">0</span></p>
-        </div>
-        <div class="callout-grid">
-          <div class="callout">
-            <h4>Validation errors</h4>
-            <ul id="validationErrors" class="err-list"><li>none</li></ul>
-          </div>
-          <div class="callout">
-            <h4>Warnings / low-confidence notices</h4>
-            <ul id="warningsList" class="warn-list"><li>none</li></ul>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Trait rows</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Trait</th>
-              <th>Current</th>
-              <th>Change</th>
-              <th>Confidence</th>
-              <th>Trend</th>
-            </tr>
-          </thead>
-          <tbody id="traitRows"><tr><td colspan="5">none</td></tr></tbody>
-        </table>
-      </section>
-
-      <section>
-        <h2>Dashboard summary</h2>
-        <pre id="dashboardSummary">not run</pre>
-      </section>
-
-      <section>
-        <h2>Page-model summary</h2>
-        <pre id="pageModelSummary">not run</pre>
-      </section>
-
-      <section>
-        <h2>Debug output</h2>
-        <details open>
-          <summary>Raw JSON response (expand/collapse)</summary>
-          <pre id="rawJson">not run</pre>
-        </details>
-      </section>
-    </main>
-    <script>
-      (function () {
-        const endpoint = "/api/youth-development/intake/task-session";
-        const knownGoodPayload = ${fixture};
-        const presetPayloads = {
-          strong: {
-            ...knownGoodPayload,
-            session_id: "session-strong",
-            task_results: [
-              {
-                ...knownGoodPayload.task_results[0],
-                raw_input: {
-                  ...knownGoodPayload.task_results[0].raw_input,
-                  metrics: {
-                    inquiry_depth: 4,
-                    justification_quality: 4,
-                    decision_quality: 4,
-                  },
-                },
-              },
-            ],
-          },
-          support: {
-            ...knownGoodPayload,
-            session_id: "session-support",
-            task_results: [
-              {
-                ...knownGoodPayload.task_results[0],
-                raw_input: {
-                  ...knownGoodPayload.task_results[0].raw_input,
-                  metrics: {
-                    inquiry_depth: 1,
-                    justification_quality: 1,
-                    decision_quality: 1,
-                  },
-                },
-              },
-            ],
-          },
-          lowConfidence: {
-            ...knownGoodPayload,
-            session_id: "session-low-confidence",
-            task_results: [
-              {
-                ...knownGoodPayload.task_results[0],
-                raw_input: {
-                  ...knownGoodPayload.task_results[0].raw_input,
-                  metrics: {
-                    inquiry_depth: 2,
-                    justification_quality: 2,
-                    decision_quality: 2,
-                  },
-                },
-              },
-            ],
-          },
-        };
-        const runBtn = document.getElementById("runTestButton");
-        const presetStrongButton = document.getElementById("presetStrongButton");
-        const presetSupportButton = document.getElementById("presetSupportButton");
-        const presetLowConfidenceButton = document.getElementById("presetLowConfidenceButton");
-        const resetPayloadButton = document.getElementById("resetPayloadButton");
-        const consentCheck = document.getElementById("consentCheck");
-        const consentAcceptButton = document.getElementById("consentAcceptButton");
-        const consentDeclineButton = document.getElementById("consentDeclineButton");
-        const consentStatus = document.getElementById("consentStatus");
-        const payloadEditor = document.getElementById("payloadEditor");
-        const statusText = document.getElementById("statusText");
-        const statusNote = document.getElementById("statusNote");
-        const modeText = document.getElementById("modeText");
-        const signalCountText = document.getElementById("signalCountText");
-        const traitSummaryCount = document.getElementById("traitSummaryCount");
-        const traitSummaryTop = document.getElementById("traitSummaryTop");
-        const traitSummaryLowConfidence = document.getElementById("traitSummaryLowConfidence");
-        const validationErrors = document.getElementById("validationErrors");
-        const warningsList = document.getElementById("warningsList");
-        const traitRows = document.getElementById("traitRows");
-        const dashboardSummary = document.getElementById("dashboardSummary");
-        const pageModelSummary = document.getElementById("pageModelSummary");
-        const rawJson = document.getElementById("rawJson");
-        let permissionAccepted = false;
-
-        function setTestingEnabled(enabled) {
-          permissionAccepted = enabled === true;
-          [runBtn, presetStrongButton, presetSupportButton, presetLowConfidenceButton, resetPayloadButton, payloadEditor]
-            .forEach((node) => {
-              if (!node) return;
-              node.disabled = !permissionAccepted;
-            });
-        }
-
-        function resetList(container, values) {
-          container.textContent = "";
-          const entries = Array.isArray(values) ? values.filter(Boolean) : [];
-          if (!entries.length) {
-            const li = document.createElement("li");
-            li.textContent = "none";
-            container.appendChild(li);
-            return;
-          }
-          entries.forEach((value) => {
-            const li = document.createElement("li");
-            li.textContent = String(value);
-            container.appendChild(li);
-          });
-        }
-
-        function renderTraitRows(rows) {
-          traitRows.textContent = "";
-          const sortedRows = Array.isArray(rows)
-            ? rows.slice().sort((a, b) => String(a?.trait_code || "").localeCompare(String(b?.trait_code || "")))
-            : [];
-          if (!sortedRows.length) {
-            const tr = document.createElement("tr");
-            const td = document.createElement("td");
-            td.setAttribute("colspan", "5");
-            td.textContent = "none";
-            tr.appendChild(td);
-            traitRows.appendChild(tr);
-            return;
-          }
-
-          sortedRows.forEach((row) => {
-            const tr = document.createElement("tr");
-            [row?.trait_code, row?.current_score, row?.change_score, row?.confidence_score, row?.trend_direction].forEach((value) => {
-              const td = document.createElement("td");
-              td.textContent = String(value ?? "");
-              tr.appendChild(td);
-            });
-            traitRows.appendChild(tr);
-          });
-        }
-
-        function renderTraitSummary(rows) {
-          const normalized = Array.isArray(rows) ? rows.slice() : [];
-          traitSummaryCount.textContent = String(normalized.length);
-          if (!normalized.length) {
-            traitSummaryTop.textContent = "-";
-            traitSummaryLowConfidence.textContent = "0";
-            return;
-          }
-
-          const sortedByScore = normalized
-            .filter((row) => typeof row?.current_score === "number")
-            .sort((a, b) => b.current_score - a.current_score);
-          const top = sortedByScore[0];
-          traitSummaryTop.textContent = top
-            ? String(top.trait_code) + " (" + String(top.current_score) + ")"
-            : "-";
-          const lowConfidenceCount = normalized.filter((row) => Number(row?.confidence_score) < 60).length;
-          traitSummaryLowConfidence.textContent = String(lowConfidenceCount);
-        }
-
-        function renderSummaries(payload) {
-          const dashboard = payload?.dashboard || {};
-          const pageModel = payload?.page_model || {};
-
-          const dashboardView = {
-            high_priority_traits: dashboard.high_priority_traits || [],
-            strengths_count: Array.isArray(dashboard.strengths) ? dashboard.strengths.length : 0,
-            support_count: Array.isArray(dashboard.support_next) ? dashboard.support_next.length : 0,
-            low_confidence_flags: dashboard.low_confidence_flags || [],
-          };
-          dashboardSummary.textContent = JSON.stringify(dashboardView, null, 2);
-
-          const pageModelView = {
-            page_title: pageModel.page_title || null,
-            page_subtitle: pageModel.page_subtitle || null,
-            section_order: pageModel.rendering_safety?.section_order || [],
-            support_items: pageModel.support?.items || [],
-          };
-          pageModelSummary.textContent = JSON.stringify(pageModelView, null, 2);
-        }
-
-        async function runTest() {
-          if (!permissionAccepted) {
-            statusText.textContent = "permission required";
-            statusText.className = "status-bad";
-            statusNote.textContent = "Accept permission before starting the test.";
-            if (consentStatus) consentStatus.textContent = "Permission is required before starting tests.";
-            return;
-          }
-          statusText.textContent = "running...";
-          statusText.className = "";
-          statusNote.textContent = "Submitting to intake endpoint...";
-          let payload = null;
-          try {
-            payload = JSON.parse(payloadEditor.value);
-          } catch (err) {
-            statusText.textContent = "invalid JSON in payload editor";
-            statusText.className = "status-bad";
-            statusNote.textContent = "Fix JSON before running.";
-            resetList(validationErrors, [String(err && err.message ? err.message : err)]);
-            return;
-          }
-
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          const responseText = await response.text();
-          let data = null;
-          try {
-            data = JSON.parse(responseText);
-          } catch (_) {
-            data = { parse_error: "Response was not valid JSON", raw: responseText };
-          }
-
-          statusText.textContent = String(response.status);
-          statusText.className = response.ok ? "status-ok" : "status-bad";
-          statusNote.textContent = response.ok
-            ? "Request succeeded."
-            : "Request failed. Check errors/warnings below.";
-          modeText.textContent = String(data?.mode || "-");
-          signalCountText.textContent = String(data?.processed_signal_count ?? "-");
-          resetList(validationErrors, data?.validation_errors || []);
-          resetList(warningsList, data?.warnings || []);
-          renderTraitRows(data?.aggregated_trait_rows || []);
-          renderTraitSummary(data?.aggregated_trait_rows || []);
-          renderSummaries(data || {});
-          rawJson.textContent = JSON.stringify(data, null, 2);
-        }
-
-        function setPayload(value) {
-          payloadEditor.value = JSON.stringify(value, null, 2);
-        }
-
-        setTestingEnabled(false);
-        consentAcceptButton.addEventListener("click", () => {
-          if (!consentCheck.checked) {
-            consentStatus.textContent = "Please accept permission to continue.";
-            return;
-          }
-          setTestingEnabled(true);
-          consentStatus.textContent = "Permission accepted. You can now run tests.";
-        });
-        consentDeclineButton.addEventListener("click", () => {
-          consentCheck.checked = false;
-          setTestingEnabled(false);
-          consentStatus.textContent = "Permission declined. Testing remains locked.";
-        });
-
-        presetStrongButton.addEventListener("click", () => setPayload(presetPayloads.strong));
-        presetSupportButton.addEventListener("click", () => setPayload(presetPayloads.support));
-        presetLowConfidenceButton.addEventListener("click", () => setPayload(presetPayloads.lowConfidence));
-        resetPayloadButton.addEventListener("click", () => setPayload(knownGoodPayload));
-
-        runBtn.addEventListener("click", () => {
-          runTest().catch((err) => {
-            statusText.textContent = "request failed";
-            statusText.className = "status-bad";
-            statusNote.textContent = "Network/request failure before JSON response.";
-            resetList(validationErrors, [String(err && err.message ? err.message : err)]);
-          });
-        });
-      }());
-    </script>
-  </body>
-</html>`;
-}
-
-function renderLiveYouthAssessmentPage() {
-  const answerScale = JSON.stringify(YOUTH_ANSWER_SCALE);
-  return `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Youth Talent Development Intake ‚Äî Parent Observation Screener v1</title>
-    <style>
-      :root { --bg: #f8fafc; --card: #ffffff; --line: #cbd5e1; --text: #0f172a; --muted: #475569; --brand: #0f766e; }
-      body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 24px; }
-      main { max-width: 760px; margin: 0 auto; display: grid; gap: 14px; }
-      section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
-      .tag { font-size: 12px; color: #115e59; background: #ccfbf1; border-radius: 999px; padding: 4px 8px; display: inline-block; margin-bottom: 8px; }
-      .muted { color: var(--muted); }
-      .options { display: grid; gap: 8px; margin-top: 12px; }
-      button.answer { text-align: left; border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: #f8fafc; cursor: pointer; }
-      button.answer:hover { border-color: var(--brand); }
-      .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-      .controls { display: flex; gap: 8px; flex-wrap: wrap; }
-      .controls button { border: 1px solid #0f766e; background: #f0fdfa; border-radius: 999px; padding: 8px 12px; cursor: pointer; }
-      .result-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: #f8fafc; }
-      .pill { display: inline-block; border: 1px solid #99f6e4; background: #ecfeff; border-radius: 999px; padding: 3px 8px; margin: 3px 4px 3px 0; font-size: 12px; }
-    </style>
-  </head>
-  <body>
-    <style>
-      body.youth-scene {
-        background-image: linear-gradient(180deg,rgba(3,10,17,.68),rgba(3,10,17,.88)),var(--youth-scene-url) !important;
-        background-size: cover !important;
-        background-position: center top !important;
-        background-attachment: fixed !important;
-      }
-      body.youth-scene .panel { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-    </style>
-    <script>
-      (function(){
-        const scenes=[
-          '/adinkra-library/0DFE3FAC-312A-4FC0-BD75-A74D75470324.png',
-          '/adinkra-library/7CEF4610-7396-4594-A483-D19976817873.png',
-          '/adinkra-library/EC9A9306-4483-41A2-BD77-73ACEBDE601C.png'
-        ];
-        let i=0;
-        try { i=(Number(sessionStorage.getItem('youthSceneIndex')||'-1')+1)%scenes.length;sessionStorage.setItem('youthSceneIndex',String(i)); }
-        catch (_) { i=Math.floor(Math.random()*scenes.length); }
-        document.body.classList.add('youth-scene');
-        document.body.style.setProperty('--youth-scene-url','url("'+scenes[i]+'")');
-      })();
-    </script>
-    <main>
-      <section>
-        <p class="tag">First live bank ‚Ä¢ Parent observation ‚Ä¢ Provisional trait signals only</p>
-        <h1>Youth Talent Development Intake ‚Äî Parent Observation Screener v1</h1>
-        <p>${YOUTH_PARENT_INSTRUCTIONS}</p>
-        <p class="muted">This screener is evidence-informed and designed for developmental support. It is not a validated diagnostic tool and does not predict future success.</p>
-        <div class="options" style="margin-top:12px;">
-          <label>Child name (recommended for child-scoped loading)<br /><input id="childNameInput" type="text" placeholder="e.g. Maya" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px;" /></label>
-          <label>Child age band (optional)<br /><input id="childAgeBandInput" type="text" placeholder="e.g. 8-10" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px;" /></label>
-          <label>Child grade band (optional)<br /><input id="childGradeBandInput" type="text" placeholder="e.g. Grade 3-4" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px;" /></label>
-        </div>
-      </section>
-      <section>
-        <div class="row"><strong id="progressLabel">Question 1 of 25</strong><span id="completionLabel" class="muted">0% complete</span></div>
-        <h2 id="prompt">Loading assessment‚Ä¶</h2>
-        <div id="options" class="options"></div>
-        <p id="intakeStatus" class="muted" aria-live="polite">Answer the intake questions, then submit.</p>
-        <div class="controls">
-          <button id="prevBtn" type="button">Previous</button>
-          <button id="nextBtn" type="button">Next</button>
-          <button id="submitBtn" type="button">Submit assessment</button>
-        </div>
-      </section>
-      <section>
-        <h2>Assessment submitted</h2>
-        <div id="resultCard" class="result-card">
-          <p class="muted">Complete the intake and submit to generate a parent-facing dashboard.</p>
-        </div>
-        <div class="controls" style="margin-top:10px;">
-          <a id="openLiveDashboardBtn" href="/youth-development/parent-dashboard" style="display:none;border:1px solid #0f766e;background:#0f766e;color:#fff;border-radius:999px;padding:8px 12px;text-decoration:none;">View Dashboard</a>
-          <a id="startProgramBtn" href="/youth-development/program" style="display:none;border:1px solid #1d4ed8;background:#1d4ed8;color:#fff;border-radius:999px;padding:8px 12px;text-decoration:none;">Start Program</a>
-        </div>
-      </section>
-    </main>
-    <script>
-      (async function () {
-        const answerScale = ${answerScale};
-        const progressLabel = document.getElementById("progressLabel");
-        const completionLabel = document.getElementById("completionLabel");
-        const promptEl = document.getElementById("prompt");
-        const optionsEl = document.getElementById("options");
-        const intakeStatus = document.getElementById("intakeStatus");
-        const resultCard = document.getElementById("resultCard");
-        const openLiveDashboardBtn = document.getElementById("openLiveDashboardBtn");
-        const startProgramBtn = document.getElementById("startProgramBtn");
-        const state = { questions: [], index: 0, answers: {} };
-        const query = new URLSearchParams(window.location.search);
-        const accountCtx = {
-          tenant: (query.get("tenant") || "").trim(),
-          email: (query.get("email") || "").trim().toLowerCase(),
-          name: (query.get("name") || "").trim(),
-          cid: (query.get("cid") || "").trim(),
-          crid: (query.get("crid") || query.get("rid") || "").trim(),
-          child_id: (query.get("child_id") || query.get("childId") || "").trim(),
-        };
-        function applyScopedChildNavigation(scopedChildId, sourceLabel) {
-          const childId = String(scopedChildId || "").trim();
-          if (childId) accountCtx.child_id = childId;
-          if (!(accountCtx.tenant || accountCtx.email)) return;
-          const dashUrl = new URL("/youth-development/parent-dashboard", window.location.origin);
-          Object.entries(accountCtx).forEach(([key, value]) => { if (value) dashUrl.searchParams.set(key, value); });
-          if (!accountCtx.child_id) dashUrl.searchParams.delete("child_id");
-          openLiveDashboardBtn.href = dashUrl.pathname + dashUrl.search;
-          const programUrl = new URL("/youth-development/program", window.location.origin);
-          Object.entries(accountCtx).forEach(([key, value]) => { if (value) programUrl.searchParams.set(key, value); });
-          if (!accountCtx.child_id) programUrl.searchParams.delete("child_id");
-          startProgramBtn.href = programUrl.pathname + programUrl.search;
-          if (accountCtx.child_id) {
-            console.info("youth_assessment_client_child_scope_adopted", {
-              source: String(sourceLabel || "unknown"),
-              adopted_child_id: accountCtx.child_id,
-            });
-          }
-        }
-        if (accountCtx.tenant || accountCtx.email) {
-          applyScopedChildNavigation(accountCtx.child_id || "", "query");
-        }
-
-        function persistLatestContinuitySnapshot(payload) {
-          try {
-            const scopedChildId = String((payload?.ownership?.child_profile?.child_id || payload?.child_id || "")).trim();
-            const snapshot = {
-              saved_child_id: scopedChildId || null,
-              submission_id: payload?.ownership?.submission_id || null,
-              saved_at: payload?.ownership?.saved_at || payload?.saved_at || null,
-            };
-            sessionStorage.setItem("youthDevelopmentLatestAssessment", JSON.stringify(payload));
-            sessionStorage.setItem("youthDevelopmentLatestContinuity", JSON.stringify(snapshot));
-          } catch (_err) {}
-        }
-
-        const questionResponse = await fetch("/api/youth-development/questions");
-        const questionPayload = await questionResponse.json();
-        state.questions = Array.isArray(questionPayload.questions) ? questionPayload.questions : [];
-
-        function renderQuestion() {
-          const current = state.questions[state.index];
-          if (!current) return;
-          progressLabel.textContent = "Question " + (state.index + 1) + " of " + state.questions.length;
-          completionLabel.textContent = Math.round((Object.keys(state.answers).length / state.questions.length) * 100) + "% complete";
-          promptEl.textContent = current.prompt;
-          optionsEl.textContent = "";
-          answerScale.forEach((option) => {
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = "answer";
-            const selected = Number(state.answers[current.id]) === option.value;
-            button.innerHTML = "<strong>" + option.value + ". " + option.label + "</strong>" + (selected ? " ‚úÖ" : "");
-            button.addEventListener("click", () => {
-              state.answers[current.id] = option.value;
-              renderQuestion();
-            });
-            optionsEl.appendChild(button);
-          });
-        }
-
-        document.getElementById("prevBtn").addEventListener("click", () => {
-          state.index = Math.max(0, state.index - 1);
-          renderQuestion();
-        });
-        document.getElementById("nextBtn").addEventListener("click", () => {
-          state.index = Math.min(state.questions.length - 1, state.index + 1);
-          renderQuestion();
-        });
-        document.getElementById("submitBtn").addEventListener("click", async () => {
-          const answeredCount = Object.keys(state.answers).length;
-          if (!answeredCount) {
-            intakeStatus.textContent = "Please answer the intake questions before submitting.";
-            resultCard.innerHTML = "<p><strong>Assessment not submitted.</strong></p><p class=\\"muted\\">Please answer the intake questions before submitting.</p>";
-            openLiveDashboardBtn.style.display = "none";
-            startProgramBtn.style.display = "none";
-            return;
-          }
-          intakeStatus.textContent = "Submitting assessment...";
-          const response = await fetch("/api/youth-development/assess", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              answers: state.answers,
-              tenant: accountCtx.tenant || undefined,
-              email: accountCtx.email || undefined,
-              name: accountCtx.name || undefined,
-              cid: accountCtx.cid || undefined,
-              crid: accountCtx.crid || undefined,
-              child_name: (document.getElementById("childNameInput") || {}).value || undefined,
-              child_age_band: (document.getElementById("childAgeBandInput") || {}).value || undefined,
-              child_grade_band: (document.getElementById("childGradeBandInput") || {}).value || undefined,
-            }),
-          });
-          const payload = await response.json();
-          if (!response.ok) {
-            resultCard.innerHTML = "<p><strong>We could not submit this assessment.</strong></p><p class=\\"muted\\">" + String(payload.error || "Request failed") + "</p>";
-            intakeStatus.textContent = String(payload.error || "Request failed");
-            openLiveDashboardBtn.style.display = "none";
-            startProgramBtn.style.display = "none";
-            return;
-          }
-          persistLatestContinuitySnapshot(payload);
-          const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
-          const highest = payload.interpretation && payload.interpretation.highest_trait;
-          const completion = payload.completion && payload.completion.completion_rate_percent;
-          const savedToAccount = Boolean(payload && payload.ownership && payload.ownership.account_bound);
-          resultCard.innerHTML = [
-            savedToAccount
-              ? "<p><strong>Assessment complete.</strong> Your responses are now available in the live parent dashboard.</p>"
-              : "<p><strong>Assessment scored but not saved.</strong> Sign in with tenant/email scope before continuing.</p>",
-            savedToAccount
-              ? "<p><strong>Saved to account:</strong> " + payload.ownership.email + "</p>"
-              : "",
-            payload.ownership && payload.ownership.child_profile && payload.ownership.child_profile.child_id
-              ? "<p><strong>Child scope:</strong> " + (payload.ownership.child_profile.child_name || "Child") + " (" + payload.ownership.child_profile.child_id + ")</p>"
-              : "<p class=\\"muted\\">Child identity is incomplete. Add child name to create a dedicated child scope.</p>",
-            highest ? "<p><strong>Top current signal:</strong> " + highest.trait_name + " (" + Number(highest.current_score || 0).toFixed(1) + ")</p>" : "",
-            "<p><strong>Completion:</strong> " + Number(completion || 0).toFixed(0) + "%</p>",
-            priorities.length ? "<div>" + priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " ¬∑ " + Number(item.current_score || 0).toFixed(1) + "</span>").join("") + "</div>" : ""
-          ].join("");
-          intakeStatus.textContent = "Submitted " + payload.answers_count + " of " + payload.question_count + " answers.";
-          openLiveDashboardBtn.style.display = savedToAccount ? "" : "none";
-          const scopedChildId = ((((payload || {}).ownership || {}).child_profile || {}).child_id || "").trim();
-          if (savedToAccount) {
-            console.info("youth_assessment_client_save_response", {
-              persisted_child_id: scopedChildId || null,
-              submission_id: payload?.ownership?.submission_id || null,
-            });
-          }
-          if (savedToAccount && scopedChildId) {
-            applyScopedChildNavigation(scopedChildId, "assess_response");
-            startProgramBtn.style.display = "";
-          } else {
-            startProgramBtn.style.display = "none";
-          }
-        });
-
-        async function hydrateExistingAccountResult() {
-          if (!accountCtx.tenant || !accountCtx.email) return;
-          const endpoint = new URL("/api/youth-development/parent-dashboard/latest", window.location.origin);
-          endpoint.searchParams.set("tenant", accountCtx.tenant);
-          endpoint.searchParams.set("email", accountCtx.email);
-          const response = await fetch(endpoint.pathname + endpoint.search);
-          if (!response.ok) return;
-          const latest = await response.json().catch(() => null);
-          if (!latest || latest.ok !== true || latest.has_result !== true) return;
-          const scopedChildId = String(latest.child_id || latest?.payload?.ownership?.child_profile?.child_id || "").trim();
-          applyScopedChildNavigation(scopedChildId, "latest_lookup");
-          resultCard.innerHTML = [
-            "<p><strong>Existing saved youth assessment found.</strong></p>",
-            "<p class=\\"muted\\">This signed-in account already has a saved result. You can reopen the parent dashboard now or retake the intake to refresh signals.</p>",
-            "<p><strong>Saved account:</strong> " + accountCtx.email + "</p>"
-          ].join("");
-          openLiveDashboardBtn.style.display = "";
-          openLiveDashboardBtn.textContent = "View Dashboard";
-          startProgramBtn.style.display = "";
-          const bridgeCtaLabel = latest && latest.payload && latest.payload.bridge && latest.payload.bridge.cta
-            ? latest.payload.bridge.cta.label
-            : "";
-          startProgramBtn.textContent = String(bridgeCtaLabel || "Start Program");
-        }
-
-        renderQuestion();
-        hydrateExistingAccountResult().catch(() => null);
-      }());
-    </script>
-  </body>
-</html>`;
-}
-
-function renderLiveYouthParentDashboardPage() {
-  return `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Youth Development Parent Dashboard</title>
-    <style>
-      :root {
-        --bg: #080707;
-        --panel: linear-gradient(145deg, rgba(8, 8, 7, 0.64), rgba(9, 34, 23, 0.55));
-        --line: rgba(241, 196, 83, 0.62);
-        --text: #fff8e8;
-        --muted: #eadbc0;
-        --accent: #e03131;
-        --accent-2: #14964b;
-        --gold: #f1c453;
-        --good: #64d58a;
-        --watch: #f1c453;
-        --grow: #ff7a67;
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(circle at 5% 0%, rgba(214, 40, 40, 0.18), transparent 32%),
-          radial-gradient(circle at 95% 12%, rgba(20, 150, 75, 0.18), transparent 35%),
-          var(--bg);
-        padding: 16px;
-      }
-      main { max-width: 880px; margin: 0 auto; display: grid; gap: 12px; }
-      .panel {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.32);
-        backdrop-filter: blur(4px);
-        padding: 18px;
-      }
-      .hero-title { margin: 0 0 8px; font-size: clamp(1.55rem, 4vw, 2.25rem); letter-spacing: -0.04em; }
-      .hero-vision {
-        min-height: min(78svh, 740px);
-        position: relative;
-        display: flex;
-        align-items: flex-end;
-        overflow: hidden;
-        border: 1px solid rgba(241, 196, 83, 0.78);
-        border-radius: 24px;
-        box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
-      }
-      .hero-vision-image { display: block; width: 100%; height: auto; object-fit: contain; }
-      .hero-vision { display: block; min-height: 0; padding: 10px; background: #080c0a; }
-      .hero-vision-content { position: absolute; inset: auto 10px 10px; text-align: center; }
-      .hero-vision::after { inset: 10px; border-radius: 12px; }
-      .hero-vision::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(5, 6, 4, 0.22) 0%, transparent 38%, rgba(5, 6, 4, 0.08) 100%); pointer-events: none; }
-      .hero-vision-content { position: relative; z-index: 1; width: 100%; padding: 24px; background: none; } 
-      .hero-date { display: inline-block; margin: 0; padding: 10px 16px; border: 1px solid rgba(241,196,83,.65); border-radius: 999px; background: rgba(5,8,5,.22); backdrop-filter: blur(3px); color: #fff8e8; font-size: clamp(1rem, 3vw, 1.25rem); font-weight: 700; text-shadow: 0 2px 7px rgba(0,0,0,.7); }
-      .hero-kicker { margin: 0 0 8px; color: var(--gold); font-size: .78rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-      .muted { color: var(--muted); }
-      .tiny { font-size: 12px; color: var(--muted); }
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 4px 10px;
-        font-size: 12px;
-        margin-right: 6px;
-        margin-bottom: 6px;
-      }
-      .grid { display: grid; gap: 10px; }
-      .category-strip { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
-      .genius-focus { background: rgba(5, 8, 5, 0.46); border: 1px solid rgba(241, 196, 83, 0.72); border-radius: 16px; padding: 16px; }
-      .genius-focus h3 { margin: 0; font-size: 1.25rem; }
-      .genius-focus .score { margin: 8px 0; font-size: 1.1rem; color: #fff2c2; }
-      .genius-navigation { display: flex; justify-content: space-between; gap: 8px; margin-top: 14px; }
-      .genius-navigation button { cursor: pointer; }
-      .category-pill {
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: rgba(5, 8, 5, 0.44);
-        padding: 10px;
-      }
-      .category-pill h3 { margin: 0 0 6px; font-size: 14px; line-height: 1.25; }
-      .tech-tag { color: var(--muted); font-size: 11px; margin: 0; }
-      .help-btn {
-        width: 24px;
-        height: 24px;
-        border-radius: 999px;
-        border: 1px solid rgba(241, 196, 83, 0.7);
-        background: rgba(20, 150, 75, 0.48);
-        color: #fff8e8;
-        font-weight: 700;
-        cursor: pointer;
-      }
-      .pill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-      .cards { grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); }
-      .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
-      .metric-card { border: 1px solid var(--line); border-radius: 12px; background: rgba(5, 8, 5, 0.44); padding: 10px; }
-      .metric-card strong { display: block; font-size: 20px; color: #fff8e8; }
-      .child-switcher { display: grid; gap: 8px; }
-      .child-switcher-button {
-        appearance: none;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: rgba(2, 6, 23, 0.52);
-        color: var(--text);
-        cursor: pointer;
-        min-width: 150px;
-        padding: 10px 12px;
-        text-align: left;
-      }
-      .child-switcher-button:hover, .child-switcher-button:focus-visible { border-color: var(--accent); outline: none; }
-      .child-switcher-button[aria-pressed="true"] { background: rgba(8, 145, 178, 0.28); border-color: var(--accent); }
-      .child-switcher-button strong, .child-switcher-button span { display: block; }
-      .child-switcher-button span { color: var(--muted); font-size: 12px; margin-top: 3px; }
-      .child-select { width: 100%; border: 1px solid var(--gold); border-radius: 14px; background: rgba(5,8,5,.54); color: var(--text); padding: 12px; font: inherit; }
-      .adaptive-table-wrap { overflow-x: auto; }
-      .adaptive-table { width: 100%; border-collapse: collapse; min-width: 680px; }
-      .adaptive-table th, .adaptive-table td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px; vertical-align: top; }
-      .adaptive-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
-      .activity-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
-      .learning-summary { display: grid; gap: 12px; }
-      .learning-insight-panel { border: 1px solid rgba(75, 217, 162, .55); border-radius: 18px;
-        background: linear-gradient(135deg, rgba(11, 66, 57, .42), rgba(21, 40, 72, .60)); padding: 18px; }
-      .learning-insight-panel h3 { margin: 0 0 12px; color: #b6f7d5; }
-      .learning-insight-panel h4 { margin: 16px 0 8px; }
-      .learning-insight-panel li { margin-bottom: 10px; line-height: 1.55; }
-      .learning-insight-panel .btn { margin-left: 8px; font-size: .87em; }
-
-      .learning-summary h3 { margin: 0; }
-      .snapshot-card {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: rgba(5, 8, 5, 0.42);
-        padding: 16px;
-        display: grid;
-        gap: 8px;
-      }
-      .snapshot-card p { line-height: 1.55; margin: 4px 0; }
-      .snapshot-card .parent-next-step { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 12px; }
-      .developer-diagnostics { display: none; }
-      .meter {
-        height: 8px;
-        border-radius: 999px;
-        background: rgba(255, 248, 232, 0.22);
-        overflow: hidden;
-      }
-      .meter > span {
-        display: block;
-        height: 100%;
-        background: linear-gradient(90deg, #d62828, #f1c453, #14964b);
-      }
-      .status-badge {
-        display: inline-block;
-        border-radius: 999px;
-        border: 1px solid var(--line);
-        padding: 3px 8px;
-        font-size: 11px;
-      }
-      .status-strong { border-color: rgba(20, 150, 75, 0.9); color: #b9f5c9; }
-      .status-watch { border-color: rgba(241, 196, 83, 0.9); color: #fff0ab; }
-      .status-grow { border-color: rgba(214, 40, 40, 0.9); color: #ffd0c9; }
-      .list { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
-      .actions { display: flex; flex-wrap: wrap; gap: 8px; }
-      .btn {
-        border: 1px solid transparent;
-        border-radius: 999px;
-        text-decoration: none;
-        padding: 8px 12px;
-        font-size: 14px;
-      }
-      .btn-primary { background: #c92424; color: #fff8e8; border-color: #f1c453; }
-      .btn-secondary { background: rgba(20, 150, 75, 0.72); color: #fff8e8; border-color: rgba(241, 196, 83, 0.72); }
-      .btn-ghost { background: rgba(5, 8, 5, 0.22); color: #fff0ab; border-color: rgba(241, 196, 83, 0.7); }
-      .voice-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0 10px; }
-      .voice-controls [data-voice-action] { display: none; }
-      .voice-btn { font-size: 12px; padding: 6px 10px; }
-      dialog {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: #10120c;
-        color: var(--text);
-        max-width: 480px;
-      }
-      dialog::backdrop { background: rgba(8, 7, 7, 0.72); }
-      @media (max-width: 640px) {
-        body { padding: 12px; }
-        .panel { padding: 16px; }
-        .hero-vision { min-height: 0; border-radius: 20px; }
-        .hero-vision-content { padding: 18px; }
-        .cards { grid-template-columns: 1fr; }
-        .category-strip { grid-template-columns: 1fr 1fr; }
-      }
-    </style>
-  </head>
-  <body>
-    <style>
-      body.youth-scene {
-        background-image: linear-gradient(180deg,rgba(3,10,17,.68),rgba(3,10,17,.88)),var(--youth-scene-url) !important;
-        background-size: cover !important;
-        background-position: center top !important;
-        background-attachment: fixed !important;
-      }
-      body.youth-scene .panel { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-    </style>
-    <script>
-      (function(){
-        const scenes=[
-          '/adinkra-library/0DFE3FAC-312A-4FC0-BD75-A74D75470324.png',
-          '/adinkra-library/7CEF4610-7396-4594-A483-D19976817873.png',
-          '/adinkra-library/EC9A9306-4483-41A2-BD77-73ACEBDE601C.png'
-        ];
-        let i=0;
-        try { i=(Number(sessionStorage.getItem('youthSceneIndex')||'-1')+1)%scenes.length;sessionStorage.setItem('youthSceneIndex',String(i)); }
-        catch (_) { i=Math.floor(Math.random()*scenes.length); }
-        document.body.classList.add('youth-scene');
-        document.body.style.setProperty('--youth-scene-url','url("'+scenes[i]+'")');
-      })();
-    </script>
-    <main>
-      <section class="hero-vision" aria-label="Garvey Genius family artwork">
-        <img class="hero-vision-image" src="/adinkra-library/51E31336-88D7-4ED1-8458-DD8E8949494A.png" alt="A future-focused African family looking toward a bright city" />
-        <div class="hero-vision-content">
-          <p class="hero-date" id="heroTodayDate" aria-label="Today's date"></p>
-        </div>
-      </section>
-      <nav aria-label="Account" style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin:12px 0;">
-        <a class="btn btn-secondary" href="/tutoring.html">Learning home</a>
-        <button class="btn btn-secondary" id="parentDashboardSignOut" type="button">Sign out</button>
-      </nav>
-      <script>
-        document.getElementById('parentDashboardSignOut').addEventListener('click', async function () {
-          this.disabled = true;
-          try {
-            const response = await fetch('/api/gates/auth/signout', { method: 'POST', credentials: 'same-origin' });
-            if (!response.ok) throw new Error('Sign out failed');
-            sessionStorage.removeItem('youthDevelopmentLatestAssessment');
-            location.assign('/tutoring.html');
-          } catch (error) {
-            this.disabled = false;
-            alert('Sign out could not be confirmed. Please try again.');
-          }
-        });
-      </script>
-      <section class="panel" id="dashboardOverview">
-        <p class="hero-kicker">Garvey Learning ¬∑ Genius Path</p>
-        <h1 id="heroTitle" class="hero-title">üåç Youth Development Parent Dashboard</h1>
-        <p id="heroSummary">Complete a youth assessment to see what your child currently shows and what helps next.</p>
-        <p class="tiny">Designed for ages 6‚Äì11. Developmental snapshot only: this dashboard is provisional and should be reviewed as patterns over time.</p>
-        <p class="tiny" id="completionDateLabel">Previous completion date: Not available yet.</p>
-      </section>
-      <script>
-        document.getElementById('heroTodayDate').textContent = new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date());
-      </script>
-
-      <section class="panel" id="childSwitcherPanel">
-        <h2 style="margin-top:0;">üëßüèæ Choose a child</h2>
-        <p class="muted">Each child has a separate Genius snapshot, parent guidance, and adaptive-learning history.</p>
-        <div id="childSwitcher" class="child-switcher" aria-label="Choose a child dashboard"></div>
-      </section>
-
-      <section class="panel" id="adaptiveLearningPanel">
-        <h2>üìö Adaptive Learning</h2>
-        <p id="adaptiveLearningStatus">Grade 1‚Äì6 school-skill lessons, practice, and growth snapshots.</p>
-        <div class="actions">
-          <a class="btn btn-secondary" id="openAdaptiveV2HubBtn" href="/youth-development/adaptive-learning">Open Adaptive V2 Lesson Hub</a>
-          <a class="btn btn-secondary" href="/genius-practice/mission-planner.html">üöÄ Play Mission Planner</a>
-        </div>
-        <div id="adaptiveLearningSummary" class="adaptive-summary" aria-live="polite">
-          <p class="muted">Select a child profile to load saved adaptive learning progress.</p>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>‚ú® What we look at</h2>
-        <p class="muted">Seven developmental categories are shown below. Tap <strong>?</strong> for plain-language definitions.</p>
-        <div id="categoryStrip" class="grid category-strip"></div>
-      </section>
-
-      <section class="panel">
-        <h2>üîé Current Genius Insight</h2>
-        <div class="voice-controls">
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-control="snapshotCards" data-voice-label="Snapshot cards">Read snapshot summary</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="snapshotCards">Play</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="snapshotCards">Pause</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="snapshotCards">Back 10s</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="snapshotCards">Forward 10s</button>
-        </div>
-        <p id="snapshotVoiceStatus" class="tiny muted">AI voice status checking‚Ä¶</p>
-        <p id="dashboardVoiceDiagnostics" class="developer-diagnostics" aria-hidden="true"></p>
-        <div id="snapshotCards" class="grid cards"></div>
-      </section>
-
-      <section class="panel">
-        <h2>üåü Top strengths</h2>
-        <div class="voice-controls">
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-control="topStrengths" data-voice-label="Top strengths">Read this section</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="topStrengths">Play</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="topStrengths">Pause</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="topStrengths">Back 10s</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="topStrengths">Forward 10s</button>
-          <span id="topStrengthsVoiceStatus" class="tiny muted">AI voice status checking‚Ä¶</span>
-        </div>
-        <ul id="topStrengths" class="list"><li class="muted">Complete an assessment to view strengths.</li></ul>
-      </section>
-
-      <section class="panel">
-        <h2>üå± Areas to strengthen</h2>
-        <div class="voice-controls">
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-control="areasToStrengthen" data-voice-label="Areas to strengthen">Read this section</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="areasToStrengthen">Play</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="areasToStrengthen">Pause</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="areasToStrengthen">Back 10s</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="areasToStrengthen">Forward 10s</button>
-          <span id="areasToStrengthenVoiceStatus" class="tiny muted">AI voice status checking‚Ä¶</span>
-        </div>
-        <ul id="areasToStrengthen" class="list"><li class="muted">Complete an assessment to view growth areas.</li></ul>
-      </section>
-
-      <section class="panel">
-        <h2>ü§ù How to support this week</h2>
-        <div class="voice-controls">
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-control="weeklySupport" data-voice-label="How to support this week">Read this section</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="weeklySupport">Play</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="weeklySupport">Pause</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="weeklySupport">Back 10s</button>
-          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="weeklySupport">Forward 10s</button>
-          <span id="weeklySupportVoiceStatus" class="tiny muted">AI voice status checking‚Ä¶</span>
-        </div>
-        <ul id="weeklySupport" class="list"><li class="muted">Complete an assessment to unlock support suggestions.</li></ul>
-      </section>
-
-      <section class="panel">
-        <h2>üóìÔ∏è Assessment history</h2>
-        <ul id="assessmentHistory" class="list"><li class="muted">Complete an assessment to build history continuity.</li></ul>
-      </section>
-
-      <section class="panel">
-        <h2>üåç Development program</h2>
-        <p id="programStatusSummary" class="muted">Complete an assessment to unlock your child-specific development program.</p>
-        <ul id="programStatusList" class="list"><li class="muted">No program status yet.</li></ul>
-        <div class="actions">
-          <a class="btn btn-primary" id="programLaunchBtn" href="/youth-development/program" style="display:none;">Start Program</a>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>üß≠ Actions</h2>
-        <div class="actions">
-          <a class="btn btn-primary" id="viewSavedDashboardBtn" href="/youth-development/parent-dashboard">View Saved Dashboard</a>
-          <a class="btn btn-secondary" id="retakeAssessmentBtn" href="/youth-development/intake">Retake Assessment</a>
-          <a class="btn btn-ghost" id="openIntakeBtn" href="/youth-development/intake">Start Intake Walkthrough</a>
-        </div>
-      </section>
-    </main>
-
-    <dialog id="categoryHelpDialog">
-      <h3 id="helpTitle" style="margin:0 0 8px;"></h3>
-      <p id="helpBody" style="margin:0 0 12px;"></p>
-      <button class="btn btn-primary" id="closeHelpBtn" type="button">Close</button>
-    </dialog>
-
-    <script>
-      (function () {
-        let payload = null;
-        const query = new URLSearchParams(window.location.search);
-        const accountCtx = {
-          tenant: (query.get("tenant") || "").trim(),
-          email: (query.get("email") || "").trim().toLowerCase(),
-          child_id: (query.get("child_id") || query.get("childId") || "").trim(),
-        };
-        const voiceState = {
-          childId: "",
-          sectionMap: {},
-          displayStatus: "voice_unknown",
-          providerAudioAvailable: false,
-          providerName: "",
-          playbackState: "ready",
-          statusDetail: "",
-          lastPlaybackMode: "none",
-        };
-        const dashboardVoiceDiagnosticsState = {
-          route: "",
-          responsePayload: null,
-          playbackMode: "pending",
-          providerStatus: "unknown",
-          fallbackReason: "none",
-          audioSource: "unknown",
-        };
-        const dashboardVoicePlayback = { activeAudio: null, activeScope: "", selectionByScope: {}, fallbackScope: "" };
-        const dashboardVoiceDiagnostics = document.getElementById("dashboardVoiceDiagnostics");
-        const programStatusSummary = document.getElementById("programStatusSummary");
-        const programStatusList = document.getElementById("programStatusList");
-        const programLaunchBtn = document.getElementById("programLaunchBtn");
-        const viewSavedDashboardBtn = document.getElementById("viewSavedDashboardBtn");
-        const retakeAssessmentBtn = document.getElementById("retakeAssessmentBtn");
-        const openIntakeBtn = document.getElementById("openIntakeBtn");
-        const openAdaptiveV2HubBtn = document.getElementById("openAdaptiveV2HubBtn");
-        const childSwitcherPanel = document.getElementById("childSwitcherPanel");
-        const childSwitcher = document.getElementById("childSwitcher");
-
-        function withAccountScope(pathname) {
-          const url = new URL(pathname, window.location.origin);
-          if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
-          if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
-          if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
-          return url.pathname + url.search;
-        }
-
-        function persistScopedChildOnUrl() {
-          if (!accountCtx.child_id) return;
-          const next = new URL(window.location.href);
-          if (next.searchParams.get("child_id") === accountCtx.child_id) return;
-          next.searchParams.set("child_id", accountCtx.child_id);
-          window.history.replaceState({}, "", next.pathname + next.search);
-        }
-
-        function applyScopedChildContext(scopedChildId, sourceLabel) {
-          const childId = String(scopedChildId || "").trim();
-          if (!childId) return;
-          accountCtx.child_id = childId;
-          viewSavedDashboardBtn.href = withAccountScope("/youth-development/parent-dashboard");
-          retakeAssessmentBtn.href = withAccountScope("/youth-development/intake");
-          openIntakeBtn.href = withAccountScope("/youth-development/intake");
-          programLaunchBtn.href = withAccountScope("/youth-development/program");
-          if (openAdaptiveV2HubBtn) {
-            const adaptiveUrl = new URL("/youth-development/adaptive-learning", window.location.origin);
-            if (accountCtx.tenant) adaptiveUrl.searchParams.set("tenant", accountCtx.tenant);
-            if (accountCtx.email) adaptiveUrl.searchParams.set("email", accountCtx.email);
-            adaptiveUrl.searchParams.set("child_id", accountCtx.child_id);
-            adaptiveUrl.searchParams.set("program_context", "youth_development");
-            adaptiveUrl.searchParams.set("source_registry", "youth_development");
-            adaptiveUrl.searchParams.set("return_url", "/youth-development/parent-dashboard");
-            openAdaptiveV2HubBtn.href = adaptiveUrl.pathname + adaptiveUrl.search;
-          }
-          persistScopedChildOnUrl();
-          console.info("youth_dashboard_client_child_scope_adopted", {
-            source: String(sourceLabel || "unknown"),
-            adopted_child_id: accountCtx.child_id,
-          });
-        }
-
-        function dashboardUrlForChild(childId) {
-          const url = new URL('/youth-development/parent-dashboard', window.location.origin);
-          if (accountCtx.tenant) url.searchParams.set('tenant', accountCtx.tenant);
-          if (accountCtx.email) url.searchParams.set('email', accountCtx.email);
-          url.searchParams.set('child_id', String(childId || ''));
-          return url.pathname + url.search;
-        }
-
-        function renderChildSwitcher(children, selectedChildId) {
-          const entries = Array.isArray(children) ? children.filter((entry) => entry && entry.child_id) : [];
-          if (!childSwitcherPanel || !childSwitcher) return;
-          // Keep child management visible even when profile lookup is empty or only one child exists.
-          childSwitcherPanel.hidden = false;
-          if (!entries.length) {
-            childSwitcher.innerHTML = '<p class="muted" role="status">No child profiles were returned for this account. Existing records have not been changed. Please verify the signed-in parent account before starting a new intake.</p>';
-            return;
-          }
-          childSwitcher.innerHTML = '<label class="tiny" for="childDashboardSelect">Viewing a child dashboard</label><select class="child-select" id="childDashboardSelect" aria-label="Choose a child dashboard">'
-            + entries.map((entry) => {
-              const selected = String(entry.child_id) === String(selectedChildId || '');
-              const label = String(entry.child_name || 'Child profile');
-              const grade = String(entry.child_grade_band || entry.grade || 'Grade not set');
-              return '<option value="' + esc(entry.child_id) + '"' + (selected ? ' selected' : '') + '>' + esc(label + ' ¬∑ ' + grade) + '</option>';
-            }).join('')
-            + '</select>';
-        }
-
-        childSwitcher?.addEventListener('change', function (event) {
-          const select = event.target.closest('#childDashboardSelect');
-          if (!select) return;
-          const childId = String(select.value || select.getAttribute('data-child-dashboard-id') || '').trim();
-          if (childId) window.location.assign(dashboardUrlForChild(childId));
-        });
-        function logDashboardContinuity(eventName, details) {
-          const payload = {
-            event: String(eventName || "unknown"),
-            at: new Date().toISOString(),
-            ...(details && typeof details === "object" ? details : {}),
-          };
-          console.info("youth_dashboard_continuity_trace", payload);
-          try {
-            const prior = Array.isArray(window.__youthDashboardContinuityTrace) ? window.__youthDashboardContinuityTrace : [];
-            prior.push(payload);
-            window.__youthDashboardContinuityTrace = prior.slice(-30);
-          } catch (_err) {}
-        }
-        function scopedProgramHref(href, fallbackPathname) {
-          const base = String(href || "").trim() || String(fallbackPathname || "/youth-development/program");
-          const url = new URL(base, window.location.origin);
-          if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
-          if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
-          if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
-          return url.pathname + url.search;
-        }
-
-        const CATEGORY_META = {
-          SR: {
-            icon: "üéØ",
-            parentLabel: "Focus & Self-Control",
-            technicalLabel: "Self-Regulation",
-            helpText: "This category looks at how your child manages attention, follows through, and handles the structure of a task.",
-          },
-          CQ: {
-            icon: "üîç",
-            parentLabel: "Curiosity & Love of Learning",
-            technicalLabel: "Curiosity / Exploratory Drive",
-            helpText: "This category looks at how strongly your child is drawn to explore, question, and discover.",
-          },
-          CR: {
-            icon: "üí°",
-            parentLabel: "Creativity & Idea Thinking",
-            technicalLabel: "Creativity / Problem Finding",
-            helpText: "This category looks at how your child generates ideas, experiments, and thinks beyond the first answer.",
-          },
-          RS: {
-            icon: "üß©",
-            parentLabel: "Thinking & Problem Solving",
-            technicalLabel: "Reasoning / Pattern Recognition",
-            helpText: "This category looks at how your child understands patterns, logic, and how ideas connect.",
-          },
-          PS: {
-            icon: "üßó",
-            parentLabel: "Effort & Resilience",
-            technicalLabel: "Persistence / Challenge Tolerance",
-            helpText: "This category looks at how your child handles difficulty, frustration, and productive struggle.",
-          },
-          FB: {
-            icon: "üõ†Ô∏è",
-            parentLabel: "Learning From Feedback",
-            technicalLabel: "Feedback Responsiveness",
-            helpText: "This category looks at how your child responds when shown what to improve and whether that leads to growth.",
-          },
-          DE: {
-            icon: "üåü",
-            parentLabel: "Interests & Passion Areas",
-            technicalLabel: "Domain Engagement",
-            helpText: "This category looks at the areas your child is naturally drawn toward and grows in with repeated interest.",
-          },
-        };
-
-        const categoryOrder = ["SR", "CQ", "CR", "RS", "PS", "FB", "DE"];
-
-        function esc(value) {
-          return String(value == null ? "" : value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#39;");
-        }
-
-        function asPercent(value) {
-          const n = Number(value);
-          if (!Number.isFinite(n)) return 0;
-          return Math.max(0, Math.min(100, Math.round(n)));
-        }
-
-        function formatDate(value) {
-          if (!value) return "Not available yet";
-          const d = new Date(value);
-          if (Number.isNaN(d.getTime())) return "Not available yet";
-          return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
-        }
-
-        function getMeta(code) {
-          return CATEGORY_META[String(code || "").toUpperCase()] || {
-            icon: "‚ú®",
-            parentLabel: String(code || "Category"),
-            technicalLabel: String(code || ""),
-            helpText: "This category shows a developmental pattern from current parent observations.",
-          };
-        }
-
-        function plain(value) {
-          return String(value == null ? "" : value).replace(/_/g, " ").replace(/\s{2,}/g, " ").trim();
-        }
-
-        function cleanCopy(value) {
-          const copy = plain(value)
-            .replace(/^(What to keep doing|What to do next|What to support next|Progress can look like):\s*/i, "")
-            .replace(/^([A-Z][A-Z ]{2,})(?=\s+(is|are|was|were)\b)/, function (match) {
-              return match.toLowerCase();
-            });
-          return copy ? copy.charAt(0).toUpperCase() + copy.slice(1) : copy;
-        }
-
-        function statusTone(score) {
-          if (score >= 70) return { klass: "status-strong", label: "Current strength" };
-          if (score <= 40) return { klass: "status-grow", label: "Growth area" };
-          return { klass: "status-watch", label: "Building" };
-        }
-
-        function openHelp(code) {
-          const meta = getMeta(code);
-          const dialog = document.getElementById("categoryHelpDialog");
-          document.getElementById("helpTitle").textContent = meta.parentLabel;
-          document.getElementById("helpBody").textContent = meta.helpText;
-          if (dialog.showModal) dialog.showModal();
-        }
-
-        function normalizeCards(data) {
-          const cards = (((data || {}).page_model || {}).trait_cards || {}).cards;
-          return Array.isArray(cards) ? cards : [];
-        }
-
-        function cardByCode(cards) {
-          const map = {};
-          cards.forEach((card) => {
-            const key = String(card.trait_code || "").toUpperCase();
-            if (key) map[key] = card;
-          });
-          return map;
-        }
-
-        let activeGeniusIndex = 0;
-
-        function selectedGeniusCode() {
-          return categoryOrder[activeGeniusIndex] || categoryOrder[0];
-        }
-
-        function renderCategoryStrip(cardsMap) {
-          const host = document.getElementById("categoryStrip");
-          const code = selectedGeniusCode();
-          const meta = getMeta(code);
-          const card = cardsMap[code] || {};
-          const score = asPercent(card.current_score);
-          const tone = statusTone(score);
-          host.innerHTML = [
-            '<article class="genius-focus">',
-              '<div class="pill-head"><div><p class="tiny">Genius area ' + String(activeGeniusIndex + 1) + ' of ' + String(categoryOrder.length) + '</p><h3>' + esc(meta.icon + ' ' + meta.parentLabel) + '</h3></div>',
-              '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button></div>',
-              '<p class="score"><span class="status-badge ' + tone.klass + '">' + esc(tone.label) + '</span> ' + score + '%</p>',
-              '<div class="meter" aria-label="' + esc(meta.parentLabel) + ' score meter"><span style="width:' + score + '%"></span></div>',
-              '<p class="muted">' + esc(meta.helpText) + '</p>',
-              '<div class="genius-navigation"><button class="btn btn-ghost" type="button" data-genius-nav="previous">‚Üê Previous</button><button class="btn btn-primary" type="button" data-genius-nav="next">Next area ‚Üí</button></div>',
-            '</article>'
-          ].join('');
-        }
-
-        function renderSnapshotCards(cardsMap) {
-          const host = document.getElementById("snapshotCards");
-          const code = selectedGeniusCode();
-          const meta = getMeta(code);
-          const card = cardsMap[code] || {};
-            const score = asPercent(card.current_score);
-            const tone = statusTone(score);
-            const oneLine = cleanCopy(card.what_this_means || "More observations will make this snapshot more specific.");
-            const whatItLooksLike = cleanCopy(card.behavior_look_fors || "Look for this across home, schoolwork, and transitions.");
-            const whyItMatters = cleanCopy(card.why_it_matters || "This pattern can affect confidence, consistency, and learning momentum.");
-            const whatHelpsNext = cleanCopy(card.progress_look_fors || card.emotional_context || "Keep routines predictable and practice in short repeatable blocks.");
-          host.innerHTML = [
-              '<article class="snapshot-card" data-snapshot-card="' + esc(code) + '">',
-                '<div class="pill-head">',
-                  '<div>',
-                    '<h3 style="margin:0 0 4px;">' + esc(meta.parentLabel) + '</h3>',
-                    '<p class="tech-tag" style="margin:0;">' + esc(meta.technicalLabel) + '</p>',
-                  '</div>',
-                  '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button>',
-                '</div>',
-                '<div class="voice-controls"><button class="btn btn-ghost voice-btn" type="button" data-voice-card="' + esc(code) + '">Listen to this insight</button></div>',
-                '<div><span class="status-badge ' + tone.klass + '">' + esc(tone.label) + '</span> <span class="tiny">Score: ' + score + '%</span></div>',
-                '<div class="meter" aria-label="' + esc(meta.parentLabel) + ' score meter"><span style="width:' + score + '%"></span></div>',
-                '<p><strong>What your child currently shows:</strong> ' + esc(oneLine) + '</p>',
-                '<p><strong>What you may notice:</strong> ' + esc(whatItLooksLike) + '</p>',
-                '<div class="parent-next-step"><p><strong>What helps next:</strong> ' + esc(whatHelpsNext) + '</p><p class="tiny"><strong>Why this matters:</strong> ' + esc(whyItMatters) + '</p></div>',
-              '</article>'
-            ].join('');
-        }
-
-        function renderStrengths(data) {
-          const host = document.getElementById("topStrengths");
-          const strengths = (((data || {}).page_model || {}).strengths || {}).items || [];
-          const items = strengths.slice(0, 3);
-          host.innerHTML = items.length
-            ? items.map((item) => {
-                const meta = getMeta(item.trait_code);
-                return '<li><strong>' + esc(meta.parentLabel) + ':</strong> ' + esc(cleanCopy(item.keep_doing_copy || "Keep giving practice opportunities in this area.")) + ' <span class="tiny">Keep building: ' + esc(cleanCopy(item.actionable_next_step || "Keep a predictable routine and gently raise challenge.")) + '</span></li>';
-              }).join("")
-            : '<li class="muted">No strengths are available yet.</li>';
-        }
-
-        function renderSupport(data) {
-          const host = document.getElementById("areasToStrengthen");
-          const support = (((data || {}).page_model || {}).support || {}).items || [];
-          const items = support.slice(0, 3);
-          host.innerHTML = items.length
-            ? items.map((item) => {
-                const meta = getMeta(item.trait_code);
-                return '<li><strong>' + esc(meta.parentLabel) + ':</strong> ' + esc(cleanCopy(item.support_next_copy || "Choose one small skill practice this week.")) + '<br><span class="tiny"><strong>Try next:</strong> ' + esc(cleanCopy(item.actionable_next_step || "Repeat one scaffolded task 2-3 times this week.")) + '</span><br><span class="tiny"><strong>Look for:</strong> ' + esc(cleanCopy(item.progress_signal || "Fewer prompts and more independent attempts.")) + '</span></li>';
-              }).join("")
-            : '<li class="muted">No areas to strengthen are currently flagged.</li>';
-        }
-
-        function renderWeeklySupport(data) {
-          const host = document.getElementById("weeklySupport");
-          const strengths = (((data || {}).page_model || {}).strengths || {}).items || [];
-          const support = (((data || {}).page_model || {}).support || {}).items || [];
-          const cards = normalizeCards(data).sort((a, b) => asPercent(b.current_score) - asPercent(a.current_score));
-          const topStrength = strengths[0] || cards[0] || null;
-          const topGrowth = support[0] || cards[cards.length - 1] || null;
-          const suggestions = [];
-
-          suggestions.push(topStrength
-            ? '<li><strong>Strength-based:</strong> Keep using ' + esc(getMeta(topStrength.trait_code).parentLabel) + ' in everyday tasks. Ask your child to explain what worked so they can repeat it.</li>'
-            : '<li><strong>Strength-based:</strong> Notice one thing your child did well this week and name the exact action so they can repeat it.</li>');
-
-          suggestions.push(topGrowth
-            ? '<li><strong>Growth-based:</strong> Pick one short practice activity for ' + esc(getMeta(topGrowth.trait_code).parentLabel) + ' and repeat it 2‚Äì3 times this week with calm coaching.</li>'
-            : '<li><strong>Growth-based:</strong> Pick one small challenge task and practice it in short, low-pressure rounds.</li>');
-
-          suggestions.push('<li><strong>Environment-based:</strong> Create a predictable routine (same time, same place, short duration) so progress is easier to see across the week.</li>');
-
-          host.innerHTML = suggestions.join('');
-        }
-
-        function renderAssessmentHistory(data) {
-          const host = document.getElementById("assessmentHistory");
-          const history = Array.isArray(data && data.assessment_history) ? data.assessment_history : [];
-          if (!history.length) {
-            host.innerHTML = '<li class="muted">No saved assessment history found for this child/account scope.</li>';
-            return;
-          }
-          host.innerHTML = history.slice(0, 12).map((entry, idx) => {
-            const highest = entry && entry.interpretation && entry.interpretation.highest_trait ? entry.interpretation.highest_trait : {};
-            const lowest = entry && entry.interpretation && entry.interpretation.lowest_trait ? entry.interpretation.lowest_trait : {};
-            const completed = formatDate(entry && entry.saved_at);
-            const childName = String(entry?.child_profile?.child_name || "").trim();
-            const rowLabel = idx === 0 ? "Latest" : ("Previous #" + String(idx));
-            return '<li><strong>' + esc(rowLabel) + ' assessment:</strong> '
-              + esc(completed)
-              + (childName ? (' ¬∑ Child: ' + esc(childName)) : '')
-              + (highest && highest.trait_name ? (' ¬∑ Top strength: ' + esc(highest.trait_name)) : '')
-              + (lowest && lowest.trait_name ? (' ¬∑ Growth focus: ' + esc(lowest.trait_name)) : '')
-              + '</li>';
-          }).join("");
-        }
-
-        function bindHelpButtons() {
-          Array.from(document.querySelectorAll('[data-help-code]')).forEach((button) => {
-            button.addEventListener('click', function () {
-              openHelp(button.getAttribute('data-help-code'));
-            });
-          });
-        }
-        function bindGeniusNavigation(cardsMap) {
-          Array.from(document.querySelectorAll('[data-genius-nav]')).forEach((button) => {
-            button.addEventListener('click', function () {
-              const direction = button.getAttribute('data-genius-nav');
-              activeGeniusIndex = direction === 'previous'
-                ? (activeGeniusIndex + categoryOrder.length - 1) % categoryOrder.length
-                : (activeGeniusIndex + 1) % categoryOrder.length;
-              renderCategoryStrip(cardsMap);
-              renderSnapshotCards(cardsMap);
-              bindHelpButtons();
-              bindGeniusNavigation(cardsMap);
-            });
-          });
-        }
-        function parentVoiceStatusMessage() {
-          if (voiceState.playbackState === "playing" && voiceState.lastPlaybackMode === "provider") return "playing AI voice (OpenAI gateway audio).";
-          if (voiceState.playbackState === "paused" && voiceState.lastPlaybackMode === "provider") return "paused AI voice.";
-          if (voiceState.playbackState === "playing" && voiceState.lastPlaybackMode === "fallback_tts") return "AI voice unavailable, using fallback browser speech.";
-          if (voiceState.playbackState === "failed") return voiceState.statusDetail || "AI voice playback failed.";
-          if (voiceState.providerAudioAvailable) return "AI voice ready (OpenAI gateway audio available).";
-          if (voiceState.displayStatus === "voice_unavailable" || voiceState.displayStatus === "voice_temporarily_unavailable" || voiceState.displayStatus === "voice_fallback_active") {
-            return "AI voice unavailable, using fallback browser speech when supported.";
-          }
-          return voiceState.childId ? "AI audio is not ready yet. Tap Read to try browser speech." : "Choose a child to enable read-aloud.";
-        }
-        function updateVoiceStatusCopy() {
-          const summary = parentVoiceStatusMessage();
-          ["snapshotVoiceStatus", "topStrengthsVoiceStatus", "areasToStrengthenVoiceStatus", "weeklySupportVoiceStatus"].forEach((id) => {
-            const host = document.getElementById(id);
-            if (host) host.textContent = summary;
-          });
-        }
-        function updateDashboardVoiceDiagnostics(partial) {
-          Object.assign(dashboardVoiceDiagnosticsState, partial || {});
-          if (dashboardVoiceDiagnostics) {
-            dashboardVoiceDiagnostics.textContent = "voice_mode: " + String(dashboardVoiceDiagnosticsState.playbackMode || "pending")
-              + " ¬∑ provider_status: " + String(dashboardVoiceDiagnosticsState.providerStatus || "unknown")
-              + " ¬∑ fallback_reason: " + String(dashboardVoiceDiagnosticsState.fallbackReason || "none")
-              + " ¬∑ audio_source: " + String(dashboardVoiceDiagnosticsState.audioSource || "unknown");
-          }
-          if (typeof window !== "undefined") {
-            window.__dashboardVoiceRuntimeDiagnostics = {
-              route_called: dashboardVoiceDiagnosticsState.route || null,
-              response_payload: dashboardVoiceDiagnosticsState.responsePayload || null,
-              playback_mode: dashboardVoiceDiagnosticsState.playbackMode || null,
-              provider_status: dashboardVoiceDiagnosticsState.providerStatus || null,
-              fallback_reason: dashboardVoiceDiagnosticsState.fallbackReason || null,
-              audio_source: dashboardVoiceDiagnosticsState.audioSource || null,
-            };
-          }
-        }
-        function getReadableTextFromElement(id) {
-          const host = document.getElementById(id);
-          if (!host) return "";
-          return String(host.textContent || "").replace(/\s+/g, " ").trim();
-        }
-        function safePlayText(text) {
-          const speech = typeof window !== "undefined" ? window.speechSynthesis : null;
-          const spoken = String(text || "").trim();
-          if (!speech || typeof window.SpeechSynthesisUtterance !== "function" || !spoken) return false;
-          try {
-            speech.cancel();
-            speech.speak(new window.SpeechSynthesisUtterance(spoken));
-            dashboardVoicePlayback.fallbackScope = dashboardVoicePlayback.activeScope;
-            return true;
-          } catch (_err) {
-            return false;
-          }
-        }
-        async function resolveProviderAudioUrl(providerAudio) {
-          const audioUrl = String(providerAudio?.audioUrl || "").trim();
-          if (audioUrl) return audioUrl;
-          const assetRef = String(providerAudio?.assetRef || "").trim();
-          if (!assetRef) return "";
-          if (/^https?:\\\/\\\//i.test(assetRef)) return assetRef;
-          const endpoint = "/api/youth-development/voice/assets/resolve?child_id=" + encodeURIComponent(String(voiceState.childId || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
-          const response = await fetch(endpoint);
-          const payload = response.ok ? await response.json().catch(() => null) : null;
-          return String(payload?.audio_url || "").trim();
-        }
-        async function safePlayProviderAudio(providerAudio) {
-          const src = await resolveProviderAudioUrl(providerAudio);
-          if (!src) return false;
-          try {
-            if (dashboardVoicePlayback.activeAudio && typeof dashboardVoicePlayback.activeAudio.pause === "function") {
-              dashboardVoicePlayback.activeAudio.pause();
-              dashboardVoicePlayback.activeAudio.currentTime = 0;
-            }
-            const audio = new Audio(src);
-            dashboardVoicePlayback.activeAudio = audio;
-            await audio.play();
-            return true;
-          } catch (_err) {
-            return false;
-          }
-        }
-        async function requestProgramProviderAudio(text, sectionKey) {
-          const childId = String(accountCtx.child_id || "").trim();
-          const fullText = String(text || "").trim();
-          if (!childId || !fullText) return null;
-          const response = await fetch("/api/youth-development/voice/speak", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              child_id: childId,
-              section_key: String(sectionKey || "program_section"),
-              text_content: fullText,
-            }),
-          });
-          const payload = response.ok ? await response.json().catch(() => null) : null;
-          console.info("[program-voice-debug] upstream_speak", {
-            route: "/api/youth-development/voice/speak",
-            method: "POST",
-            status: response.status,
-            section_key: String(sectionKey || "program_section"),
-            text_length: fullText.length,
-            playback_mode: payload?.ok ? "provider_audio" : "fallback_browser_speech",
-            audio_source: payload?.audio_url ? "direct_provider_audio" : "browser_speech",
-            fallback_reason: payload?.fallback_reason || null,
-            upstream_route: payload?.upstream_route || "/speak",
-          });
-          if (!payload || payload.ok !== true || !(payload.audio_url || payload.asset_ref)) return null;
-          return {
-            audioUrl: String(payload.audio_url || "").trim(),
-            assetRef: String(payload.asset_ref || "").trim(),
-            providerName: String(payload.provider || "openai-via-upstream-speak").trim(),
-          };
-        }
-        async function requestDashboardProviderAudio(text, sectionKey) {
-          const childId = String(voiceState.childId || "").trim();
-          const fullText = String(text || "").trim();
-          if (!childId || !fullText) return null;
-          const response = await fetch("/api/youth-development/voice/speak", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              child_id: childId,
-              section_key: String(sectionKey || "dashboard_section"),
-              text_content: fullText,
-            }),
-          });
-          const payload = response.ok ? await response.json().catch(() => null) : null;
-          console.info("youth_dashboard_voice_upstream_speak", {
-            route: "/api/youth-development/voice/speak",
-            method: "POST",
-            status: response.status,
-            section_key: String(sectionKey || "dashboard_section"),
-            text_length: fullText.length,
-            playback_mode: payload?.ok ? "provider_audio" : "fallback_browser_speech",
-            audio_source: payload?.audio_url ? "direct_provider_audio" : "browser_speech",
-            fallback_reason: payload?.fallback_reason || null,
-            upstream_route: payload?.upstream_route || "/speak",
-          });
-          if (!payload || payload.ok !== true || !(payload.audio_url || payload.asset_ref)) return null;
-          return {
-            audioUrl: String(payload.audio_url || "").trim(),
-            assetRef: String(payload.asset_ref || "").trim(),
-            providerName: String(payload.provider || "openai-via-upstream-speak"),
-          };
-        }
-        function getProviderAudioFromSection(section) {
-          const chunks = Array.isArray(section?.chunks) ? section.chunks : [];
-          const providerChunk = chunks.find((chunk) => {
-            const provider = String(chunk?.provider || chunk?.provider_name || "").toLowerCase();
-            return (typeof chunk?.audio_url === "string" && chunk.audio_url.trim().length > 0
-              || typeof chunk?.asset_ref === "string" && chunk.asset_ref.trim().length > 0)
-              && String(chunk?.provider_status || "").toLowerCase() === "available"
-              && provider.includes("openai");
-          });
-          return providerChunk ? {
-            audioUrl: String(providerChunk.audio_url || "").trim(),
-            assetRef: String(providerChunk.asset_ref || "").trim(),
-            providerName: String(providerChunk.provider || providerChunk.provider_name || "openai-via-gateway").trim(),
-          } : null;
-        }
-        async function loadVoiceSectionsForChild(childId) {
-          if (!childId) return;
-          try {
-            const endpoint = '/api/youth-development/voice/sections/' + encodeURIComponent(String(childId));
-            const response = await fetch(endpoint);
-            const payload = response.ok ? await response.json().catch(() => null) : null;
-            console.info("youth_dashboard_voice_sections_response", {
-              endpoint,
-              status: response.status,
-              ok: Boolean(payload && payload.ok === true),
-              child_id: String(childId || ""),
-              section_count: Array.isArray(payload?.sections) ? payload.sections.length : 0,
-            });
-            if (!payload || payload.ok !== true) {
-              voiceState.displayStatus = "voice_unavailable";
-              updateDashboardVoiceDiagnostics({
-                route: endpoint,
-                responsePayload: payload,
-                playbackMode: "fallback_browser_speech",
-                providerStatus: "voice_unavailable",
-                fallbackReason: "voice_sections_request_failed",
-                audioSource: "browser_speech",
-              });
-              updateVoiceStatusCopy();
-              return;
-            }
-            voiceState.sectionMap = (Array.isArray(payload.sections) ? payload.sections : []).reduce((acc, item) => {
-              const key = String(item.section_key || "").trim();
-              if (key) acc[key] = item;
-              return acc;
-            }, {});
-            const sectionEntries = Object.values(voiceState.sectionMap);
-            const fallbackChunk = sectionEntries.flatMap((entry) => Array.isArray(entry?.chunks) ? entry.chunks : []).find((chunk) => String(chunk?.provider_status || "").toLowerCase() !== "available");
-            const providerAudio = sectionEntries.map((entry) => getProviderAudioFromSection(entry)).find(Boolean) || null;
-            voiceState.providerAudioAvailable = Boolean(providerAudio && (providerAudio.audioUrl || providerAudio.assetRef));
-            voiceState.providerName = providerAudio ? providerAudio.providerName : "";
-            voiceState.playbackState = "ready";
-            voiceState.statusDetail = "";
-            voiceState.displayStatus = String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown");
-            updateDashboardVoiceDiagnostics({
-              route: endpoint,
-              responsePayload: payload,
-              playbackMode: "pending",
-              providerStatus: providerAudio ? "available" : String(fallbackChunk?.provider_status || voiceState.displayStatus || "unknown"),
-              fallbackReason: String(fallbackChunk?.fallback_reason || "none"),
-              audioSource: providerAudio ? "provider_audio_candidate" : "browser_speech_candidate",
-            });
-            updateVoiceStatusCopy();
-          } catch (_err) {
-            voiceState.displayStatus = "voice_unavailable";
-            voiceState.providerAudioAvailable = false;
-            voiceState.providerName = "";
-            updateDashboardVoiceDiagnostics({
-              route: "/api/youth-development/voice/sections/" + encodeURIComponent(String(childId || "")),
-              responsePayload: null,
-              playbackMode: "fallback_browser_speech",
-              providerStatus: "voice_unavailable",
-              fallbackReason: "voice_sections_fetch_failed",
-              audioSource: "browser_speech",
-            });
-            updateVoiceStatusCopy();
-          }
-        }
-        function sectionVoicePlaybackForTarget(targetId, fallbackText) {
-          const map = voiceState.sectionMap || {};
-          const keys = targetId === "topStrengths"
-            ? ["strengths", "summary", "next_steps"]
-            : targetId === "areasToStrengthen"
-              ? ["growth", "still_building", "next_steps"]
-              : targetId === "weeklySupport"
-                ? ["environment", "next_steps", "growth"]
-                : targetId === "snapshotCards"
-                  ? ["summary", "strengths", "growth"]
-                : [];
-          for (const key of keys) {
-            const providerAudio = getProviderAudioFromSection(map[key]);
-            if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
-              const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-              return { text, providerAudio, source: "provider" };
-            }
-          }
-          for (const key of keys) {
-            const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-            if (text) return { text, audioUrl: "", source: "fallback_tts" };
-          }
-          return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
-        }
-        function sectionVoicePlaybackForCardCode(cardCode, fallbackText) {
-          const map = voiceState.sectionMap || {};
-          const normalized = String(cardCode || "").trim().toUpperCase();
-          const candidates = [
-            "trait_" + normalized.toLowerCase(),
-            normalized,
-            normalized.toLowerCase(),
-            "strengths",
-            "growth",
-            "summary",
-          ];
-          for (const key of candidates) {
-            const providerAudio = getProviderAudioFromSection(map[key]);
-            if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
-              const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-              return { text, providerAudio, source: "provider" };
-            }
-          }
-          for (const key of candidates) {
-            const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-            if (text) return { text, audioUrl: "", source: "fallback_tts" };
-          }
-          return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
-        }
-        async function playParentVoiceSelection(selection, label, scopeId) {
-          dashboardVoicePlayback.activeScope = String(scopeId || "");
-          console.info("youth_dashboard_voice_playback_attempt", {
-            scope: dashboardVoicePlayback.activeScope || null,
-            selection_source: selection?.source || null,
-            provider_audio_candidate: Boolean(selection?.providerAudio),
-            text_length: String(selection?.text || "").trim().length,
-          });
-          const providerFromSpeak = await requestDashboardProviderAudio(selection?.text, scopeId || "dashboard_section");
-          if (providerFromSpeak) selection.providerAudio = providerFromSpeak;
-          if (selection.providerAudio) {
-            const providerPlayed = await safePlayProviderAudio(selection.providerAudio);
-            if (providerPlayed) {
-              voiceState.lastPlaybackMode = "provider";
-              voiceState.playbackState = "playing";
-              voiceState.statusDetail = "";
-              updateDashboardVoiceDiagnostics({
-                playbackMode: "provider_audio",
-                providerStatus: "available",
-                fallbackReason: "none",
-                audioSource: "direct_provider_audio",
-              });
-              console.info("youth_dashboard_voice_playback_result", {
-                playback_mode: "provider_audio",
-                provider_status: "available",
-                fallback_reason: null,
-              });
-              updateVoiceStatusCopy();
-              return true;
-            }
-            updateDashboardVoiceDiagnostics({
-              playbackMode: "fallback_browser_speech",
-              providerStatus: "fallback_active",
-              fallbackReason: "provider_audio_playback_failed",
-              audioSource: "browser_speech",
-            });
-            console.info("youth_dashboard_voice_playback_result", {
-              playback_mode: "fallback_browser_speech",
-              provider_status: "fallback_active",
-              fallback_reason: "provider_audio_playback_failed",
-            });
-          }
-          const fallbackPlayed = safePlayText(selection.text);
-          if (fallbackPlayed) {
-            voiceState.lastPlaybackMode = "fallback_tts";
-            voiceState.playbackState = "playing";
-            voiceState.statusDetail = "AI voice unavailable, using fallback browser speech.";
-            updateDashboardVoiceDiagnostics({
-              playbackMode: "fallback_browser_speech",
-              providerStatus: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
-              fallbackReason: selection.providerAudio ? "provider_audio_playback_failed" : "provider_audio_unavailable",
-              audioSource: "browser_speech",
-            });
-            console.info("youth_dashboard_voice_playback_result", {
-              playback_mode: "fallback_browser_speech",
-              provider_status: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
-              fallback_reason: selection.providerAudio ? "provider_audio_playback_failed" : "provider_audio_unavailable",
-            });
-            updateVoiceStatusCopy();
-            return true;
-          }
-          voiceState.lastPlaybackMode = "none";
-          voiceState.playbackState = "failed";
-          voiceState.statusDetail = "AI voice playback failed; fallback also unavailable on this device.";
-          updateDashboardVoiceDiagnostics({
-            playbackMode: "unavailable",
-            providerStatus: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
-            fallbackReason: "browser_speech_unavailable",
-            audioSource: "none",
-          });
-          console.info("youth_dashboard_voice_playback_result", {
-            playback_mode: "unavailable",
-            provider_status: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
-            fallback_reason: "browser_speech_unavailable",
-          });
-          updateVoiceStatusCopy();
-          alert("Read-aloud is unavailable on this device right now. You can still read: " + label + ".");
-          return false;
-        }
-        function bindVoiceControls() {
-          if (bindVoiceControls.bound) return;
-          bindVoiceControls.bound = true;
-          document.addEventListener("click", async function (event) {
-            const controlButton = event.target && event.target.closest ? event.target.closest("[data-voice-control]") : null;
-            if (controlButton) {
-              const targetId = String(controlButton.getAttribute("data-voice-control") || "").trim();
-              const label = String(controlButton.getAttribute("data-voice-label") || targetId || "section");
-              const fallbackText = getReadableTextFromElement(targetId);
-              const selection = sectionVoicePlaybackForTarget(targetId, fallbackText);
-              dashboardVoicePlayback.selectionByScope[targetId] = selection;
-              await playParentVoiceSelection(selection, label, targetId);
-              return;
-            }
-            const actionButton = event.target && event.target.closest ? event.target.closest("[data-voice-action]") : null;
-            if (actionButton) {
-              const action = String(actionButton.getAttribute("data-voice-action") || "").trim();
-              const scope = String(actionButton.getAttribute("data-voice-scope") || "").trim();
-              const audio = dashboardVoicePlayback.activeAudio;
-              if (action === "pause") {
-                if (audio && typeof audio.pause === "function") {
-                  audio.pause();
-                  voiceState.playbackState = "paused";
-                  voiceState.lastPlaybackMode = "provider";
-                } else {
-                  const speech = typeof window !== "undefined" ? window.speechSynthesis : null;
-                  if (speech && typeof speech.pause === "function") speech.pause();
-                  voiceState.playbackState = "paused";
-                  voiceState.lastPlaybackMode = "fallback_tts";
-                  voiceState.statusDetail = "Fallback browser speech paused.";
-                }
-                updateVoiceStatusCopy();
-                return;
-              }
-              if (action === "back10" || action === "forward10") {
-                if (audio && typeof audio.currentTime === "number") {
-                  const delta = action === "back10" ? -10 : 10;
-                  audio.currentTime = Math.max(0, Math.min((audio.duration || Number.MAX_SAFE_INTEGER), audio.currentTime + delta));
-                  voiceState.playbackState = "playing";
-                } else {
-                  voiceState.statusDetail = "Fallback browser speech cannot seek by 10 seconds.";
-                }
-                updateVoiceStatusCopy();
-                return;
-              }
-              if (action === "play" && scope) {
-                const cachedSelection = dashboardVoicePlayback.selectionByScope[scope];
-                if (audio && scope === dashboardVoicePlayback.activeScope && audio.paused) {
-                  await audio.play().catch(() => null);
-                  voiceState.playbackState = "playing";
-                  voiceState.lastPlaybackMode = "provider";
-                  updateVoiceStatusCopy();
-                  return;
-                }
-                if (cachedSelection) {
-                  await playParentVoiceSelection(cachedSelection, scope, scope);
-                }
-                return;
-              }
-            }
-            const cardButton = event.target && event.target.closest ? event.target.closest("[data-voice-card]") : null;
-            if (!cardButton) return;
-            const code = String(cardButton.getAttribute("data-voice-card") || "").trim().toUpperCase();
-            const cardHost = document.querySelector('[data-snapshot-card="' + code + '"]');
-            const fallbackText = String(cardHost?.textContent || "").replace(/\s+/g, " ").trim();
-            const selection = sectionVoicePlaybackForCardCode(code, fallbackText);
-            dashboardVoicePlayback.selectionByScope["card:" + code] = selection;
-            await playParentVoiceSelection(selection, "snapshot card", "card:" + code);
-          });
-        }
-
-        function setProgramStatus(summary, items, cta) {
-          programStatusSummary.textContent = summary || "Program status unavailable.";
-          const rows = Array.isArray(items) ? items : [];
-          programStatusList.innerHTML = rows.length
-            ? rows.map((line) => '<li>' + esc(line) + '</li>').join('')
-            : '<li class="muted">No program status yet.</li>';
-          if (cta && cta.href && cta.label) {
-            programLaunchBtn.href = scopedProgramHref(cta.href, "/youth-development/program");
-            programLaunchBtn.textContent = cta.label;
-            programLaunchBtn.style.display = "";
-          } else {
-            programLaunchBtn.style.display = "none";
-          }
-        }
-
-        async function hydrateProgramBridge(scopedChild, hasAssessment) {
-          if (!accountCtx.tenant || !accountCtx.email) {
-            setProgramStatus("Add tenant/email context to load parent program state.", [], null);
-            return;
-          }
-          if (!scopedChild || !scopedChild.child_id) {
-            if (hasAssessment) {
-              setProgramStatus("Child profile setup is required before program launch.", ["Add child name in intake so we can preserve child scope."], null);
-            } else {
-              setProgramStatus("Assessment is incomplete. Finish intake first.", ["Program launch appears only after a completed assessment."], {
-                href: "/youth-development/intake?tenant=" + encodeURIComponent(accountCtx.tenant) + "&email=" + encodeURIComponent(accountCtx.email),
-                label: "Return to Intake",
-              });
-            }
-            return;
-          }
-          const endpoint = new URL('/api/youth-development/program/bridge', window.location.origin);
-          endpoint.searchParams.set('tenant', accountCtx.tenant);
-          endpoint.searchParams.set('email', accountCtx.email);
-          endpoint.searchParams.set('child_id', String(scopedChild.child_id));
-          console.info("youth_dashboard_program_bridge_request_scope", {
-            requested_child_id: String(scopedChild.child_id || ""),
-          });
-          const response = await fetch(endpoint.pathname + endpoint.search);
-          const bridge = response.ok ? await response.json().catch(() => null) : null;
-          if (!bridge || bridge.ok !== true) {
-            setProgramStatus("Program state could not be loaded yet.", ["You can still open the program screen and retry launch."], {
-              href: "/youth-development/program?tenant=" + encodeURIComponent(accountCtx.tenant) + "&email=" + encodeURIComponent(accountCtx.email) + "&child_id=" + encodeURIComponent(String(scopedChild.child_id)),
-              label: "Open Program",
-            });
-            return;
-          }
-          const itemLines = [
-            "Status: " + String(bridge.program_status_label || "Setup needed"),
-            "Current phase: " + String(bridge.current_phase_name || "Not assigned"),
-            "Current week: " + String(bridge.current_week || "Not assigned"),
-            "Next recommended action: " + String(bridge.next_recommended_action || "Complete setup"),
-          ];
-          setProgramStatus(bridge.parent_summary || "Program bridge ready.", itemLines, bridge.cta || null);
-        }
-
-        function applyPayload(data, opts) {
-          if (!data || !data.page_model) return false;
-          const options = opts || {};
-          payload = data;
-          const cardsMap = cardByCode(normalizeCards(data));
-          const strongest = (((data.page_model || {}).strengths || {}).items || [])[0];
-          const supportArea = (((data.page_model || {}).support || {}).items || [])[0];
-          const summary = [
-            strongest ? ('Your child currently shows strongest momentum in ' + getMeta(strongest.trait_code).parentLabel + '.') : 'Your child is building developmental patterns across the seven categories.',
-            supportArea ? ('A next growth focus is ' + getMeta(supportArea.trait_code).parentLabel + '.') : 'No urgent growth flag is present today.',
-            'This is a developmental snapshot for ages 6‚Äì11 and will get stronger with repeated observations.'
-          ].join(' ');
-
-          document.getElementById('heroTitle').textContent = data.page_model.page_title || 'Youth Development Parent Dashboard';
-          document.getElementById('heroSummary').textContent = summary;
-          document.getElementById('completionDateLabel').textContent = 'Previous completion date: ' + formatDate(options.savedAt || data.saved_at || data.generated_at || (((data.result || {}).overview || {}).generated_at));
-
-          renderCategoryStrip(cardsMap);
-          renderSnapshotCards(cardsMap);
-          renderStrengths(data);
-          renderSupport(data);
-          renderWeeklySupport(data);
-          renderAssessmentHistory(data);
-          bindHelpButtons();
-          bindGeniusNavigation(cardsMap);
-          return true;
-        }
-
-        function renderNoSavedAssessmentState(reasonCode, scopedChild) {
-          const reason = String(reasonCode || "no_saved_parent_assessment").trim();
-          const reasonLabel = reason === "requested_child_scope_not_found"
-            ? "Requested child scope is not available under this account."
-            : (reason === "no_saved_parent_assessment_for_child_scope"
-              ? "No saved parent assessment exists for this child scope yet."
-              : "No saved parent assessment exists for this account yet.");
-          const childLabel = scopedChild && scopedChild.child_name
-            ? (" for " + String(scopedChild.child_name))
-            : "";
-          document.getElementById("heroSummary").textContent = reasonLabel + childLabel + " Complete intake to create parent assessment continuity.";
-          document.getElementById("assessmentHistory").innerHTML = '<li class="muted">No saved assessment history found for this child/account scope.</li>';
-          document.getElementById("weeklySupport").innerHTML = '<li class="muted">No saved parent assessment context is currently available. Run intake to populate support suggestions.</li>';
-        }
-
-
-        function formatAdaptiveStatus(value) {
-          const status = String(value || "not_started").replace(/_/g, " ");
-          return status.charAt(0).toUpperCase() + status.slice(1);
-        }
-
-        function parentFriendlyLearningArea(value) {
-          const code = String(value || "").toUpperCase();
-          if (/^G\dM_/.test(code)) return "Math learning";
-          if (/^G\dE_/.test(code)) return "English learning";
-          return "Learning activity";
-        }
-
-        function parentFriendlyActivity(eventType) {
-          const type = String(eventType || "").toLowerCase();
-          if (type.includes("completed")) return "Completed a learning activity";
-          if (type.includes("started")) return "Started a learning activity";
-          if (type.includes("progress")) return "Updated learning progress";
-          return "Learning activity recorded";
-        }
-
-        const parentSkillTitles = new Map();
-        async function resolveParentSkillTitles(summary) {
-          const ids = [...new Set([summary.current_skill_world, summary.next_recommended_learning_activity, ...(summary.recent_activity || []).slice(0, 12).map(item => String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\d{3}/i)?.[0])].filter(id => /^G[1-6][ME]_[A-Z]+_\d{3}$/i.test(String(id || ''))))].slice(0, 14);
-          await Promise.all(ids.map(async id => {
-            if (parentSkillTitles.has(id)) return;
-            try {
-              const response = await fetch('/gamehub/skill-world/content/' + encodeURIComponent(id) + '.skill-package.v1.json');
-              if (!response.ok) return;
-              const item = await response.json();
-              if (item.skill_id === id && item.skill) parentSkillTitles.set(id, 'Grade ' + item.grade + ' ' + item.subject + ' ¬∑ ' + item.skill);
-            } catch (_) {}
-          }));
-        }
-        function parentActivityTitle(item) {
-          if (/GAMEHUB_SIGHT_MEMORY/i.test(String(item.label || ''))) return 'Sight Memory ¬∑ visual recall practice';
-          const id = String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\d{3}/i)?.[0];
-          return id && parentSkillTitles.has(id) ? parentSkillTitles.get(id) : parentFriendlyActivity(item.event_type);
-        }
-
-        function sightMemoryHref(scopedChild) {
-          const url = new URL('/gamehub/sight-memory.html', window.location.origin);
-          url.searchParams.set('child_id', String(scopedChild?.child_id || ''));
-          url.searchParams.set('tenant', accountCtx.tenant);
-          url.searchParams.set('email', accountCtx.email);
-          url.searchParams.set('program_context', 'youth_development');
-          url.searchParams.set('source_registry', 'youth_development');
-          return url.pathname + url.search;
-        }
-
-        function learningRhythmMarkup(rhythm) {
-          const data = rhythm || {};
-          const metrics = data.consistency || {};
-          const review = data.parent_review || {};
-          const reviewReady = data.review_status === 'ready';
-          const metric = (label, value) => '<div class="metric-card"><span class="tiny">' + esc(label) + '</span><strong>' + esc(value) + '</strong></div>';
-          const reviewedSkills = reviewReady ? Object.entries(data.skill_activity || {}).map(([skill, count]) => '<li><strong>' + esc(skill === 'GAMEHUB_SIGHT_MEMORY' ? 'Sight Memory' : skill) + '</strong><span class="tiny"> ¬∑ ' + esc(String(count)) + ' learning moments this week</span></li>').join('') : '';
-          return [
-            '<section class="learning-rhythm" aria-label="Seven-day learning rhythm">',
-            '<h3>üóìÔ∏è Seven-Day Learning Rhythm</h3>',
-            '<p>' + esc(data.parent_message || 'Garvey is collecting consistency first.') + '</p>',
-            '<div class="metric-grid">',
-            metric('Days active', String(Number(metrics.active_days || 0))),
-            metric('Learning moments', String(Number(metrics.learning_moments || 0))),
-            metric('Active minutes', String(Number(metrics.active_minutes || 0))),
-            metric('Parent check-ins', String(Number(metrics.parent_checkins || 0))),
-            '</div>',
-            data.review_available_at ? '<p class="tiny"><strong>First weekly review:</strong> ' + esc(formatDate(data.review_available_at)) + '</p>' : '',
-            reviewReady && review.observation ? '<div class="callout"><h4>What this week‚Äôs rhythm means</h4><p>' + esc(review.observation) + '</p><p><strong>Next consistency action:</strong> ' + esc(review.next_action || '') + '</p></div>' : '',
-            reviewReady ? '<h4>What Garvey observed this week</h4><ul class="activity-list">' + (reviewedSkills || '<li class="muted">No completed learning moments were recorded in this review window.</li>') + '</ul>' : '',
-            '<label class="tiny" for="garveyParentCheckin">Parent check-in (optional)</label>',
-            '<textarea id="garveyParentCheckin" maxlength="1200" placeholder="What did you notice while your child practiced?"></textarea>',
-            '<p><button class="btn btn-secondary" type="button" id="saveGarveyParentCheckin">Save today‚Äôs check-in</button> <span class="tiny" id="garveyParentCheckinStatus" aria-live="polite"></span></p>',
-            '</section>'
-          ].join('');
-        }
-
-        function bindLearningRhythmCheckin(scopedChild) {
-          const button = document.getElementById('saveGarveyParentCheckin');
-          if (!button || !scopedChild?.child_id) return;
-          button.addEventListener('click', async function () {
-            const note = String(document.getElementById('garveyParentCheckin')?.value || '').trim();
-            const status = document.getElementById('garveyParentCheckinStatus');
-            button.disabled = true;
-            if (status) status.textContent = 'Saving‚Ä¶';
-            const response = await fetch('/api/skill-world/parent-checkin', {
-              method: 'POST', credentials: 'same-origin', headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ child_id: String(scopedChild.child_id), tenant: accountCtx.tenant, email: accountCtx.email, program_context: 'youth_development', source_registry: 'youth_development', event_key: 'parent-checkin:' + String(scopedChild.child_id) + ':' + new Date().toISOString().slice(0, 10), note })
-            }).catch(() => null);
-            if (response && response.ok) { if (status) status.textContent = 'Today‚Äôs check-in is saved.'; await hydrateAdaptiveLearning(scopedChild); return; }
-            if (status) status.textContent = 'Your check-in could not be saved. Please try again.';
-            button.disabled = false;
-          });
-        }
-
-        function grade4SkillIdFromSummary(summary) {
-          const values = [summary?.current_skill_world, summary?.next_recommended_learning_activity]
-            .concat((summary?.recent_activity || []).map((item) => item?.label || item?.skill_id || ''));
-          return values.map((value) => String(value || '').match(/G4[EM]_[A-Z]+_\d{3}/i)?.[0]?.toUpperCase()).find(Boolean) || '';
-        }
-
-        function geniusLabel(code) {
-          return ({ SR: 'Focus & Self-Control', CQ: 'Curiosity & Love of Learning', CR: 'Creativity & Idea Thinking', RS: 'Thinking & Problem Solving', PS: 'Effort & Resilience', FB: 'Learning From Feedback', DE: 'Interests & Passion Areas' })[String(code || '').toUpperCase()] || String(code || '');
-        }
-
-        async function hydrateGrade4QuestionMap(summary) {
-          const host = document.getElementById('grade4QuestionGeniusMap');
-          const skillId = grade4SkillIdFromSummary(summary);
-          if (!host || !skillId) return;
-          const response = await fetch('/api/grade4-skill-world/genius-outline/' + encodeURIComponent(skillId), { credentials: 'same-origin' }).catch(() => null);
-          const data = response && response.ok ? await response.json().catch(() => null) : null;
-          const outline = data?.outline;
-          if (!outline) return;
-          const first = outline.questions?.[0] || {};
-          const dimensions = (first.genius_dimension_codes || []).map(geniusLabel).filter(Boolean);
-          host.innerHTML = [
-            '<section class="callout" aria-label="Grade 4 skill practice map">',
-            '<h3>üß≠ What this Grade 4 skill practices</h3>',
-            '<p><strong>' + esc(outline.academic_target || outline.skill_id) + '</strong></p>',
-            '<p>' + esc((first.task_demands || []).slice(0, 3).join(' ¬∑ ')) + '</p>',
-            '<p class="tiny"><strong>Garvey areas this work can give opportunities to observe:</strong> ' + esc(dimensions.join(' ¬∑ ')) + '</p>',
-            '<p class="tiny">This describes the work in the question‚Äînot a label for your child.</p>',
-            '<details><summary style="cursor:pointer;font-weight:700;padding:8px 0;">View all ' + esc(String(outline.question_count || 0)) + ' question outlines</summary><ul class="activity-list">',
-            (outline.questions || []).map((question) => '<li><strong>' + esc(question.question_prompt) + '</strong><span class="tiny"> ¬∑ ' + esc(question.question_bank.replace(/_/g, ' ')) + '</span></li>').join(''),
-            '</ul></details></section>'
-          ].join('');
-        }\n\n        function renderAssessmentLearningInsights(insights) {
-          if (!insights || insights.available !== true) {
-            return '<div class="learning-insight-panel"><h3>Assessment strengths &amp; next steps</h3>' +
-              '<p class="muted">Complete a school-skill assessment to see strengths and suggested practice here.</p>' +
-              '<a class="btn btn-secondary" href="/assessment-mvp/">Open School-Skill Assessment</a></div>';
-          }
-          const strengths = Array.isArray(insights.strengths) ? insights.strengths.slice(0, 2) : [];
-          const practice = Array.isArray(insights.practice) ? insights.practice.slice(0, 3) : [];
-          const strengthsMarkup = strengths.length ? strengths.map(function (item) {
-            return '<li><strong>' + esc(item.skill || 'This skill') + '</strong> ‚Äî ' + esc(item.message || '') + '</li>';
-          }).join('') : '<li>We are still gathering evidence of progress.</li>';
-          const practiceMarkup = practice.length ? practice.map(function (item) {
-            const route = String(item.practice_route || '');
-            const safeRoute = /^\/skill-world\/[A-Za-z0-9_-]+\/drill$/.test(route) ? route : '';
-            return '<li><strong>' + esc(item.skill || 'Next skill') + '</strong> ‚Äî ' + esc(item.message || '') +
-              (safeRoute ? ' <a class="btn btn-secondary" href="' + esc(safeRoute) + '">Practice this skill</a>' : '') + '</li>';
-          }).join('') : '<li>No additional practice is suggested from this assessment.</li>';
-          return '<div class="learning-insight-panel" aria-labelledby="assessment-learning-insights-title">' +
-            '<h3 id="assessment-learning-insights-title">‚≠ê Your learning strengths &amp; next steps</h3>' +
-            '<p class="muted">From the latest completed Grade ' + esc(insights.grade) + ' ' + esc(insights.subject) + ' assessment</p>' +
-            '<h4>Promising progress</h4><ul class="activity-list">' + strengthsMarkup + '</ul>' +
-            '<h4>Try next</h4><ul class="activity-list">' + practiceMarkup + '</ul>' +
-            '<p class="muted">' + esc(insights.note || '') + '</p></div>';
-        }
-
-        function renderAdaptiveSummary(summary, scopedChild) {
-          const host = document.getElementById("adaptiveLearningSummary");
-          const status = document.getElementById("adaptiveLearningStatus");
-          if (!host) return;
-          if (!summary || summary.ok !== true) {
-            host.innerHTML = '<p class="muted">Adaptive learning progress is not available yet.</p>';
-            return;
-          }
-          const childName = String(scopedChild?.child_name || summary.child_name || "Selected child");
-          if (status) status.textContent = String(summary.overall_status_label || "Adaptive learning progress") + " for " + childName + ".";
-          if (summary.empty_state) {
-            host.innerHTML = renderAssessmentLearningInsights(summary.assessment_learning_insights) + '<p class="muted">No saved adaptive learning progress yet for ' + esc(childName) + '. Start with one learning activity and focus on building the weekly rhythm.</p>' + learningRhythmMarkup(summary.learning_rhythm) + '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">üß† Open Sight Memory practice ‚Üí</a></p>';
-            bindLearningRhythmCheckin(scopedChild);
-            return;
-          }
-          const metric = (label, value) => '<div class="metric-card"><span class="tiny">' + esc(label) + '</span><strong>' + esc(value) + '</strong></div>';
-          const activityRows = (summary.recent_activity || []).slice(0, 3).map(function (item) {
-            return '<li><strong>' + esc(parentActivityTitle(item)) + '</strong><span class="tiny"> ¬∑ ' + esc(formatAdaptiveStatus(item.status || item.event_type)) + ' ¬∑ ' + esc(formatDate(item.occurred_at)) + '</span></li>';
-          }).join('');
-          const completed = Number(summary.lessons_completed || 0);
-          const total = Number(summary.lessons_total || 0);
-          const learningProgress = Number(summary.progress_percent || 0);
-          host.innerHTML = [
-            '<div class="learning-summary">',
-            '<p><strong>' + esc(childName) + '‚Äôs learning progress</strong></p>',
-            '<div class="metric-grid">',
-            metric('Lessons completed', total ? String(completed) + ' of ' + String(total) : String(completed)),
-            metric('Current progress', String(learningProgress) + '%'),
-            metric('Current focus', parentFriendlyLearningArea(summary.current_skill_world)),
-            metric('Last learning day', formatDate(summary.last_activity_at)),
-            '</div>',
-            renderAssessmentLearningInsights(summary.assessment_learning_insights),
-            '<p><strong>What to do next:</strong> Open the learning hub and continue the next recommended ' + esc(parentFriendlyLearningArea(summary.next_recommended_learning_activity || summary.current_skill_world)).toLowerCase() + ' activity.</p>',
-            '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">üß† Open Sight Memory practice ‚Üí</a></p>',
-            '<div id="grade4QuestionGeniusMap"></div>',
-            learningRhythmMarkup(summary.learning_rhythm),
-            '<h3>Recent learning activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No saved learning activity yet.</li>') + '</ul>',
-            '<details><summary style="cursor:pointer;font-weight:700;padding:12px 0;">View more saved learning activity</summary><ul class="activity-list">' + ((summary.recent_activity || []).slice(3, 12).map(item => '<li><strong>' + esc(parentActivityTitle(item)) + '</strong><span class="tiny"> ¬∑ ' + esc(formatAdaptiveStatus(item.status || item.event_type)) + ' ¬∑ ' + esc(formatDate(item.occurred_at)) + '</span></li>').join('') || '<li class="muted">No additional activity recorded.</li>') + '</ul></details>',
-            '</div>'
-          ].join('');
-          bindLearningRhythmCheckin(scopedChild);
-          hydrateGrade4QuestionMap(summary);
-        }
-
-        async function hydrateAdaptiveLearning(scopedChild) {
-          if (!scopedChild || !scopedChild.child_id || !accountCtx.tenant || !accountCtx.email) return;
-          const endpoint = new URL('/api/youth-development/parent-dashboard/adaptive-summary', window.location.origin);
-          endpoint.searchParams.set('tenant', accountCtx.tenant);
-          endpoint.searchParams.set('email', accountCtx.email);
-          endpoint.searchParams.set('child_id', String(scopedChild.child_id));
-          const response = await fetch(endpoint.pathname + endpoint.search).catch(() => null);
-          const summary = response && response.ok ? await response.json().catch(() => null) : null;
-          if (summary && summary.ok === true) await resolveParentSkillTitles(summary);
-          renderAdaptiveSummary(summary, scopedChild);
-        }
-
-        async function hydrateFromAccount() {
-          if (!accountCtx.tenant || !accountCtx.email) {
-            childSwitcherPanel.hidden = false;
-            childSwitcher.innerHTML = '<p class="muted" role="status">Your parent account context was not passed to this dashboard. Return through the Garvey Learning sign-in flow; no child records have been changed.</p>';
-            return false;
-          }
-          const requestedChildId = String(accountCtx.child_id || query.get('child_id') || query.get('childId') || '').trim();
-          logDashboardContinuity("hydrate_start", {
-            tenant_present: Boolean(accountCtx.tenant),
-            email_present: Boolean(accountCtx.email),
-            requested_child_id: requestedChildId || null,
-          });
-          const childrenEndpoint = new URL('/api/youth-development/children', window.location.origin);
-          childrenEndpoint.searchParams.set('tenant', accountCtx.tenant);
-          childrenEndpoint.searchParams.set('email', accountCtx.email);
-          const childrenResponse = await fetch(childrenEndpoint.pathname + childrenEndpoint.search).catch(() => null);
-          const childrenPayload = childrenResponse && childrenResponse.ok ? await childrenResponse.json().catch(() => null) : null;
-          const childProfiles = Array.isArray(childrenPayload && childrenPayload.children) ? childrenPayload.children : [];
-          if (!childrenResponse || !childrenResponse.ok || !childrenPayload || childrenPayload.ok !== true) {
-            childSwitcherPanel.hidden = false;
-            childSwitcher.innerHTML = '<p class="muted" role="alert">Child profiles could not be loaded. Please retry from your signed-in dashboard. Do not create a duplicate child profile.</p>';
-            logDashboardContinuity("children_lookup_failed", { response_status: childrenResponse ? childrenResponse.status : null });
-            return false;
-          }
-          logDashboardContinuity("children_lookup_complete", {
-            response_ok: Boolean(childrenResponse && childrenResponse.ok),
-            children_count: childProfiles.length,
-          });
-          const scopedChild = requestedChildId
-            ? childProfiles.find((entry) => String(entry.child_id || '') === requestedChildId)
-            : (childProfiles.length === 1 ? childProfiles[0] : null);
-          renderChildSwitcher(childProfiles, scopedChild?.child_id || requestedChildId);
-          if (scopedChild && scopedChild.child_id) {
-            applyScopedChildContext(scopedChild.child_id, "children_scope_resolution");
-            logDashboardContinuity("child_scope_adopted", {
-              source: "children_scope_resolution",
-              selected_child_id: scopedChild.child_id,
-            });
-          }
-          if (!scopedChild && childProfiles.length > 1) {
-            document.getElementById('heroSummary').textContent = 'Choose a child above to view that child‚Äôs Genius snapshot, parent guidance, and adaptive-learning history.';
-            document.getElementById('weeklySupport').innerHTML = '<li class="muted">Choose a child to view that child‚Äôs weekly support suggestions.</li>';
-            document.getElementById('assessmentHistory').innerHTML = '<li class="muted">Choose a child to view that child‚Äôs assessment history.</li>';
-            document.getElementById('adaptiveLearningSummary').innerHTML = '<p class="muted">Choose a child to view saved adaptive-learning progress.</p>';
-            logDashboardContinuity("child_selection_required", { children_count: childProfiles.length });
-            return false;
-          }
-          const endpoint = new URL('/api/youth-development/parent-dashboard/latest', window.location.origin);
-          endpoint.searchParams.set('tenant', accountCtx.tenant);
-          endpoint.searchParams.set('email', accountCtx.email);
-          const latestRequestChildId = String((scopedChild && scopedChild.child_id) || accountCtx.child_id || requestedChildId || "").trim();
-          if (latestRequestChildId) endpoint.searchParams.set('child_id', latestRequestChildId);
-          console.info("youth_dashboard_latest_request_scope", {
-            requested_child_id: latestRequestChildId || null,
-          });
-          logDashboardContinuity("latest_lookup_request", {
-            requested_child_id: latestRequestChildId || null,
-          });
-          const response = await fetch(endpoint.pathname + endpoint.search);
-          if (!response.ok) return false;
-          const data = await response.json().catch(() => null);
-          logDashboardContinuity("latest_lookup_response", {
-            response_ok: Boolean(data && data.ok === true),
-            has_result: Boolean(data && data.has_result === true),
-            selected_submission_id: data?.latest_submission_id || null,
-            selected_child_id: data?.child_id || null,
-          });
-          if (!data || !data.ok || !data.has_result || !data.payload) {
-            if (!childProfiles.length && !requestedChildId) {
-              document.getElementById('heroSummary').textContent = 'No child profile is linked to this account yet. Complete intake with child name to create child scope.';
-              document.getElementById('weeklySupport').innerHTML = '<li class="muted">Child profile setup needed before child-scoped TDE loading is available.</li>';
-            } else {
-              renderNoSavedAssessmentState(data && data.reason, scopedChild);
-            }
-            await hydrateProgramBridge(scopedChild || null, false);
-            await hydrateAdaptiveLearning(scopedChild || null);
-            logDashboardContinuity("render_skipped", {
-              reason: data?.reason || "latest_not_available",
-              requested_child_id: latestRequestChildId || null,
-            });
-            return false;
-          }
-          const latestChildId = String(data.child_id || data?.payload?.ownership?.child_profile?.child_id || scopedChild?.child_id || "").trim();
-          if (latestChildId) applyScopedChildContext(latestChildId, "latest_response");
-          console.info("youth_dashboard_latest_selected", {
-            selected_submission_id: data.latest_submission_id || null,
-            selected_child_id: latestChildId || null,
-          });
-          logDashboardContinuity("latest_selected", {
-            selected_submission_id: data.latest_submission_id || null,
-            selected_child_id: latestChildId || null,
-          });
-          voiceState.childId = String(latestChildId || scopedChild?.child_id || "");
-          await loadVoiceSectionsForChild(voiceState.childId);
-          const applied = applyPayload(data.payload, { savedAt: data.saved_at || data.payload.saved_at || '' });
-          logDashboardContinuity("render_applied", {
-            render_applied: applied === true,
-            source: "latest_payload",
-          });
-          const resolvedScopedChild = latestChildId
-            ? {
-                child_id: latestChildId,
-                child_name: String(scopedChild?.child_name || data?.payload?.ownership?.child_profile?.child_name || "").trim() || null,
-              }
-            : (scopedChild || null);
-          await hydrateProgramBridge(resolvedScopedChild, applied === true);
-          await hydrateAdaptiveLearning(resolvedScopedChild);
-          return applied;
-        }
-
-        document.getElementById('closeHelpBtn').addEventListener('click', function () {
-          const dialog = document.getElementById('categoryHelpDialog');
-          if (dialog && dialog.close) dialog.close();
-        });
-
-        try {
-          payload = JSON.parse(sessionStorage.getItem('youthDevelopmentLatestAssessment') || 'null');
-        } catch (_err) {
-          payload = null;
-        }
-
-        bindVoiceControls();
-        if (payload && applyPayload(payload, { savedAt: payload?.ownership?.saved_at || payload?.saved_at })) {
-          const persistedChildId = String(payload?.ownership?.child_profile?.child_id || payload?.child_id || "").trim();
-          if (persistedChildId) {
-            applyScopedChildContext(persistedChildId, "session_payload");
-            voiceState.childId = persistedChildId;
-            loadVoiceSectionsForChild(voiceState.childId).catch(() => null);
-            const sessionScopedChild = {
-              child_id: persistedChildId,
-              child_name: String(payload?.ownership?.child_profile?.child_name || "").trim() || null,
-            };
-            hydrateProgramBridge(sessionScopedChild, true).catch(() => null);
-            hydrateAdaptiveLearning(sessionScopedChild).catch(() => null);
-          }
-          updateVoiceStatusCopy();
-          // Session storage is only a fast preview; always reconcile against saved,
-          // child-scoped server records so stale assessments cannot mask the latest result.
-          hydrateFromAccount().catch(() => null);
-        } else {
-          updateVoiceStatusCopy();
-          hydrateFromAccount().catch(() => null);
-        }
-      }());
-    </script>
-  </body>
-</html>`;
-}
-
-function renderLiveYouthProgramPage() {
-  return `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Youth Development Program</title>
-    <style>
-      body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; padding: 20px; background: #020617; color: #e2e8f0; }
-      main { max-width: 840px; margin: 0 auto; display: grid; gap: 12px; }
-      .panel { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 14px; padding: 14px; background: rgba(15, 23, 42, 0.85); }
-      .panel h2 { margin: 0 0 8px; font-size: 1.1rem; letter-spacing: 0.01em; }
-      .section-kicker { margin: 0 0 10px; font-size: 12px; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
-      .muted { color: #94a3b8; }
-      .list { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
-      .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-      .btn { border: 1px solid transparent; border-radius: 999px; padding: 8px 12px; text-decoration: none; display: inline-block; cursor: pointer; }
-      .btn-primary { background: #1d4ed8; border-color: rgba(59, 130, 246, 0.65); color: #eff6ff; }
-      .btn-secondary { background: rgba(6, 95, 70, 0.25); border-color: rgba(16, 185, 129, 0.65); color: #d1fae5; }
-      .state-box { border: 1px dashed rgba(148, 163, 184, 0.5); border-radius: 12px; padding: 12px; background: rgba(15, 23, 42, 0.55); }
-      .state-title { margin: 0 0 6px; font-size: 1rem; }
-      .state-line { margin: 0; color: #94a3b8; }
-      .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-      .chip { border: 1px solid rgba(148, 163, 184, 0.4); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: #bfdbfe; }
-      .grid-2 { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-      .progress-wrap { margin-top: 8px; }
-      .progress-label { margin: 0 0 4px; font-size: 12px; color: #bfdbfe; font-weight: 600; }
-      .progress-track { width: 100%; height: 12px; border-radius: 999px; background: rgba(148, 163, 184, 0.25); overflow: hidden; }
-      .progress-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #3b82f6); width: 0%; transition: width 180ms ease; }
-      .roadmap-list { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 6px; }
-      .roadmap-item-current { color: #bfdbfe; font-weight: 600; }
-      .roadmap-item-completed { color: #86efac; }
-      .activity-card { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.55); margin-top: 8px; }
-      .activity-card h4 { margin: 0 0 4px; font-size: 0.95rem; }
-      .tiny { font-size: 12px; color: #94a3b8; }
-      .week-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-      .btn-ghost { background: rgba(30, 41, 59, 0.45); border-color: rgba(148, 163, 184, 0.45); color: #e2e8f0; }
-      textarea.input { width: 100%; min-height: 72px; margin-top: 8px; background: rgba(2, 6, 23, 0.75); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.45); border-radius: 8px; padding: 8px; font: inherit; }
-      .input { width: 100%; margin-top: 6px; background: rgba(2, 6, 23, 0.75); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.45); border-radius: 8px; padding: 8px; font: inherit; }
-      .planner-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 10px; }
-      .planner-metric { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.4); }
-      .planner-metric.today-focus { border-color: rgba(59, 130, 246, 0.8); box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.25); background: rgba(30, 64, 175, 0.12); }
-      .planner-metric h4 { margin: 0 0 4px; font-size: 0.9rem; }
-      .planner-metric p { margin: 0; font-size: 13px; color: #cbd5e1; }
-      .status-pill { border-radius: 999px; padding: 2px 8px; font-size: 11px; border: 1px solid rgba(148, 163, 184, 0.5); text-transform: capitalize; }
-      .status-completed { border-color: rgba(34, 197, 94, 0.8); color: #86efac; }
-      .status-planned { border-color: rgba(56, 189, 248, 0.8); color: #bfdbfe; }
-      .status-in_progress { border-color: rgba(250, 204, 21, 0.8); color: #fde68a; }
-      .status-missed { border-color: rgba(248, 113, 113, 0.8); color: #fca5a5; }
-      .status-blocked { border-color: rgba(251, 191, 36, 0.8); color: #fcd34d; }
-      .calendar-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-      .calendar-day { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 8px; background: rgba(2, 6, 23, 0.45); }
-      .calendar-day.today { border-color: rgba(56, 189, 248, 0.75); box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.25); }
-      .calendar-day h4 { margin: 0 0 6px; font-size: 13px; color: #dbeafe; }
-      .session-row { margin: 0 0 6px; font-size: 12px; color: #cbd5e1; display: grid; gap: 4px; }
-      .session-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-      .session-actions .btn { padding: 6px 10px; font-size: 12px; }
-      .lesson-plan { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.45); margin-top: 8px; }
-      .lesson-plan table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
-      .lesson-plan th, .lesson-plan td { border: 1px solid rgba(148, 163, 184, 0.35); padding: 6px; text-align: left; vertical-align: top; }
-      .lesson-plan th { background: rgba(30, 41, 59, 0.65); color: #dbeafe; }
-      .checklist { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
-      .progress-metrics-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin-top: 8px; }
-      .progress-metric-tile { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 8px; background: rgba(2, 6, 23, 0.55); }
-      .progress-metric-tile .label { font-size: 11px; color: #94a3b8; margin: 0; }
-      .progress-metric-tile .value { font-size: 18px; color: #e2e8f0; font-weight: 700; margin: 2px 0 0; }
-      .motivation-banner { margin-top: 8px; border: 1px solid rgba(59, 130, 246, 0.55); border-radius: 10px; padding: 10px; background: rgba(30, 64, 175, 0.16); }
-      .motivation-banner p { margin: 0; }
-      .subsection-title { margin: 12px 0 6px; font-size: 0.95rem; color: #dbeafe; }
-      .trend-history-card { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.45); margin-top: 8px; }
-      .trend-bars { margin-top: 8px; display: grid; gap: 8px; }
-      .trend-bar-row { display: grid; gap: 4px; }
-      .trend-bar-label { font-size: 12px; color: #cbd5e1; display: flex; justify-content: space-between; }
-      .trend-bar-track { width: 100%; height: 12px; border-radius: 999px; background: rgba(148, 163, 184, 0.25); overflow: hidden; position: relative; }
-      .trend-bar-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #3b82f6); }
-      .trend-bar-fill-label { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #e2e8f0; font-weight: 700; }
-      .next-action-box { margin-top: 8px; border: 1px dashed rgba(148, 163, 184, 0.5); border-radius: 10px; padding: 8px; background: rgba(15, 23, 42, 0.55); }
-      .next-action-controls { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
-      .week-markers { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
-      .btn[aria-busy="true"] { opacity: 0.8; cursor: progress; }
-      .btn-active { box-shadow: inset 0 0 0 2px rgba(125, 211, 252, 0.3); }
-      .calendar-day.selected { border-color: rgba(125, 211, 252, 0.9); box-shadow: inset 0 0 0 2px rgba(56, 189, 248, 0.35); }
-      .session-row.selected { border-left: 3px solid rgba(125, 211, 252, 0.9); padding-left: 6px; }
-      .motivation-chips { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
-      .motivation-chip { border: 1px solid rgba(96, 165, 250, 0.7); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: #dbeafe; background: rgba(30, 58, 138, 0.35); }
-      .step-active { font-weight: 700; color: #bfdbfe; }
-      .step-complete { color: #86efac; }
-      .is-hidden { display: none !important; }
-      .field-error { color: #fecaca; margin: 4px 0 0; font-size: 12px; }
-      .voice-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0 0; }
-      .time-picker-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 6px; }
-    </style>
-  </head>
-  <body>
-    <style>
-      body.youth-scene {
-        background-image: linear-gradient(180deg,rgba(3,10,17,.68),rgba(3,10,17,.88)),var(--youth-scene-url) !important;
-        background-size: cover !important;
-        background-position: center top !important;
-        background-attachment: fixed !important;
-      }
-      body.youth-scene .panel { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-    </style>
-    <script>
-      (function(){
-        const scenes=[
-          '/adinkra-library/0DFE3FAC-312A-4FC0-BD75-A74D75470324.png',
-          '/adinkra-library/7CEF4610-7396-4594-A483-D19976817873.png',
-          '/adinkra-library/EC9A9306-4483-41A2-BD77-73ACEBDE601C.png'
-        ];
-        let i=0;
-        try { i=(Number(sessionStorage.getItem('youthSceneIndex')||'-1')+1)%scenes.length;sessionStorage.setItem('youthSceneIndex',String(i)); }
-        catch (_) { i=Math.floor(Math.random()*scenes.length); }
-        document.body.classList.add('youth-scene');
-        document.body.style.setProperty('--youth-scene-url','url("'+scenes[i]+'")');
-      })();
-    </script>
-    <main>
-      <section class="panel">
-        <h1>Youth Development Program</h1>
-        <p id="programHero" class="muted">Loading child-scoped program readiness‚Ä¶</p>
-      </section>
-      <section class="panel">
-        <h2>Program status</h2>
-        <ul id="programStatusList" class="list"><li class="muted">Loading‚Ä¶</li></ul>
-        <div class="actions">
-          <button id="launchBtn" class="btn btn-primary" type="button" style="display:none;">Start Program</button>
-          <a id="dashboardBtn" class="btn btn-secondary" href="/youth-development/parent-dashboard">Return to Dashboard</a>
-        </div>
-      </section>
-      <section class="panel" id="todaySessionPanel">
-        <p class="section-kicker">Today</p>
-        <h2>Today‚Äôs Session</h2>
-        <div class="planner-grid">
-          <div class="planner-metric today-focus">
-            <h4>Today‚Äôs Session</h4>
-            <p id="todaySessionCard">Complete your weekly plan to generate sessions.</p>
-            <div class="session-actions">
-              <button id="startTodaySessionBtn" class="btn btn-primary" type="button">Start Today‚Äôs Session</button>
-              <button id="resumeTodaySessionBtn" class="btn btn-secondary" type="button">Resume Session</button>
-              <button id="viewWeeklyPlanBtn" class="btn btn-ghost" type="button">View Weekly Plan</button>
-            </div>
-          </div>
-          <div class="planner-metric">
-            <h4>Next Scheduled Session</h4>
-            <p id="nextSessionCard">Next session appears after your weekly plan schedules sessions.</p>
-          </div>
-          <div class="planner-metric">
-            <h4>This Week at a Glance</h4>
-            <p id="weekAtGlanceCard">Planner summary appears after sessions are generated.</p>
-          </div>
-          <div class="planner-metric">
-            <h4>Week-in-Program Marker</h4>
-            <p id="weekMarkerCard">Week marker appears after setup is complete.</p>
-          </div>
-        </div>
-      </section>
-      <section class="panel" id="weeklyCalendarPanel">
-        <p class="section-kicker">This week</p>
-        <h2>Weekly Plan Calendar (Primary)</h2>
-        <div class="planner-grid">
-          <div class="planner-metric">
-            <h4>Build Your Weekly Plan</h4>
-            <p class="tiny muted">Set your weekly commitment before planner execution is unlocked.</p>
-          </div>
-        </div>
-        <div id="plannerStateMessage" class="state-box">
-          <h3 class="state-title">Planner setup status</h3>
-          <p id="plannerStateCopy" class="state-line">Resolving planner setup‚Ä¶</p>
-        </div>
-        <div class="grid-2">
-          <div class="state-box">
-            <h3 class="state-title">Build Your Weekly Plan</h3>
-            <label class="tiny">Weekly frequency (2‚Äì5 sessions)</label><input id="commitDaysInput" class="input" type="number" min="2" max="5" value="3" />
-            <p id="commitDaysError" class="field-error" role="status" aria-live="polite"></p>
-            <label class="tiny">Preferred days</label>
-            <div id="commitPreferredDaysGroup" class="chip-row">
-              <label class="chip"><input type="checkbox" data-day-checkbox="monday"> Mon</label>
-              <label class="chip"><input type="checkbox" data-day-checkbox="tuesday"> Tue</label>
-              <label class="chip"><input type="checkbox" data-day-checkbox="wednesday"> Wed</label>
-              <label class="chip"><input type="checkbox" data-day-checkbox="thursday"> Thu</label>
-              <label class="chip"><input type="checkbox" data-day-checkbox="friday"> Fri</label>
-              <label class="chip"><input type="checkbox" data-day-checkbox="saturday"> Sat</label>
-              <label class="chip"><input type="checkbox" data-day-checkbox="sunday"> Sun</label>
-            </div>
-            <p id="commitPreferredDaysError" class="field-error" role="status" aria-live="polite"></p>
-            <label class="tiny">Preferred time (optional)</label>
-            <div class="time-picker-row">
-              <select id="commitTimeHourInput" class="input" aria-label="Preferred time hour"><option value="" selected>--</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
-              <select id="commitTimeMinuteInput" class="input" aria-label="Preferred time minute"><option value="" selected>--</option><option value="00">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select>
-              <select id="commitTimeMeridiemInput" class="input" aria-label="Preferred time AM/PM"><option value="" selected>--</option><option value="AM">AM</option><option value="PM">PM</option></select>
-            </div>
-            <input id="commitTimeInput" class="input" type="text" value="" placeholder="5:30 PM" style="display:none;" readonly />
-            <input id="commitPreferredTimeCanonicalInput" type="hidden" name="preferred_time" value="" />
-            <p id="commitTimeError" class="field-error" role="status" aria-live="polite"></p>
-            <p class="tiny muted">Optional. If you select a time, use a parent-friendly format (example: 5:30 PM).</p>
-            <p id="commitTimeBindingDiagnostics" class="tiny muted" role="status" aria-live="polite">Preferred time diagnostics: displayed none_selected ¬∑ canonical none_selected ¬∑ validation pending ¬∑ submitted pending.</p>
-            <label class="tiny">Session length (minutes)</label><select id="commitDurationInput" class="input"><option value="15">15</option><option value="30" selected>30</option><option value="45">45</option></select>
-            <p id="commitDurationError" class="field-error" role="status" aria-live="polite"></p>
-            <label class="tiny">Energy type</label><select id="commitEnergyTypeInput" class="input"><option value="calm">calm</option><option value="balanced" selected>balanced</option><option value="high-energy">high-energy</option></select>
-            <p id="commitEnergyError" class="field-error" role="status" aria-live="polite"></p>
-            <label class="tiny">Start date</label><input id="commitStartDateInput" class="input" type="date" />
-            <p id="commitStartDateError" class="field-error" role="status" aria-live="polite"></p>
-            <button id="saveCommitmentBtn" class="btn btn-primary" type="button">Build Your Weekly Plan</button>
-            <p id="commitmentSaveFeedback" class="tiny muted" role="status" aria-live="polite"></p>
-            <p id="commitmentActionTrace" class="tiny muted" role="status" aria-live="polite">planner action trace: waiting for input.</p>
-            <p id="commitmentSummary" class="tiny muted">Commitment not set.</p>
-            <ul id="commitmentSchedulePreview" class="list"><li class="muted">Schedule preview will appear after plan save.</li></ul>
-          </div>
-          <div id="weeklyPlannerDataSurface" class="state-box">
-            <h3 class="state-title">Weekly Planner Calendar + adherence</h3>
-            <p id="adherenceSummary" class="state-line">Complete your weekly plan to generate sessions.</p>
-            <div class="progress-wrap">
-              <p class="progress-label">Adherence progress (planned vs completed sessions)</p>
-              <div class="progress-track"><div id="adherenceFill" class="progress-fill"></div></div>
-            </div>
-            <p id="completionCountSummary" class="tiny muted">Progress tracking begins after your first scheduled session.</p>
-            <div id="plannerCalendarGrid" class="calendar-grid"><div class="calendar-day"><p class="tiny muted">Complete your weekly plan to generate sessions.</p></div></div>
-            <ul id="agendaList" class="list"><li class="muted">No sessions scheduled yet.</li></ul>
-            <button id="markNextSessionCompleteBtn" class="btn btn-secondary" type="button">Mark Next Session Complete</button>
-            <button id="openNextSessionBtn" class="btn btn-ghost" type="button">Open Scheduled Session</button>
-            <p id="nextScheduledSession" class="tiny muted">No upcoming sessions yet.</p>
-          </div>
-        </div>
-        <div id="lessonPlanSurface" class="state-box">
-          <h3 class="state-title">Teacher-Style Lesson Plan</h3>
-          <p id="lessonPlanSessionHeader" class="state-line">Your lesson plan will appear after sessions are scheduled.</p>
-          <div id="lessonPlanView" class="lesson-plan" tabindex="-1"><p class="tiny muted">Complete your weekly plan to generate sessions.</p></div>
-          <div class="session-actions">
-            <button id="resumeSessionBtn" class="btn btn-primary" type="button">Resume Session</button>
-            <button id="completeSelectedSessionBtn" class="btn btn-secondary" type="button">Mark Session Complete</button>
-            <button id="returnWeeklyOverviewBtn" class="btn btn-ghost" type="button">Return to Weekly Overview</button>
-          </div>
-        </div>
-      </section>
-      <section class="panel" id="currentWeekPanel">
-        <p class="section-kicker">This week</p>
-        <h2>Current week guided experience</h2>
-        <div id="weekExperience" class="state-box">
-          <h3 class="state-title">Loading week content‚Ä¶</h3>
-          <p class="state-line">Resolving child-scoped week experience.</p>
-        </div>
-        <div class="grid-2">
-          <div class="state-box">
-            <h3 class="state-title">Weekly goals + parent guidance</h3>
-            <div class="voice-controls">
-              <button id="readWeeklyGoalsBtn" class="btn btn-ghost" type="button">Read weekly goals</button>
-              <button class="btn btn-ghost" type="button" data-program-voice-action="play" data-program-voice-scope="weeklyGoals">Play</button>
-              <button class="btn btn-ghost" type="button" data-program-voice-action="pause" data-program-voice-scope="weeklyGoals">Pause</button>
-              <button class="btn btn-ghost" type="button" data-program-voice-action="back10" data-program-voice-scope="weeklyGoals">Back 10s</button>
-              <button class="btn btn-ghost" type="button" data-program-voice-action="forward10" data-program-voice-scope="weeklyGoals">Forward 10s</button>
-              <button id="readProgramSupportBtn" class="btn btn-ghost" type="button">Read support sections</button>
-              <button class="btn btn-ghost" type="button" data-program-voice-action="play" data-program-voice-scope="programSupport">Play</button>
-              <button class="btn btn-ghost" type="button" data-program-voice-action="pause" data-program-voice-scope="programSupport">Pause</button>
-              <button class="btn btn-ghost" type="button" data-program-voice-action="back10" data-program-voice-scope="programSupport">Back 10s</button>
-              <button class="btn btn-ghost" type="button" data-program-voice-action="forward10" data-program-voice-scope="programSupport">Forward 10s</button>
-              <span id="weeklyGoalsVoiceStatus" class="tiny muted">AI voice status checking‚Ä¶</span>
-            </div>
-            <p id="programVoiceDiagnostics" class="tiny muted">voice_mode: pending ¬∑ provider_status: unknown ¬∑ fallback_reason: none ¬∑ audio_source: unknown</p>
-            <ul id="weeklyGoals" class="list"><li class="muted">Loading goals‚Ä¶</li></ul>
-            <ul id="weeklyGuidance" class="list"><li class="muted">Loading parent guidance‚Ä¶</li></ul>
-          </div>
-          <div class="state-box">
-            <h3 class="state-title">Week progress + roadmap</h3>
-            <p id="progressSummary" class="state-line">Loading progress‚Ä¶</p>
-            <div class="progress-wrap">
-              <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
-            </div>
-            <ul id="roadmapList" class="roadmap-list"><li class="muted">Loading roadmap‚Ä¶</li></ul>
-            <div class="week-nav">
-              <button id="prevWeekBtn" class="btn btn-ghost" type="button">Previous week</button>
-              <button id="nextWeekBtn" class="btn btn-ghost" type="button">Next Week</button>
-            </div>
-          </div>
-        </div>
-        <div class="grid-2">
-          <div class="state-box">
-            <h3 class="state-title">Session flow + activity bank</h3>
-            <ul id="sessionFlowList" class="list"><li class="muted">Loading session flow‚Ä¶</li></ul>
-            <div id="activityBankSurface"><p class="state-line">Loading activity options‚Ä¶</p></div>
-          </div>
-          <div class="state-box">
-            <h3 class="state-title">Reflection + observation/support</h3>
-            <p id="observationSupport" class="state-line">Loading observation/support‚Ä¶</p>
-            <label class="tiny" for="parentReflectionInput">Parent reflection / check-in notes</label>
-            <textarea id="parentReflectionInput" class="input" placeholder="What worked this week? What should shift next week?"></textarea>
-            <button id="saveReflectionBtn" class="btn btn-secondary" type="button">Save Reflection</button>
-            <label class="tiny" for="parentObservationInput">Observation / support note</label>
-            <textarea id="parentObservationInput" class="input" placeholder="What did you observe and what support action will you use next?"></textarea>
-            <button id="saveObservationBtn" class="btn btn-secondary" type="button">Save Observation</button>
-            <p id="executionStateArea" class="tiny muted" role="status" aria-live="polite" aria-atomic="true">Execution state loading‚Ä¶</p>
-            <div class="week-nav">
-              <button id="startResumeWeekBtn" class="btn btn-primary" type="button">Start Week</button>
-              <button id="markStepCompleteBtn" class="btn btn-secondary" type="button">Mark Step Complete</button>
-            <button id="continueStepBtn" class="btn btn-ghost" type="button">Continue to Next Step</button>
-            <button id="continueNextWeekBtn" class="btn btn-ghost" type="button">Continue Next Week</button>
-            </div>
-            <p id="nextActionArea" class="state-line" role="status" aria-live="polite" aria-atomic="true">Next action loading‚Ä¶</p>
-          </div>
-        </div>
-      </section>
-      <section class="panel" id="parentProgressPanel">
-        <p class="section-kicker">Progress</p>
-        <h2>Parent Progress + Adherence Dashboard</h2>
-        <div class="voice-controls">
-          <button id="readProgressSummaryBtn" class="btn btn-ghost" type="button">Read progress summary</button>
-          <button class="btn btn-ghost" type="button" data-program-voice-action="play" data-program-voice-scope="progressSummary">Play</button>
-          <button class="btn btn-ghost" type="button" data-program-voice-action="pause" data-program-voice-scope="progressSummary">Pause</button>
-          <button class="btn btn-ghost" type="button" data-program-voice-action="back10" data-program-voice-scope="progressSummary">Back 10s</button>
-          <button class="btn btn-ghost" type="button" data-program-voice-action="forward10" data-program-voice-scope="progressSummary">Forward 10s</button>
-        </div>
-        <div id="progressStateMessage" class="state-box">
-          <h3 class="state-title">Progress visibility status</h3>
-          <p id="progressStateCopy" class="state-line">Resolving planner-connected progress state‚Ä¶</p>
-        </div>
-        <div id="progressDataSurface">
-        <div class="progress-metrics-grid">
-          <article class="progress-metric-tile"><p class="label">Planned this week</p><p id="progressPlannedCount" class="value">0</p></article>
-          <article class="progress-metric-tile"><p class="label">Completed this week</p><p id="progressCompletedCount" class="value">0</p></article>
-          <article class="progress-metric-tile"><p class="label">In progress this week</p><p id="progressInProgressCount" class="value">0</p></article>
-          <article class="progress-metric-tile"><p class="label">Missed this week</p><p id="progressMissedCount" class="value">0</p></article>
-          <article class="progress-metric-tile"><p class="label">Current week completion</p><p id="progressCompletionPercent" class="value">0%</p></article>
-          <article class="progress-metric-tile"><p class="label">Last week completion</p><p id="progressLastWeekPercent" class="value">‚Äî</p></article>
-          <article class="progress-metric-tile"><p class="label">Week-over-week delta</p><p id="progressWowDelta" class="value">‚Äî</p></article>
-          <article class="progress-metric-tile"><p class="label">Consistency marker</p><p id="progressConsistencyMarker" class="value">‚Äî</p></article>
-        </div>
-        <div class="motivation-banner">
-          <p id="motivationSummary" class="state-line">Loading weekly momentum summary‚Ä¶</p>
-          <div id="motivationChips" class="motivation-chips">
-            <span class="motivation-chip">Completed sessions: 0</span>
-            <span class="motivation-chip">Remaining sessions: 0</span>
-          </div>
-        </div>
-        <div class="progress-wrap">
-          <p class="progress-label">Current week completion</p>
-          <div class="progress-track"><div id="completionFill" class="progress-fill"></div></div>
-        </div>
-        <p id="weekComparisonSummary" class="state-line">Week-over-week view loading‚Ä¶</p>
-        <h3 class="subsection-title">Multi-week trends/history</h3>
-        <div class="trend-history-card">
-          <div id="lastFourWeeksBars" class="trend-bars"><p class="tiny muted">Loading last 4 weeks completion bars‚Ä¶</p></div>
-          <p id="consistencyTrendSummary" class="tiny muted">Consistency trend loading‚Ä¶</p>
-          <p id="phaseProgressMarker" class="tiny muted">Phase progress marker loading‚Ä¶</p>
-        </div>
-        <ul id="weekMarkersList" class="week-markers"><li class="muted">Loading week markers‚Ä¶</li></ul>
-        <h3 class="subsection-title">Next-best-action</h3>
-        <div class="next-action-box">
-          <p id="nextBestActionCopy" class="state-line" role="status" aria-live="polite" aria-atomic="true">Determining next best action‚Ä¶</p>
-          <p id="nextBestActionBlocked" class="tiny muted" role="status" aria-live="polite" aria-atomic="true"></p>
-          <div class="next-action-controls">
-            <button id="nextBestActionBtn" class="btn btn-primary" type="button">Run Next Best Action</button>
-          </div>
-        </div>
-        </div>
-      </section>
-      
-    </main>
-    <script>
-      (async function () {
-        const query = new URLSearchParams(window.location.search);
-        const accountCtx = {
-          tenant: (query.get("tenant") || "").trim(),
-          email: (query.get("email") || "").trim().toLowerCase(),
-          child_id: (query.get("child_id") || query.get("childId") || "").trim(),
-        };
-        const hero = document.getElementById("programHero");
-        const list = document.getElementById("programStatusList");
-        const launchBtn = document.getElementById("launchBtn");
-        const dashboardBtn = document.getElementById("dashboardBtn");
-        const weekExperience = document.getElementById("weekExperience");
-        const weeklyGoals = document.getElementById("weeklyGoals");
-        const weeklyGuidance = document.getElementById("weeklyGuidance");
-        const readWeeklyGoalsBtn = document.getElementById("readWeeklyGoalsBtn");
-        const readProgramSupportBtn = document.getElementById("readProgramSupportBtn");
-        const readProgressSummaryBtn = document.getElementById("readProgressSummaryBtn");
-        const weeklyGoalsVoiceStatus = document.getElementById("weeklyGoalsVoiceStatus");
-        const programVoiceDiagnostics = document.getElementById("programVoiceDiagnostics");
-        const progressSummary = document.getElementById("progressSummary");
-        const progressFill = document.getElementById("progressFill");
-        const roadmapList = document.getElementById("roadmapList");
-        const prevWeekBtn = document.getElementById("prevWeekBtn");
-        const nextWeekBtn = document.getElementById("nextWeekBtn");
-        const sessionFlowList = document.getElementById("sessionFlowList");
-        const activityBankSurface = document.getElementById("activityBankSurface");
-        const observationSupport = document.getElementById("observationSupport");
-        const parentReflectionInput = document.getElementById("parentReflectionInput");
-        const parentObservationInput = document.getElementById("parentObservationInput");
-        const saveReflectionBtn = document.getElementById("saveReflectionBtn");
-        const saveObservationBtn = document.getElementById("saveObservationBtn");
-        const startResumeWeekBtn = document.getElementById("startResumeWeekBtn");
-        const markStepCompleteBtn = document.getElementById("markStepCompleteBtn");
-        const continueStepBtn = document.getElementById("continueStepBtn");
-        const continueNextWeekBtn = document.getElementById("continueNextWeekBtn");
-        const executionStateArea = document.getElementById("executionStateArea");
-        const nextActionArea = document.getElementById("nextActionArea");
-        const commitDaysInput = document.getElementById("commitDaysInput");
-        const commitPreferredDaysGroup = document.getElementById("commitPreferredDaysGroup");
-        const commitTimeInput = document.getElementById("commitTimeInput");
-        const commitPreferredTimeCanonicalInput = document.getElementById("commitPreferredTimeCanonicalInput");
-        const commitTimeHourInput = document.getElementById("commitTimeHourInput");
-        const commitTimeMinuteInput = document.getElementById("commitTimeMinuteInput");
-        const commitTimeMeridiemInput = document.getElementById("commitTimeMeridiemInput");
-        const commitDaysError = document.getElementById("commitDaysError");
-        const commitPreferredDaysError = document.getElementById("commitPreferredDaysError");
-        const commitTimeError = document.getElementById("commitTimeError");
-        const commitDurationInput = document.getElementById("commitDurationInput");
-        const commitDurationError = document.getElementById("commitDurationError");
-        const commitEnergyTypeInput = document.getElementById("commitEnergyTypeInput");
-        const commitEnergyError = document.getElementById("commitEnergyError");
-        const commitStartDateInput = document.getElementById("commitStartDateInput");
-        const commitStartDateError = document.getElementById("commitStartDateError");
-        const commitTimeBindingDiagnostics = document.getElementById("commitTimeBindingDiagnostics");
-        const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
-        const commitmentSaveFeedback = document.getElementById("commitmentSaveFeedback");
-        const commitmentActionTrace = document.getElementById("commitmentActionTrace");
-        const commitmentSchedulePreview = document.getElementById("commitmentSchedulePreview");
-        const commitmentSummary = document.getElementById("commitmentSummary");
-        const plannerStateCopy = document.getElementById("plannerStateCopy");
-        const plannerStateMessage = document.getElementById("plannerStateMessage");
-        const weeklyPlannerDataSurface = document.getElementById("weeklyPlannerDataSurface");
-        const lessonPlanSurface = document.getElementById("lessonPlanSurface");
-        const adherenceSummary = document.getElementById("adherenceSummary");
-        const adherenceFill = document.getElementById("adherenceFill");
-        const completionCountSummary = document.getElementById("completionCountSummary");
-        const plannerCalendarGrid = document.getElementById("plannerCalendarGrid");
-        const agendaList = document.getElementById("agendaList");
-        const markNextSessionCompleteBtn = document.getElementById("markNextSessionCompleteBtn");
-        const openNextSessionBtn = document.getElementById("openNextSessionBtn");
-        const nextScheduledSession = document.getElementById("nextScheduledSession");
-        const todaySessionCard = document.getElementById("todaySessionCard");
-        const startTodaySessionBtn = document.getElementById("startTodaySessionBtn");
-        const resumeTodaySessionBtn = document.getElementById("resumeTodaySessionBtn");
-        const viewWeeklyPlanBtn = document.getElementById("viewWeeklyPlanBtn");
-        const nextSessionCard = document.getElementById("nextSessionCard");
-        const weekAtGlanceCard = document.getElementById("weekAtGlanceCard");
-        const weekMarkerCard = document.getElementById("weekMarkerCard");
-        const progressPlannedCount = document.getElementById("progressPlannedCount");
-        const progressCompletedCount = document.getElementById("progressCompletedCount");
-        const progressInProgressCount = document.getElementById("progressInProgressCount");
-        const progressMissedCount = document.getElementById("progressMissedCount");
-        const progressCompletionPercent = document.getElementById("progressCompletionPercent");
-        const progressLastWeekPercent = document.getElementById("progressLastWeekPercent");
-        const progressWowDelta = document.getElementById("progressWowDelta");
-        const progressConsistencyMarker = document.getElementById("progressConsistencyMarker");
-        const motivationSummary = document.getElementById("motivationSummary");
-        const motivationChips = document.getElementById("motivationChips");
-        const completionFill = document.getElementById("completionFill");
-        const weekComparisonSummary = document.getElementById("weekComparisonSummary");
-        const lastFourWeeksBars = document.getElementById("lastFourWeeksBars");
-        const consistencyTrendSummary = document.getElementById("consistencyTrendSummary");
-        const phaseProgressMarker = document.getElementById("phaseProgressMarker");
-        const weekMarkersList = document.getElementById("weekMarkersList");
-        const progressStateCopy = document.getElementById("progressStateCopy");
-        const progressDataSurface = document.getElementById("progressDataSurface");
-        const nextBestActionCopy = document.getElementById("nextBestActionCopy");
-        const nextBestActionBlocked = document.getElementById("nextBestActionBlocked");
-        const nextBestActionBtn = document.getElementById("nextBestActionBtn");
-        const lessonPlanSessionHeader = document.getElementById("lessonPlanSessionHeader");
-        const lessonPlanView = document.getElementById("lessonPlanView");
-        const resumeSessionBtn = document.getElementById("resumeSessionBtn");
-        const completeSelectedSessionBtn = document.getElementById("completeSelectedSessionBtn");
-        const returnWeeklyOverviewBtn = document.getElementById("returnWeeklyOverviewBtn");
-        const todaySessionPanel = document.getElementById("todaySessionPanel");
-
-        let latestBridge = null;
-        let latestWeekPayload = null;
-        let navWeekOffset = 0;
-        let selectedSessionId = "";
-        const plannerCommitmentState = {
-          preferredTime: toCanonical12Hour(String(commitTimeInput?.value || "5:30 PM")),
-          preferredTimeDisplayed: String(commitTimeInput?.value || "5:30 PM").trim() || "5:30 PM",
-          preferredTimeValidation: "pending",
-          preferredTimeSubmitted: "pending",
-        };
-        const plannerRuntime = { handler: "saveCommitmentBtn.click", route: "/api/youth-development/program/commitment" };
-        const programVoiceState = {
-          status: "voice_unknown",
-          sectionMap: {},
-          providerAudioAvailable: false,
-          providerName: "",
-          playbackState: "ready",
-          statusDetail: "",
-          lastPlaybackMode: "none",
-        };
-        const programVoiceDiagnosticsState = {
-          route: "",
-          responsePayload: null,
-          playbackMode: "pending",
-          providerStatus: "unknown",
-          fallbackReason: "none",
-          audioSource: "unknown",
-        };
-        const programVoicePlayback = { activeAudio: null, activeScope: "", selectionByScope: {} };
-        function setButtonBusy(button, isBusy, busyLabel) {
-          if (!button) return;
-          if (!button.dataset.defaultLabel) button.dataset.defaultLabel = button.textContent;
-          button.disabled = Boolean(isBusy);
-          button.setAttribute("aria-busy", isBusy ? "true" : "false");
-          button.classList.toggle("btn-active", Boolean(isBusy));
-          button.textContent = isBusy ? String(busyLabel || "Working‚Ä¶") : String(button.dataset.defaultLabel || button.textContent);
-        }
-        async function withButtonBusy(button, busyLabel, runner) {
-          setButtonBusy(button, true, busyLabel);
-          try {
-            return await runner();
-          } finally {
-            setButtonBusy(button, false);
-          }
-        }
-        function focusLessonPlan() {
-          lessonPlanView.scrollIntoView({ behavior: "smooth", block: "start" });
-          lessonPlanView.focus({ preventScroll: true });
-        }
-
-        function esc(value) {
-          return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        }
-        function setNextActionStatus(prefix, message) {
-          nextActionArea.innerHTML = "<strong>" + esc(String(prefix || "Next action")) + ":</strong> " + esc(String(message || "Continue this week flow."));
-        }
-        const ACTION_CONFIRMATIONS = {
-          start_week: "Week started/resumed. Continue the guided flow.",
-          save_reflection: "Reflection saved.",
-          save_observation: "Observation/support note saved.",
-          mark_step_complete: "Current step marked complete.",
-          continue_to_next_step: "Moved to the next step.",
-          continue_next_week: "Advanced to the next week.",
-        };
-        function setList(items) {
-          list.innerHTML = (items || []).map((line) => '<li>' + esc(line) + '</li>').join("") || '<li class="muted">No status available.</li>';
-        }
-        function withCtx(path) {
-          const url = new URL(path, window.location.origin);
-          if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
-          if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
-          if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
-          return url.pathname + url.search;
-        }
-        function renderStateCard(title, lines, chips, nextAction) {
-          const safeLines = (lines || []).map((line) => '<p class="state-line">' + esc(line) + '</p>').join("");
-          const safeChips = (chips || []).map((chip) => '<span class="chip">' + esc(chip) + '</span>').join("");
-          weekExperience.innerHTML = [
-            '<h3 class="state-title">' + esc(title || "Week experience") + '</h3>',
-            safeLines || '<p class="state-line">No details available.</p>',
-            safeChips ? '<div class="chip-row">' + safeChips + '</div>' : "",
-            nextAction ? '<p class="state-line"><strong>Next action:</strong> ' + esc(nextAction) + '</p>' : "",
-          ].join("");
-        }
-        function setListHtml(host, items, className) {
-          host.innerHTML = (items || []).length
-            ? items.map((line) => '<li' + (className ? ' class="' + className + '"' : '') + '>' + line + '</li>').join("")
-            : '<li class="muted">No items available yet.</li>';
-        }
-        function renderPreferredDayPicker(selectedDays) {
-          const selected = new Set((selectedDays || []).map((item) => String(item || "").toLowerCase()));
-          commitPreferredDaysGroup.innerHTML = DAYS.map((day) => {
-            const label = day.slice(0, 1).toUpperCase() + day.slice(1, 3);
-            return '<label class="chip"><input type="checkbox" data-day-checkbox="' + esc(day) + '"' + (selected.has(day) ? " checked" : "") + '> ' + esc(label) + "</label>";
-          }).join("");
-        }
-        function getSelectedPreferredDays() {
-          return Array.from(commitPreferredDaysGroup.querySelectorAll("input[data-day-checkbox]:checked"))
-            .map((node) => String(node.getAttribute("data-day-checkbox") || "").toLowerCase())
-            .filter(Boolean);
-        }
-        function setPlannerFieldErrors(errorMap) {
-          commitDaysError.textContent = errorMap.weekly_frequency || "";
-          commitPreferredDaysError.textContent = errorMap.preferred_days || "";
-          commitTimeError.textContent = errorMap.preferred_time || "";
-          commitDurationError.textContent = errorMap.session_length || "";
-          commitEnergyError.textContent = errorMap.energy_type || "";
-          commitStartDateError.textContent = errorMap.start_date || "";
-        }
-        function toFieldErrorMap(errors) {
-          const map = {};
-          (errors || []).forEach((entry) => {
-            const token = String(entry || "").toLowerCase();
-            if (token.includes("weekly_frequency")) map.weekly_frequency = "Select a weekly frequency between 2 and 5 sessions.";
-            else if (token.includes("preferred_days")) map.preferred_days = "Select at least one preferred day before saving.";
-            else if (token.includes("preferred_time")) map.preferred_time = "Preferred time is optional; if provided, use a valid time like 5:30 PM.";
-            else if (token.includes("session_length")) map.session_length = "Select a valid session length (15, 30, or 45 minutes).";
-            else if (token.includes("energy_type")) map.energy_type = "Select calm, balanced, or high-energy.";
-            else if (token.includes("start_date")) map.start_date = "Choose a valid start date.";
-          });
-          return map;
-        }
-        function syncPreferredTimeState() {
-          const hour = String(commitTimeHourInput?.value || "").trim();
-          const minute = String(commitTimeMinuteInput?.value || "").trim();
-          const meridiem = String(commitTimeMeridiemInput?.value || "").trim().toUpperCase();
-          const hasFullTimeSelection = hour && minute && (meridiem === "AM" || meridiem === "PM");
-          const displayValue = hasFullTimeSelection ? (hour + ":" + minute + " " + meridiem) : "none_selected";
-          const composed = hasFullTimeSelection
-            ? (hour + ":" + minute + " " + meridiem)
-            : String(commitTimeInput.value || "").trim();
-          plannerCommitmentState.preferredTime = toCanonical12Hour(composed);
-          plannerCommitmentState.preferredTimeDisplayed = displayValue;
-          commitTimeInput.value = plannerCommitmentState.preferredTime;
-          if (commitPreferredTimeCanonicalInput) commitPreferredTimeCanonicalInput.value = plannerCommitmentState.preferredTime;
-          updatePreferredTimeDiagnostics();
-        }
-        function updatePreferredTimeDiagnostics(partial) {
-          Object.assign(plannerCommitmentState, partial || {});
-          if (!commitTimeBindingDiagnostics) return;
-          const displayed = String(plannerCommitmentState.preferredTimeDisplayed || "none_selected").trim() || "none_selected";
-          const canonical = String(plannerCommitmentState.preferredTime || "").trim() || "none_selected";
-          const validation = String(plannerCommitmentState.preferredTimeValidation || "pending").trim() || "pending";
-          const submitted = String(plannerCommitmentState.preferredTimeSubmitted || "pending").trim() || "pending";
-          commitTimeBindingDiagnostics.textContent = "Preferred time diagnostics: displayed " + displayed
-            + " ¬∑ canonical " + canonical
-            + " ¬∑ validation " + validation
-            + " ¬∑ submitted " + submitted + ".";
-        }
-        function syncPreferredTimePickerFromValue(value) {
-          const canonical = toCanonical12Hour(String(value || "").trim());
-          const parsed = parse12HourTime(canonical);
-          if (!parsed) {
-            if (commitTimeHourInput) commitTimeHourInput.value = "";
-            if (commitTimeMinuteInput) commitTimeMinuteInput.value = "";
-            if (commitTimeMeridiemInput) commitTimeMeridiemInput.value = "";
-            return;
-          }
-          const [hourPart, minuteSuffix] = parsed.canonical.split(":");
-          const minuteParts = String(minuteSuffix || "").split(" ");
-          if (commitTimeHourInput) commitTimeHourInput.value = String(hourPart || "");
-          if (commitTimeMinuteInput) commitTimeMinuteInput.value = String(minuteParts[0] || "");
-          if (commitTimeMeridiemInput) commitTimeMeridiemInput.value = String(minuteParts[1] || "").toUpperCase();
-        }
-        function safePlayText(text) {
-          const spoken = String(text || "").trim();
-          const speech = typeof window !== "undefined" ? window.speechSynthesis : null;
-          if (!spoken || !speech || typeof window.SpeechSynthesisUtterance !== "function") return false;
-          try {
-            speech.cancel();
-            speech.speak(new window.SpeechSynthesisUtterance(spoken));
-            return true;
-          } catch (_err) {
-            return false;
-          }
-        }
-        async function resolveProgramProviderAudioUrl(providerAudio) {
-          const audioUrl = String(providerAudio?.audioUrl || "").trim();
-          if (audioUrl) return audioUrl;
-          const assetRef = String(providerAudio?.assetRef || "").trim();
-          if (!assetRef) return "";
-          if (assetRef.toLowerCase().startsWith("http://") || assetRef.toLowerCase().startsWith("https://")) return assetRef;
-          const endpoint = "/api/youth-development/voice/assets/resolve?child_id=" + encodeURIComponent(String(accountCtx.child_id || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
-          const response = await fetch(endpoint);
-          const payload = response.ok ? await response.json().catch(() => null) : null;
-          return String(payload?.audio_url || "").trim();
-        }
-        async function safePlayProviderAudio(providerAudio) {
-          const src = await resolveProgramProviderAudioUrl(providerAudio);
-          if (!src) return false;
-          try {
-            if (programVoicePlayback.activeAudio && typeof programVoicePlayback.activeAudio.pause === "function") {
-              programVoicePlayback.activeAudio.pause();
-              programVoicePlayback.activeAudio.currentTime = 0;
-            }
-            const audio = new Audio(src);
-            programVoicePlayback.activeAudio = audio;
-            await audio.play();
-            return true;
-          } catch (_err) {
-            return false;
-          }
-        }
-        function getProgramProviderAudio(section) {
-          const chunks = Array.isArray(section?.chunks) ? section.chunks : [];
-          const providerChunk = chunks.find((chunk) => {
-            const provider = String(chunk?.provider || chunk?.provider_name || "").toLowerCase();
-            return (typeof chunk?.audio_url === "string"
-              && chunk.audio_url.trim().length > 0
-              || typeof chunk?.asset_ref === "string"
-              && chunk.asset_ref.trim().length > 0)
-              && String(chunk?.provider_status || "").toLowerCase() === "available"
-              && provider.includes("openai");
-          });
-          return providerChunk ? {
-            audioUrl: String(providerChunk.audio_url || "").trim(),
-            assetRef: String(providerChunk.asset_ref || "").trim(),
-            providerName: String(providerChunk.provider || providerChunk.provider_name || "openai-via-gateway").trim(),
-          } : null;
-        }
-        function updateProgramVoiceDiagnostics(partial) {
-          Object.assign(programVoiceDiagnosticsState, partial || {});
-          if (programVoiceDiagnostics) {
-            programVoiceDiagnostics.textContent = "voice_mode: " + String(programVoiceDiagnosticsState.playbackMode || "pending")
-              + " ¬∑ provider_status: " + String(programVoiceDiagnosticsState.providerStatus || "unknown")
-              + " ¬∑ fallback_reason: " + String(programVoiceDiagnosticsState.fallbackReason || "none")
-              + " ¬∑ audio_source: " + String(programVoiceDiagnosticsState.audioSource || "unknown");
-          }
-          if (typeof window !== "undefined") {
-            window.__programVoiceRuntimeDiagnostics = {
-              route_called: programVoiceDiagnosticsState.route || null,
-              response_payload: programVoiceDiagnosticsState.responsePayload || null,
-              playback_mode: programVoiceDiagnosticsState.playbackMode || null,
-              provider_status: programVoiceDiagnosticsState.providerStatus || null,
-              fallback_reason: programVoiceDiagnosticsState.fallbackReason || null,
-              audio_source: programVoiceDiagnosticsState.audioSource || null,
-            };
-          }
-        }
-        function updateProgramVoiceStatus(messageOverride) {
-          if (!weeklyGoalsVoiceStatus) return;
-          if (messageOverride) {
-            weeklyGoalsVoiceStatus.textContent = messageOverride;
-            return;
-          }
-          if (programVoiceState.playbackState === "playing" && programVoiceState.lastPlaybackMode === "provider") {
-            weeklyGoalsVoiceStatus.textContent = "playing AI voice (OpenAI gateway audio).";
-            return;
-          }
-          if (programVoiceState.playbackState === "paused" && programVoiceState.lastPlaybackMode === "provider") {
-            weeklyGoalsVoiceStatus.textContent = "paused AI voice.";
-            return;
-          }
-          if (programVoiceState.playbackState === "playing" && programVoiceState.lastPlaybackMode === "fallback_tts") {
-            weeklyGoalsVoiceStatus.textContent = "AI voice unavailable, using fallback browser speech.";
-            return;
-          }
-          if (programVoiceState.playbackState === "failed") {
-            weeklyGoalsVoiceStatus.textContent = programVoiceState.statusDetail || "AI voice playback failed.";
-            return;
-          }
-          if (programVoiceState.providerAudioAvailable) {
-            weeklyGoalsVoiceStatus.textContent = "AI voice ready (OpenAI gateway audio available).";
-            return;
-          }
-          if (programVoiceState.status === "voice_unavailable" || programVoiceState.status === "voice_temporarily_unavailable" || programVoiceState.status === "voice_fallback_active") {
-            weeklyGoalsVoiceStatus.textContent = "AI voice unavailable, using text-to-speech fallback when supported.";
-            return;
-          }
-          weeklyGoalsVoiceStatus.textContent = "AI voice status pending. Text remains readable.";
-        }
-        async function loadProgramVoiceStatus() {
-          const childId = String(accountCtx.child_id || "").trim();
-          if (!childId || !weeklyGoalsVoiceStatus) return;
-          try {
-            const endpoint = "/api/youth-development/voice/sections/" + encodeURIComponent(childId);
-            const response = await fetch(endpoint);
-            const payload = response.ok ? await response.json().catch(() => null) : null;
-            console.info("[program-voice-debug] sections_response", {
-              endpoint,
-              status: response.status,
-              ok: Boolean(payload && payload.ok === true),
-              child_id: childId,
-              section_count: Array.isArray(payload?.sections) ? payload.sections.length : 0,
-            });
-            const status = payload && payload.ok === true
-              ? String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown")
-              : "voice_unavailable";
-            const map = payload && payload.ok === true && Array.isArray(payload.sections)
-              ? payload.sections.reduce((acc, item) => {
-                  const key = String(item.section_key || "").trim();
-                  if (key) acc[key] = item;
-                  return acc;
-                }, {})
-              : {};
-            programVoiceState.status = status;
-            programVoiceState.sectionMap = map;
-            const fallbackChunk = Object.values(map).flatMap((entry) => Array.isArray(entry?.chunks) ? entry.chunks : []).find((chunk) => String(chunk?.provider_status || "").toLowerCase() !== "available");
-            const providerAudio = Object.values(map).map((entry) => getProgramProviderAudio(entry)).find(Boolean) || null;
-            programVoiceState.providerAudioAvailable = Boolean(providerAudio && (providerAudio.audioUrl || providerAudio.assetRef));
-            programVoiceState.providerName = providerAudio ? providerAudio.providerName : "";
-            programVoiceState.playbackState = "ready";
-            programVoiceState.statusDetail = "";
-            programVoiceState.lastPlaybackMode = "none";
-            updateProgramVoiceDiagnostics({
-              route: endpoint,
-              responsePayload: payload,
-              playbackMode: "pending",
-              providerStatus: providerAudio ? "available" : String(fallbackChunk?.provider_status || status || "unknown"),
-              fallbackReason: String(fallbackChunk?.fallback_reason || "none"),
-              audioSource: providerAudio ? "provider_audio_candidate" : "browser_speech_candidate",
-            });
-            updateProgramVoiceStatus();
-          } catch (_err) {
-            programVoiceState.status = "voice_unavailable";
-            programVoiceState.sectionMap = {};
-            programVoiceState.providerAudioAvailable = false;
-            programVoiceState.providerName = "";
-            programVoiceState.lastPlaybackMode = "none";
-            updateProgramVoiceDiagnostics({
-              route: "/api/youth-development/voice/sections/" + encodeURIComponent(childId),
-              responsePayload: null,
-              playbackMode: "fallback_browser_speech",
-              providerStatus: "voice_unavailable",
-              fallbackReason: "voice_sections_fetch_failed",
-              audioSource: "browser_speech",
-            });
-            updateProgramVoiceStatus();
-          }
-        }
-        function getProgramVoiceSelection(keys, fallbackText) {
-          const map = programVoiceState.sectionMap || {};
-          const candidates = Array.isArray(keys) ? keys : [];
-          for (const key of candidates) {
-            const providerAudio = getProgramProviderAudio(map[key]);
-            if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
-              const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-              return { text, providerAudio, source: "provider" };
-            }
-          }
-          for (const key of candidates) {
-            const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-            if (text) return { text, audioUrl: "", source: "fallback_tts" };
-          }
-          return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
-        }
-        async function playProgramVoiceSelection(selection, fallbackFailureMessage) {
-          console.info("[program-voice-debug] playback_attempt", {
-            scope: programVoicePlayback.activeScope || null,
-            selection_source: selection?.source || null,
-            provider_audio_candidate: Boolean(selection?.providerAudio),
-            text_length: String(selection?.text || "").trim().length,
-          });
-          const providerFromSpeak = await requestProgramProviderAudio(selection?.text, programVoicePlayback.activeScope || "program_section");
-          if (providerFromSpeak) selection.providerAudio = providerFromSpeak;
-          if (selection.providerAudio) {
-            const providerPlayed = await safePlayProviderAudio(selection.providerAudio);
-            if (providerPlayed) {
-              programVoiceState.lastPlaybackMode = "provider";
-              programVoiceState.playbackState = "playing";
-              programVoiceState.statusDetail = "";
-              updateProgramVoiceDiagnostics({
-                playbackMode: "provider_audio",
-                providerStatus: "available",
-                fallbackReason: "none",
-                audioSource: "direct_provider_audio",
-              });
-              console.info("[program-voice-debug] playback_result", {
-                playback_mode: "provider_audio",
-                provider_status: "available",
-                fallback_reason: null,
-              });
-              updateProgramVoiceStatus();
-              return true;
-            }
-            updateProgramVoiceDiagnostics({
-              playbackMode: "fallback_browser_speech",
-              providerStatus: "fallback_active",
-              fallbackReason: "provider_audio_playback_failed",
-              audioSource: "browser_speech",
-            });
-            console.info("[program-voice-debug] playback_result", {
-              playback_mode: "fallback_browser_speech",
-              provider_status: "fallback_active",
-              fallback_reason: "provider_audio_playback_failed",
-            });
-          }
-          if (safePlayText(selection.text)) {
-            programVoiceState.lastPlaybackMode = "fallback_tts";
-            programVoiceState.playbackState = "playing";
-            programVoiceState.statusDetail = "AI voice unavailable, using fallback browser speech.";
-            updateProgramVoiceDiagnostics({
-              playbackMode: "fallback_browser_speech",
-              providerStatus: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
-              fallbackReason: selection.providerAudio ? "provider_audio_playback_failed" : "provider_audio_unavailable",
-              audioSource: "browser_speech",
-            });
-            console.info("[program-voice-debug] playback_result", {
-              playback_mode: "fallback_browser_speech",
-              provider_status: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
-              fallback_reason: selection.providerAudio ? "provider_audio_playback_failed" : "provider_audio_unavailable",
-            });
-            updateProgramVoiceStatus();
-            return true;
-          }
-          programVoiceState.lastPlaybackMode = "none";
-          programVoiceState.playbackState = "failed";
-          programVoiceState.statusDetail = "AI voice playback failed; fallback browser speech unavailable.";
-          updateProgramVoiceDiagnostics({
-            playbackMode: "unavailable",
-            providerStatus: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
-            fallbackReason: "browser_speech_unavailable",
-            audioSource: "none",
-          });
-          console.info("[program-voice-debug] playback_result", {
-            playback_mode: "unavailable",
-            provider_status: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
-            fallback_reason: "browser_speech_unavailable",
-          });
-          updateProgramVoiceStatus(fallbackFailureMessage || "Read-aloud unavailable in this browser. Text remains visible.");
-          return false;
-        }
-        function parse12HourTime(time12) {
-          const raw = String(time12 || "").trim();
-          const match = raw.match(/^([1-9]|1[0-2]):([0-5]\d)\s*(AM|PM)$/i);
-          if (!match) return null;
-          const hour12 = Number(match[1]);
-          const minute = Number(match[2]);
-          const suffix = String(match[3] || "").toUpperCase();
-          let hour24 = hour12 % 12;
-          if (suffix === "PM") hour24 += 12;
-          return { hour24, minute, canonical: hour12 + ":" + String(minute).padStart(2, "0") + " " + suffix };
-        }
-        function toCanonical12Hour(value) {
-          const raw = String(value || "").trim();
-          const from12 = parse12HourTime(raw);
-          if (from12) return from12.canonical;
-          const match24 = raw.match(/^([01]\d|2[0-3]):([0-5]\d)(?::[0-5]\d)?$/);
-          if (!match24) return raw;
-          const hour24 = Number(match24[1]);
-          const minute = Number(match24[2]);
-          const suffix = hour24 >= 12 ? "PM" : "AM";
-          const hour12 = hour24 % 12 || 12;
-          return hour12 + ":" + String(minute).padStart(2, "0") + " " + suffix;
-        }
-        function validateCommitmentFormInputs() {
-          const preferredDays = getSelectedPreferredDays();
-          const weeklyFrequency = Number(commitDaysInput.value || preferredDays.length || 3);
-          syncPreferredTimeState();
-          const preferredTimeRaw = String(commitTimeInput.value || "").trim();
-          const preferredTime = String(plannerCommitmentState.preferredTime || toCanonical12Hour(preferredTimeRaw)).trim();
-          const sessionLength = Number(commitDurationInput.value || 0);
-          const startDateRaw = String(commitStartDateInput.value || "").trim();
-          const startDate = startDateRaw || new Date().toISOString().slice(0, 10);
-          const errors = [];
-          const fieldErrors = {};
-          if (!Number.isInteger(weeklyFrequency) || weeklyFrequency < 2 || weeklyFrequency > 5) {
-            errors.push("Select a weekly frequency between 2 and 5 sessions.");
-            fieldErrors.weekly_frequency = "Select a weekly frequency between 2 and 5 sessions.";
-          }
-          if (!Array.isArray(preferredDays) || preferredDays.length < 1) {
-            errors.push("Select at least one preferred day before saving.");
-            fieldErrors.preferred_days = "Select at least one preferred day before saving.";
-          }
-          if (preferredTime && !parse12HourTime(preferredTime)) {
-            errors.push("Preferred time is optional; if provided, use a valid time like 5:30 PM.");
-            fieldErrors.preferred_time = "Preferred time is optional; if provided, use a valid time like 5:30 PM.";
-          }
-          updatePreferredTimeDiagnostics({
-            preferredTimeValidation: preferredTime ? (parse12HourTime(preferredTime) ? preferredTime : "invalid") : "optional_blank",
-          });
-          if (![15, 30, 45].includes(sessionLength)) {
-            errors.push("Select a valid session length (15, 30, or 45 minutes).");
-            fieldErrors.session_length = "Select a valid session length (15, 30, or 45 minutes).";
-          }
-          const parsedDate = new Date(startDate + "T00:00:00.000Z");
-          const dateLooksValid = Number.isFinite(parsedDate.getTime()) && parsedDate.toISOString().slice(0, 10) === startDate;
-          if (!dateLooksValid) {
-            errors.push("Choose a valid start date.");
-            fieldErrors.start_date = "Choose a valid start date.";
-          }
-          console.info("[planner-commitment-debug] validateCommitmentFormInputs", {
-            preferred_time_ui_raw: preferredTimeRaw,
-            preferred_time_ui_canonical: preferredTime,
-            preferred_time_ui_valid: Boolean(parse12HourTime(preferredTime)),
-          });
-          return { ok: errors.length === 0, errors, fieldErrors, weeklyFrequency, preferredDays, preferredTime, sessionLength, startDate };
-        }
-        function renderCommitmentSchedulePreview(sessions) {
-          const rows = Array.isArray(sessions) ? sessions : [];
-          commitmentSchedulePreview.innerHTML = rows.length
-            ? rows.map((entry) => "<li><strong>" + esc(String(entry.day_label || entry.day || "Session")) + "</strong> @ " + esc(to12Hour(entry.time || "")) + "</li>").join("")
-            : '<li class="muted">No sessions generated yet.</li>';
-        }
-        function plannerSetupComplete(week) {
-          const commitment = week.commitment_plan || {};
-          const frequency = Number(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 0);
-          const preferredDays = Array.isArray(commitment.preferred_days) ? commitment.preferred_days : [];
-          const preferredTime = String(commitment.preferred_time || commitment.preferred_time_window || "").trim();
-          const sessionLength = Number(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 0);
-          const energyType = String(commitment.energy_type || "").trim().toLowerCase();
-          const preferredTimeValid = !preferredTime || Boolean(parse12HourTime(preferredTime));
-          return frequency >= 2 && frequency <= 5 && preferredDays.length > 0 && preferredTimeValid
-            && [15, 30, 45].includes(sessionLength) && ["calm", "balanced", "high-energy"].includes(energyType);
-        }
-        function derivePlannerSurfaceState(week, planner, executionState) {
-          const fallbackSetupComplete = plannerSetupComplete(week);
-          const scheduledCount = Array.isArray(planner?.scheduled) ? planner.scheduled.length : 0;
-          const weekStatus = String(executionState?.week_status || "").toLowerCase();
-          const apiState = week && week.planner_surface_state && typeof week.planner_surface_state === "object"
-            ? week.planner_surface_state
-            : null;
-          const state = String(apiState?.state || (fallbackSetupComplete
-            ? (scheduledCount > 0 ? (weekStatus === "in_progress" ? "execution_in_progress" : "setup_complete_with_sessions") : "no_sessions_yet")
-            : "setup_required"));
-          const messageByState = {
-            setup_required: "Build Your Weekly Plan to unlock today/next sessions, planner calendar, and adherence progress.",
-            setup_complete_generating_sessions: "Weekly setup is complete. Sessions are being generated now.",
-            no_sessions_yet: "Commitment is saved but this week has no scheduled sessions yet. Re-save Build Your Weekly Plan to regenerate sessions.",
-            setup_complete_with_sessions: "Planner setup complete. Today/next sessions, calendar, and progress are active.",
-            execution_in_progress: "Execution is in progress. Sessions, lesson plan, and progress are active.",
-          };
-          return {
-            state,
-            setupComplete: state !== "setup_required",
-            hasSessions: state === "setup_complete_with_sessions" || state === "execution_in_progress",
-            message: String(apiState?.message || messageByState[state] || messageByState.setup_required),
-          };
-        }
-        function applyPlannerVisibility(plannerState, week) {
-          const state = String(plannerState?.state || "setup_required");
-          const hasSessions = plannerState?.hasSessions === true;
-          const showingWeek = Number(week?.week_number || latestWeekPayload?.current_week || 1);
-          const recoveryPrefix = "Week " + String(showingWeek) + " is active in program progression, but planner setup is not complete.";
-          todaySessionPanel.classList.toggle("is-hidden", !hasSessions);
-          weeklyPlannerDataSurface.classList.toggle("is-hidden", !hasSessions);
-          lessonPlanSurface.classList.toggle("is-hidden", !hasSessions);
-          progressDataSurface.classList.toggle("is-hidden", !hasSessions);
-          plannerStateMessage.classList.remove("is-hidden");
-          if (state === "setup_required") {
-            plannerStateCopy.textContent = recoveryPrefix + " Complete Build Your Weekly Plan to enable sessions and adherence tracking.";
-            progressStateCopy.textContent = "Progress metrics are hidden until commitment + scheduled sessions exist.";
-            return;
-          }
-          if (state === "setup_complete_generating_sessions") {
-            plannerStateCopy.textContent = "Weekly setup is complete. Sessions are currently being generated.";
-            progressStateCopy.textContent = "Progress metrics appear as soon as the first session is generated.";
-            return;
-          }
-          if (state === "no_sessions_yet") {
-            plannerStateCopy.textContent = "Planner setup exists but no sessions were generated for this week. Re-save Build Your Weekly Plan to recover schedule generation.";
-            progressStateCopy.textContent = "Progress metrics are hidden until at least one scheduled session exists.";
-            return;
-          }
-          plannerStateCopy.textContent = String(plannerState?.message || "Planner setup complete and schedule loaded.");
-          progressStateCopy.textContent = "Planner-connected progress metrics are active for this week.";
-        }
-        function renderActivityCard(title, activity) {
-          if (!activity) return '<div class="activity-card"><h4>' + esc(title) + '</h4><p class="tiny">No mapped activity selected yet.</p></div>';
-          const variations = Array.isArray(activity.available_variations) ? activity.available_variations : [];
-          return [
-            '<div class="activity-card">',
-            '<h4>' + esc(title + ": " + activity.title) + '</h4>',
-            '<p class="tiny">' + esc(activity.description || "No description available.") + '</p>',
-            '<p class="tiny"><strong>Subcategory:</strong> ' + esc(activity.subcategory || "n/a") + '</p>',
-            '<p class="tiny"><strong>Duration:</strong> ' + esc((activity.estimated_duration || 0) + " min") + '</p>',
-            '<p class="tiny"><strong>Materials:</strong> ' + esc((activity.materials_needed || []).join(", ") || "None") + '</p>',
-            variations.length
-              ? '<p class="tiny"><strong>Variation options:</strong> ' + esc(variations.map((item) => item.variation_level + " ¬∑ " + item.variation_type).join(" | ")) + '</p>'
-              : '<p class="tiny"><strong>Variation options:</strong> none</p>',
-            '</div>',
-          ].join("");
-        }
-        function renderAlternativeOptions(title, options) {
-          const rows = Array.isArray(options) ? options : [];
-          const primaryRows = rows.slice(0, 2);
-          const overflowRows = rows.slice(2);
-          return [
-            '<div class="activity-card"><h4>' + esc(title) + '</h4>',
-            primaryRows.length
-              ? '<ul class="tiny">' + primaryRows.map((item) => '<li>' + esc(item.title || item.activity_id || "Alternative") + ' <span class="muted">(' + esc(item.subcategory || "n/a") + ')</span></li>').join("") + '</ul>'
-              : '<p class="tiny">No alternatives available.</p>',
-            overflowRows.length
-              ? '<details class="tiny"><summary>View More Options</summary><ul class="tiny">' + overflowRows.map((item) => '<li>' + esc(item.title || item.activity_id || "Alternative") + ' <span class="muted">(' + esc(item.subcategory || "n/a") + ')</span></li>').join("") + "</ul></details>"
-              : "",
-            '</div>',
-          ].join("");
-        }
-        function to12Hour(time24) {
-          const raw = String(time24 || "").trim();
-          const canonical = toCanonical12Hour(raw);
-          return parse12HourTime(canonical) ? canonical : (raw || "TBD");
-        }
-        function addMinutesToTime(time24, minutesToAdd) {
-          const raw = String(time24 || "").trim();
-          const parts = raw.split(":");
-          if (parts.length < 2) return "TBD";
-          const hour = Number(parts[0]);
-          const minute = Number(parts[1]);
-          if (!Number.isFinite(hour) || !Number.isFinite(minute)) return "TBD";
-          const total = ((hour * 60) + minute + Number(minutesToAdd || 0) + 1440) % 1440;
-          const outHour = Math.floor(total / 60);
-          const outMin = total % 60;
-          return to12Hour(String(outHour).padStart(2, "0") + ":" + String(outMin).padStart(2, "0"));
-        }
-        function normalizeSessionStatus(entry, todayName) {
-          const explicit = String(entry.status || "").toLowerCase();
-          if (explicit === "completed") return "completed";
-          if (explicit === "in_progress") return "in_progress";
-          if (explicit === "planned") {
-            if (String(entry.day || "").toLowerCase() === String(todayName || "").toLowerCase() && explicit !== "completed") return "in_progress";
-            return "planned";
-          }
-          return "missed";
-        }
-        function dayOrder(dayName) {
-          const idx = DAYS.indexOf(String(dayName || "").toLowerCase());
-          return idx >= 0 ? idx : 99;
-        }
-        function buildPlannerModel(week) {
-          const scheduledRaw = Array.isArray(week.scheduled_sessions) ? week.scheduled_sessions : [];
-          const commitment = week.commitment_plan || {};
-          const accountability = week.accountability || {};
-          const now = new Date();
-          const todayName = DAYS[now.getUTCDay() === 0 ? 6 : now.getUTCDay() - 1];
-          const duration = Number(commitment.session_duration_minutes || commitment.target_session_length || 30);
-          const scheduled = scheduledRaw
-            .map((entry) => ({ ...entry, normalized_status: normalizeSessionStatus(entry, todayName) }))
-            .sort((a, b) => dayOrder(a.day) - dayOrder(b.day));
-          const todaySession = scheduled.find((entry) => String(entry.day || "").toLowerCase() === todayName) || null;
-          const nextSession = scheduled.find((entry) => entry.normalized_status === "planned" || entry.normalized_status === "in_progress") || null;
-          const completedCount = scheduled.filter((entry) => entry.normalized_status === "completed").length;
-          const plannedCount = scheduled.length;
-          const adherenceRatio = plannedCount > 0 ? completedCount / plannedCount : Number(accountability.consistency_ratio || 0);
-          return {
-            scheduled,
-            duration,
-            todaySession,
-            nextSession,
-            completedCount,
-            plannedCount,
-            adherenceRatio: Math.max(0, Math.min(1, Number(adherenceRatio || 0))),
-            accountability,
-          };
-        }
-        function describeTrend(currentPct, lastPct) {
-          if (!Number.isFinite(lastPct)) return "No last-week comparison available yet.";
-          const delta = Number((currentPct - lastPct).toFixed(1));
-          if (Math.abs(delta) < 0.1) return "On pace with last week (" + String(lastPct.toFixed(1)) + "%).";
-          return delta > 0
-            ? "Up " + String(delta.toFixed(1)) + " points vs last week (" + String(lastPct.toFixed(1)) + "% ‚Üí " + String(currentPct.toFixed(1)) + "%)."
-            : "Down " + String(Math.abs(delta).toFixed(1)) + " points vs last week (" + String(lastPct.toFixed(1)) + "% ‚Üí " + String(currentPct.toFixed(1)) + "%).";
-        }
-        function renderMultiWeekBars(accountability) {
-          const trend = accountability?.trend_history?.weeks;
-          if (!Array.isArray(trend) || trend.length === 0) {
-            lastFourWeeksBars.innerHTML = '<p class="tiny muted">Last 4 weeks completion bars unavailable yet.</p>';
-            consistencyTrendSummary.textContent = "Consistency trend unavailable.";
-            return;
-          }
-          const bars = trend.map((row) => {
-            const percent = Math.max(0, Math.min(100, Number(row.completion_percent || 0)));
-            return [
-              '<div class="trend-bar-row">',
-              '<p class="trend-bar-label"><span>Week ' + esc(String(row.week_number)) + '</span><span>' + esc(String(row.consistency_marker || "early")) + '</span></p>',
-              '<div class="trend-bar-track" role="img" aria-label="Week ' + esc(String(row.week_number)) + ' completion ' + esc(String(percent.toFixed(1))) + ' percent">',
-              '<div class="trend-bar-fill" style="width:' + esc(String(percent.toFixed(1))) + '%;"></div>',
-              '<span class="trend-bar-fill-label">' + esc(String(percent.toFixed(1))) + '%</span>',
-              '</div>',
-              '</div>',
-            ].join("");
-          });
-          lastFourWeeksBars.innerHTML = bars.join("");
-          const consistencyPath = trend.map((row) => "W" + String(row.week_number) + ":" + String(row.consistency_marker || "early")).join(" ‚Üí ");
-          consistencyTrendSummary.textContent = "Consistency trend: " + consistencyPath;
-        }
-        function renderProgressDashboard(week, planner, executionState, plannerState) {
-          if (!plannerState || plannerState.hasSessions !== true) {
-            progressPlannedCount.textContent = "‚Äî";
-            progressCompletedCount.textContent = "‚Äî";
-            progressInProgressCount.textContent = "‚Äî";
-            progressMissedCount.textContent = "‚Äî";
-            progressCompletionPercent.textContent = "‚Äî";
-            progressLastWeekPercent.textContent = "‚Äî";
-            progressWowDelta.textContent = "‚Äî";
-            progressConsistencyMarker.textContent = "‚Äî";
-            completionFill.style.width = "0%";
-            weekComparisonSummary.textContent = "Week-over-week view unavailable until sessions are scheduled.";
-            motivationSummary.textContent = "Build and load scheduled sessions to unlock adherence and momentum analytics.";
-            motivationChips.innerHTML = [
-              '<span class="motivation-chip">Completed sessions: ‚Äî</span>',
-              '<span class="motivation-chip">Remaining sessions: ‚Äî</span>',
-            ].join("");
-            lastFourWeeksBars.innerHTML = '<p class="tiny muted">Trend bars activate after sessions are scheduled.</p>';
-            consistencyTrendSummary.textContent = "Consistency trend unavailable until sessions are scheduled.";
-            phaseProgressMarker.textContent = "Phase progress marker will align with schedule-backed execution once sessions exist.";
-            weekMarkersList.innerHTML = '<li class="muted">Week markers unavailable until sessions are scheduled.</li>';
-            return;
-          }
-          const scheduled = Array.isArray(planner.scheduled) ? planner.scheduled : [];
-          const completed = scheduled.filter((entry) => entry.normalized_status === "completed").length;
-          const inProgress = scheduled.filter((entry) => entry.normalized_status === "in_progress").length;
-          const missed = scheduled.filter((entry) => entry.normalized_status === "missed").length;
-          const planned = scheduled.length;
-          const completionPct = planned > 0 ? Number(((completed / planned) * 100).toFixed(1)) : 0;
-          const accountability = planner.accountability || {};
-          const consistency = String(accountability.consistency_label || "forming");
-          const wow = accountability.week_over_week || {};
-          const lastWeekPct = Number(wow.prior_week_completion_percent ?? accountability.last_week_completion_percent);
-          const wowDelta = Number(wow.delta_points);
-          const phaseWeek = Number(week.week_number || 1);
-          const phaseIndex = ((phaseWeek - 1) % 12) + 1;
-          const streakContract = accountability.streak_contract || {};
-          const streakWeeks = Number(streakContract.current_streak_weeks || accountability.current_streak_weeks || accountability.consistency_streak_weeks || 0);
-          progressPlannedCount.textContent = String(planned);
-          progressCompletedCount.textContent = String(completed);
-          progressInProgressCount.textContent = String(inProgress);
-          progressMissedCount.textContent = String(missed);
-          progressCompletionPercent.textContent = String(completionPct.toFixed(1)) + "%";
-          progressLastWeekPercent.textContent = Number.isFinite(lastWeekPct) ? String(lastWeekPct.toFixed(1)) + "%" : "‚Äî";
-          progressWowDelta.textContent = wow.comparison_available && Number.isFinite(wowDelta)
-            ? ((wowDelta > 0 ? "+" : "") + String(wowDelta.toFixed(1)) + " pts")
-            : "‚Äî";
-          progressConsistencyMarker.textContent = consistency;
-          completionFill.style.width = String(Math.max(0, Math.min(100, completionPct))) + "%";
-          if (motivationSummary) {
-            const remaining = Math.max(0, planned - completed);
-            const completionLine = "You completed " + String(completed) + " of " + String(planned) + " sessions this week.";
-            const unlockLine = remaining <= 0
-              ? "This week is complete and next week is ready."
-              : (remaining === 1
-                ? "One more session unlocks next week momentum."
-                : String(remaining) + " more sessions keep this week on track for next week unlock.");
-            const streakLine = streakWeeks > 0
-              ? "You‚Äôre building consistency with a " + String(streakWeeks) + "-week streak."
-              : "You‚Äôre building consistency by showing up this week.";
-            motivationSummary.textContent = [completionLine, unlockLine, streakLine].join(" ");
-            if (motivationChips) {
-              const chips = [
-                "Completed sessions: " + String(completed),
-                "Remaining sessions: " + String(remaining),
-              ];
-              if (streakWeeks > 0) chips.push("Streak: " + String(streakWeeks) + " week" + (streakWeeks === 1 ? "" : "s"));
-              motivationChips.innerHTML = chips.map((chip) => '<span class="motivation-chip">' + esc(chip) + '</span>').join("");
-            }
-          }
-          weekComparisonSummary.textContent = wow.comparison_available
-            ? describeTrend(Number(wow.current_week_completion_percent || completionPct), Number(wow.prior_week_completion_percent))
-            : describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN);
-          renderMultiWeekBars(accountability);
-          const phaseMarker = accountability.phase_progress_marker || {};
-          phaseProgressMarker.textContent = phaseMarker.interpretation
-            ? "Phase marker: " + String(phaseMarker.interpretation)
-            : "Phase marker: week " + String(phaseIndex) + " of 12 in current phase.";
-          const markers = [
-            "Week " + String(phaseWeek) + " completion: " + String(completionPct.toFixed(1)) + "%",
-            "Week-over-week: " + (wow.comparison_available
-              ? describeTrend(Number(wow.current_week_completion_percent || completionPct), Number(wow.prior_week_completion_percent))
-              : describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN)),
-            "Program phase progress: week " + String(phaseIndex) + " of 12 in current phase.",
-            streakWeeks > 0
-              ? "Current completion streak: " + String(streakWeeks) + " week" + (streakWeeks === 1 ? "" : "s")
-              : "Current completion streak: not established yet",
-          ];
-          setListHtml(weekMarkersList, markers.map((item) => esc(item)));
-          const state = executionState || {};
-          let nextLabel = "Start Today‚Äôs Session";
-          let nextActionType = "start_today_session";
-          let nextActionBlocked = false;
-          if (state.week_status === "in_progress" || state.resume_ready === true) {
-            nextLabel = "Resume Session";
-            nextActionType = "resume_session";
-          }
-          if (!state.reflection_saved) {
-            nextLabel = "Complete Reflection";
-            nextActionType = "complete_reflection";
-          }
-          if (state.week_status === "ready_for_next_week" && state.next_week_available !== true) {
-            nextLabel = "Finish this week to unlock Next Week";
-            nextActionType = "unlock_next_week";
-            nextActionBlocked = true;
-          }
-          if (state.week_status === "completed" && state.next_week_available === true) {
-            nextLabel = "Continue Next Week";
-            nextActionType = "continue_next_week";
-          }
-          nextBestActionCopy.textContent = "Next best action: " + nextLabel;
-          if (nextBestActionBtn) {
-            nextBestActionBtn.dataset.actionType = nextActionType;
-            nextBestActionBtn.textContent = nextLabel;
-            nextBestActionBtn.disabled = nextActionBlocked;
-          }
-          nextBestActionBlocked.textContent = state.blocked_reason
-            ? "Blocked reason: " + String(state.blocked_reason)
-            : "Scope: child " + String(latestWeekPayload?.child_id || accountCtx.child_id || "unknown") + " ¬∑ week " + String(week.week_number || 1);
-        }
-        function renderLessonPlan(session, week) {
-          const template = week.lesson_plan_template || {};
-          const duration = Number(week.commitment_plan?.session_duration_minutes || week.commitment_plan?.target_session_length || template.total_minutes || 30);
-          const status = session?.normalized_status || "planned";
-          const sessionTitle = session
-            ? String(session.core_activity_title || "Guided weekly session")
-            : String(week.content_blocks?.core_activity || "Guided weekly session");
-          const startTime = to12Hour(session?.time || template.scheduled_at || "17:30");
-          const endTime = addMinutesToTime(session?.time || "17:30", duration);
-          const blocks = Array.isArray(template.blocks) ? template.blocks : [];
-          const labelMap = {
-            opening_routine: "Opening Routine",
-            prep_time: "Prep",
-            core_activity: "Core Activity",
-            transition: "Transition",
-            stretch_challenge: "Stretch",
-            reflection: "Reflection",
-            observation_close: "Observation / Close",
-          };
-          const parentGuidance = Array.isArray(week.parent_guidance) ? week.parent_guidance : [];
-          const executionState = latestWeekPayload?.execution_state || {};
-          const stepOrder = ["core_activity", "stretch_challenge", "reflection_checkin", "observation_support"];
-          const activeStepIndex = Math.max(0, Math.min(stepOrder.length - 1, Number(executionState.active_step_index || 0)));
-          const materials = [session?.core_activity_title, session?.stretch_activity_title, "Notebook or reflection card", "Timer"]
-            .filter(Boolean);
-          lessonPlanSessionHeader.innerHTML = '<strong>' + esc(sessionTitle) + '</strong> ¬∑ '
-            + esc(startTime) + " to " + esc(endTime) + " ¬∑ "
-            + '<span class="status-pill status-' + esc(status) + '">' + esc(status.replace("_", " ")) + "</span>";
-          lessonPlanView.innerHTML = [
-            '<p class="tiny"><strong>Session title:</strong> ' + esc(sessionTitle) + '</p>',
-            '<p class="tiny"><strong>Start time:</strong> ' + esc(startTime) + ' ¬∑ <strong>Estimated end:</strong> ' + esc(endTime) + '</p>',
-            '<p class="tiny"><strong>Materials needed:</strong> ' + esc(materials.join(", ")) + '</p>',
-            '<table><thead><tr><th>Block</th><th>Estimated duration</th><th>Child-friendly step</th><th>What parent does</th></tr></thead><tbody>',
-            blocks.length
-              ? blocks.map((row) => '<tr><td>' + esc(labelMap[row.segment] || row.segment || "Session step") + '</td><td>' + esc(String(row.minutes || 0) + " min") + '</td><td>'
-                + esc(row.segment === "core_activity" ? "Try it together" : row.segment === "reflection" ? "Share one win" : "Keep the flow moving")
-                + '</td><td>' + esc(row.title || week.reflection_checkin_support || "Guide with short cues and keep momentum.") + '</td></tr>').join("")
-              : '<tr><td colspan="4">Lesson-plan blocks unavailable for this session.</td></tr>',
-            '</tbody></table>',
-            '<p class="tiny"><strong>Parent guidance:</strong></p>',
-            '<ul class="checklist">' + (parentGuidance.length ? parentGuidance.map((item) => '<li>' + esc(item) + '</li>').join("") : "<li>No guidance available.</li>") + "</ul>",
-            '<p class="tiny"><strong>Current step:</strong> ' + esc(String(stepOrder[activeStepIndex] || "core_activity").replace("_", " ")) + '</p>',
-            '<ul class="checklist">' + stepOrder.map((step, index) => {
-              const completed = Array.isArray(executionState.completed_step_keys) && executionState.completed_step_keys.includes(step);
-              const className = index === activeStepIndex ? "step-active" : (completed ? "step-complete" : "");
-              return '<li' + (className ? ' class="' + className + '"' : '') + '>' + esc(String(step).replace("_", " ")) + '</li>';
-            }).join("") + "</ul>",
-          ].join("");
-        }
-        function renderWeekDetails(week, nextAction, navOffset) {
-          const weekNumber = Number(week.week_number || 1);
-          const navWeekNumber = Math.max(1, Math.min(36, weekNumber + Number(navOffset || 0)));
-          const roadmap = Array.isArray(week.roadmap) ? week.roadmap : [];
-          const focusedRoadmapEntry = roadmap.find((entry) => Number(entry.week_number) === navWeekNumber) || null;
-          const showingWeek = focusedRoadmapEntry ? navWeekNumber : weekNumber;
-          const showingGoal = focusedRoadmapEntry ? focusedRoadmapEntry.weekly_goal : week.objective;
-          const showingPhase = focusedRoadmapEntry ? focusedRoadmapEntry.phase_name : (String(week.title || "").split("¬∑")[1] || "Foundation").trim();
-
-          renderStateCard(
-            'Week ' + showingWeek + ' ¬∑ ' + showingPhase,
-            [
-              week.week_purpose || week.objective || "Week objective is loading.",
-              "Primary goal: " + String(showingGoal || "Goal not available."),
-              "Phase/week context: " + String(week.phase_week_context || ""),
-            ],
-            [
-              "Core: " + String(week.content_blocks?.core_activity || "N/A"),
-              "Stretch: " + String(week.content_blocks?.stretch_challenge || "N/A"),
-              "Reflection: " + String(week.content_blocks?.reflection_loop || "N/A"),
-              "Observation: " + String(week.content_blocks?.observation_entry || "N/A"),
-            ],
-            nextAction || week.next_action || "Continue this week"
-          );
-
-          setListHtml(weeklyGoals, (week.weekly_goals || []).map((line) => esc(line)));
-          setListHtml(weeklyGuidance, (week.parent_guidance || []).map((line) => '<span class="tiny">Parent guidance:</span> ' + esc(line)));
-          const progress = week.progress || {};
-          progressSummary.textContent = "Week " + String(progress.current_week || week.week_number || 1) + " of " + String(progress.total_weeks || 36) + " ¬∑ " + String(progress.percent_complete || 0) + "% roadmap progress";
-          progressFill.style.width = String(Math.max(0, Math.min(100, Number(progress.percent_complete || 0)))) + "%";
-          setListHtml(
-            roadmapList,
-            roadmap.map((entry) => {
-              const statusClass = entry.status === "current" ? "roadmap-item-current" : (entry.status === "completed" ? "roadmap-item-completed" : "");
-              return '<span class="' + statusClass + '">' + esc("Week " + entry.week_number + " ¬∑ " + entry.status + " ¬∑ " + entry.weekly_goal) + '</span>';
-            })
-          );
-
-          setListHtml(
-            sessionFlowList,
-            (week.session_flow || []).map((row) => '<strong>' + esc(row.step || "Step") + ':</strong> ' + esc(row.detail || ""))
-          );
-          const selectedPath = week.activity_bank_surface?.selected_path || {};
-          const bankSummary = week.activity_bank_surface?.banks || {};
-          const componentChoices = week.activity_bank_surface?.session_plan?.component_choices || {};
-          const coreChoices = [componentChoices.RULE_BASED_REGULATION, componentChoices.ATTENTION_MINDFULNESS].filter(Boolean);
-          const stretchChoices = componentChoices.CHALLENGE_SUSTAINED_FOCUS || null;
-          const reflectionChoices = componentChoices.REFLECTION_COACHING || null;
-          activityBankSurface.innerHTML = [
-            renderActivityCard("Active core path", selectedPath.core_activity),
-            renderActivityCard("Active stretch challenge", selectedPath.stretch_challenge),
-            renderActivityCard("Active reflection loop", selectedPath.reflection),
-            renderAlternativeOptions("Core alternatives", coreChoices.flatMap((entry) => entry.available_alternatives || [])),
-            renderAlternativeOptions("Stretch alternatives", stretchChoices?.available_alternatives || []),
-            renderAlternativeOptions("Reflection alternatives", reflectionChoices?.available_alternatives || []),
-            '<div class="activity-card"><h4>Weekly options from activity bank</h4><p class="tiny">Core: ' + esc(String((bankSummary.core_activity || []).length))
-            + ' ¬∑ Stretch: ' + esc(String((bankSummary.stretch_challenge || []).length))
-            + ' ¬∑ Reflection: ' + esc(String((bankSummary.reflection || []).length))
-            + ' ¬∑ Opening: ' + esc(String((bankSummary.opening_routine || []).length))
-            + ' ¬∑ Transition: ' + esc(String((bankSummary.transition_routine || []).length))
-            + ' ¬∑ Closing: ' + esc(String((bankSummary.closing_routine || []).length))
-            + '</p><p class="tiny"><strong>Core options:</strong> ' + esc(String((bankSummary.core_activity || []).length))
-            + ' ¬∑ <strong>Stretch options:</strong> ' + esc(String((bankSummary.stretch_challenge || []).length))
-            + ' ¬∑ <strong>Reflection options:</strong> ' + esc(String((bankSummary.reflection || []).length)) + '</p></div>',
-          ].join("");
-
-          observationSupport.textContent = String(week.observation_support_area || week.reflection_checkin_support || "Observation/support details unavailable.");
-          setNextActionStatus("Next action", nextAction || week.next_action || "Continue this week flow.");
-          prevWeekBtn.disabled = showingWeek <= 1;
-          nextWeekBtn.disabled = showingWeek >= 36;
-        }
-
-        function renderPlanner(week) {
-          const planner = buildPlannerModel(week);
-          const commitment = week.commitment_plan || {};
-          const scheduled = planner.scheduled;
-          const accountability = planner.accountability;
-          const plannerState = derivePlannerSurfaceState(week, planner, latestWeekPayload?.execution_state || null);
-          const setupComplete = plannerState.setupComplete;
-          const hasSessions = plannerState.hasSessions;
-          applyPlannerVisibility(plannerState, week);
-          commitDaysInput.value = String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 3);
-          renderPreferredDayPicker(Array.isArray(commitment.preferred_days) ? commitment.preferred_days : []);
-          commitTimeInput.value = toCanonical12Hour(String(commitment.preferred_time || commitment.preferred_time_window || ""));
-          syncPreferredTimePickerFromValue(commitTimeInput.value);
-          syncPreferredTimeState();
-          updatePreferredTimeDiagnostics({
-            preferredTimeValidation: "pending",
-            preferredTimeSubmitted: "pending",
-          });
-          commitDurationInput.value = String(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 30);
-          commitEnergyTypeInput.value = String(commitment.energy_type || "balanced");
-          commitStartDateInput.value = String(commitment.start_date || "").slice(0, 10);
-          commitmentSummary.textContent = "Committed: " + String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 0)
-            + "/week ¬∑ Preferred days: " + String((commitment.preferred_days || []).join(", ") || "none");
-          renderCommitmentSchedulePreview(scheduled);
-          adherenceSummary.textContent = "Planned this week: " + String(accountability.planned_this_week || 0)
-            + " ¬∑ Completed this week: " + String(accountability.completed_this_week || 0)
-            + " ¬∑ Consistency: " + String(accountability.consistency_label || "early");
-          completionCountSummary.textContent = "Weekly completion count: " + String(planner.completedCount) + " of " + String(planner.plannedCount) + " planned sessions complete.";
-          adherenceFill.style.width = String(Math.round(planner.adherenceRatio * 100)) + "%";
-          agendaList.innerHTML = hasSessions && scheduled.length ? scheduled.map((entry) => {
-            const isSelected = String(entry.session_id || "") === String(selectedSessionId || "");
-            return '<li class="session-row' + (isSelected ? " selected" : "") + '" data-selected-session="' + (isSelected ? "true" : "false") + '"><strong>' + esc(String(entry.day_label || entry.day || "Session")) + '</strong> @ ' + esc(to12Hour(entry.time || ""))
-            + ' ¬∑ <span class="status-pill status-' + esc(entry.normalized_status) + '">' + esc(String(entry.normalized_status || "planned").replace("_", " ")) + "</span>"
-            + ' ¬∑ Core: ' + esc(String(entry.core_activity_title || "auto"))
-            + '<div class="session-actions"><button class="btn btn-ghost" type="button" data-action="open-session" data-session-id="' + esc(String(entry.session_id || "")) + '">Start Session</button>'
-            + '<button class="btn btn-ghost" type="button" data-action="view-lesson-plan" data-session-id="' + esc(String(entry.session_id || "")) + '">View Lesson Plan</button>'
-            + '<button class="btn btn-secondary" type="button" data-action="complete-session" data-session-id="' + esc(String(entry.session_id || "")) + '"' + (entry.normalized_status === "completed" ? " disabled" : "") + '>Mark Session Complete</button>'
-            + '<button class="btn btn-primary" type="button" data-action="resume-session" data-session-id="' + esc(String(entry.session_id || "")) + '">Resume Session</button></div>'
-            + '</li>';
-          }).join("") : '<li class="muted">' + (setupComplete ? "No sessions scheduled yet. Re-save Build Your Weekly Plan to regenerate this week." : "Complete Build Your Weekly Plan to unlock calendar sessions.") + '</li>';
-          const next = planner.nextSession;
-          const today = planner.todaySession;
-          todaySessionCard.textContent = hasSessions && today
-            ? String(today.day_label || today.day || "Today") + " at " + to12Hour(today.time || "") + " ¬∑ " + String(today.core_activity_title || "Guided session")
-            : (hasSessions && next ? "No session today. Next: " + String(next.day_label || next.day || "") + " at " + to12Hour(next.time || "") : "No session available.");
-          nextSessionCard.textContent = hasSessions && next
-            ? String(next.day_label || next.day || "") + " at " + to12Hour(next.time || "") + " ¬∑ " + String(next.core_activity_title || "Guided session")
-            : "No upcoming session currently planned.";
-          const startTarget = hasSessions ? (today || next || null) : null;
-          startTodaySessionBtn.disabled = !hasSessions || !startTarget;
-          startTodaySessionBtn.dataset.sessionId = startTarget ? String(startTarget.session_id || "") : "";
-          resumeTodaySessionBtn.disabled = !hasSessions || !startTarget;
-          resumeTodaySessionBtn.dataset.sessionId = startTarget ? String(startTarget.session_id || "") : "";
-          weekAtGlanceCard.textContent = String(planner.completedCount) + "/" + String(planner.plannedCount) + " sessions completed ¬∑ Consistency " + String(accountability.consistency_label || "early") + ".";
-          weekMarkerCard.textContent = "Week " + String(week.week_number || 1) + " of 36 (" + String(week.progress?.percent_complete || 0) + "% program progress).";
-          plannerCalendarGrid.innerHTML = hasSessions ? DAYS.map((dayName) => {
-            const sessions = scheduled.filter((entry) => String(entry.day || "").toLowerCase() === dayName);
-            const isToday = Boolean(today && String(today.day || "").toLowerCase() === dayName);
-            const hasSelected = sessions.some((entry) => String(entry.session_id || "") === String(selectedSessionId || ""));
-            return '<article class="calendar-day' + (isToday ? " today" : "") + (hasSelected ? " selected" : "") + '" data-selected-day="' + (hasSelected ? "true" : "false") + '"><h4>' + esc(dayName.slice(0, 1).toUpperCase() + dayName.slice(1)) + '</h4>'
-              + (sessions.length
-                ? sessions.map((entry) => '<div class="session-row' + (String(entry.session_id || "") === String(selectedSessionId || "") ? " selected" : "") + '"><span>' + esc(to12Hour(entry.time || "")) + " ¬∑ " + esc(String(entry.core_activity_title || "Session")) + '</span>'
-                  + '<span class="status-pill status-' + esc(entry.normalized_status) + '">' + esc(entry.normalized_status.replace("_", " ")) + "</span></div>").join("")
-                : '<p class="tiny muted">No planned session</p>')
-              + (sessions[0] ? '<div class="session-actions"><button class="btn btn-ghost" type="button" data-action="open-session" data-session-id="' + esc(String(sessions[0].session_id || "")) + '">Open Lesson Plan</button></div>' : "")
-              + "</article>";
-          }).join("") : '<div class="calendar-day"><p class="tiny muted">' + esc(plannerState.message) + '</p></div>';
-          nextScheduledSession.textContent = hasSessions && next
-            ? "Next scheduled session: " + String(next.day_label || next.day || "") + " " + to12Hour(next.time || "") + " (" + String(next.session_id || "") + ")"
-            : "No upcoming sessions.";
-          markNextSessionCompleteBtn.disabled = !hasSessions || !next;
-          markNextSessionCompleteBtn.dataset.sessionId = hasSessions && next ? String(next.session_id || "") : "";
-          openNextSessionBtn.disabled = !hasSessions || !next;
-          openNextSessionBtn.dataset.sessionId = hasSessions && next ? String(next.session_id || "") : "";
-          const selected = hasSessions && ((selectedSessionId && scheduled.find((entry) => String(entry.session_id) === String(selectedSessionId)))
-            || next
-            || today
-            || scheduled[0]
-            || null);
-          selectedSessionId = selected ? String(selected.session_id || "") : "";
-          completeSelectedSessionBtn.disabled = !selected || selected.normalized_status === "completed";
-          renderLessonPlan(selected, week);
-          renderProgressDashboard(week, planner, latestWeekPayload?.execution_state || null, plannerState);
-        }
-
-        function renderExecutionState(executionState) {
-          const state = executionState || {};
-          const completed = Array.isArray(state.completed_step_keys) ? state.completed_step_keys.length : 0;
-          executionStateArea.textContent = "Status: " + String(state.week_status || "not_started")
-            + " ¬∑ Completed steps: " + String(completed) + "/4"
-            + " ¬∑ Resume ready: " + String(state.resume_ready === true ? "yes" : "no")
-            + (state.blocked_reason ? " ¬∑ Blocked: " + String(state.blocked_reason) : "");
-          const currentWeek = latestWeekPayload && latestWeekPayload.week_content
-            ? Number(latestWeekPayload.week_content.week_number || latestWeekPayload.current_week || 1)
-            : 1;
-          startResumeWeekBtn.textContent = state.week_status === "not_started"
-            ? "Start Program"
-            : ("Resume Week " + String(state.week_number || currentWeek || 1));
-          continueNextWeekBtn.disabled = state.next_week_available !== true;
-          continueStepBtn.disabled = state.week_status === "blocked";
-          markStepCompleteBtn.disabled = state.week_status === "ready_for_next_week" || state.week_status === "completed";
-          parentReflectionInput.value = String(state.reflection_note || "");
-          parentObservationInput.value = String(state.observation_note || "");
-        }
-
-        async function saveExecutionAction(actionType, extra) {
-          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
-          const body = Object.assign({
-            tenant: accountCtx.tenant,
-            email: accountCtx.email,
-            child_id: accountCtx.child_id,
-            week_number: Number(latestWeekPayload.current_week || latestWeekPayload.week_content.week_number || 1),
-            action_type: actionType,
-          }, extra || {});
-          const response = await fetch("/api/youth-development/program/week-execution", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(body),
-          });
-          const payload = response.ok ? await response.json().catch(() => null) : null;
-          if (!payload || payload.ok !== true) {
-            setNextActionStatus("Action blocked", String((payload && (payload.message || payload.error)) || "Unable to process action."));
-            if (payload && payload.execution_state) renderExecutionState(payload.execution_state);
-            return;
-          }
-          latestWeekPayload.execution_state = payload.execution_state;
-          if (payload.bridge_state && typeof payload.bridge_state.current_week === "number") {
-            latestWeekPayload.current_week = payload.bridge_state.current_week;
-          }
-          renderExecutionState(payload.execution_state);
-          const plannerModel = buildPlannerModel(latestWeekPayload.week_content);
-          const plannerState = derivePlannerSurfaceState(latestWeekPayload.week_content, plannerModel, payload.execution_state || null);
-          renderProgressDashboard(latestWeekPayload.week_content, plannerModel, payload.execution_state || {}, plannerState);
-          setNextActionStatus("Action complete", ACTION_CONFIRMATIONS[actionType] || "Update saved.");
-        }
-
-        async function submitSessionComplete(sessionId) {
-          if (!latestWeekPayload || !sessionId) return { ok: false, error: "session_id_required" };
-          const response = await fetch("/api/youth-development/program/session-complete", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              tenant: accountCtx.tenant,
-              email: accountCtx.email,
-              child_id: accountCtx.child_id,
-              week_number: latestWeekPayload.current_week,
-              session_id: sessionId,
-            }),
-          });
-          const payload = response.ok ? await response.json().catch(() => null) : null;
-          if (!payload || payload.ok !== true) {
-            return { ok: false, error: String(payload?.error || payload?.message || "session_complete_failed") };
-          }
-          return { ok: true, payload };
-        }
-
-        async function loadWeekExperience() {
-          const url = new URL("/api/youth-development/program/week-content", window.location.origin);
-          if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
-          if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
-          if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
-          const response = await fetch(url.pathname + url.search);
-          const payload = response.ok ? await response.json().catch(() => null) : null;
-          if (!payload || payload.ok !== true) {
-            renderStateCard("Unable to load week content", [
-              "Week content could not be loaded for this child scope.",
-              "Verify tenant, parent email, and child selection.",
-            ], [], "Return to Parent Dashboard");
-            return;
-          }
-          if (payload.state !== "content_ready" || !payload.week_content) {
-            const resolvedScope = String(payload?.child_id || payload?.parent_program_state?.child_scope?.selected_child_id || "").trim();
-            if (resolvedScope && !accountCtx.child_id) {
-              accountCtx.child_id = resolvedScope;
-              dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
-            }
-            renderStateCard(
-              payload.state_label || "Week content unavailable",
-              Array.isArray(payload.messages) ? payload.messages : ["No week-content module is available for the current state."],
-              Array.isArray(payload.child_scope_options) ? payload.child_scope_options.map((entry) => "Child: " + String(entry.child_name || entry.child_id || "Unknown")) : [],
-              payload.next_action || "Resolve child scope then continue"
-            );
-            return;
-          }
-          latestWeekPayload = payload;
-          accountCtx.child_id = String(payload.child_id || accountCtx.child_id || "").trim();
-          dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
-          await loadProgramVoiceStatus();
-          renderWeekDetails(payload.week_content, payload.next_action, navWeekOffset);
-          renderPlanner(payload.week_content);
-          renderExecutionState(payload.execution_state || null);
-        }
-
-        dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
-
-        async function loadBridge() {
-          const bridgeUrl = new URL("/api/youth-development/program/bridge", window.location.origin);
-          if (accountCtx.tenant) bridgeUrl.searchParams.set("tenant", accountCtx.tenant);
-          if (accountCtx.email) bridgeUrl.searchParams.set("email", accountCtx.email);
-          if (accountCtx.child_id) bridgeUrl.searchParams.set("child_id", accountCtx.child_id);
-          const response = await fetch(bridgeUrl.pathname + bridgeUrl.search);
-          const payload = response.ok ? await response.json().catch(() => null) : null;
-          if (!payload || payload.ok !== true) {
-            hero.textContent = "Program bridge could not load. Ensure tenant/email/child scope is present.";
-            setList(["Missing or invalid account context.", "If assessment is incomplete, return to intake first."]);
-            return null;
-          }
-          accountCtx.child_id = String(payload.child_id || accountCtx.child_id || "").trim();
-          dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
-          hero.textContent = String(payload.parent_summary || "Program bridge ready.");
-          latestBridge = payload;
-          setList([
-            "Status: " + String(payload.program_status_label || "Setup needed"),
-            "Current phase: " + String(payload.current_phase_name || "Not assigned"),
-            "Current week: " + String(payload.current_week || "Not assigned"),
-            "Next action: " + String(payload.next_recommended_action || "Complete setup"),
-          ]);
-          if (payload.launch_allowed === true) {
-            launchBtn.style.display = "";
-            launchBtn.textContent = String((payload.cta && payload.cta.label) || "Start Program");
-          } else {
-            launchBtn.style.display = "none";
-          }
-          return payload;
-        }
-
-        function openWeekFlow() {
-          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
-          navWeekOffset = 0;
-          renderWeekDetails(latestWeekPayload.week_content, latestWeekPayload.next_action, navWeekOffset);
-          plannerCalendarGrid.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        launchBtn.addEventListener("click", async function () {
-          if (latestBridge && latestBridge.has_enrollment === true) {
-            openWeekFlow();
-            return;
-          }
-          await withButtonBusy(launchBtn, "Starting Program‚Ä¶", async function () {
-            console.info("[program-launch-debug] click", {
-              tenant: accountCtx.tenant || null,
-              email: accountCtx.email || null,
-              child_id: accountCtx.child_id || null,
-            });
-            const response = await fetch("/api/youth-development/program/launch", {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify(accountCtx),
-            });
-            const payload = response.ok ? await response.json().catch(() => null) : null;
-            console.info("[program-launch-debug] response", {
-              status: response.status,
-              ok: Boolean(payload && payload.ok === true),
-              error: payload?.error || null,
-              reason: payload?.reason || null,
-              child_id: payload?.child_id || null,
-            });
-            if (!payload || payload.ok !== true) {
-              hero.textContent = "Program launch failed: " + String(payload?.error || payload?.reason || "unknown_error") + ".";
-              return;
-            }
-            accountCtx.child_id = String(payload.child_id || accountCtx.child_id || "");
-            hero.textContent = String(payload.parent_summary || "Program launch confirmed.");
-            setList([
-              "Status: " + String(payload.program_status_label || "Active"),
-              "Current phase: " + String(payload.current_phase_name || "Foundation"),
-              "Current week: " + String(payload.current_week || 1),
-              "Next action: " + String(payload.next_recommended_action || "Begin current week"),
-            ]);
-            launchBtn.textContent = "View Weekly Plan";
-            dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
-            await loadWeekExperience();
-            openWeekFlow();
-          });
-        });
-
-        prevWeekBtn.addEventListener("click", function () {
-          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
-          const currentWeek = Number(latestWeekPayload.week_content.week_number || 1);
-          navWeekOffset = Math.max(1 - currentWeek, navWeekOffset - 1);
-          renderWeekDetails(latestWeekPayload.week_content, latestWeekPayload.next_action, navWeekOffset);
-        });
-        nextWeekBtn.addEventListener("click", function () {
-          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
-          const currentWeek = Number(latestWeekPayload.week_content.week_number || 1);
-          navWeekOffset = Math.min(36 - currentWeek, navWeekOffset + 1);
-          renderWeekDetails(latestWeekPayload.week_content, latestWeekPayload.next_action, navWeekOffset);
-        });
-
-        startResumeWeekBtn.addEventListener("click", async function () {
-          setNextActionStatus("Action in progress", "Starting/resuming current week‚Ä¶");
-          await withButtonBusy(startResumeWeekBtn, "Starting‚Ä¶", async () => saveExecutionAction("start_week"));
-        });
-        saveReflectionBtn.addEventListener("click", async function () {
-          setNextActionStatus("Action in progress", "Saving reflection‚Ä¶");
-          await withButtonBusy(saveReflectionBtn, "Saving‚Ä¶", async () => saveExecutionAction("save_reflection", { note: String(parentReflectionInput.value || "") }));
-        });
-        saveObservationBtn.addEventListener("click", async function () {
-          setNextActionStatus("Action in progress", "Saving observation‚Ä¶");
-          await withButtonBusy(saveObservationBtn, "Saving‚Ä¶", async () => saveExecutionAction("save_observation", { note: String(parentObservationInput.value || "") }));
-        });
-        markStepCompleteBtn.addEventListener("click", async function () {
-          const state = latestWeekPayload?.execution_state || {};
-          const stepOrder = ["core_activity", "stretch_challenge", "reflection_checkin", "observation_support"];
-          const idx = Number(state.active_step_index || 0);
-          setNextActionStatus("Action in progress", "Marking current step complete‚Ä¶");
-          await withButtonBusy(markStepCompleteBtn, "Marking‚Ä¶", async () => saveExecutionAction("mark_step_complete", { step_key: stepOrder[Math.max(0, Math.min(stepOrder.length - 1, idx))] }));
-        });
-        continueStepBtn.addEventListener("click", async function () {
-          setNextActionStatus("Action in progress", "Moving to next step‚Ä¶");
-          await withButtonBusy(continueStepBtn, "Continuing‚Ä¶", async () => saveExecutionAction("continue_to_next_step"));
-        });
-        continueNextWeekBtn.addEventListener("click", async function () {
-          setNextActionStatus("Action in progress", "Moving to next week‚Ä¶");
-          await withButtonBusy(continueNextWeekBtn, "Continuing‚Ä¶", async function () {
-            await saveExecutionAction("continue_next_week");
-            await loadBridge();
-            await loadWeekExperience();
-          });
-        });
-        nextBestActionBtn.addEventListener("click", function () {
-          const nextAction = String(nextBestActionBtn.dataset.actionType || "");
-          if (nextAction === "start_today_session" || nextAction === "resume_session") {
-            if (!startTodaySessionBtn.disabled) {
-              startTodaySessionBtn.click();
-              return;
-            }
-            if (!resumeTodaySessionBtn.disabled) {
-              resumeTodaySessionBtn.click();
-              return;
-            }
-          }
-          if (nextAction === "complete_reflection") {
-            parentReflectionInput.focus();
-            setNextActionStatus("Next action", "Add a reflection note, then select Save Reflection.");
-            return;
-          }
-          if (nextAction === "continue_next_week") {
-            continueNextWeekBtn.click();
-            return;
-          }
-          setNextActionStatus("Action blocked", "Finish this week to unlock Next Week.");
-        });
-        const onPreferredTimePickerChange = function () {
-          syncPreferredTimeState();
-          commitTimeError.textContent = "";
-        };
-        if (commitTimeHourInput) commitTimeHourInput.addEventListener("input", onPreferredTimePickerChange);
-        if (commitTimeHourInput) commitTimeHourInput.addEventListener("change", onPreferredTimePickerChange);
-        if (commitTimeMinuteInput) commitTimeMinuteInput.addEventListener("input", onPreferredTimePickerChange);
-        if (commitTimeMinuteInput) commitTimeMinuteInput.addEventListener("change", onPreferredTimePickerChange);
-        if (commitTimeMeridiemInput) commitTimeMeridiemInput.addEventListener("input", onPreferredTimePickerChange);
-        if (commitTimeMeridiemInput) commitTimeMeridiemInput.addEventListener("change", onPreferredTimePickerChange);
-        commitPreferredDaysGroup.addEventListener("change", function () {
-          commitPreferredDaysError.textContent = "";
-        });
-        if (readWeeklyGoalsBtn) {
-          readWeeklyGoalsBtn.addEventListener("click", async function () {
-            const fallbackText = [
-              String(weeklyGoals.textContent || "").trim(),
-              String(weeklyGuidance.textContent || "").trim(),
-            ].filter(Boolean).join(". ");
-            const selection = getProgramVoiceSelection(["summary", "next_steps", "strengths"], fallbackText);
-            programVoicePlayback.selectionByScope.weeklyGoals = selection;
-            programVoicePlayback.activeScope = "weeklyGoals";
-            await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
-          });
-        }
-        if (readProgramSupportBtn) {
-          readProgramSupportBtn.addEventListener("click", async function () {
-            const fallbackText = [
-              String(sessionFlowList.textContent || "").trim(),
-              String(activityBankSurface.textContent || "").trim(),
-              String(observationSupport.textContent || "").trim(),
-            ].filter(Boolean).join(". ");
-            const selection = getProgramVoiceSelection(["growth", "environment", "still_building"], fallbackText);
-            programVoicePlayback.selectionByScope.programSupport = selection;
-            programVoicePlayback.activeScope = "programSupport";
-            await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
-          });
-        }
-        if (readProgressSummaryBtn) {
-          readProgressSummaryBtn.addEventListener("click", async function () {
-            const fallbackText = [
-              String(motivationSummary.textContent || "").trim(),
-              String(weekComparisonSummary.textContent || "").trim(),
-              String(nextBestActionCopy.textContent || "").trim(),
-            ].filter(Boolean).join(". ");
-            const selection = getProgramVoiceSelection(["still_building", "next_steps", "summary"], fallbackText);
-            programVoicePlayback.selectionByScope.progressSummary = selection;
-            programVoicePlayback.activeScope = "progressSummary";
-            await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
-          });
-        }
-        document.addEventListener("click", async function (event) {
-          const button = event.target && event.target.closest ? event.target.closest("[data-program-voice-action]") : null;
-          if (!button) return;
-          const action = String(button.getAttribute("data-program-voice-action") || "").trim();
-          const scope = String(button.getAttribute("data-program-voice-scope") || "").trim();
-          const audio = programVoicePlayback.activeAudio;
-          if (action === "pause") {
-            if (audio && typeof audio.pause === "function") {
-              audio.pause();
-              programVoiceState.lastPlaybackMode = "provider";
-            } else {
-              const speech = typeof window !== "undefined" ? window.speechSynthesis : null;
-              if (speech && typeof speech.pause === "function") speech.pause();
-              programVoiceState.lastPlaybackMode = "fallback_tts";
-              programVoiceState.statusDetail = "Fallback browser speech paused.";
-            }
-            programVoiceState.playbackState = "paused";
-            updateProgramVoiceStatus();
-            return;
-          }
-          if (action === "back10" || action === "forward10") {
-            if (audio && typeof audio.currentTime === "number") {
-              const delta = action === "back10" ? -10 : 10;
-              audio.currentTime = Math.max(0, Math.min((audio.duration || Number.MAX_SAFE_INTEGER), audio.currentTime + delta));
-              programVoiceState.playbackState = "playing";
-            } else {
-              programVoiceState.statusDetail = "Fallback browser speech cannot seek by 10 seconds.";
-            }
-            updateProgramVoiceStatus();
-            return;
-          }
-          if (action === "play" && scope) {
-            if (audio && audio.paused && scope === programVoicePlayback.activeScope) {
-              await audio.play().catch(() => null);
-              programVoiceState.lastPlaybackMode = "provider";
-              programVoiceState.playbackState = "playing";
-              updateProgramVoiceStatus();
-              return;
-            }
-            const selection = programVoicePlayback.selectionByScope[scope];
-            if (selection) {
-              programVoicePlayback.activeScope = scope;
-              await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
-            }
-          }
-        });
-        saveCommitmentBtn.addEventListener("click", async function () {
-          const clickTrace = {
-            handler: plannerRuntime.handler,
-            button_disabled: Boolean(saveCommitmentBtn.disabled),
-            latest_week_payload_ready: Boolean(latestWeekPayload && latestWeekPayload.week_content),
-          };
-          commitmentActionTrace.textContent = "planner action trace: click handler fired.";
-          console.info("[planner-commitment-debug] click", clickTrace);
-          if (!latestWeekPayload || !latestWeekPayload.week_content) {
-            commitmentSaveFeedback.textContent = "Weekly plan save blocked: week content is not loaded yet. Reload this page and retry.";
-            commitmentActionTrace.textContent = "planner action trace: blocked_before_validation (week_content_missing).";
-            console.info("[planner-commitment-debug] blocked", { ...clickTrace, reason: "week_content_missing" });
-            return;
-          }
-          const validation = validateCommitmentFormInputs();
-          commitmentSaveFeedback.textContent = "";
-          setPlannerFieldErrors(validation.fieldErrors || {});
-          commitmentActionTrace.textContent = "planner action trace: validation_checked (ok=" + String(validation.ok) + ").";
-          console.info("[planner-commitment-debug] validation_state", {
-            ...clickTrace,
-            validation_ok: validation.ok,
-            validation_errors: validation.errors,
-            weekly_frequency: validation.weeklyFrequency,
-            preferred_days_count: validation.preferredDays.length,
-          });
-          if (!validation.ok) {
-            commitmentSaveFeedback.textContent = "Unable to save yet. Check the highlighted fields and retry.";
-            commitmentActionTrace.textContent = "planner action trace: blocked_before_request (validation_failed).";
-            return;
-          }
-          await withButtonBusy(saveCommitmentBtn, "Saving Plan‚Ä¶", async function () {
-            const requestBody = {
-              tenant: accountCtx.tenant,
-              email: accountCtx.email,
-              child_id: accountCtx.child_id,
-              week_number: latestWeekPayload.current_week,
-              weekly_frequency: validation.weeklyFrequency,
-              days_per_week: validation.weeklyFrequency,
-              committed_days_per_week: validation.weeklyFrequency,
-              preferred_days: validation.preferredDays,
-              preferred_time: validation.preferredTime,
-              preferred_time_window: validation.preferredTime,
-              session_length: validation.sessionLength,
-              target_session_length: validation.sessionLength,
-              session_duration_minutes: validation.sessionLength,
-              energy_type: String(commitEnergyTypeInput.value || "balanced"),
-              start_date: validation.startDate,
-            };
-            commitmentActionTrace.textContent = "planner action trace: request_ready (route=" + plannerRuntime.route + ").";
-            console.info("[planner-commitment-debug] submitCommitment", {
-              preferred_time_submitted: requestBody.preferred_time,
-              preferred_time_window_submitted: requestBody.preferred_time_window,
-              request_route: plannerRuntime.route,
-              request_payload: requestBody,
-            });
-            const response = await fetch("/api/youth-development/program/commitment", {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify(requestBody),
-            });
-            const payload = response.ok ? await response.json().catch(() => null) : null;
-            console.info("[planner-commitment-debug] response", {
-              route: plannerRuntime.route,
-              http_status: response.status,
-              ok: Boolean(payload && payload.ok === true),
-              payload,
-            });
-            if (!payload || payload.ok !== true) {
-              updatePreferredTimeDiagnostics({
-                preferredTimeSubmitted: requestBody.preferred_time,
-              });
-              const messageTokens = Array.isArray(payload?.messages) ? payload.messages : [String(payload?.message || payload?.error || "unable_to_save_weekly_plan")];
-              const fieldMap = toFieldErrorMap(messageTokens);
-              setPlannerFieldErrors(fieldMap);
-              const messages = Object.values(fieldMap).length ? Object.values(fieldMap).join(" ") : messageTokens.join(", ");
-              commitmentSaveFeedback.textContent = "Weekly plan save failed: " + messages;
-              commitmentActionTrace.textContent = "planner action trace: response_failed (" + String(payload?.error || "unknown_error") + ").";
-              return;
-            }
-            updatePreferredTimeDiagnostics({
-              preferredTimeSubmitted: requestBody.preferred_time,
-            });
-            setPlannerFieldErrors({});
-            commitmentSaveFeedback.textContent = "Your weekly plan is set.";
-            commitmentActionTrace.textContent = "planner action trace: response_ok (scheduled_sessions=" + String((payload.scheduled_sessions || []).length) + ").";
-            renderCommitmentSchedulePreview(payload.scheduled_sessions || []);
-            await loadWeekExperience();
-          });
-        });
-        markNextSessionCompleteBtn.addEventListener("click", async function () {
-          const sessionId = String(markNextSessionCompleteBtn.dataset.sessionId || "");
-          if (!sessionId || !latestWeekPayload) return;
-          await withButtonBusy(markNextSessionCompleteBtn, "Completing‚Ä¶", async function () {
-            const result = await submitSessionComplete(sessionId);
-            if (!result.ok) {
-              setNextActionStatus("Action blocked", "Could not mark session complete: " + String(result.error || "unknown_error"));
-              return;
-            }
-            await loadWeekExperience();
-          });
-        });
-        openNextSessionBtn.addEventListener("click", function () {
-          const sessionId = String(openNextSessionBtn.dataset.sessionId || "");
-          if (!sessionId || !latestWeekPayload?.week_content) return;
-          selectedSessionId = sessionId;
-          renderPlanner(latestWeekPayload.week_content);
-          setNextActionStatus("Action in progress", "Opened scheduled session lesson plan.");
-          focusLessonPlan();
-        });
-        startTodaySessionBtn.addEventListener("click", async function () {
-          if (!latestWeekPayload?.week_content) return;
-          if (startTodaySessionBtn.dataset.sessionId) selectedSessionId = String(startTodaySessionBtn.dataset.sessionId);
-          renderPlanner(latestWeekPayload.week_content);
-          if (selectedSessionId) {
-            await withButtonBusy(startTodaySessionBtn, "Starting‚Ä¶", async function () {
-              await saveExecutionAction("start_week");
-              setNextActionStatus("Action in progress", "Starting today‚Äôs selected session.");
-              focusLessonPlan();
-            });
-          } else {
-            setNextActionStatus("Action blocked", "Build your weekly plan and schedule a session first.");
-          }
-        });
-        resumeTodaySessionBtn.addEventListener("click", async function () {
-          if (!latestWeekPayload?.week_content) return;
-          if (resumeTodaySessionBtn.dataset.sessionId) selectedSessionId = String(resumeTodaySessionBtn.dataset.sessionId);
-          renderPlanner(latestWeekPayload.week_content);
-          if (selectedSessionId) {
-            await withButtonBusy(resumeTodaySessionBtn, "Resuming‚Ä¶", async function () {
-              await saveExecutionAction("continue_to_next_step");
-              setNextActionStatus("Action in progress", "Resuming selected session.");
-              focusLessonPlan();
-            });
-          } else {
-            setNextActionStatus("Action blocked", "No session to resume.");
-          }
-        });
-        viewWeeklyPlanBtn.addEventListener("click", function () {
-          plannerCalendarGrid.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-        plannerCalendarGrid.addEventListener("click", function (event) {
-          const target = event.target;
-          if (!target || !target.dataset) return;
-          const action = String(target.dataset.action || "");
-          if (action !== "open-session") return;
-          const sessionId = String(target.dataset.sessionId || "");
-          if (!sessionId || !latestWeekPayload?.week_content) return;
-          selectedSessionId = sessionId;
-          renderPlanner(latestWeekPayload.week_content);
-          setNextActionStatus("Action in progress", "Opened lesson plan for selected session.");
-          focusLessonPlan();
-        });
-        agendaList.addEventListener("click", async function (event) {
-          const target = event.target;
-          if (!target || !target.dataset) return;
-          const action = String(target.dataset.action || "");
-          const sessionId = String(target.dataset.sessionId || "");
-          if (!action || !sessionId || !latestWeekPayload?.week_content) return;
-          selectedSessionId = sessionId;
-          if (action === "complete-session") {
-            setNextActionStatus("Action in progress", "Marking selected session complete‚Ä¶");
-            const result = await submitSessionComplete(sessionId);
-            if (!result.ok) {
-              setNextActionStatus("Action blocked", "Could not mark session complete: " + String(result.error || "unknown_error"));
-              return;
-            }
-            await loadWeekExperience();
-            return;
-          }
-          if (action === "resume-session") {
-            setNextActionStatus("Action in progress", "Resuming selected session‚Ä¶");
-            await saveExecutionAction("start_week");
-          }
-          renderPlanner(latestWeekPayload.week_content);
-          focusLessonPlan();
-        });
-        resumeSessionBtn.addEventListener("click", async function () {
-          if (!selectedSessionId) return;
-          setNextActionStatus("Action in progress", "Resuming selected lesson-plan session‚Ä¶");
-          await withButtonBusy(resumeSessionBtn, "Resuming‚Ä¶", async () => saveExecutionAction("start_week"));
-        });
-        completeSelectedSessionBtn.addEventListener("click", async function () {
-          if (!selectedSessionId || !latestWeekPayload) return;
-          setNextActionStatus("Action in progress", "Completing selected lesson-plan session‚Ä¶");
-          await withButtonBusy(completeSelectedSessionBtn, "Completing‚Ä¶", async function () {
-            const result = await submitSessionComplete(selectedSessionId);
-            if (!result.ok) {
-              setNextActionStatus("Action blocked", "Could not mark session complete: " + String(result.error || "unknown_error"));
-              return;
-            }
-            await loadWeekExperience();
-          });
-        });
-        returnWeeklyOverviewBtn.addEventListener("click", function () {
-          weekExperience.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-
-        const bridge = await loadBridge();
-        await loadWeekExperience();
-        if (bridge && bridge.has_enrollment === true) openWeekFlow();
-      }());
-    </script>
-  </body>
-</html>`;
-}
-
-function buildDeterministicNarrative(interpretation = {}) {
-  if (interpretation?.incomplete) {
-    return {
-      opening: "More responses are needed before trait interpretation can be shown.",
-      focus_area: "Please complete additional questions so the screener has enough current evidence.",
-      next_step: interpretation.message,
-    };
-  }
-
-  const highest = interpretation.highest_trait;
-  const lowest = interpretation.lowest_trait;
-  const conflict = interpretation.conflict;
-
-  const opening = highest
-    ? `Your child currently shows the strongest pattern in ${highest.trait_name} (${Number(highest.current_score || 0).toFixed(1)}).`
-    : "Trait strengths will populate after all intake answers are submitted.";
-  const focusArea = lowest
-    ? `A practical support focus is ${lowest.trait_name} (${Number(lowest.current_score || 0).toFixed(1)}), where structured repetition can improve consistency.`
-    : "No immediate low trait signal is available yet.";
-  const nextStep = conflict
-    ? `Watch the ${conflict.conflict_key} gap: ${conflict.insight}`
-    : "No major trait conflict is currently detected.";
-
-  return { opening, focus_area: focusArea, next_step: nextStep };
-}
-
-function buildYouthAssessPayload(answerPairs, options = {}) {
-  const scoring = runYouthIntakeScoring(answerPairs, {
-    unansweredCount: options.unansweredCount,
-    totalQuestions: YOUTH_QUESTION_BANK.length,
-  });
-  const result = buildYouthDevelopmentResult(scoring.trait_rows, {
-    generatedAt: options.generatedAt || "2026-04-17T00:00:00.000Z",
-    evidenceSummary: {
-      sources_used: ["parent_observation"],
-      confidence_caveats: [
-        "Parent-observation intake only: all outputs are provisional developmental signals.",
-        "This screener is evidence-informed and designed for validation, not a psychometrically validated instrument.",
-      ],
-    },
-  });
-  const dashboard = buildYouthDevelopmentDashboard(result, { maxItems: 5 });
-  const pageModel = buildParentDashboardPageModel(dashboard, {
-    page_title: "Youth Development Parent Dashboard",
-    page_subtitle: "Assessment generated from deterministic parent intake responses.",
-    maxItems: 5,
-  });
-
-  const insightNarrative = buildDeterministicNarrative(scoring.interpretation);
-  const enrichedPageModel = {
-    ...pageModel,
-    insight_narrative: {
-      ...pageModel.insight_narrative,
-      ...insightNarrative,
-    },
-  };
-
-  return {
-    scoring,
-    result,
-    dashboard,
-    page_model: enrichedPageModel,
-    rendered_html: renderYouthDevelopmentParentDashboardPage(enrichedPageModel),
-    trait_reports: scoring.trait_reports,
-  };
-}
-
-function buildPreviewPayload() {
-  const result = buildYouthDevelopmentResult(PREVIEW_AGGREGATED_ROWS, PREVIEW_OPTIONS);
-  const dashboard = buildYouthDevelopmentDashboard(result, { maxItems: 5 });
-  const pageModel = buildParentDashboardPageModel(dashboard, {
-    page_title: "Youth Development Parent Dashboard (Preview)",
-    page_subtitle: "Preview / test-only rendering from deterministic fixture data.",
-    maxItems: 5,
-  });
-
-  return {
-    fixture_aggregated_rows: PREVIEW_AGGREGATED_ROWS,
-    result,
-    dashboard,
-    page_model: pageModel,
-  };
-}
-
-function renderLiveYouthGrowthPlanPage() {
-  return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Genius Growth Plan</title>
-<style>
-:root{--ink:#10203c;--paper:#f7fbff;--navy:#07142d;--card:#fff;--aqua:#62e5d2;--blue:#315bd9;--muted:#61708b;--line:#dbe5f3;--gold:#f5bd3e}*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#eef8fb,#f7f5ff 55%,#fff8df);color:var(--ink);font:17px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.shell{max-width:880px;margin:auto;padding:20px}.hero{color:#fff;background:radial-gradient(circle at 85% 15%,#315bd9 0,#102e61 25%,var(--navy) 70%);border-radius:28px;padding:32px;box-shadow:0 18px 45px #14264a30}.eyebrow{margin:0 0 8px;text-transform:uppercase;letter-spacing:.13em;font-size:.8rem;font-weight:800;color:#9ff6e7}.hero h1{font-size:clamp(2rem,7vw,3.7rem);line-height:1;margin:0 0 14px}.hero p{max-width:640px;margin:0;color:#dce8ff;font-size:1.1rem}.topnav{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.button{border:0;border-radius:14px;padding:13px 17px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}.primary{background:var(--aqua);color:#08213a}.secondary{background:#ffffff1f;color:#fff;border:1px solid #ffffff66}.intro{margin:22px 0 12px}.intro h2{margin:0;font-size:1.5rem}.intro p{margin:5px 0;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 8px 24px #1b326313}.card.wide{grid-column:1/-1}.label{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:900;color:#315bd9;margin:0 0 7px}.card h3{font-size:1.35rem;line-height:1.2;margin:0 0 9px}.card p{margin:0;color:#455571}.tag{display:inline-block;border-radius:999px;background:#e6f8f4;color:#126f63;padding:5px 10px;font-size:.8rem;font-weight:800;margin-top:12px}.action{border-left:5px solid var(--gold);background:#fffaf0}.reflection textarea{width:100%;min-height:110px;border:1px solid #aebed5;border-radius:14px;padding:12px;font:inherit;color:var(--ink);margin:10px 0}.reflection .button{background:var(--blue);color:#fff}.notice{background:#eff8ff;border-color:#bcd8ff}.empty{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px}.hidden{display:none}.loading{color:var(--muted)}@media(max-width:620px){.shell{padding:14px}.hero{padding:25px}.grid{grid-template-columns:1fr}.card.wide{grid-column:auto}}
-</style></head><body>
-    <style>
-      body.youth-scene {
-        background-image: linear-gradient(180deg,rgba(3,10,17,.68),rgba(3,10,17,.88)),var(--youth-scene-url) !important;
-        background-size: cover !important;
-        background-position: center top !important;
-        background-attachment: fixed !important;
-      }
-      body.youth-scene .panel { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-    </style>
-    <script>
-      (function(){
-        const scenes=[
-          '/adinkra-library/0DFE3FAC-312A-4FC0-BD75-A74D75470324.png',
-          '/adinkra-library/7CEF4610-7396-4594-A483-D19976817873.png',
-          '/adinkra-library/EC9A9306-4483-41A2-BD77-73ACEBDE601C.png'
-        ];
-        let i=0;
-        try { i=(Number(sessionStorage.getItem('youthSceneIndex')||'-1')+1)%scenes.length;sessionStorage.setItem('youthSceneIndex',String(i)); }
-        catch (_) { i=Math.floor(Math.random()*scenes.length); }
-        document.body.classList.add('youth-scene');
-        document.body.style.setProperty('--youth-scene-url','url("'+scenes[i]+'")');
-      })();
-    </script><main class="shell">
-<section class="hero"><p class="eyebrow">Parent companion</p><h1 id="title">Genius Growth Plan</h1><p id="heroCopy">A small, clear plan built from what you have observed and what your child is learning.</p><nav class="topnav"><a id="dashboardLink" class="button secondary" href="/youth-development/parent-dashboard">‚Üê Genius dashboard</a><a id="learningLink" class="button primary" href="/youth-development/adaptive-learning">Open adaptive learning ‚Üí</a></nav></section>
-<section id="plan" class="hidden"><div class="intro"><h2>This week, keep it simple.</h2><p>Use one strength, practice one growth area, and notice what helps. There is no calendar to manage and no appointment time to set.</p></div><div class="grid"><article class="card"><p class="label">Strength to build from</p><h3 id="strengthTitle">‚Äî</h3><p id="strengthCopy">‚Äî</p><span class="tag">Use this as the entry point</span></article><article class="card"><p class="label">Growth focus</p><h3 id="focusTitle">‚Äî</h3><p id="focusCopy">‚Äî</p><span class="tag">Practice with encouragement</span></article><article class="card wide action"><p class="label">Try this at home</p><h3 id="actionTitle">One meaningful moment is enough.</h3><p id="actionCopy">Choose a short activity where your child can use a current strength while practicing the focus area. Notice effort, strategy, and what they enjoy.</p></article><article class="card notice"><p class="label">Learning connection</p><h3>Practice a school skill together</h3><p>Open Adaptive Learning to let your child continue from the right learning level. Their learning progress stays separate from the Genius snapshot, but both can guide your support.</p></article><article class="card reflection"><p class="label">Parent reflection</p><h3>What did you notice?</h3><p>Save one observation for your family. It is a note, not a score or diagnosis.</p><textarea id="reflection" maxlength="1200" placeholder="Example: She stayed with the fraction model longer when she could explain it out loud."></textarea><button id="saveReflection" class="button" type="button">Save my note</button><p id="saveStatus" aria-live="polite" class="loading"></p></article></div></section>
-<section id="empty" class="empty hidden"><h2>Start with the Genius assessment</h2><p>Once the parent assessment is saved for this child, this page will turn it into a practical Growth Plan.</p><a id="assessmentLink" class="button primary" href="/youth-development/intake">Begin parent assessment ‚Üí</a></section><p id="loading" class="loading">Loading your child‚Äôs plan‚Ä¶</p></main>
-<script>(function(){const q=new URLSearchParams(location.search),ctx={tenant:(q.get('tenant')||'').trim(),email:(q.get('email')||'').trim(),child_id:(q.get('child_id')||q.get('childId')||'').trim()};const meta={SR:'Self-Regulation',CQ:'Curiosity & Questioning',CR:'Creative Reasoning',RS:'Resilience',PS:'Problem Solving',FB:'Focus & Follow-Through',DE:'Interests & Passion Areas'};const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function scoped(path){const u=new URL(path,location.origin);Object.entries(ctx).forEach(([k,v])=>v&&u.searchParams.set(k,v));return u.pathname+u.search}function pick(cards,order){return cards.slice().sort((a,b)=>order*(Number(b.current_score||0)-Number(a.current_score||0)))[0]||{}}function name(card){return meta[String(card.trait_code||'').toUpperCase()]||'Your child‚Äôs next area'}function text(card,keys,fallback){for(const k of keys){if(card&&card[k])return String(card[k])}return fallback}function render(payload){const cards=((((payload||{}).page_model||{}).trait_cards||{}).cards)||[];const child=((((payload||{}).ownership||{}).child_profile||{}).child_name)||'Your child';document.getElementById('title').textContent=child+'‚Äôs Genius Growth Plan';document.getElementById('heroCopy').textContent='A clear weekly support plan shaped by what you have noticed about '+child+'.';if(!cards.length){document.getElementById('empty').classList.remove('hidden');return}const strength=pick(cards,1),focus=pick(cards,-1);document.getElementById('strengthTitle').textContent=name(strength);document.getElementById('strengthCopy').textContent=text(strength,['what_this_means','progress_look_fors'],'This is a current strength to encourage and use during practice.');document.getElementById('focusTitle').textContent=name(focus);document.getElementById('focusCopy').textContent=text(focus,['what_this_means','emotional_context','progress_look_fors'],'Use short, supportive practice and notice small signs of growth.');document.getElementById('actionTitle').textContent='Use '+name(strength)+' to support '+name(focus)+'.';document.getElementById('actionCopy').textContent=text(focus,['progress_look_fors','behavior_look_fors'],'Offer one short activity, let your child make a choice, and praise the strategy they use‚Äînot just the result.');document.getElementById('plan').classList.remove('hidden')}async function load(){document.getElementById('dashboardLink').href=scoped('/youth-development/parent-dashboard');document.getElementById('assessmentLink').href=scoped('/youth-development/intake');try{document.getElementById('reflection').value=localStorage.getItem('youth-growth-note:'+ctx.child_id)||''}catch(_){}const learn=new URL('/youth-development/adaptive-learning',location.origin);Object.entries(ctx).forEach(([k,v])=>v&&learn.searchParams.set(k,v));learn.searchParams.set('program_context','youth_development');learn.searchParams.set('return_url',scoped('/youth-development/program'));document.getElementById('learningLink').href=learn.pathname+learn.search;if(!ctx.tenant||!ctx.email){document.getElementById('empty').classList.remove('hidden');document.getElementById('loading').textContent='Sign in and choose a child to see a personalized plan.';return}try{const r=await fetch(scoped('/api/youth-development/parent-dashboard/latest'));const data=await r.json();if(data&&data.ok&&data.has_result)render(data.payload);else document.getElementById('empty').classList.remove('hidden')}catch(_){document.getElementById('empty').classList.remove('hidden')}finally{document.getElementById('loading').classList.add('hidden')}}document.getElementById('saveReflection').addEventListener('click',()=>{const note=document.getElementById('reflection').value.trim(),status=document.getElementById('saveStatus');if(!note){status.textContent='Write one observation first.';return}try{localStorage.setItem('youth-growth-note:'+ctx.child_id,note);status.textContent='Your note is saved on this device.'}catch(_){status.textContent='Your note could not be saved on this device.'}});load()})()</script></body></html>`;
-}
-
-function createYouthDevelopmentRouter(options = {}) {
-  const router = express.Router();
-  const persistYouthAssessment = typeof options.persistYouthAssessment === "function" ? options.persistYouthAssessment : null;
-  const loadLatestYouthAssessment = typeof options.loadLatestYouthAssessment === "function" ? options.loadLatestYouthAssessment : null;
-  const listYouthChildProfiles = typeof options.listYouthChildProfiles === "function" ? options.listYouthChildProfiles : null;
-  const getProgramBridgeState = typeof options.getProgramBridgeState === "function" ? options.getProgramBridgeState : null;
-  const launchProgramForChild = typeof options.launchProgramForChild === "function" ? options.launchProgramForChild : null;
-  const getProgramWeekExecution = typeof options.getProgramWeekExecution === "function" ? options.getProgramWeekExecution : null;
-  const saveProgramWeekExecution = typeof options.saveProgramWeekExecution === "function" ? options.saveProgramWeekExecution : null;
-  const getProgramWeekPlanning = typeof options.getProgramWeekPlanning === "function" ? options.getProgramWeekPlanning : null;
-  const saveProgramCommitmentPlan = typeof options.saveProgramCommitmentPlan === "function" ? options.saveProgramCommitmentPlan : null;
-  const saveProgramSessionPlan = typeof options.saveProgramSessionPlan === "function" ? options.saveProgramSessionPlan : null;
-  const markProgramSessionComplete = typeof options.markProgramSessionComplete === "function" ? options.markProgramSessionComplete : null;
-  const getVoiceSectionsForChild = typeof options.getVoiceSectionsForChild === "function" ? options.getVoiceSectionsForChild : null;
-  const resolveVoiceAssetByRef = typeof options.resolveVoiceAssetByRef === "function" ? options.resolveVoiceAssetByRef : null;
-  const getVoiceSynthesisForSection = typeof options.getVoiceSynthesisForSection === "function" ? options.getVoiceSynthesisForSection : null;
-  const adaptiveSummaryPool = options.pool && typeof options.pool.query === "function" ? options.pool : null;
-
-  router.get("/youth-development/intake", (req, res) => (
-    res.status(200).type("html").send(renderLiveYouthAssessmentPage())
-  ));
-
-  router.get("/youth-development/intake/test", (req, res) => (
-    (isInternalSurfaceRequestAllowed(req)
-      ? res.status(200).type("html").send(renderYouthDevelopmentIntakeTestPage())
-      : res.status(404).type("html").send("<h1>Not Found</h1>"))
-  ));
-
-  router.get("/youth-development/parent-dashboard", (req, res) => (
-    res.status(200).type("html").send(renderLiveYouthParentDashboardPage())
-  ));
-  router.get("/youth-development/adaptive-learning", (req, res) => (
-    res.status(200).sendFile(require("path").join(__dirname, "..", "public", "gamehub", "adaptive-v2-hub.html"))
-  ));
-  router.get("/youth-development/program", (req, res) => (
-    res.status(200).type("html").send(renderLiveYouthGrowthPlanPage())
-  ));
-
-  router.get("/youth-development/parent-dashboard/preview", (req, res) => {
-    if (!isInternalSurfaceRequestAllowed(req)) {
-      return res.status(404).type("html").send("<h1>Not Found</h1>");
-    }
-    const payload = buildPreviewPayload();
-    const html = renderYouthDevelopmentParentDashboardPage(payload.page_model, {
-      previewLabel: "Preview / test-only output (deterministic fixture, no production data)",
-    });
-    return res.status(200).type("html").send(html);
-  });
-
-  router.get("/api/youth-development/questions", (req, res) => {
-    const flow = getQuestionFlowState({ answers: {} });
-    return res.status(200).json({
-      ok: true,
-      bank_id: "youth_talent_development_parent_observation_screener_v1",
-      bank_name: "Youth Talent Development Intake ‚Äî Parent Observation Screener v1",
-      respondent: "parent_guardian",
-      instructions: YOUTH_PARENT_INSTRUCTIONS,
-      question_count: YOUTH_QUESTION_BANK.length,
-      questions: YOUTH_QUESTION_BANK,
-      flow,
-    });
-  });
-
-  router.post("/api/youth-development/assess", async (req, res) => {
-    const validation = validateAnswers(req.body || {});
-    if (!validation.ok) {
-      return res.status(400).json({
-        ok: false,
-        error: "invalid_youth_intake_answers",
-        validation_errors: validation.errors,
-      });
-    }
-    try {
-      const accountCtx = resolveRequestAccountContext(req, req.body || {});
-      console.info("youth_assessment_submit_received", {
-        tenant: accountCtx.tenant || null,
-        email: accountCtx.email || null,
-        answer_count: validation.answers.length,
-        unanswered_count: validation.unanswered_question_ids.length,
-        requested_child_id: safeTrim(req.body?.child_id || req.body?.childId) || null,
-      });
-      const payload = buildYouthAssessPayload(validation.answers, {
-        unansweredCount: validation.unanswered_question_ids.length,
-      });
-      console.info("youth_assessment_result_generated", {
-        tenant: accountCtx.tenant || null,
-        email: accountCtx.email || null,
-        answer_count: validation.answers.length,
-        highest_trait: payload?.scoring?.interpretation?.highest_trait?.trait_code || null,
-        lowest_trait: payload?.scoring?.interpretation?.lowest_trait?.trait_code || null,
-      });
-      const childProfile = {
-        child_id: safeTrim(req.body?.child_id || req.body?.childId) || null,
-        child_name: safeTrim(req.body?.child_name || req.body?.childName) || null,
-        child_age_band: safeTrim(req.body?.child_age_band || req.body?.childAgeBand) || null,
-        child_grade_band: safeTrim(req.body?.child_grade_band || req.body?.childGradeBand) || null,
-      };
-      let ownership = {
-        account_bound: false,
-        tenant: accountCtx.tenant || null,
-        email: accountCtx.email || null,
-        child_profile: childProfile,
-      };
-      const accountScopePresent = Boolean(accountCtx.tenant && accountCtx.email);
-      let persistenceDiagnostics = {
-        persistence_enabled: Boolean(persistYouthAssessment),
-        account_scope_present: accountScopePresent,
-        attempted: false,
-        inserted: false,
-        error: null,
-      };
-      if (persistYouthAssessment && accountCtx.tenant && accountCtx.email) {
-        persistenceDiagnostics.attempted = true;
-        const saved = await persistYouthAssessment({
-          accountCtx,
-          request: req,
-          requestBody: req.body || {},
-          responsePayload: payload,
-          validation,
-          answers: validation.answers,
-          unansweredQuestionIds: validation.unanswered_question_ids,
-        });
-        if (saved && typeof saved === "object") ownership = Object.assign(ownership, saved);
-        persistenceDiagnostics.inserted = ownership.account_bound === true && Boolean(ownership.submission_id);
-        persistenceDiagnostics.submission_id = ownership.submission_id || null;
-        persistenceDiagnostics.saved_child_id = ownership?.child_profile?.child_id || null;
-      }
-      if (accountScopePresent && persistenceDiagnostics.persistence_enabled && persistenceDiagnostics.inserted !== true) {
-        console.error("youth_assessment_persist_required_failed", {
-          tenant: accountCtx.tenant || null,
-          email: accountCtx.email || null,
-          answer_count: validation.answers.length,
-          child_id: ownership?.child_profile?.child_id || null,
-          submission_id: ownership?.submission_id || null,
-        });
-        return res.status(500).json({
-          ok: false,
-          error: "youth_assessment_persist_required_failed",
-          ownership,
-          diagnostics: {
-            route: "/api/youth-development/assess",
-            handler: "createYouthDevelopmentRouter.assess",
-            continuity: {
-              submit_received: true,
-              answer_count: validation.answers.length,
-              unanswered_count: validation.unanswered_question_ids.length,
-              result_generated: true,
-              persist_attempted: persistenceDiagnostics.attempted,
-              persist_inserted: false,
-              latest_lookup_ready: false,
-              history_lookup_ready: false,
-            },
-          },
-        });
-      }
-      console.info("youth_assessment_persist_result", {
-        tenant: accountCtx.tenant || null,
-        email: accountCtx.email || null,
-        persist_attempted: persistenceDiagnostics.attempted,
-        persist_inserted: persistenceDiagnostics.inserted,
-        submission_id: ownership?.submission_id || null,
-        child_id: ownership?.child_profile?.child_id || null,
-      });
-      return res.status(200).json({
-        ok: true,
-        question_count: YOUTH_QUESTION_BANK.length,
-        answers_count: validation.answers.length,
-        unanswered_count: validation.unanswered_question_ids.length,
-        flow: getQuestionFlowState(req.body || {}),
-        interpretation: payload.scoring.interpretation,
-        completion: payload.scoring.completion,
-        aggregated_trait_rows: payload.scoring.trait_rows,
-        trait_reports: payload.trait_reports,
-        result: payload.result,
-        dashboard: payload.dashboard,
-        page_model: payload.page_model,
-        rendered_html: payload.rendered_html,
-        ownership,
-        diagnostics: {
-          route: "/api/youth-development/assess",
-          handler: "createYouthDevelopmentRouter.assess",
-          continuity: {
-            submit_received: true,
-            answer_count: validation.answers.length,
-            unanswered_count: validation.unanswered_question_ids.length,
-            result_generated: true,
-            persist_attempted: persistenceDiagnostics.attempted,
-            persist_inserted: persistenceDiagnostics.inserted,
-            submission_id: ownership?.submission_id || null,
-            persisted_child_id: ownership?.child_profile?.child_id || null,
-          },
-        },
-      });
-    } catch (err) {
-      console.error("youth_assess_failed", err);
-      return res.status(500).json({
-        ok: false,
-        error: "youth_assess_failed",
-      });
-    }
-  });
-
-  router.get("/api/youth-development/parent-dashboard/latest", async (req, res) => {
-    if (!loadLatestYouthAssessment) {
-      return res.status(200).json({ ok: true, has_result: false, payload: null, reason: "persistence_not_enabled" });
-    }
-    const accountCtx = resolveRequestAccountContext(req, req.query || {});
-    if (!accountCtx.tenant || !accountCtx.email) {
-      return res.status(400).json({ ok: false, error: "tenant and email are required" });
-    }
-    try {
-      const childId = safeTrim(req.query?.child_id || req.query?.childId);
-      const latest = await loadLatestYouthAssessment({ accountCtx, request: req, childId });
-      if (!latest) {
-        let reason = "no_saved_parent_assessment";
-        if (childId && listYouthChildProfiles) {
-          const childProfiles = await listYouthChildProfiles({ accountCtx, request: req });
-          const matchedChild = childProfiles.find((entry) => String(entry?.child_id || "") === String(childId));
-          reason = matchedChild ? "no_saved_parent_assessment_for_child_scope" : "requested_child_scope_not_found";
-        }
-        console.info("youth_parent_dashboard_latest_empty", {
-          tenant: accountCtx.tenant,
-          email: accountCtx.email,
-          requested_child_id: childId || null,
-          reason,
-        });
-        return res.status(200).json({
-          ok: true,
-          has_result: false,
-          payload: null,
-          child_id: childId || null,
-          reason,
-          latest_submission_id: null,
-          latest_created_at: null,
-          candidate_submission_ids: [],
-          selection_ordering: "created_at DESC, submission_id DESC",
-          selection_reason: reason,
-          diagnostics: {
-            route: "/api/youth-development/parent-dashboard/latest",
-            handler: "createYouthDevelopmentRouter.parentDashboardLatest",
-            scope: {
-              tenant: accountCtx.tenant || null,
-              email: accountCtx.email || null,
-              requested_child_id: childId || null,
-            },
-            continuity: {
-              selected_latest_result: null,
-              selected_history_count: 0,
-              reason,
-            },
-          },
-        });
-      }
-      return res.status(200).json({
-        ok: true,
-        has_result: true,
-        payload: latest,
-        child_id: childId || latest?.ownership?.child_profile?.child_id || null,
-        latest_submission_id: latest?.diagnostics?.latest_submission_id || null,
-        latest_created_at: latest?.diagnostics?.latest_created_at || null,
-        candidate_submission_ids: latest?.diagnostics?.candidate_submission_ids || [],
-        selection_ordering: latest?.diagnostics?.selection_ordering || "created_at DESC, submission_id DESC",
-        selection_reason: latest?.diagnostics?.selection_reason || null,
-        diagnostics: {
-          route: "/api/youth-development/parent-dashboard/latest",
-          handler: "createYouthDevelopmentRouter.parentDashboardLatest",
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            requested_child_id: childId || null,
-          },
-          continuity: {
-            selected_latest_result: latest?.diagnostics?.latest_submission_id || null,
-            selected_history_count: Number(latest?.diagnostics?.selected_history_count || 0),
-            latest_selection_path: latest?.diagnostics?.latest_selection_path || null,
-          },
-        },
-      });
-    } catch (err) {
-      console.error("youth_latest_lookup_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_latest_lookup_failed" });
-    }
-  });
-
-  router.get("/api/youth-development/children", async (req, res) => {
-    if (!listYouthChildProfiles) {
-      return res.status(200).json({ ok: true, has_children: false, children: [], reason: "persistence_not_enabled" });
-    }
-    const accountCtx = resolveRequestAccountContext(req, req.query || {});
-    if (!accountCtx.tenant || !accountCtx.email) {
-      return res.status(400).json({ ok: false, error: "tenant and email are required" });
-    }
-    try {
-      const children = await listYouthChildProfiles({ accountCtx, request: req });
-      return res.status(200).json({ ok: true, has_children: children.length > 0, children });
-    } catch (err) {
-      console.error("youth_children_lookup_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_children_lookup_failed" });
-    }
-  });
-
-  router.get("/api/youth-development/program/week-content", async (req, res) => {
-    const childId = safeTrim(req.query?.child_id || req.query?.childId);
-    const accountCtx = resolveRequestAccountContext(req, req.query || {});
-    try {
-      const [bridgeState, childProfiles] = await Promise.all([
-        getProgramBridgeState
-          ? getProgramBridgeState({ accountCtx, request: req, childId: childId || null })
-          : Promise.resolve(null),
-        (!childId && listYouthChildProfiles && accountCtx.tenant && accountCtx.email)
-          ? listYouthChildProfiles({ accountCtx, request: req })
-          : Promise.resolve([]),
-      ]);
-      const payload = buildProgramWeekContentState({
-        bridgeState,
-        childId,
-        childProfiles: Array.isArray(childProfiles) ? childProfiles : [],
-        executionState: getProgramWeekExecution
-          ? await getProgramWeekExecution({
-            accountCtx,
-            request: req,
-            childId,
-            weekNumber: Number(bridgeState?.current_week || 1),
-          })
-          : null,
-        planningState: getProgramWeekPlanning
-          ? await getProgramWeekPlanning({
-            accountCtx,
-            request: req,
-            childId,
-            weekNumber: Number(bridgeState?.current_week || 1),
-          })
-          : null,
-      });
-      return res.status(200).json({
-        ...payload,
-        diagnostics: {
-          route: "/api/youth-development/program/week-content",
-          handler: "createYouthDevelopmentRouter.programWeekContent",
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            requested_child_id: childId || null,
-          },
-          depends_on: {
-            bridge_state_available: Boolean(bridgeState && bridgeState.ok === true),
-            execution_state_available: Boolean(payload?.execution_state),
-            planning_state_available: Boolean(payload?.week_content?.commitment_plan || payload?.week_content?.scheduled_sessions),
-          },
-          continuity_state: String(payload?.state || "unknown"),
-        },
-      });
-    } catch (err) {
-      console.error("youth_program_week_content_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_week_content_failed" });
-    }
-  });
-
-
-  router.get("/api/youth-development/voice/sections/:childId", async (req, res) => {
-    const childId = safeTrim(req.params?.childId);
-    const accountCtx = resolveRequestAccountContext(req, req.query || {});
-    if (!childId) {
-      return res.status(400).json({ ok: false, error: "child_id_required" });
-    }
-    if (!getVoiceSectionsForChild) {
-      return res.status(200).json({
-        ok: true,
-        child_id: childId,
-        sections: [],
-        display_status: "voice_fallback_active",
-        diagnostics: {
-          route: "/api/youth-development/voice/sections/:childId",
-          mounted: true,
-          provider_enabled: false,
-        },
-      });
-    }
-    try {
-      const payload = await getVoiceSectionsForChild({ accountCtx, request: req, childId });
-      return res.status(200).json({
-        ...(payload || { ok: true, child_id: childId, sections: [], display_status: "voice_fallback_active" }),
-        diagnostics: {
-          route: "/api/youth-development/voice/sections/:childId",
-          mounted: true,
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            child_id: childId,
-          },
-        },
-      });
-    } catch (err) {
-      console.error("youth_voice_sections_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_voice_sections_failed" });
-    }
-  });
-
-  router.get("/api/youth-development/voice/assets/resolve", async (req, res) => {
-    const childId = safeTrim(req.query?.child_id);
-    const assetRef = safeTrim(req.query?.asset_ref);
-    if (!assetRef) return res.status(400).json({ ok: false, error: "asset_ref_required" });
-    if (!resolveVoiceAssetByRef) {
-      return res.status(200).json({ ok: false, error: "voice_asset_resolver_not_enabled" });
-    }
-    try {
-      const payload = await resolveVoiceAssetByRef({ child_id: childId || null, asset_ref: assetRef });
-      return res.status(200).json(payload || { ok: false, error: "voice_asset_unavailable" });
-    } catch (err) {
-      console.error("youth_voice_asset_resolve_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_voice_asset_resolve_failed" });
-    }
-  });
-
-  router.post("/api/youth-development/voice/speak", async (req, res) => {
-    const childId = safeTrim(req.body?.child_id || req.body?.childId);
-    const sectionKey = safeTrim(req.body?.section_key || req.body?.sectionKey) || "section";
-    const textContent = safeTrim(req.body?.text_content || req.body?.textContent || req.body?.voice_text);
-    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
-    if (!textContent) return res.status(400).json({ ok: false, error: "text_content_required" });
-    if (!getVoiceSynthesisForSection) {
-      return res.status(200).json({ ok: false, status: "provider_unavailable", fallback_reason: "voice_synthesis_not_enabled" });
-    }
-    try {
-      const payload = await getVoiceSynthesisForSection({
-        child_id: childId,
-        section_key: sectionKey,
-        text_content: textContent,
-        voice: safeTrim(req.body?.voice) || undefined,
-      });
-      const providerDiagnostics = payload?.diagnostics && typeof payload.diagnostics === "object" ? payload.diagnostics : {};
-      const upstreamStatus = providerDiagnostics.gateway_http_status ?? null;
-      const upstreamContentType = providerDiagnostics.gateway_content_type
-        || providerDiagnostics.provider_audio_content_type
-        || null;
-      const upstreamByteCount = Number(providerDiagnostics.provider_audio_bytes || 0);
-      const providerAudioAvailable = Boolean(payload?.ok && (safeTrim(payload?.audio_url) || safeTrim(payload?.asset_ref)));
-      const providerAvailabilityDecision = providerAudioAvailable ? "provider_audio_available" : "provider_audio_unavailable";
-      return res.status(200).json({
-        ...(payload || { ok: false, status: "provider_unavailable", fallback_reason: "provider_unavailable" }),
-        diagnostics: {
-          route: "/api/youth-development/voice/speak",
-          method: "POST",
-          section_key: sectionKey,
-          text_length: textContent.length,
-          upstream_route: "/speak",
-          upstream_status: upstreamStatus,
-          upstream_content_type: upstreamContentType,
-          upstream_byte_count: upstreamByteCount,
-          provider_audio_available: providerAudioAvailable,
-          provider_availability_decision: providerAvailabilityDecision,
-          provider_status: payload?.provider_status || null,
-          fallback_reason: payload?.fallback_reason || null,
-        },
-      });
-    } catch (err) {
-      console.error("youth_voice_speak_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_voice_speak_failed" });
-    }
-  });
-
-  router.get("/api/youth-development/program/bridge", async (req, res) => {
-    if (!getProgramBridgeState) {
-      return res.status(200).json({ ok: true, launch_allowed: false, reason: "program_bridge_not_enabled" });
-    }
-    try {
-      const childId = safeTrim(req.query?.child_id || req.query?.childId);
-      const accountCtx = resolveRequestAccountContext(req, req.body || {});
-      const state = await getProgramBridgeState({ accountCtx, request: req, childId });
-      const bridgePayload = state || { ok: true, launch_allowed: false, reason: "program_state_unavailable" };
-      return res.status(200).json({
-        ...bridgePayload,
-        diagnostics: {
-          route: "/api/youth-development/program/bridge",
-          handler: "createYouthDevelopmentRouter.programBridge",
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            requested_child_id: childId || null,
-            resolved_child_id: bridgePayload?.child_id || null,
-          },
-          continuity: {
-            launch_allowed: bridgePayload?.launch_allowed === true,
-            has_enrollment: bridgePayload?.has_enrollment === true,
-            reason: bridgePayload?.reason || null,
-          },
-        },
-      });
-    } catch (err) {
-      console.error("youth_program_bridge_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_bridge_failed" });
-    }
-  });
-
-  router.post("/api/youth-development/program/launch", async (req, res) => {
-    if (!launchProgramForChild) {
-      return res.status(200).json({ ok: true, launch_allowed: false, reason: "program_launch_not_enabled" });
-    }
-    try {
-      const childId = safeTrim(req.body?.child_id || req.body?.childId || req.query?.child_id || req.query?.childId);
-      const accountCtx = resolveRequestAccountContext(req, req.body || {});
-      const launched = await launchProgramForChild({ accountCtx, request: req, childId });
-      return res.status(200).json({
-        ...(launched || { ok: false, error: "program_launch_unavailable" }),
-        diagnostics: {
-          route: "/api/youth-development/program/launch",
-          handler: "createYouthDevelopmentRouter.programLaunch",
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            requested_child_id: childId || null,
-            resolved_child_id: launched?.child_id || null,
-          },
-        },
-      });
-    } catch (err) {
-      console.error("youth_program_launch_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_launch_failed" });
-    }
-  });
-
-  router.post("/api/youth-development/program/week-execution", async (req, res) => {
-    if (!saveProgramWeekExecution) {
-      return res.status(200).json({ ok: false, error: "week_execution_not_enabled" });
-    }
-    try {
-      const accountCtx = resolveRequestAccountContext(req, req.body || {});
-      const childId = safeTrim(req.body?.child_id || req.body?.childId || req.query?.child_id || req.query?.childId);
-      const validation = validateWeeklyExecutionActionPayload({
-        tenant: accountCtx.tenant,
-        email: accountCtx.email,
-        child_id: childId,
-        week_number: Number(req.body?.week_number || req.body?.weekNumber || 1),
-        action_type: safeTrim(req.body?.action_type || req.body?.actionType),
-        step_key: safeTrim(req.body?.step_key || req.body?.stepKey),
-        note: String(req.body?.note || ""),
-        case_profile_type: safeTrim(req.body?.case_profile_type || req.body?.caseProfileType),
-        initiated_by: safeTrim(req.body?.initiated_by || req.body?.initiatedBy),
-        case_priority: safeTrim(req.body?.case_priority || req.body?.casePriority),
-        referral_source: safeTrim(req.body?.referral_source || req.body?.referralSource),
-        support_channel: safeTrim(req.body?.support_channel || req.body?.supportChannel),
-        destination_team: safeTrim(req.body?.destination_team || req.body?.destinationTeam),
-        routing_reason: String(req.body?.routing_reason || req.body?.routingReason || ""),
-        urgency_level: safeTrim(req.body?.urgency_level || req.body?.urgencyLevel),
-        touchpoint_type: safeTrim(req.body?.touchpoint_type || req.body?.touchpointType),
-        touchpoint_outcome: safeTrim(req.body?.touchpoint_outcome || req.body?.touchpointOutcome),
-        touchpoint_note: String(req.body?.touchpoint_note || req.body?.touchpointNote || ""),
-      });
-      if (!validation.ok) {
-        return res.status(200).json({
-          ok: false,
-          error: "week_execution_contract_invalid",
-          messages: validation.errors,
-          allowed_actions: WEEKLY_EXECUTION_ACTIONS,
-        });
-      }
-      const result = await saveProgramWeekExecution({
-        accountCtx,
-        request: req,
-        childId,
-        weekNumber: validation.normalized.week_number,
-        actionType: validation.normalized.action_type,
-        stepKey: validation.normalized.step_key,
-        note: validation.normalized.note,
-        actionPayload: validation.normalized.action_payload,
-      });
-      return res.status(200).json({
-        ...(result || {}),
-        diagnostics: {
-          route: "/api/youth-development/program/week-execution",
-          handler: "createYouthDevelopmentRouter.programWeekExecution",
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            child_id: childId || null,
-            week_number: validation.normalized.week_number,
-          },
-          action_type: validation.normalized.action_type,
-        },
-      });
-    } catch (err) {
-      console.error("youth_program_week_execution_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_week_execution_failed" });
-    }
-  });
-
-  router.get("/api/youth-development/program/week-execution/audit", async (req, res) => {
-    try {
-      const observedActions = String(req.query?.observed_actions || "")
-        .split(",")
-        .map((value) => safeTrim(value).toLowerCase())
-        .filter(Boolean);
-      return res.status(200).json({
-        ok: true,
-        audit: buildWeeklyExecutionCoverageReport({ observedActions }),
-      });
-    } catch (err) {
-      console.error("youth_program_week_execution_audit_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_week_execution_audit_failed" });
-    }
-  });
-
-  router.get("/api/youth-development/program/connectivity-audit", async (_req, res) => {
-    try {
-      return res.status(200).json({
-        ok: true,
-        contract: "parent_program_connectivity_audit_v1",
-        controls: PROGRAM_CONNECTIVITY_CONTROLS,
-        totals: {
-          controls: PROGRAM_CONNECTIVITY_CONTROLS.length,
-          working: PROGRAM_CONNECTIVITY_CONTROLS.filter((entry) => entry.status === "working").length,
-          partial: PROGRAM_CONNECTIVITY_CONTROLS.filter((entry) => entry.status === "partial").length,
-          broken: PROGRAM_CONNECTIVITY_CONTROLS.filter((entry) => entry.status === "broken").length,
-        },
-      });
-    } catch (err) {
-      console.error("youth_program_connectivity_audit_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_connectivity_audit_failed" });
-    }
-  });
-
-  router.post("/api/youth-development/program/commitment", async (req, res) => {
-    if (!saveProgramCommitmentPlan) return res.status(200).json({ ok: false, error: "commitment_plan_not_enabled" });
-    try {
-      const accountCtx = resolveRequestAccountContext(req, req.body || {});
-      const childId = safeTrim(req.body?.child_id || req.body?.childId);
-      console.info("[planner-commitment-debug] receivedCommitmentRequest", {
-        preferred_time_received: safeTrim(req.body?.preferred_time),
-        preferred_time_window_received: safeTrim(req.body?.preferred_time_window),
-      });
-      const validation = validateParentCommitmentSetup(req.body || {});
-      if (!validation.ok) {
-        return res.status(200).json({
-          ok: false,
-          error: "commitment_setup_invalid",
-          messages: validation.errors,
-          required_fields: ["weekly_frequency", "preferred_days", "session_length", "energy_type", "start_date"],
-        });
-      }
-      const normalizedCommitment = normalizeParentCommitmentPlan({
-        ...validation.normalized,
-        child_id: childId || validation.normalized.child_id,
-      });
-      console.info("[planner-commitment-debug] normalizedCommitment", {
-        preferred_time_normalized: normalizedCommitment.preferred_time,
-        preferred_time_window_normalized: normalizedCommitment.preferred_time_window,
-      });
-      const result = await saveProgramCommitmentPlan({ accountCtx, request: req, childId, commitment: normalizedCommitment });
-      const normalizedResult = result && typeof result === "object"
-        ? {
-          ...result,
-          commitment_setup_status: String(result.commitment_setup_status || (result.ok === true ? "complete" : "required")),
-          planner_setup_required: result.ok === true ? false : Boolean(result.planner_setup_required),
-          scheduled_sessions: Array.isArray(result.scheduled_sessions) ? result.scheduled_sessions : [],
-        }
-        : { ok: false, error: "commitment_plan_save_invalid_result", commitment_setup_status: "required", planner_setup_required: true, scheduled_sessions: [] };
-      return res.status(200).json({
-        ...normalizedResult,
-        diagnostics: {
-          route: "/api/youth-development/program/commitment",
-          handler: "createYouthDevelopmentRouter.programCommitment",
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            child_id: childId || null,
-          },
-          commitment_setup_status: normalizedResult.commitment_setup_status || null,
-          scheduled_session_count: Array.isArray(normalizedResult.scheduled_sessions) ? normalizedResult.scheduled_sessions.length : 0,
-        },
-      });
-    } catch (err) {
-      console.error("youth_program_commitment_save_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_commitment_save_failed" });
-    }
-  });
-
-  router.post("/api/youth-development/program/session-plan", async (req, res) => {
-    if (!saveProgramSessionPlan) return res.status(200).json({ ok: false, error: "session_plan_not_enabled" });
-    try {
-      const accountCtx = resolveRequestAccountContext(req, req.body || {});
-      const childId = safeTrim(req.body?.child_id || req.body?.childId);
-      const weekNumber = Number(req.body?.week_number || req.body?.weekNumber || 1);
-      const result = await saveProgramSessionPlan({ accountCtx, request: req, childId, weekNumber, payload: req.body || {} });
-      return res.status(200).json({
-        ...(result || {}),
-        diagnostics: {
-          route: "/api/youth-development/program/session-plan",
-          handler: "createYouthDevelopmentRouter.programSessionPlan",
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            child_id: childId || null,
-            week_number: weekNumber,
-          },
-          scheduled_session_count: Array.isArray(result?.scheduled_sessions) ? result.scheduled_sessions.length : 0,
-        },
-      });
-    } catch (err) {
-      console.error("youth_program_session_plan_save_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_session_plan_save_failed" });
-    }
-  });
-
-  router.post("/api/youth-development/program/session-complete", async (req, res) => {
-    if (!markProgramSessionComplete) return res.status(200).json({ ok: false, error: "session_complete_not_enabled" });
-    try {
-      const accountCtx = resolveRequestAccountContext(req, req.body || {});
-      const childId = safeTrim(req.body?.child_id || req.body?.childId);
-      const weekNumber = Number(req.body?.week_number || req.body?.weekNumber || 1);
-      const sessionId = safeTrim(req.body?.session_id || req.body?.sessionId);
-      const day = safeTrim(req.body?.day);
-      const time = safeTrim(req.body?.time);
-      const scheduledAt = safeTrim(req.body?.scheduled_at || req.body?.scheduledAt);
-      const result = await markProgramSessionComplete({ accountCtx, request: req, childId, weekNumber, sessionId, day, time, scheduledAt });
-      return res.status(200).json({
-        ...(result || {}),
-        diagnostics: {
-          route: "/api/youth-development/program/session-complete",
-          handler: "createYouthDevelopmentRouter.programSessionComplete",
-          scope: {
-            tenant: accountCtx.tenant || null,
-            email: accountCtx.email || null,
-            child_id: childId || null,
-            week_number: weekNumber,
-            session_id: sessionId || null,
-          },
-        },
-      });
-    } catch (err) {
-      console.error("youth_program_session_complete_failed", err);
-      return res.status(500).json({ ok: false, error: "youth_program_session_complete_failed" });
-    }
-  });
-
-
-  router.get("/api/youth-development/parent-dashboard/adaptive-summary", async (req, res) => {
-    if (!adaptiveSummaryPool) return res.status(200).json({ ok: true, empty_state: true, reason: "adaptive_summary_pool_not_configured" });
-    const accountCtx = resolveRequestAccountContext(req, req.query || {});
-    const childId = safeTrim(req.query?.child_id || req.query?.childId);
-    if (!accountCtx.tenant || !accountCtx.email || !childId) return res.status(400).json({ ok: false, error: "tenant_email_child_id_required" });
-    if (!listYouthChildProfiles) return res.status(200).json({ ok: true, empty_state: true, child_id: childId, reason: "child_profile_lookup_not_configured" });
-    const childProfiles = await listYouthChildProfiles({ accountCtx, request: req });
-    const child = childProfiles.find((entry) => String(entry?.child_id || "") === String(childId));
-    if (!child) return res.status(404).json({ ok: false, error: "requested_child_scope_not_found" });
-    if (isFakeLearnerName(child.child_name)) return res.status(409).json({ ok: false, error: "test_or_guest_child_scope_not_allowed", child_id: childId });
-    let adaptiveParentProfileId = child.parent_profile_id || child.parent_id || null;
-    if (!adaptiveParentProfileId) {
-      const ownerLookup = await adaptiveSummaryPool.query("SELECT parent_id::text AS parent_profile_id FROM gates_child_profiles WHERE id::text=$1 LIMIT 1", [childId]).catch(() => ({ rows: [] }));
-      adaptiveParentProfileId = ownerLookup.rows?.[0]?.parent_profile_id || null;
-    }
-    const summary = await buildAdaptiveParentDashboardSummary(adaptiveSummaryPool, {
-      childId,
-      parentProfileId: adaptiveParentProfileId,
-      childName: child.child_name || "",
-    });
-    return res.status(200).json({
-      ...summary,
-      diagnostics: {
-        route: "/api/youth-development/parent-dashboard/adaptive-summary",
-        scope: { tenant: accountCtx.tenant, email: accountCtx.email, child_id: childId },
-        source_tables: ["assessment_sessions", "adaptive_v2_skill_progress", "adaptive_v2_checkpoint_attempts", "skill_world_progress"],
-      },
-    });
-  });
-
-  router.get("/api/youth-development/parent-dashboard/preview", (req, res) => {
-    if (!isInternalSurfaceRequestAllowed(req)) {
-      return res.status(404).json({ ok: false, error: "not_found" });
-    }
-    const payload = buildPreviewPayload();
-    return res.status(200).json({
-      preview: true,
-      test_only: true,
-      notes: [
-        "Deterministic fixture data only.",
-        "No database access.",
-        "No tenant writes.",
-      ],
-      ...payload,
-    });
-  });
-
-  return router;
-}
-
-module.exports = {
-  createYouthDevelopmentRouter,
-  PREVIEW_AGGREGATED_ROWS,
-  INTAKE_TEST_FIXTURE,
-};
+Y™Áäx-ÆÈ‹j◊ù¢Îi∫⁄+äßj[hëÈ‹¢ÈÌ◊mv◊‘Ëµ©h∫⁄n∂XßzÕHù\ŸH›öX›é¬Çò€€ú›^ô\‹»Hô\]Z\ôJô^ô\‹»äN¬ò€€ú›»ùZ[[›]]ô[‹Y[ùô\›[HHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù€YX\›\ô[Y[ù‹ô\›[ùZ[\àäN¬ò€€ú›»ùZ[[›]]ô[‹Y[ù\⁄õÿ\ôHHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù€YX\›\ô[Y[ùŸ\⁄õÿ\ôùZ[\àäN¬ò€€ú›»ùZ[\ô[ù\⁄õÿ\ôYŸS[Ÿ[HHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù‹ô\Ÿ[ù][€ã‹\ô[ù\⁄õÿ\ôYŸS[Ÿ[äN¬ò€€ú›»ô[ô\ñ[›]]ô[‹Y[ù\ô[ù\⁄õÿ\ôYŸHHHô\]Z\ôJããﬁ[›]]ô[‹Y[ùô[ô\ô\àäN¬ò€€ú›»ùZ[Y\]ôT\ô[ù\⁄õÿ\ô›[[X\ûK\—òZŸSX\õô\ìò[YHHHô\]Z\ôJããÿY\]ôT\ô[ù\⁄õÿ\ô›[[X\ûHäN¬ò€€ú›¬àS’U‘UQT’S”ó–êSíÀàS’U‘TëSï“Sî’ïP’S”îÀàS’U–Sî’—Tó‘––SKüHHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù‹]Y\›[€ãY[ô⁄[ôKﬁ[›]]Y\›[€êò[ö»äN¬ò€€ú›»Ÿ]]Y\›[€ëõ›‘›]Kò[Y]P[ú›Ÿ\ú»HHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù‹]Y\›[€ãY[ô⁄[ôKﬁ[›]]Y\›[€ëõ›»äN¬ò€€ú›»ù[ñ[›][ùZŸTÿ€‹ö[ô»HHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù‹]Y\›[€ãY[ô⁄[ôKﬁ[›]ÿ€‹ö[ô”X\äN¬ò€€ú›»ì—‘êSW’—QR‘»HHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù›K‹õŸ‹ò[TòZ[äN¬ò€€ú›»ùZ[Ÿ\‹⁄[€î[àHHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù›K‹Ÿ\‹⁄[€êùZ[\îŸ\ùöXŸHäN¬ò€€ú›»\›X›]ö]Y\–ûP€€\€ô[ùHHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù›KÿX›]ö]Pò[ö‘Ÿ\ùöXŸHäN¬ò€€ú›»Ÿ]]]‹ôYŸYZ–€€ù[ù]Y]ŸYZ€P€€ù[ù€›\òŸ\À’T‘—TUQSê—HHHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ùÿ€€ù[ù›ŸYZ€TõŸ‹ò[P€€ù[ùäN¬ò€€ú›¬àYò][^X›][€î›]Kàõ‹õX[^ôQ^X›][€î›]KàùZ[ŸYZ€Q^X›][€ê€›ô\òYŸTô\‹ùàò[Y]UŸYZ€Q^X›][€êX›[€î^[ÿYà—QR”W—VP’US”ó–P’S”îÀüHHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù›K›ŸYZ€Q^X›][€ê€€ùòX›äN¬ò€€ú›¬àõ‹õX[^ôT\ô[ù€€[Z]Y[ù[ãàò[Y]T\ô[ù€€[Z]Y[ùŸ]\à\‘\ô[ù€€[Z]Y[ùŸ]\€€\]KüHHô\]Z\ôJãããﬁ[›]Y]ô[‹Y[ù›K‹\ô[ù€€[Z]Y[ùŸ]\€€ùòX›äN¬Çò€€ú›ëUíQU◊–Q—‘ëQ–UQ‘ì’‘»HÿöôX›ôúôY^ôJ¬àÿöôX›ôúôY^ôJ¬àòZ]ÿ€ŸNàî‘àãàò\Ÿ[[ôW‹ÿ€‹ôNàåKà›\úô[ù‹ÿ€‹ôNàãà⁄[ôŸW‹ÿ€‹ôNàåKà€€ôöY[òŸW‹ÿ€‹ôNàãà]öY[òŸW€Z^‹ÿ€‹ôNàŒKàô[ôŸ\ôX›[€éàö[ò‹ôX\⁄[ô»ãàJKàÿöôX›ôúôY^ôJ¬àòZ]ÿ€ŸNàî»ãàò\Ÿ[[ôW‹ÿ€‹ôNàà›\úô[ù‹ÿ€‹ôNàÕà⁄[ôŸW‹ÿ€‹ôNàLLà€€ôöY[òŸW‹ÿ€‹ôNàÃãà]öY[òŸW€Z^‹ÿ€‹ôNàçãàô[ôŸ\ôX›[€éàôX‹ôX\⁄[ô»ãàJKàÿöôX›ôúôY^ôJ¬àòZ]ÿ€ŸNàê‘Hãàò\Ÿ[[ôW‹ÿ€‹ôNàNà›\úô[ù‹ÿ€‹ôNàåÀà⁄[ôŸW‹ÿ€‹ôNàKà€€ôöY[òŸW‹ÿ€‹ôNàKà]öY[òŸW€Z^‹ÿ€‹ôNàMàô[ôŸ\ôX›[€éàú›XõHãàJKóJN¬Çò€€ú›ëUíQU◊”‘S”î»HÿöôX›ôúôY^ôJ¬àŸ[ô\ò]Y]àååçãLKLUåååàãà]öY[òŸT›[[X\ûNàÿöôX›ôúôY^ôJ¬à€›\òŸ\◊›\ŸYàÿöôX›ôúôY^ôJ»ò⁄[›\⁄»ãùXX⁄\ó€ÿúŸ\ùò][€àãò\‹Ÿ\‹€‹ó€ÿúŸ\ùò][€àóJKà€€ôöY[òŸWÿÿ]ôX]ŒàÿöôX›ôúôY^ôJ¬àîô]öY]»ö^\ôH€õNà\»›]]\»õ‹àô[ô\ô\àô\öYöXÿ][€ãõ›õŸX›[€à[ù\úô]][€ãàãàJKàJKà[ùö\õ€õY[ùõ›\ŒàÿöôX›ôúôY^ôJ¬àîô]öY]»ö^\ôHõ›Nà\»YŸH\»\›[€õH[ô\Ÿ\»]\õZ[ö\›X»ÿ[\Hõ›‹ÀàãàJKüJN¬Çò€€ú›SïR—W’T’—íVTëHHÿöôX›ôúôY^ôJ¬àÿ⁄[XW›ô\ú⁄[€éàåKåãàŸ\‹⁄[€ó⁄YàúŸ\‹⁄[€ãLHãà⁄[⁄Yàò⁄[LHãà›XõZ]Yÿ]àååçãLÀLULéåååàãà\⁄◊‹ô\›[ŒàÿöôX›ôúôY^ôJ¬àÿöôX›ôúôY^ôJ¬à\⁄ŒàÿöôX›ôúôY^ôJ¬à\⁄◊⁄YàñU–åW–‘WÃHãàòZ]ÿ€ŸNàê‘Hãà\⁄◊ÿ€\‹Œàî–’ãà^X›Y‹⁄Y€ò[›\\ŒàÿöôX›ôúôY^ôJ»ö[ú]Z\ûWŸ\ãöù\›YöXÿ][€ó‹]X[]HãôX⁄\⁄[€ó‹]X[]HóJKàÿ€‹ö[ô◊›\NàúùXúöX»ãà]öY[òŸW‹€›\òŸNàò⁄[‹ÿŸ[ò\ö[»ãàJKàò]◊⁄[ú]àÿöôX›ôúôY^ôJ¬à[Y\›[\àååçãLÀLULéåNååàãàY]öX‹ŒàÿöôX›ôúôY^ôJ¬à[ú]Z\ûWŸ\àÀàù\›YöXÿ][€ó‹]X[]NàÀàX⁄\⁄[€ó‹]X[]NàãàJKàYX\›\ô[Y[ù›⁄[ô›Œàò›\úô[ùãà\◊ÿ›\úô[ùàùYKàJKàJKàJKà‹[€úŒàÿöôX›ôúôY^ôJ¬àY€õ‹ôWÿ€€ù[Z[ò]YàùYKàJKüJN¬Çò€€ú›P’UíUW”PëS»HÿöôX›ôúôY^ôJ¬à›ZYY‹⁄⁄[‹òX›XŸNàë›ZYY⁄⁄[òX›XŸHãàÿŸ[ò\ö[◊ŸX⁄\⁄[€ó€XéàîÿŸ[ò\ö[»X⁄\⁄[€àXàãàõ⁄ôX›ÿùZ[ÿﬁX€Nàîõ⁄ôX›ùZ[ﬁX€HãàY\óŸôYYòX⁄◊Ÿ^⁄[ôŸNàîY\àôYYòX⁄»^⁄[ôŸHãüJN¬Çò€€ú›’ëU“”PëS»HÿöôX›ôúôY^ôJ¬à€€\^]W⁄[ò‹ôX\ŸNàê€€\^]H[ò‹ôX\ŸH⁄[[ôŸHãà[YWÿ€€ú›òZ[ù›ò\öX[ùàï[YKX€€ú›òZ[ùò\öX[ùãàõ›ô[Ÿ€XZ[ó›ò[úŸô\éàìõ›ô[€XZ[àò[úŸô\àãàXY\ú⁄\€ZX‹õ◊‹õ€NàìXY\ú⁄\ZX‹õÀ\õ€HãüJN¬Çò€€ú›ì—‘êSW–””ìëP’UíUW–””ïì”»HÿöôX›ôúôY^ôJ¬àÿöôX›ôúôY^ôJ»Xô[àî€ò\⁄›ÿ\ô»ôXYP[›Yã›\ôòXŸNàú\ô[ù\⁄õÿ\ô€ò\⁄›ÿ\ô»ã[ô\éàô]K]õ⁄XŸKXÿ\ôò€X⁄»ã[ô⁄[ùàë—Uÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Y
+»‹YX⁄ﬁ[ù\⁄\»ò[òX⁄»ãÿ€‹Nàò⁄[\ÿ€‹Y\ô[ù\⁄õÿ\ôã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àï‹›ô[ô›»ôXYP[›Yã›\ôòXŸNàú\ô[ù\⁄õÿ\ôã[ô\éàô]K]õ⁄XŸKX€€ùõ€]‹›ô[ô›Àò€X⁄»ã[ô⁄[ùàë—Uÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Y
+»‹YX⁄ﬁ[ù\⁄\»ò[òX⁄»ãÿ€‹Nàò⁄[\ÿ€‹Y\ô[ù\⁄õÿ\ôã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àê\ôX\»»›ô[ô›[àôXYP[›Yã›\ôòXŸNàú\ô[ù\⁄õÿ\ôã[ô\éàô]K]õ⁄XŸKX€€ùõ€X\ôX\’‘›ô[ô›[ãò€X⁄»ã[ô⁄[ùàë—Uÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Y
+»‹YX⁄ﬁ[ù\⁄\»ò[òX⁄»ãÿ€‹Nàò⁄[\ÿ€‹Y\ô[ù\⁄õÿ\ôã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àïŸYZ€H›\‹ùôXYP[›Yã›\ôòXŸNàú\ô[ù\⁄õÿ\ôã[ô\éàô]K]õ⁄XŸKX€€ùõ€]ŸYZ€T›\‹ùò€X⁄»ã[ô⁄[ùàë—Uÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Y
+»‹YX⁄ﬁ[ù\⁄\»ò[òX⁄»ãÿ€‹Nàò⁄[\ÿ€‹Y\ô[ù\⁄õÿ\ôã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àïŸYZ€H€ÿ[»ôXYP[›Yã›\ôòXŸNàúõŸ‹ò[HYŸH»ŸYZ€H€ÿ[»ã[ô\éàúôXYŸYZ€Q€ÿ[–ùãò€X⁄»ã[ô⁄[ùàë—Uÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Y
+»‹YX⁄ﬁ[ù\⁄\»ò[òX⁄»ãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîõŸ‹ò[H›\‹ùôXYP[›Yã›\ôòXŸNàúõŸ‹ò[HYŸH»›\‹ùŸX›[€ú»ã[ô\éàúôXYõŸ‹ò[T›\‹ùùãò€X⁄»ã[ô⁄[ùàë—Uÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Y
+»‹YX⁄ﬁ[ù\⁄\»ò[òX⁄»ãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîõŸ‹ô\‹»›[[X\ûHôXYP[›Yã›\ôòXŸNàúõŸ‹ò[HYŸH»õŸ‹ô\‹»\⁄õÿ\ôã[ô\éàúôXYõŸ‹ô\‹‘›[[X\ûPùãò€X⁄»ã[ô⁄[ùàë—Uÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Y
+»‹YX⁄ﬁ[ù\⁄\»ò[òX⁄»ãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àêùZ[[›\àŸYZ€H[àã›\ôòXŸNàùŸYZ€H[õô\àã[ô\éàúÿ]ôP€€[Z]Y[ùùãò€X⁄»ã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[Kÿ€€[Z]Y[ùãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîôYô\úôY[YHX⁄Ÿ\àã›\ôòXŸNàùŸYZ€H[õô\àŸ]\ã[ô\éàò€€[Z][YR›\í[ú]ò⁄[ôŸH€€[Z][YSZ[ù]R[ú]ò⁄[ôŸH€€[Z][YSY\öYY[R[ú]ò⁄[ôŸHã[ô⁄[ùàú^[ÿYúôYô\úôY›[YH
+»^[ÿYúôYô\úôY›[YW›⁄[ô›»ãÿ€‹Nàò⁄[›ŸYZ»€€[Z]Y[ùŸ]\ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîôYô\úôY^\»Ÿ[X›‹àã›\ôòXŸNàùŸYZ€H[õô\àŸ]\ã[ô\éàò€€[Z]ôYô\úôY^\—‹õ›\ò⁄[ôŸVŸ]KY^KX⁄X⁄ÿõﬁHã[ô⁄[ùàú^[ÿYúôYô\úôYŸ^\÷◊Hãÿ€‹Nàò⁄[›ŸYZ»€€[Z]Y[ùŸ]\ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîŸ]\ô\]Z\ôYY\‹ÿYŸHã›\ôòXŸNàùŸYZ€H[õô\à›]HY\‹ÿYŸHã[ô\éàô\ö]ôT[õô\î›\ôòXŸT›]J›]O\Ÿ]\‹ô\]Z\ôY
+Hã[ô⁄[ùàò€Y[ù\ô[ô\éú[õô\î›]P€‹Hãÿ€‹Nàò⁄[›ŸYZ»[õô\àÿ][ô»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àìõ»Ÿ\‹⁄[€ú»Y]Y\‹ÿYŸHã›\ôòXŸNàùŸYZ€H[õô\à
+»\‹€€à[à
+»Y\ô[òŸHã[ô\éàô\ö]ôT[õô\î›\ôòXŸT›]J›]O[õ◊‹Ÿ\‹⁄[€ú◊ﬁY]Ÿ]\ÿ€€\]WŸŸ[ô\ò][ô◊‹Ÿ\‹⁄[€ú Hã[ô⁄[ùàò€Y[ù\ô[ô\éô[\K\›]KX€‹Hãÿ€‹Nàò⁄[›ŸYZ»ÿ⁄Y[Hÿ][ô»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àì\‹€€à[à[\H›]Hã›\ôòXŸNàõ\‹€€à[àã[ô\éàúô[ô\ì\‹€€î[äù[ŸYZ Hã[ô⁄[ùàò€Y[ù\ô[ô\éõ\‹€€ã\[ãY[\Hãÿ€‹Nàò⁄[›ŸYZÀ‹Ÿ\‹⁄[€àÿÿ[öY]»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîõŸ‹ô\‹»[\H›]Hã›\ôòXŸNàú\ô[ùõŸ‹ô\‹»\⁄õÿ\ôã[ô\éàúô[ô\îõŸ‹ô\‹—\⁄õÿ\ô
+õ»Ÿ\‹⁄[€ú Hã[ô⁄[ùàò€Y[ù\ô[ô\éúõŸ‹ô\‹ÀY[\Hãÿ€‹Nàò⁄[›ŸYZ»Xÿ€›[ùXö[]HöY]»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àî›\ùŸ^x†&\»Ÿ\‹⁄[€àã›\ôòXŸNàúõŸ‹ò[HYŸH»Ÿ^Hã[ô\éàú›\ùŸ^TŸ\‹⁄[€êùãò€X⁄»ã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ ‹Ÿ\‹⁄[€àã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîô\›[YHŸ\‹⁄[€àã›\ôòXŸNàúõŸ‹ò[HYŸH»Ÿ^H
+»\‹€€à[à
+»YŸ[ôHã[ô\éàúô\›[YUŸ^TŸ\‹⁄[€êùãò€X⁄»ô\›[YTŸ\‹⁄[€êùãò€X⁄»]KXX›[€è\ô\›[YK\Ÿ\‹⁄[€àã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ ‹Ÿ\‹⁄[€àã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àïöY]»ŸYZ€H[àã›\ôòXŸNàúõŸ‹ò[HYŸH»Ÿ^Hã[ô\éàùöY]’ŸYZ€T[êùãò€X⁄»ã[ô⁄[ùàò€Y[ù\ÿ‹õ€à‹[õô\êÿ[[ô\ë‹öYãÿ€‹Nàò⁄[›ŸYZ»ÿÿ[öY]»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àì‹[àÿ⁄Y[YŸ\‹⁄[€àã›\ôòXŸNàùŸYZ€H[õô\àã[ô\éàõ‹[ìô^Ÿ\‹⁄[€êùãò€X⁄»ã[ô⁄[ùàò€Y[ù\ô[ô\éõ\‹€€ã\[àãÿ€‹Nàò⁄[›ŸYZÀ‹Ÿ\‹⁄[€àÿÿ[öY]»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àì‹[à\‹€€à[àã›\ôòXŸNàùŸYZ€H[õô\àÿ[[ô\àã[ô\éàú[õô\êÿ[[ô\ë‹öYò€X⁄÷Ÿ]KXX›[€è[‹[ã\Ÿ\‹⁄[€óHã[ô⁄[ùàò€Y[ù\ô[ô\éõ\‹€€ã\[àãÿ€‹Nàò⁄[›ŸYZÀ‹Ÿ\‹⁄[€àÿÿ[öY]»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àìX\ö»Ÿ\‹⁄[€à€€\]Hã›\ôòXŸNàùŸYZ€H[õô\à
+»\‹€€à[à
+»YŸ[ôHã[ô\éàõX\ö”ô^Ÿ\‹⁄[€ê€€\]Pùãò€X⁄»€€\]TŸ[X›YŸ\‹⁄[€êùãò€X⁄»]KXX›[€èX€€\]K\Ÿ\‹⁄[€àã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K‹Ÿ\‹⁄[€ãX€€\]Hãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ ‹Ÿ\‹⁄[€àã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîÿ]ôHôYõX›[€àã›\ôòXŸNàò›\úô[ùŸYZ»›ZYY^\öY[òŸHã[ô\éàúÿ]ôTôYõX›[€êùãò€X⁄»ã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîÿ]ôHÿúŸ\ùò][€àã›\ôòXŸNàò›\úô[ùŸYZ»›ZYY^\öY[òŸHã[ô\éàúÿ]ôSÿúŸ\ùò][€êùãò€X⁄»ã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àìX\ö»›\€€\]Hã›\ôòXŸNàò›\úô[ùŸYZ»›ZYY^\öY[òŸHã[ô\éàõX\ö‘›\€€\]Pùãò€X⁄»ã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ ‹›\ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àê€€ù[ùYH»ô^›\ã›\ôòXŸNàò›\úô[ùŸYZ»›ZYY^\öY[òŸHã[ô\éàò€€ù[ùYT›\ùãò€X⁄»ã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àê€€ù[ùYHô^ŸYZ»ã›\ôòXŸNàò›\úô[ùŸYZ»›ZYY^\öY[òŸHã[ô\éàò€€ù[ùYSô^ŸYZ–ùãò€X⁄»ã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[
+›ŸYZ»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîô]\õà»\⁄õÿ\ôã›\ôòXŸNàúõŸ‹ò[HYŸHã[ô\éàô\⁄õÿ\ôùãöôYàã[ô⁄[ùàë—Uﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àî›\ùõŸ‹ò[H»€€ù[ùYHõŸ‹ò[Hã›\ôòXŸNàö[ùZŸH
+»\ô[ù\⁄õÿ\ô
+»õŸ‹ò[H][ò⁄ã[ô\éàõ][ò⁄ùãò€X⁄»ã[ô⁄[ùàî‘’ÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K€][ò⁄ãÿ€‹Nàù[ò[ù
+Ÿ[XZ[
+ÿ⁄[ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àîô]ö[›\»ŸYZ»ã›\ôòXŸNàò›\úô[ùŸYZ»›ZYY^\öY[òŸHã[ô\éàúô]ïŸYZ–ùãò€X⁄»ã[ô⁄[ùàò€Y[ù[ò]éúô[ô\ïŸYZ—]Z[»ãÿ€‹Nàò⁄[›ŸYZ»ÿÿ[öY]»ã›]\Œàù€‹ö⁄[ô»àJKàÿöôX›ôúôY^ôJ»Xô[àìô^ŸYZ»ã›\ôòXŸNàò›\úô[ùŸYZ»›ZYY^\öY[òŸHã[ô\éàõô^ŸYZ–ùãò€X⁄»ã[ô⁄[ùàò€Y[ù[ò]éúô[ô\ïŸYZ—]Z[»ãÿ€‹Nàò⁄[›ŸYZ»ÿÿ[öY]»ã›]\Œàù€‹ö⁄[ô»àJKóJN¬Çò€€ú›ëQìP’S”ó”PëS»HÿöôX›ôúôY^ôJ¬àŸ[óŸ^[ò][€ó⁄õ›\õò[àîŸ[ãY^[ò][€àõ›\õò[ãàY[ù‹óŸX[Ÿ›YW‹õ€\àìY[ù‹àX[Ÿ›YHõ€\ãà€ÿ[ÿYù\›Y[ù‹ô]öY]Œàë€ÿ[Yù\›Y[ùô]öY]»ãüJN¬Çò€€ú›–î—TïêUS”ó”PëS»HÿöôX›ôúôY^ôJ¬à\⁄◊Ÿ]ô[ù€ÿúŸ\ùò][€éàï\⁄ÀY]ô[ùÿúŸ\ùò][€àãàXX⁄\ó€ÿúŸ\ùò][€ó€õ›NàïXX⁄\àÿúŸ\ùò][€àõ›Hãà\ô[ù€ÿúŸ\ùò][€ó€õ›Nàî\ô[ùÿúŸ\ùò][€àõ›HãàŸ[ó‹ô\‹ù€ÿúŸ\ùò][€éàîŸ[ã\ô\‹ùÿúŸ\ùò][€àãüJN¬Çò€€ú›’T‘ï–P’S”ó”PëS»HÿöôX›ôúôY^ôJ¬àò[Z[W‹ôYõX›[€ó‹õ€\àëò[Z[HôYõX›[€àõ€\ãàXX⁄\óÿ[Y€õY[ù€õ›NàïXX⁄\à[Y€õY[ùõ›HãàY[ù‹óÿ⁄X⁄⁄[éàìY[ù‹à⁄X⁄ÀZ[àãàõ›][ôW‹ô\Ÿ]€ZX‹õ◊‹[éàîõ›][ôHô\Ÿ]ZX‹õÀ\[àãàô\€›\òŸW‹ÿÿYôõ€‹X⁄Œàîô\€›\òŸHÿÿYôõ€X⁄»ãüJN¬Çò€€ú›–Sì”íP–S‘TëSï‘ì’UT»HÿöôX›ôúôY^ôJ¬à[ùûNàãﬁ[›]Y]ô[‹Y[ù⁄[ùZŸHãà\⁄õÿ\ôàãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôãàõŸ‹ò[Nàãﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[HãüJN¬Çò€€ú›–Sì”íP–S–’W”PëS»HÿöôX›ôúôY^ôJ¬à›\ùõŸ‹ò[Nàî›\ùõŸ‹ò[Hãà€€ù[ùYTõŸ‹ò[NàïöY]»ŸYZ€H[àãàô]\õï—\⁄õÿ\ôàîô]\õà»\⁄õÿ\ôãàô\›[YUŸYZ‘ôYö^àîô\›[YHŸYZ»ãàÿ]ôTôYõX›[€éàîÿ]ôHôYõX›[€àãàÿ]ôSÿúŸ\ùò][€éàîÿ]ôHÿúŸ\ùò][€àãüJN¬Çôù[ò›[€àÿYôUö[Jò[YJH¬àô]\õà›ö[ô ò[YHœ»àäKùö[J
+N¬üBÇôù[ò›[€à\–€€[Z]Y[ùŸ]\€€\]J€€[Z]Y[ùHﬂJH¬àô]\õà\‘\ô[ù€€[Z]Y[ùŸ]\€€\]J€€[Z]Y[ù
+N¬üBÇôù[ò›[€àô\€€ôT[õô\î›\ôòXŸT›]J»€€[Z]Y[ùHù[ÿ⁄Y[YŸ\‹⁄[€ú»H◊K^X›][€î›]HHù[HHﬂJH¬à€€ú›Ÿ]\€€\]HH\–€€[Z]Y[ùŸ]\€€\]J€€[Z]Y[ùﬂJN¬à€€ú›ÿ⁄Y[Y€›[ùH\úò^Kö\–\úò^Jÿ⁄Y[YŸ\‹⁄[€ú H»ÿ⁄Y[YŸ\‹⁄[€úÀõ[ô›à¬à€€ú›ŸYZ‘›]\»H›ö[ô ^X›][€î›]OÀùŸYZ◊‹›]\»àäKù”›Ÿ\êÿ\ŸJ
+N¬àYà
+\Ÿ]\€€\]JH¬àô]\õà¬à›]NàúŸ]\‹ô\]Z\ôYãàXô[àîŸ]\ô\]Z\ôYãàY\‹ÿYŸNàêùZ[[›\àŸYZ€H[à»[õÿ⁄»Ÿ^K€ô^Ÿ\‹⁄[€àÿ\ôÀ[õô\àÿ[[ô\ã[ôY\ô[òŸH\⁄õÿ\ôàãàŸ]\ÿ€€\]Nàò[ŸKàÿ⁄Y[Y‹Ÿ\‹⁄[€óÿ€›[ùààN¬àBàYà
+ÿ⁄Y[Y€›[ùH	âàŸYZ‘›]\»OOHôŸ[ô\ò][ô◊‹Ÿ\‹⁄[€ú»äH¬àô]\õà¬à›]NàúŸ]\ÿ€€\]WŸŸ[ô\ò][ô◊‹Ÿ\‹⁄[€ú»ãàXô[àîŸ]\€€\]KŸ[ô\ò][ô»Ÿ\‹⁄[€ú»ãàY\‹ÿYŸNàïŸYZ€HŸ]\\»€€\]KàŸ\‹⁄[€ú»\ôHôZ[ô»Ÿ[ô\ò]Yõ›ÀàãàŸ]\ÿ€€\]NàùYKàÿ⁄Y[Y‹Ÿ\‹⁄[€óÿ€›[ùààN¬àBàYà
+ÿ⁄Y[Y€›[ùH
+H¬àô]\õà¬à›]Nàõõ◊‹Ÿ\‹⁄[€ú◊ﬁY]ãàXô[àìõ»Ÿ\‹⁄[€ú»Y]ãàY\‹ÿYŸNàê€€[Z]Y[ù\»ÿ]ôYù]õ»Ÿ\‹⁄[€ú»\ôHÿ⁄Y[YY]àôK\ÿ]ôHùZ[[›\àŸYZ€H[à»ôYŸ[ô\ò]H\»ŸYZ¯†&\»Ÿ\‹⁄[€úÀàãàŸ]\ÿ€€\]NàùYKàÿ⁄Y[Y‹Ÿ\‹⁄[€óÿ€›[ùààN¬àBàYà
+ŸYZ‘›]\»OOHö[ó‹õŸ‹ô\‹»äH¬àô]\õà¬à›]Nàô^X›][€ó⁄[ó‹õŸ‹ô\‹»ãàXô[àë^X›][€à[àõŸ‹ô\‹»ãàY\‹ÿYŸNàîŸ\‹⁄[€à^X›][€à\»[àõŸ‹ô\‹»õ‹à\»ŸYZÀàãàŸ]\ÿ€€\]NàùYKàÿ⁄Y[Y‹Ÿ\‹⁄[€óÿ€›[ùàÿ⁄Y[Y€›[ùàN¬àBàô]\õà¬à›]NàúŸ]\ÿ€€\]W›⁄]‹Ÿ\‹⁄[€ú»ãàXô[àî[õô\àôXYHãàY\‹ÿYŸNàî[õô\àŸ]\€€\]H[ôÿ⁄Y[YŸ\‹⁄[€ú»\ôH]òZ[XõKàãàŸ]\ÿ€€\]NàùYKàÿ⁄Y[Y‹Ÿ\‹⁄[€óÿ€›[ùàÿ⁄Y[Y€›[ùàN¬üBÇôù[ò›[€àõ‹õX[^ôPXÿ€›[ù€€ù^
+€›\òŸHHﬂJH¬àô]\õà¬à[ò[ùàÿYôUö[J€›\òŸKù[ò[ù€›\òŸKù[ò[ù‹€Y Kù”›Ÿ\êÿ\ŸJ
+Kà[XZ[àÿYôUö[J€›\òŸKô[XZ[
+Kù”›Ÿ\êÿ\ŸJ
+Kàò[YNàÿYôUö[J€›\òŸKõò[YJKà⁄YàÿYôUö[J€›\òŸKò⁄Y
+Kà‹öYàÿYôUö[J€›\òŸKò‹öY€›\òŸKúöY
+KàN¬üBÇôù[ò›[€àô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\KõŸHHﬂJH¬à€€ú›]]›Hõ‹õX[^ôPXÿ€›[ù€€ù^
+¬à[ò[ùàô\Kò]]X›‹èÀù[ò[ù€YÀà[XZ[àô\Kò]]X›‹èÀô[XZ[àò[YNàô\Kò]]X›‹èÀõò[YKàJN¬à€€ú›]Y\ûP›Hõ‹õX[^ôPXÿ€›[ù€€ù^
+ô\Kú]Y\ûHﬂJN¬à€€ú›õŸP›Hõ‹õX[^ôPXÿ€›[ù€€ù^
+õŸHﬂJN¬à€€ú›XY\ê›Hõ‹õX[^ôPXÿ€›[ù€€ù^
+¬à[ò[ùàô\KöXY\ú÷»û][ò[ù\€Y»óKà[XZ[àô\KöXY\ú÷»û]\Ÿ\ãY[XZ[óKàò[YNàô\KöXY\ú÷»û]\Ÿ\ã[ò[YHóKàJN¬àYà
+]]›ù[ò[ù	âà]]›ô[XZ[
+H¬àô]\õà¬à[ò[ùà]]›ù[ò[ùà[XZ[à]]›ô[XZ[àò[YNà]]›õò[YHõŸP›õò[YH]Y\ûP›õò[YHXY\ê›õò[YKà⁄YàõŸP›ò⁄Y]Y\ûP›ò⁄Yà‹öYàõŸP›ò‹öY]Y\ûP›ò‹öYàN¬àBàô]\õà¬à[ò[ùàõŸP›ù[ò[ù]Y\ûP›ù[ò[ùXY\ê›ù[ò[ùà[XZ[àõŸP›ô[XZ[]Y\ûP›ô[XZ[XY\ê›ô[XZ[àò[YNàõŸP›õò[YH]Y\ûP›õò[YHXY\ê›õò[YKà⁄YàõŸP›ò⁄Y]Y\ûP›ò⁄Yà‹öYàõŸP›ò‹öY]Y\ûP›ò‹öYàN¬üBÇôù[ò›[€à\“[ù\õò[›\ôòXŸTô\]Y\›[›ŸY
+ô\JH¬àYà
+õÿŸ\‹Àô[ùãìì—W—SïàOOHúõŸX›[€àäHô]\õàùYN¬àYà
+ô\OÀö\–YZ[àOOHùYJHô]\õàùYN¬àYà
+ô\OÀò]]X›‹èÀö\–YZ[àOOHùYJHô]\õàùYN¬à€€ú›[ù\õò[]Y\ûHH›ö[ô ô\OÀú]Y\ûOÀö[ù\õò[àäKùö[J
+N¬àô]\õà[ù\õò[]Y\ûHOOHåHé¬üBÇôù[ò›[€àXô[õ‹äX\€ŸJH¬àYà
+X€ŸJHô]\õàù[¬àô]\õàX\ÿ€ŸWH›ö[ô €ŸJN¬üBÇò€€ú›””T”ëSï—‘ì’T»HÿöôX›ôúôY^ôJ¬à€‹ôNàÿöôX›ôúôY^ôJ»îïSW–êT—Q‘ëQ’SUS”àãêUSïS”ó”RSëïSëT‘»óJKà›ô]⁄àê“SSë—W‘’T’RSëQ—ì–’T»ãàôYõX›[€éàîëQìP’S”ó–”–P“Së»ãà‹[ö[ôŒàì‘SíSë◊‘ì’USëHãàò[ú⁄][€éàïêSî“US”ó‘ì’USëHãà€‹⁄[ôŒàê”‘“Së◊‘ì’USëHãàÿúŸ\ùò][€éàì–î—TïêUS”ó‘’T‘ïãüJN¬Çò€€ú›VT»HÿöôX›ôúôY^ôJ»õ[€ô^HãùY\Ÿ^HãùŸYô\Ÿ^Hãù\úŸ^HãôúöY^Hãúÿ]\ô^Hãú›[ô^HóJN¬Çôù[ò›[€àùZ[õÿYX\
+›\úô[ùŸYZ H¬àô]\õàÿ›\úô[ùŸYZ»HK›\úô[ùŸYZÀ›\úô[ùŸYZ»
+»WBàôö[\ä
+ŸYZ HOàŸYZ»èHH	âàŸYZ»HÕäBàõX\
+
+ŸYZ”ù[Xô\äHOà¬à€€ú›[Ÿ[Hì—‘êSW’—QR‘Àôö[ô
+
+[ùûJHOàù[Xô\ä[ùûKùŸYZ◊€ù[Xô\äHOOHù[Xô\äŸYZ”ù[Xô\äJN¬àô]\õà¬àŸYZ◊€ù[Xô\éàŸYZ”ù[Xô\ãà\ŸW€ò[YNà›ö[ô [Ÿ[Àú\ŸW€ò[YHëõ›[ô][€àäKàŸYZ€WŸ€ÿ[à›ö[ô Ÿ]]]‹ôYŸYZ–€€ù[ù
+ŸYZ”ù[Xô\äOÀõÿöôX›]ôH[Ÿ[ÀùŸYZ€WŸ€ÿ[ŸYZ»	›ŸYZ”ù[Xô\üHÿöôX›]ôH[ò]òZ[XõKò
+Kà›]\ŒàŸYZ”ù[Xô\à›\úô[ùŸYZ»»ò€€\]Yàà
+ŸYZ”ù[Xô\àOOH›\úô[ùŸYZ»»ò›\úô[ùààù\€€Z[ô»äKàN¬àJN¬üBÇôù[ò›[€àõ‹õX[^ôPX›]ö]JX›]ö]HHﬂJH¬àô]\õà¬àX›]ö]W⁄Yà›ö[ô X›]ö]KòX›]ö]W⁄YàäKà€€\€ô[ù›\Nà›ö[ô X›]ö]Kò€€\€ô[ù›\HàäKàÿ]Y€‹ûNà›ö[ô X›]ö]Kòÿ]Y€‹ûHàäKà›Xòÿ]Y€‹ûNà›ö[ô X›]ö]Kú›Xòÿ]Y€‹ûHàäKà]Nà›ö[ô X›]ö]Kù]Hï[ù]YX›]ö]HäKà\ÿ‹ö\[€éà›ö[ô X›]ö]Kô\ÿ‹ö\[€àêX›]ö]H]Z[»[ò]òZ[XõKàäKà\›[X]YŸ\ò][€éàù[Xô\äX›]ö]Kô\›[X]YŸ\ò][€à
+KàX]\öX[◊€ôYYYà\úò^Kö\–\úò^JX›]ö]KõX]\öX[◊€ôYYY
+H»X›]ö]KõX]\öX[◊€ôYYYà◊KàòX⁄[]][€ó⁄[ú›ùX›[€úŒà›ö[ô X›]ö]KôòX⁄[]][€ó⁄[ú›ùX›[€ú»àäKà\ôŸ]›òZ]Œà\úò^Kö\–\úò^JX›]ö]Kù\ôŸ]›òZ] H»X›]ö]Kù\ôŸ]›òZ]»à◊Kà]òZ[XõW›ò\öX][€úŒà\úò^Kö\–\úò^JX›]ö]Kò]òZ[XõW›ò\öX][€ú»X›]ö]Kùò\öX][€ú Bà»
+X›]ö]Kò]òZ[XõW›ò\öX][€ú»X›]ö]Kùò\öX][€ú KõX\
+
+ò\öX][€äHOà
+¬àò\öX][€ó⁄Yà›ö[ô ò\öX][€ãùò\öX][€ó⁄YàäKàò\öX][€ó€]ô[à›ö[ô ò\öX][€ãùò\öX][€ó€]ô[àäKàò\öX][€ó›\Nà›ö[ô ò\öX][€ãùò\öX][€ó›\HàäKà[ú›ùX›[€úŒà›ö[ô ò\öX][€ãö[ú›ùX›[€ú»àäKà\ò][€éàù[Xô\äò\öX][€ãô\ò][€à
+KàX]\öX[Œà\úò^Kö\–\úò^Jò\öX][€ãõX]\öX[ H»ò\öX][€ãõX]\öX[»à◊KàJJBàà◊KàN¬üBÇôù[ò›[€àùZ[X›]ö]T›\ôòXŸJ»⁄[Y\ŸSù[Xô\ã\ô[ù›\›€Z^ò][€àHù[JH¬à€€ú›ÿYôP⁄[YH›ö[ô ⁄[YàäKùö[J
+Hò⁄[]ŸYZÀ\ô]öY]»é¬à€€ú›Ÿ\‹⁄[€î[àHùZ[Ÿ\‹⁄[€î[ä¬à⁄[⁄YàÿYôP⁄[Yà\ŸW€ù[Xô\éàù[Xô\ä\ŸSù[Xô\àJKàòX⁄[]]‹ó‹õ€Nàú\ô[ùãà\ô[ùÿ›\›€Z^ò][€éà\ô[ù›\›€Z^ò][€à[ôYö[ôYàJN¬à€€ú›Ÿ[X›YX›]ö]Y\»HŸ\‹⁄[€î[èÀõ⁄»OOHùYH	âà\úò^Kö\–\úò^JŸ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[èÀúŸ[X›YÿX›]ö]Y\ Bà»Ÿ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãúŸ[X›YÿX›]ö]Y\ÀõX\
+
+[ùûJHOàõ‹õX[^ôPX›]ö]J[ùûJJBàà◊N¬à€€ú›X⁄—úõ€TŸ[X›YH
+€€\€ô[ù\JHOàŸ[X›YX›]ö]Y\Àôö[ô
+
+[ùûJHOà›ö[ô [ùûKò€€\€ô[ù›\H[ùûKò€€\€ô[ù\HàäKùö[J
+HOOH€€\€ô[ù\JN¬à€€ú›€‹ôPò[ö”‹[€ú»H””T”ëSï—‘ì’TÀò€‹ôKôõ]X\
+
+€€\€ô[ù\JHOà¬à€€ú›\›YH\›X›]ö]Y\–ûP€€\€ô[ù
+€€\€ô[ù\JN¬àô]\õà\úò^Kö\–\úò^J\›YòX›]ö]Y\ H»\›YòX›]ö]Y\ÀõX\
+
+[ùûJHOàõ‹õX[^ôPX›]ö]J[ùûJJHà◊N¬àJN¬àô]\õà¬àŸ\‹⁄[€ó‹[éàŸ\‹⁄[€î[èÀõ⁄»OOHùYH»¬àŸ\‹⁄[€ó⁄Yà›ö[ô Ÿ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãúŸ\‹⁄[€ó⁄YàäKàòX⁄[]]‹ó‹õ€Nà›ö[ô Ÿ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãôòX⁄[]]‹ó‹õ€Hú\ô[ùäKàŸ[X›YÿX›]ö]W⁄YŒà\úò^Kö\–\úò^JŸ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãúŸ[X›YÿX›]ö]W⁄Y H»Ÿ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãúŸ[X›YÿX›]ö]W⁄Y»à◊KàŸ[X›Y›ò\öX][€ó⁄YŒà\úò^Kö\–\úò^JŸ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãúŸ[X›Y›ò\öX][€ó⁄Y H»Ÿ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãúŸ[X›Y›ò\öX][€ó⁄Y»à◊Kà€€\€ô[ùÿ€›[ùàù[Xô\äŸ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãò€€\€ô[ùÿ€›[ùŸ[X›YX›]ö]Y\Àõ[ô›
+Kà\ô[ùÿ›\›€Z^ò][€éàŸ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãú\ô[ùÿ›\›€Z^ò][€àù[à€€\€ô[ùÿ⁄⁄XŸ\ŒàŸ\‹⁄[€î[ãúŸ\‹⁄[€ó‹[ãò€€\€ô[ùÿ⁄⁄XŸ\»ﬂKàHàù[àŸ[X›Y‹]à¬à€‹ôWÿX›]ö]NàX⁄—úõ€TŸ[X›Y
+îïSW–êT—Q‘ëQ’SUS”àäHX⁄—úõ€TŸ[X›Y
+êUSïS”ó”RSëïSëT‘»äHù[à›ô]⁄ÿ⁄[[ôŸNàX⁄—úõ€TŸ[X›Y
+””T”ëSï—‘ì’TÀú›ô]⁄
+Hù[àôYõX›[€éàX⁄—úõ€TŸ[X›Y
+””T”ëSï—‘ì’TÀúôYõX›[€äHù[àKàò[ö‹Œà¬à€‹ôWÿX›]ö]Nà€‹ôPò[ö”‹[€úÀà›ô]⁄ÿ⁄[[ôŸNà\›X›]ö]Y\–ûP€€\€ô[ù
+””T”ëSï—‘ì’TÀú›ô]⁄
+KòX›]ö]Y\ÀõX\
+
+[ùûJHOàõ‹õX[^ôPX›]ö]J[ùûJJKàôYõX›[€éà\›X›]ö]Y\–ûP€€\€ô[ù
+””T”ëSï—‘ì’TÀúôYõX›[€äKòX›]ö]Y\ÀõX\
+
+[ùûJHOàõ‹õX[^ôPX›]ö]J[ùûJJKà‹[ö[ô◊‹õ›][ôNà\›X›]ö]Y\–ûP€€\€ô[ù
+””T”ëSï—‘ì’TÀõ‹[ö[ô KòX›]ö]Y\ÀõX\
+
+[ùûJHOàõ‹õX[^ôPX›]ö]J[ùûJJKàò[ú⁄][€ó‹õ›][ôNà\›X›]ö]Y\–ûP€€\€ô[ù
+””T”ëSï—‘ì’TÀùò[ú⁄][€äKòX›]ö]Y\ÀõX\
+
+[ùûJHOàõ‹õX[^ôPX›]ö]J[ùûJJKà€‹⁄[ô◊‹õ›][ôNà\›X›]ö]Y\–ûP€€\€ô[ù
+””T”ëSï—‘ì’TÀò€‹⁄[ô KòX›]ö]Y\ÀõX\
+
+[ùûJHOàõ‹õX[^ôPX›]ö]J[ùûJJKàÿúŸ\ùò][€ó‹›\‹ùà\›X›]ö]Y\–ûP€€\€ô[ù
+””T”ëSï—‘ì’TÀõÿúŸ\ùò][€äKòX›]ö]Y\ÀõX\
+
+[ùûJHOàõ‹õX[^ôPX›]ö]J[ùûJJKàKàN¬üBÇôù[ò›[€à]Y]X›]ö]Pò[ö—\
+X›]ö]T›\ôòXŸHHﬂJH¬à€€ú›ò[ö‹»HX›]ö]T›\ôòXŸKòò[ö‹»ﬂN¬à€€ú›ôXYH
+Ÿ^JHOà\úò^Kö\–\úò^Jò[ö‹÷⁄Ÿ^WJH»ò[ö‹÷⁄Ÿ^WHà◊N¬à€€ú››[[X\ö^ôHH
+Ÿ^KZ[ö[][Kô\]Z\ôY›Xòÿ]Y€‹öY\ HOà¬à€€ú›][\»HôXY
+Ÿ^JN¬à€€ú›€›[ùH][\Àõ[ô›¬à€€ú›X›]ö]P€›[ù–ûT›Xòÿ]Y€‹ûHH][\ÀúôYXŸJ
+XÿÀ][JHOà¬à€€ú››Xòÿ]Y€‹ûHH›ö[ô ][OÀú›Xòÿ]Y€‹ûHù[òÿ]Y€‹ö^ôYäN¬àXÿ÷‹›Xòÿ]Y€‹ûWHH
+Xÿ÷‹›Xòÿ]Y€‹ûWH
+H
+»N¬àô]\õàXÿŒ¬àKﬂJN¬à€€ú›ò\öX][€ê€›[ù–ûPX›]ö]HH][\ÀúôYXŸJ
+XÿÀ][JHOà¬àXÿ÷‘›ö[ô ][KòX›]ö]W⁄YàäWHH\úò^Kö\–\úò^J][Kò]òZ[XõW›ò\öX][€ú H»][Kò]òZ[XõW›ò\öX][€úÀõ[ô›à¬àô]\õàXÿŒ¬àKﬂJN¬à€€ú›Z\‹⁄[ô‘›Xòÿ]Y€‹öY\»Hô\]Z\ôY›Xòÿ]Y€‹öY\Àôö[\ä
+ò[YJHOàSÿöôX›úõ››\Kö\”›€îõ‹\ùKòÿ[
+X›]ö]P€›[ù–ûT›Xòÿ]Y€‹ûKò[YJJN¬à€€ú››Xòÿ]Y€‹öY\–ô[›—\ô\⁄€HÿöôX›ô[ùöY\ X›]ö]P€›[ù–ûT›Xòÿ]Y€‹ûJBàôö[\ä
+À›Xê€›[ùJHOàù[Xô\ä›Xê€›[ù
+HJBàõX\
+
+‹›Xòÿ]Y€‹ûK›Xê€›[ùJHOà
+»›Xòÿ]Y€‹ûK€›[ùà›Xê€›[ùô\⁄€àHJJN¬à€€ú›X›]ö]Y\–ô[›’ò\öX][€ïô\⁄€HÿöôX›ô[ùöY\ ò\öX][€ê€›[ù–ûPX›]ö]JBàôö[\ä
+Àò\öX][€ê€›[ùJHOàù[Xô\äò\öX][€ê€›[ù
+HäBàõX\
+
+ÿX›]ö]W⁄Yò\öX][€ê€›[ùJHOà
+»X›]ö]W⁄Y€›[ùàò\öX][€ê€›[ùô\⁄€ààJJN¬àô]\õà¬àÿ]Y€‹ûNàŸ^Kà›\úô[ùÿ€›[ùà€›[ùà\€[Z]à€›[ùZ[ö[][H»€◊›[óŸõ‹ó›ŸYZ€W‹[õö[ô»
+	ÿ€›[ùK…€Z[ö[][_JXàù\ÿXõHãàX›]ö]Wÿ€›[ù◊ÿûW‹›Xòÿ]Y€‹ûNàX›]ö]P€›[ù–ûT›Xòÿ]Y€‹ûKàò\öX][€óÿ€›[ù◊ÿûWÿX›]ö]Nàò\öX][€ê€›[ù–ûPX›]ö]KàZ\‹⁄[ô◊‹›Xòÿ]Y€‹öY\ŒàZ\‹⁄[ô‘›Xòÿ]Y€‹öY\Àà›Xòÿ]Y€‹öY\◊ÿô[›◊Ÿ\›ô\⁄€à›Xòÿ]Y€‹öY\–ô[›—\ô\⁄€àX›]ö]Y\◊ÿô[›◊›ò\öX][€ó›ô\⁄€àX›]ö]Y\–ô[›’ò\öX][€ïô\⁄€àN¬àN¬àô]\õà¬àŸ[ô\ò]Yÿ]àô]»]J
+Kù“T”‘›ö[ô 
+Kà€Ÿù›\ôŸ]Œà¬àZ[ö[][WÿX›]ö]Y\◊‹\ó‹›Xòÿ]Y€‹ûNàKàZ[ö[][W›ò\öX][€ú◊‹\óÿX›]ö]NàãàKà\ôX\Œà¬à›[[X\ö^ôJò€‹ôWÿX›]ö]Hã»ôõÿ›\◊ÿ€€ùõ€ãô[[›[€ò[‹ôY›[][€àãù\⁄◊⁄[ö]X][€àãúõÿõ[W‹€€ö[ô»ãù€‹ö⁄[ô◊€Y[[‹ûHãò€Ÿ€ö]]ôWŸõ^Xö[]HóJKà›[[X\ö^ôJú›ô]⁄ÿ⁄[[ôŸHãÀ»ò€€\^]W⁄[ò‹ôX\ŸHãù[YW‹ô\‹›\ôHãõ][W‹›\ÿ⁄[[ôŸHãô\›òX›[€ó‹ô\⁄\›[òŸHãùò[úŸô\óÿ⁄[[ôŸHóJKà›[[X\ö^ôJúôYõX›[€àãÀ»ùô\òò[‹ôYõX›[€àãùö\›X[‹ôYõX›[€àãô›ZYY‹]Y\›[€ú»ãúŸ[ó‹ò][ô»ãú›‹ûW‹ôYõX›[€àóJKà›[[X\ö^ôJõÿúŸ\ùò][€ó‹›\‹ùãã»ú\ô[ù€ÿúŸ\ùò][€àãöXö]ÿ[ò⁄‹àóJKà›[[X\ö^ôJõ‹[ö[ô◊‹õ›][ôHãK»òÿ[WŸ[ùûHãô[ô\ôﬁWÿX›]ò][€àãò][ù[€ó‹ô\Ÿ]ãúõ›][ôWÿ[ò⁄‹àóJKà›[[X\ö^ôJùò[ú⁄][€ó‹õ›][ôHãK»úô\Ÿ]‹ôYõÿ›\»ãõ[›ô[Y[ù›ò[ú⁄][€àãò€›[ù›€ó›ò[ú⁄][€àóJKà›[[X\ö^ôJò€‹⁄[ô◊‹õ›][ôHãK»ò⁄[‹›[[X\ûHãúôZ[ôõ‹òŸ[Y[ùóJKàKàN¬üBÇôù[ò›[€àùZ[Ÿ\‹⁄[€ï[\]J»X›]ö]T›\ôòXŸK\ò][€ìZ[ù]\Àÿ⁄Y[Y]Ÿ[X›YX›]ö]RY»H◊HJH¬à€€ú›ò[ö‹»HX›]ö]T›\ôòXŸOÀòò[ö‹»ﬂN¬à€€ú›Ÿ[X›YûRYHô]»X\
+
+N¬àÿöôX›ùò[Y\ ò[ö‹ Kôõ]
+
+Kôõ‹ëXX⁄
+
+][JHOàŸ[X›YûRYúŸ]
+][KòX›]ö]W⁄Y][JJN¬à€€ú›X⁄ŸYHŸ[X›YX›]ö]RYÀõX\
+
+Y
+HOàŸ[X›YûRYôŸ]
+Y
+JKôö[\äõ€€X[äN¬à€€ú›Ÿ[X›YH¬à‹[ö[ôŒàX⁄ŸYôö[ô
+
+][JHOà][Kò€€\€ô[ù›\HOOH””T”ëSï—‘ì’TÀõ‹[ö[ô H
+ò[ö‹Àõ‹[ö[ô◊‹õ›][ôH◊JVÃHù[à€‹ôNàX⁄ŸYôö[ô
+
+][JHOà””T”ëSï—‘ì’TÀò€‹ôKö[ò€Y\ ][Kò€€\€ô[ù›\JJH
+ò[ö‹Àò€‹ôWÿX›]ö]H◊JVÃHù[à›ô]⁄àX⁄ŸYôö[ô
+
+][JHOà][Kò€€\€ô[ù›\HOOH””T”ëSï—‘ì’TÀú›ô]⁄
+H
+ò[ö‹Àú›ô]⁄ÿ⁄[[ôŸH◊JVÃHù[àôYõX›[€éàX⁄ŸYôö[ô
+
+][JHOà][Kò€€\€ô[ù›\HOOH””T”ëSï—‘ì’TÀúôYõX›[€äH
+ò[ö‹ÀúôYõX›[€à◊JVÃHù[àÿúŸ\ùò][€éàX⁄ŸYôö[ô
+
+][JHOà][Kò€€\€ô[ù›\HOOH””T”ëSï—‘ì’TÀõÿúŸ\ùò][€äH
+ò[ö‹ÀõÿúŸ\ùò][€ó‹›\‹ù◊JVÃHù[àò[ú⁄][€éà
+ò[ö‹Àùò[ú⁄][€ó‹õ›][ôH◊JVÃHù[à€‹ŸNà
+ò[ö‹Àò€‹⁄[ô◊‹õ›][ôH◊JVÃHù[àN¬à€€ú›õÿ⁄»H
+ŸY€Y[ùZ[ù]\ÀX›]ö]JHOà
+¬àŸY€Y[ùàZ[ù]\ÀàX›]ö]W⁄YàX›]ö]OÀòX›]ö]W⁄Yù[à]NàX›]ö]OÀù]Hù[à›Xòÿ]Y€‹ûNàX›]ö]OÀú›Xòÿ]Y€‹ûHù[à]òZ[XõW›ò\öX][€óÿ€›[ùà\úò^Kö\–\úò^JX›]ö]OÀò]òZ[XõW›ò\öX][€ú H»X›]ö]Kò]òZ[XõW›ò\öX][€úÀõ[ô›ààJN¬àô]\õà¬àÿ⁄Y[Yÿ]àÿ⁄Y[Y]ù[à›[€Z[ù]\Œàù[Xô\ä\ò][€ìZ[ù]\»Ã
+Kàõÿ⁄‹Œà¬àõÿ⁄ õ‹[ö[ô◊‹õ›][ôHãŸ[X›Yõ‹[ö[ô Kàõÿ⁄ úô\›[YHãÀù[
+Kàõÿ⁄ ò€‹ôWÿX›]ö]HãLãŸ[X›Yò€‹ôJKàõÿ⁄ ùò[ú⁄][€àããŸ[X›Yùò[ú⁄][€äKàõÿ⁄ ú›ô]⁄ÿ⁄[[ôŸHããŸ[X›Yú›ô]⁄
+Kàõÿ⁄ ùò[ú⁄][€àãKŸ[X›Yùò[ú⁄][€äKàõÿ⁄ úôYõX›[€àãŸ[X›YúôYõX›[€äKàõÿ⁄ õÿúŸ\ùò][€óÿ€‹ŸHãÀŸ[X›YõÿúŸ\ùò][€àŸ[X›Yò€‹ŸJKàKàN¬üBÇôù[ò›[€àùZ[ŸYZ–€€ù[ùúõ€TòZ[
+ŸYZ”[Ÿ[úöYŸT›]HHﬂK[õö[ô‘›]HHﬂJH¬àYà
+]ŸYZ”[Ÿ[\[ŸàŸYZ”[Ÿ[OOHõÿöôX›äHô]\õàù[¬à€€ú›ŸYZ”ù[Xô\àHù[Xô\äŸYZ”[Ÿ[ùŸYZ◊€ù[Xô\äHN¬à€€ú›\ŸSò[YHH›ö[ô ŸYZ”[Ÿ[ú\ŸW€ò[YHëõ›[ô][€àäN¬à€€ú›\ŸSù[Xô\àHù[Xô\äŸYZ”[Ÿ[ú\ŸW€ù[Xô\àJN¬à€€ú›X›]ö]SXô[HXô[õ‹äP’UíUW”PëSÀŸYZ”[Ÿ[ò€‹ôWÿX›]ö]W›\JN¬à€€ú››ô]⁄Xô[HXô[õ‹ä’ëU“”PëSÀŸYZ”[Ÿ[ú›ô]⁄ÿ⁄[[ôŸW›\JN¬à€€ú›ôYõX›[€ìXô[HXô[õ‹äëQìP’S”ó”PëSÀŸYZ”[Ÿ[úôYõX›[€ó€€‹›\JN¬à€€ú›ÿúŸ\ùò][€ìXô[HXô[õ‹ä–î—TïêUS”ó”PëSÀŸYZ”[Ÿ[õÿúŸ\ùò][€óŸ[ùûW›\JN¬à€€ú›]]‹ôYHŸ]]]‹ôYŸYZ–€€ù[ù
+ŸYZ”ù[Xô\äN¬à€€ú››\‹ùX›[€ìXô[HŸYZ”[Ÿ[õ‹[€ò[‹›\‹ùÿX›[€Çà»Xô[õ‹ä’T‘ï–P’S”ó”PëSÀŸYZ”[Ÿ[õ‹[€ò[‹›\‹ùÿX›[€äBààíŸY\H›\úô[ù€YHõ›][ôH[ôÿ\\ôH€ôH\ô[ùÿúŸ\ùò][€àõ›Kàé¬à€€ú›\ôŸ]òZ]»H\úò^Kö\–\úò^JŸYZ”[Ÿ[ù\ôŸ]›òZ] H»ŸYZ”[Ÿ[ù\ôŸ]›òZ]»à◊N¬à€€ú›õŸ‹ô\‹‘\òŸ[ùHX]õX^
+X]õZ[äLX]úõ›[ô
+
+ŸYZ”ù[Xô\à»ÕäH
+àL
+JJN¬à€€ú›\ô[ù›\›€Z^ò][€àH[õö[ô‘›]OÀò€€[Z]Y[ù‹[èÀú\ô[ùÿ›\›€Z^ò][€Çà
+[õö[ô‘›]OÀò€€[Z]Y[ù‹[Çà»¬àYôöX›[W€]ô[à[õö[ô‘›]Kò€€[Z]Y[ù‹[ãôYôöX›[W€]ô[àŸ\‹⁄[€ó€[ô›à[õö[ô‘›]Kò€€[Z]Y[ù‹[ãúŸ\‹⁄[€ó€[ô›[õö[ô‘›]Kò€€[Z]Y[ù‹[ãúŸ\‹⁄[€óŸ\ò][€ó€Z[ù]\»[õö[ô‘›]Kò€€[Z]Y[ù‹[ãù\ôŸ]‹Ÿ\‹⁄[€ó€[ô›à[ô\ôﬁW›\Nà[õö[ô‘›]Kò€€[Z]Y[ù‹[ãô[ô\ôﬁW›\KàŸYZ€WŸúô\]Y[òﬁNà[õö[ô‘›]Kò€€[Z]Y[ù‹[ãùŸYZ€WŸúô\]Y[òﬁKàBààù[
+N¬à€€ú›X›]ö]T›\ôòXŸHHùZ[X›]ö]T›\ôòXŸJ»⁄[YàúöYŸT›]Kò⁄[⁄Y\ŸSù[Xô\ã\ô[ù›\›€Z^ò][€àJN¬à€€ú›€€[Z]Y[ùH[õö[ô‘›]Kò€€[Z]Y[ù‹[à»õ‹õX[^ôT\ô[ù€€[Z]Y[ù[ä[õö[ô‘›]Kò€€[Z]Y[ù‹[äHàù[¬à€€ú›Ÿ]\€€\]HH\–€€[Z]Y[ùŸ]\€€\]J€€[Z]Y[ùﬂJN¬à€€ú›[õôYŸ\‹⁄[€ú»H\úò^Kö\–\úò^J[õö[ô‘›]Kúÿ⁄Y[Y‹Ÿ\‹⁄[€ú H»[õö[ô‘›]Kúÿ⁄Y[Y‹Ÿ\‹⁄[€ú»à◊N¬à€€ú›[õô\î›\ôòXŸT›]HHô\€€ôT[õô\î›\ôòXŸT›]J»€€[Z]Y[ùÿ⁄Y[YŸ\‹⁄[€úŒà[õôYŸ\‹⁄[€ú»JN¬à€€ú›Ÿ\‹⁄[€ï[\]HHùZ[Ÿ\‹⁄[€ï[\]J¬àX›]ö]T›\ôòXŸKà\ò][€ìZ[ù]\Œà€€[Z]Y[ùÀúŸ\‹⁄[€óŸ\ò][€ó€Z[ù]\»€€[Z]Y[ùÀù\ôŸ]‹Ÿ\‹⁄[€ó€[ô›Ãàÿ⁄Y[Y]à[õôYŸ\‹⁄[€ú÷ÃOÀúÿ⁄Y[Yÿ]ù[àŸ[X›YX›]ö]RYŒà[õôYŸ\‹⁄[€ú÷ÃOÀúŸ[X›YÿX›]ö]W⁄Y»◊KàJN¬à€€ú››\Ÿ\]Y[òŸHH\úò^Kö\–\úò^J]]‹ôYÀú›\‹Ÿ\]Y[òŸJH»]]‹ôYú›\‹Ÿ\]Y[òŸHà’T‘—TUQSê—N¬àô]\õà¬àŸYZ◊€ù[Xô\éàŸYZ”ù[Xô\ãà]Nà›ö[ô ]]‹ôYÀù]HŸYZ»	›ŸYZ”ù[Xô\üH0≠»	‹\ŸSò[Y_X
+KàÿöôX›]ôNà›ö[ô ]]‹ôYÀõÿöôX›]ôHŸYZ”[Ÿ[ùŸYZ€WŸ€ÿ[ŸYZ»	›ŸYZ”ù[Xô\üHÿöôX›]ôH[ò]òZ[XõKò
+Kà\ŸW›ŸYZ◊ÿ€€ù^à\ŸH	›ŸYZ”[Ÿ[ú\ŸW€ù[Xô\à_H
+	‹\ŸSò[Y_JKŸYZ»	›ŸYZ”ù[Xô\üHŸàÕãòàŸYZ◊‹\ú‹ŸNà›ö[ô ]]‹ôYÀùŸYZ◊‹\ú‹ŸH\»ŸYZ»›ô[ô›[ú»	›\ôŸ]òZ]Àöõ⁄[äà
+»äHò€‹ôH]ô[‹Y[ù[òZ]»üHõ›Y⁄ô\X]XõH\ô[ùY›ZYYŸ\‹⁄[€úÀò
+KàŸYZ€WŸ€ÿ[Œà¬à€€\]HH€‹ôHŸ\‹⁄[€àõ›»]X\›à[Y\»\»ŸYZ»\⁄[ô»	ÿX›]ö]SXô[ùH›ZYY€‹ôHX›]ö]HüKòà\ŸH	‹›ô]⁄Xô[ùH›ô]⁄⁄[[ôŸHüH€òŸHYù\àH€‹ôHõ›][ôHôY[»›XõKòàÿ\\ôH€ôHôYõX›[€à[ô€ôH\ô[ùÿúŸ\ùò][€àôYõ‹ôHŸYZ»€‹ŸKòàKà€€ù[ùÿõÿ⁄‹Œà¬à€‹ôWÿX›]ö]NàX›]ö]SXô[ê€‹ôHX›]ö]Hõ›X\Yãà›ô]⁄ÿ⁄[[ôŸNà›ô]⁄Xô[î›ô]⁄⁄[[ôŸHõ›X\YãàôYõX›[€ó€€‹àôYõX›[€ìXô[îôYõX›[€à€‹õ›X\YãàÿúŸ\ùò][€óŸ[ùûNàÿúŸ\ùò][€ìXô[ìÿúŸ\ùò][€à[ùûHõ›X\Yãà‹[€ò[‹›\‹ùÿX›[€éà›\‹ùX›[€ìXô[àKà\ô[ùŸ›ZY[òŸNà\úò^Kö\–\úò^J]]‹ôYÀú\ô[ùŸ›ZY[òŸJH»Àããò]]‹ôYú\ô[ùŸ›ZY[òŸWHà¬àô\\ôHX]\öX[»ôYõ‹ôHŸ\‹⁄[€à›\ù[ôŸ]HôYX›XõH[YH⁄[ô›Àòàò[YHH\ôŸ]òZ]»
+	›\ôŸ]òZ]Àöõ⁄[äãäHò›\úô[ù\ôŸ]»üJHôYõ‹ôHôY⁄[õö[ôÀòà\ŸHúöYYà€ÿX⁄[ô»[ô›XYŸH[ôŸY\Ÿ\‹⁄[€ú»⁄‹ù[õ›Y⁄õ‹à€€ú⁄\›[òﬁKòàKà\ô[ùŸ›ZY[òŸW‹Ÿ]\àŸ]\	ÿX›]ö]SXô[ùH€‹ôHX›]ö]HüH[ô›YH	›\ôŸ]òZ]Àöõ⁄[äà
+»äHò›\úô[ùòZ]\ôŸ]»üHôYõ‹ôHHŸ\‹⁄[€ãòà›\úô[ùÿX›]ö]W‹Ÿ\‹⁄[€ó‹[éàù[à	ÿX›]ö]SXô[ùH€‹ôHX›]ö]HüK[à\H	‹›ô]⁄Xô[òH›ô]⁄⁄[[ôŸHüH»ùZ[ŸYZ»[€Y[ù[KòàôYõX›[€óÿ⁄X⁄⁄[ó‹›\‹ùà€‹ŸH⁄]	‹ôYõX›[€ìXô[òHôYõX›[€à€‹üKÿ\\ôH	€ÿúŸ\ùò][€ìXô[ò[àÿúŸ\ùò][€àüK[ô\H	‹›\‹ùX›[€ìXô[KòàŸ\‹⁄[€óŸõ›Œà›\Ÿ\]Y[òŸKõX\
+
+›\
+HOà
+¬à›\⁄Ÿ^Nà›\ú›\⁄Ÿ^Kà›\à›\õXô[à]Z[à›\ú›\⁄Ÿ^HOOHò€‹ôWÿX›]ö]HÇà»ù[à	ÿX›]ö]SXô[ò€‹ôHX›]ö]HüH[ôÿ\\ôH€ôH]ZX⁄»⁄[ãòàà›\ú›\⁄Ÿ^HOOHú›ô]⁄ÿ⁄[[ôŸHÇà»\ŸH	‹›ô]⁄Xô[ú›ô]⁄⁄[[ôŸHüHõ‹àò[úŸô\à[ôô\⁄[Y[òŸHòX›XŸKòàà›\ú›\⁄Ÿ^HOOHúôYõX›[€óÿ⁄X⁄⁄[àÇà»õ€\	‹ôYõX›[€ìXô[úôYõX›[€à€‹üH[ô\⁄»⁄[⁄]⁄[ôŸYòààôX€‹ô	€ÿúŸ\ùò][€ìXô[õÿúŸ\ùò][€àõ›HüH[ôÿ⁄Y[H	‹›\‹ùX›[€ìXô[KòàJJKàÿúŸ\ùò][€ó‹›\‹ùÿ\ôXNàÿúŸ\ùò][€àõÿ›\Œà	€ÿúŸ\ùò][€ìXô[î\ô[ùÿúŸ\ùò][€àõ›HüKà›\‹ùX›[€éà	‹›\‹ùX›[€ìXô[Kòà\ô[ù‹õ€\Œà¬àôYõX›[€ó‹õ€\à›ö[ô ]]‹ôYÀúôYõX›[€ó‹õ€\ï⁄][Y[›\à⁄[[\õ›ôH\»ŸYZœ»äKàÿúŸ\ùò][€ó‹õ€\à›ö[ô ]]‹ôYÀõÿúŸ\ùò][€ó‹õ€\ï⁄]›\‹ù]\õàY[›Hõ›XŸH\»ŸYZœ»äKàKà€€\][€ó€Xô[Œà]]‹ôYÀò€€\][€ó€Xô[»ù[àõŸ‹ô\‹⁄[€ó€Xô[Œà]]‹ôYÀúõŸ‹ô\‹⁄[€ó€Xô[»ù[à€€ù[ùÿ]Y]à]Y]ŸYZ€P€€ù[ù€›\òŸ\ 
+KàX›]ö]Wÿò[ö◊‹›\ôòXŸNàX›]ö]T›\ôòXŸKàò[ö◊Ÿ\ÿ]Y]à]Y]X›]ö]Pò[ö—\
+X›]ö]T›\ôòXŸJKà[õô\ó‹Ÿ]\‹ô\]Z\ôYà\Ÿ]\€€\]Kà€€[Z]Y[ù‹Ÿ]\‹›]\ŒàŸ]\€€\]H»ò€€\]Hààúô\]Z\ôYãà€€[Z]Y[ù‹[éà€€[Z]Y[ùàÿ⁄Y[Y‹Ÿ\‹⁄[€úŒà[õôYŸ\‹⁄[€úÀà[õô\ó‹›\ôòXŸW‹›]Nà[õô\î›\ôòXŸT›]Kà\‹€€ó‹[ó›[\]NàŸ\‹⁄[€ï[\]KàXÿ€›[ùXö[]Nà[õö[ô‘›]KòXÿ€›[ùXö[]Hù[àõŸ‹ô\‹Œà¬à›\úô[ù›ŸYZŒàŸYZ”ù[Xô\ãà›[›ŸYZ‹ŒàÕãà\òŸ[ùÿ€€\]NàõŸ‹ô\‹‘\òŸ[ùà€€\][€ó‹›]\ŒàŸYZ”ù[Xô\àHH»ú›\ù[ô»ààö[ó‹õŸ‹ô\‹»ãà€€\]Y›ŸYZ‹◊Ÿ\›[X]NàX]õX^
+ŸYZ”ù[Xô\àHJKàKàõÿYX\àùZ[õÿYX\
+ŸYZ”ù[Xô\äKàô^ÿX›[€éà›ö[ô úöYŸT›]Kõô^‹ôX€€[Y[ôYÿX›[€à€€ù[ùYHŸYZ»	›ŸYZ”ù[Xô\üX
+KàN¬üBÇôù[ò›[€àùZ[õŸ‹ò[UŸYZ–€€ù[ù›]J»úöYŸT›]K⁄[Y⁄[õŸö[\À^X›][€î›]HHù[[õö[ô‘›]HHù[JH¬àYà
+X⁄[Y
+H¬à€€ú›‹[€ú»H\úò^Kö\–\úò^J⁄[õŸö[\ H»⁄[õŸö[\»à◊N¬à€€ú›][\HH‹[€úÀõ[ô›àN¬àô]\õà¬à⁄ŒàùYKà›]Nàò⁄[‹ÿ€‹W‹ô\]Z\ôYãà›]W€Xô[à][\H»ê⁄€‹ŸHH⁄[»€€ù[ùYHààê⁄[ÿ€‹Hô\]Z\ôYãàY\‹ÿYŸ\Œà][\Bà»»ì][\H⁄[õŸö[\»]X›YàŸ[X›H⁄[»‹[àH›\úô[ùŸYZ»€€ù[ùàóBàà»ê⁄[ÿ€‹H\»ô\]Z\ôYôYõ‹ôHŸYZ»€€ù[ùÿ[àôHÿYYàóKà⁄[‹ÿ€‹W€‹[€úŒà‹[€úÀõX\
+
+[ùûJHOà
+¬à⁄[⁄Yà[ùûKò⁄[⁄Yù[à⁄[€ò[YNà[ùûKò⁄[€ò[YHù[àJJKàô^ÿX›[€éàîŸ[X›H⁄[[à\ô[ù\⁄õÿ\ô[à€€ù[ùYKàãà\ô[ù‹õŸ‹ò[W‹›]Nà¬à⁄[‹ÿ€‹Nà¬àô\]Z\ôYàùYKàŸ[X›Yÿ⁄[⁄Yàù[àKàõŸ‹ò[W‹›]\ŒàúŸ]\‹ô\]Z\ôYãà›\úô[ù›ŸYZŒàù[àô^ÿX›[€éàîŸ[X›⁄[ÿ€‹Hãàõÿ⁄ŸY‹ôX\€€éàò⁄[‹ÿ€‹W‹ô\]Z\ôYãà›Nàù[àKàN¬àBàYà
+XúöYŸT›]HúöYŸT›]Kõ⁄»OOHùYJH¬àô]\õà¬à⁄ŒàùYKà›]NàòúöYŸW›[ò]òZ[XõHãà›]W€Xô[àîõŸ‹ò[H›]H[ò]òZ[XõHãàY\‹ÿYŸ\Œà»îõŸ‹ò[HúöYŸH›]H€›[õ›ôHô\€€ôYõ‹à\»⁄[àóKàô^ÿX›[€éàîô]\õà»\ô[ù\⁄õÿ\ô[ôô]ûKàãà\ô[ù‹õŸ‹ò[W‹›]Nà¬à⁄[‹ÿ€‹Nà¬àô\]Z\ôYàùYKàŸ[X›Yÿ⁄[⁄Yà⁄[YàKàõŸ‹ò[W‹›]\Œàù[ö€õ›€àãà›\úô[ù›ŸYZŒàù[àô^ÿX›[€éàîô]\õà»\ô[ù\⁄õÿ\ôãàõÿ⁄ŸY‹ôX\€€éàúõŸ‹ò[WÿúöYŸW›[ò]òZ[XõHãà›Nà¬àXô[à–Sì”íP–S–’W”PëSÀúô]\õï—\⁄õÿ\ôàôYéà	––Sì”íP–S‘TëSï‘ì’UTÀô\⁄õÿ\ôOÿ⁄[⁄YIŸ[ò€ŸUTíP€€\€ô[ù
+⁄[Y
+_XàX›[€éàúô]\õó›◊Ÿ\⁄õÿ\ôãàKàKàN¬àBàYà
+úöYŸT›]KúŸ]\€ôYYYOOHùYHúöYŸT›]Kõ][ò⁄ÿ[›ŸYOOHùYJH¬àô]\õà¬à⁄ŒàùYKà›]NàúŸ]\⁄[ò€€\]Hãà›]W€Xô[àîŸ]\[ò€€\]HãàY\‹ÿYŸ\Œà»îõŸ‹ò[HŸ]\\»[ò€€\]KàŸYZ»€€ù[ù⁄[\X\àYù\àŸ]\\»€€\]KàóKàô^ÿX›[€éà›ö[ô úöYŸT›]Kõô^‹ôX€€[Y[ôYÿX›[€àê€€\]HŸ]\äKà\ô[ù‹õŸ‹ò[W‹›]Nà¬à⁄[‹ÿ€‹Nà¬àô\]Z\ôYàùYKàŸ[X›Yÿ⁄[⁄Yà⁄[YàKàõŸ‹ò[W‹›]\ŒàúŸ]\‹ô\]Z\ôYãà›\úô[ù›ŸYZŒàù[àô^ÿX›[€éà›ö[ô úöYŸT›]Kõô^‹ôX€€[Y[ôYÿX›[€àê€€\]HŸ]\äKàõÿ⁄ŸY‹ôX\€€éà›ö[ô úöYŸT›]KúôX\€€àúŸ]\⁄[ò€€\]HäKà›NàúöYŸT›]Kò›Hù[àKàN¬àBàYà
+úöYŸT›]Kö\◊Ÿ[úõ€Y[ùOOHùYJH¬àô]\õà¬à⁄ŒàùYKà›]Nàõõ◊Ÿ[úõ€Y[ùŸõ›[ôãà›]W€Xô[àë[úõ€Y[ùõ››\ùYãàY\‹ÿYŸ\Œà»ìõ»X›]ôH[úõ€Y[ùõ›[ôõ‹à\»⁄[à›\ùHõŸ‹ò[H»[õÿ⁄»ŸYZ»H€€ù[ùàóKàô^ÿX›[€éà›ö[ô úöYŸT›]Kõô^‹ôX€€[Y[ôYÿX›[€àêôY⁄[àŸYZ»HäKà\ô[ù‹õŸ‹ò[W‹›]Nà¬à⁄[‹ÿ€‹Nà¬àô\]Z\ôYàùYKàŸ[X›Yÿ⁄[⁄Yà⁄[YàKàõŸ‹ò[W‹›]\Œàõõ›‹›\ùYãà›\úô[ù›ŸYZŒàKàô^ÿX›[€éà›ö[ô úöYŸT›]Kõô^‹ôX€€[Y[ôYÿX›[€àî›\ùõŸ‹ò[HäKàõÿ⁄ŸY‹ôX\€€éàô[úõ€Y[ù€Z\‹⁄[ô»ãà›NàúöYŸT›]Kò›Hù[àKàN¬àBà€€ú››\úô[ùŸYZ»HX]õX^
+KX]õZ[äÕãù[Xô\äúöYŸT›]Kò›\úô[ù›ŸYZ HJJN¬à€€ú›ŸYZ”[Ÿ[Hì—‘êSW’—QR‘Àôö[ô
+
+[ùûJHOàù[Xô\ä[ùûKùŸYZ◊€ù[Xô\äHOOH›\úô[ùŸYZ N¬àYà
+]ŸYZ”[Ÿ[
+H¬àô]\õà¬à⁄ŒàùYKà›]NàùŸYZ◊ÿ€€ù[ù€Z\‹⁄[ô»ãà›]W€Xô[àê›\úô[ùŸYZ»€€ù[ùZ\‹⁄[ô»ãàY\‹ÿYŸ\Œàÿõ»òZ[Yö[ö][€àÿ\»õ›[ôõ‹àŸYZ»	ÿ›\úô[ùŸYZﬂKòKàô^ÿX›[€éàê€€ùX››\‹ù»ô\›‹ôHŸYZ»€€ùòX›⁄\ö[ôÀàãà\ô[ù‹õŸ‹ò[W‹›]Nà¬à⁄[‹ÿ€‹Nà¬àô\]Z\ôYàùYKàŸ[X›Yÿ⁄[⁄Yà⁄[YàKàõŸ‹ò[W‹›]\ŒàòX›]ôHãà›\úô[ù›ŸYZŒà›\úô[ùŸYZÀàô^ÿX›[€éàê€€ùX››\‹ùãàõÿ⁄ŸY‹ôX\€€éàùŸYZ◊ÿ€€ù[ù€Z\‹⁄[ô»ãà›Nà¬àXô[à–Sì”íP–S–’W”PëSÀúô]\õï—\⁄õÿ\ôàôYéà	––Sì”íP–S‘TëSï‘ì’UTÀô\⁄õÿ\ôOÿ⁄[⁄YIŸ[ò€ŸUTíP€€\€ô[ù
+⁄[Y
+_XàX›[€éàúô]\õó›◊Ÿ\⁄õÿ\ôãàKàKàN¬àBà€€ú›õ‹õX[^ôY^X›][€î›]HHõ‹õX[^ôQ^X›][€î›]J^X›][€î›]HYò][^X›][€î›]J
+K›\úô[ùŸYZ N¬à€€ú›úöYŸT\ô[ù›]HHúöYŸT›]Kú\ô[ù‹õŸ‹ò[W‹›]H	âà\[ŸàúöYŸT›]Kú\ô[ù‹õŸ‹ò[W‹›]HOOHõÿöôX›Çà»úöYŸT›]Kú\ô[ù‹õŸ‹ò[W‹›]BààﬂN¬àô]\õà¬à⁄ŒàùYKà›]Nàò€€ù[ù‹ôXYHãà›]W€Xô[àïŸYZ»€€ù[ùôXYHãà⁄[⁄Yà⁄[Yà›\úô[ù›ŸYZŒà›\úô[ùŸYZÀàŸYZ◊ÿ€€ù[ùàùZ[ŸYZ–€€ù[ùúõ€TòZ[
+ŸYZ”[Ÿ[úöYŸT›]K[õö[ô‘›]HﬂJKà^X›][€ó‹›]Nàõ‹õX[^ôY^X›][€î›]Kà^X›][€óÿ€€ùòX›à¬à[›ŸYÿX›[€úŒà—QR”W—VP’US”ó–P’S”îÀà⁄[‹ÿ€‹W‹ô\]Z\ôYàùYKàŸYZ◊‹ÿ€‹W‹ô\]Z\ôYàùYKàõ›W‹ô\]Z\ôYÿX›[€úŒà»úÿ]ôW‹ôYõX›[€àãúÿ]ôW€ÿúŸ\ùò][€àóKà›\‹ô\]Z\ôYÿX›[€éàõX\ö◊‹›\ÿ€€\]HãàKàô^ÿX›[€éà›ö[ô úöYŸT›]Kõô^‹ôX€€[Y[ôYÿX›[€à€€ù[ùYHŸYZ»	ÿ›\úô[ùŸYZﬂX
+Kà\ô[ù‹õŸ‹ò[W‹›]Nà¬à⁄[‹ÿ€‹NàúöYŸT\ô[ù›]Kò⁄[‹ÿ€‹H¬àô\]Z\ôYàùYKàŸ[X›Yÿ⁄[⁄Yà⁄[YàKàõŸ‹ò[W‹›]\Œà›ö[ô úöYŸT›]KúõŸ‹ò[W‹›]\»òX›]ôHäKà›\úô[ù‹\ŸW€ò[YNàúöYŸT›]Kò›\úô[ù‹\ŸW€ò[YHù[à›\úô[ù›ŸYZŒà›\úô[ùŸYZÀàô^ÿX›[€éà›ö[ô úöYŸT›]Kõô^‹ôX€€[Y[ôYÿX›[€à€€ù[ùYHŸYZ»	ÿ›\úô[ùŸYZﬂX
+Kàõÿ⁄ŸY‹ôX\€€éàõ‹õX[^ôY^X›][€î›]Kòõÿ⁄ŸY‹ôX\€€àù[à›NàúöYŸT\ô[ù›]Kò›HúöYŸT›]Kò›Hù[àŸYZ€WŸ^X›][€éà¬àŸYZ◊‹›]\Œàõ‹õX[^ôY^X›][€î›]KùŸYZ◊‹›]\ÀàX›]ôW‹›\⁄Ÿ^Nàõ‹õX[^ôY^X›][€î›]KòX›]ôW‹›\⁄Ÿ^Kàõÿ⁄ŸY‹ôX\€€éàõ‹õX[^ôY^X›][€î›]Kòõÿ⁄ŸY‹ôX\€€àù[àKàKàN¬üBÇôù[ò›[€àô[ô\ñ[›]]ô[‹Y[ù[ùZŸU\›YŸJ
+H¬à€€ú›ö^\ôHHî””ãú›ö[ô⁄YûJSïR—W’T’—íVTëKù[äN¬àô]\õàYÿ›\H[Çè[[ôœHô[àèÇàXYÇàY]H⁄\úŸ]Hù]ãNàœÇàY]Hò[YOHùöY]‹‹ùà€€ù[ùHù⁄YY]öXŸK]⁄Y[ö]X[\ÿÿ[OLHàœÇà]Oñ[›]]ô[‹Y[ù[ùZŸH\›
+[ù\õò[
+O›]OÇà›[OÇàúõ€›¬àKXôŒàÃÃÃLé¬àK\[ô[à[ôX\ãY‹òYY[ù
+MLYÀôÿòJMKåÀãéMJKôÿòJÃKNKé
+JN¬àK[[ôNàôÿòJMMåÀNåŒ
+N¬àK]^àŸLôNå¬àK[]]YàŒMLÿé¬àBà
+à»õﬁ\⁄^ö[ôŒàõ‹ô\ãXõﬁ»BàõŸH¬àõ€ùYò[Z[Nà[ù\ãﬁ\›[K]ZKX\K\ﬁ\›[KŸY€ŸHRKÿ[úÀ\Ÿ\öYé¬àX\ô⁄[éà¬àY[ôŒàN¬àòX⁄Ÿ‹õ›[ôàòYX[Y‹òYY[ù
+⁄\ò€H]IH	KÃLLNçÀÃååM»å	JN¬à€€‹éàò\äK]^
+N¬àBàXZ[à»X^]⁄YàLN»X\ô⁄[éà]]Œ»\‹^Nà‹öY»ÿ\àLú»BàŸX›[€à»òX⁄Ÿ‹õ›[ôàò\äK\[ô[
+N»õ‹ô\éà\€€Yò\äK[[ôJN»õ‹ô\ã\òY]\ŒàLú»Y[ôŒàM»Bàö[ùõÀZXY\à»\‹^Nàõ^»õ^]‹ò\à‹ò\»ù\›YûKX€€ù[ùà‹XŸKXô]ŸY[é»ÿ\àLú»[Y€ãZ][\Œàõ^\›\ù»Bàúô]öY]ÀXò[õô\à»õ€ù]ŸZY⁄àÃ»€€‹éàŸôYÿXN»òX⁄Ÿ‹õ›[ôàôÿòJLçKNåÕJN»õ‹ô\éà\€€YôÿòJçLKMãåçJN»õ‹ô\ã\òY]\ŒàNN\»Y[ôŒàúL»õ€ù\⁄^ôNàLú»\‹^Nà[õ[ôKXõÿ⁄Œ»Bàú›]\À[⁄»»€€‹éàÕYN»õ€ù]ŸZY⁄àÃ»Bàú›]\ÀXòY»€€‹éàŸòÿMXMN»õ€ù]ŸZY⁄àÃ»Bà^\ôXH»⁄YàL	N»Z[ãZZY⁄àé»õ€ùYò[Z[NàZK[[€õ‹‹XŸK—ì[€õÀTôY›[\ãY[õÀ€€ú€€\À[€õ‹‹XŸN»õ€ù\⁄^ôNàL‹»õ‹ô\ã\òY]\Œà»õ‹ô\éà\€€Yò\äK[[ôJN»òX⁄Ÿ‹õ›[ôàôÿòJããåÀé
+N»€€‹éàŸôXYôN»Y[ôŒàL»Bàù]€à»õ‹ô\éà\€€YÃåôŸYN»òX⁄Ÿ‹õ›[ôà[ôX\ãY‹òYY[ù
+LåYÀÃåMÃòKÃYLéLÿäN»€€‹éàŸéòYòŒ»õ‹ô\ã\òY]\ŒàNN\»Y[ôŒà\M»õ€ù\⁄^ôNàL‹»›\ú€‹éà⁄[ù\é»Bàù]€éö›ô\à»ö[\éàúöY⁄ô\‹ Kå
+N»Bà€ŸKôH»õ€ùYò[Z[NàZK[[€õ‹‹XŸK—ì[€õÀTôY›[\ãY[õÀ€€ú€€\À[€õ‹‹XŸN»BàôH»⁄]K\‹XŸNàôK]‹ò\»›ô\ôõ›À]‹ò\à[û]⁄\ôN»õ‹ô\éà\€€Yò\äK[[ôJN»õ‹ô\ã\òY]\Œà»Y[ôŒàL»òX⁄Ÿ‹õ›[ôàôÿòJããåÀçÕJN»€€‹éàÿôôôôN»Bàùÿ\õã[\›»€€‹éàŸôòMÕ»Bàô\úã[\›»€€‹éàŸòÿMXMN»õ€ù]ŸZY⁄àå»Bàú›[[X\ûKY‹öY»\‹^Nà‹öY»ÿ\àL»‹öY][\]KX€€[[úŒàô\X]
+]]ÀYö]Z[õX^
+ååYúäJN»BàXõH»⁄YàL	N»õ‹ô\ãX€€\ŸNà€€\ŸN»Bà»õ‹ô\éà\€€Yò\äK[[ôJN»Y[ôŒàú»^X[Y€éàYù»Bàù€€ò\à»\‹^Nàõ^»õ^]‹ò\à‹ò\»ÿ\à»X\ô⁄[ãXõ›€NàL»Bàúô\Ÿ]Xùà»òX⁄Ÿ‹õ›[ôàôÿòJMKåÀãéJN»õ‹ô\ãX€€‹éàÕçÕé»Bàú›]\À\[ô[»\‹^Nàõ^»[Y€ãZ][\Œàò\Ÿ[[ôN»ÿ\àL»X\ô⁄[ãXõ›€NàL»Bàú›]\ÀX€ŸH»õ€ù\⁄^ôNàÃú»õ€ù]ŸZY⁄à»Bàú›]\À[Xô[»€€‹éàò\äK[]]Y
+N»õ€ù\⁄^ôNàLú»^]ò[úŸõ‹õNà\\òÿ\ŸN»]\ã\‹X⁄[ôŒàå[N»Bàú›]\À[õ›H»€€‹éàÿÿôYLN»õ€ù\⁄^ôNàL‹»Bàòÿ[›]Y‹öY»\‹^Nà‹öY»ÿ\àL»‹öY][\]KX€€[[úŒàô\X]
+]]ÀYö]Z[õX^
+çåYúäJN»Bàòÿ[›]»õ‹ô\éà\€€Yò\äK[[ôJN»õ‹ô\ã\òY]\Œà»Y[ôŒàL»òX⁄Ÿ‹õ›[ôàôÿòJMKåÀãççJN»Bàòÿ[›]»X\ô⁄[éà»õ€ù\⁄^ôNàM»BàùòZ]\›[[X\ûH»õ‹ô\éà\€€YôÿòJMãNKççJN»òX⁄Ÿ‹õ›[ôàôÿòJLãÕLLåÕJN»õ‹ô\ã\òY]\Œà»Y[ôŒàL»BàùòZ]\›[[X\ûH»»X\ô⁄[éà»õ€ù\⁄^ôNàM\»BàùòZ]\›[[X\ûH»X\ô⁄[éà»Bàú]ZX⁄ÀXX›[€ú»»\‹^Nà‹öY»‹öY][\]KX€€[[úŒàô\X]
+]]ÀYö]Z[õX^
+çYúäJN»ÿ\à»BàúXKXÿ\ô»õ‹ô\éà\€€Yò\äK[[ôJN»õ‹ô\ã\òY]\Œà»Y[ôŒàL»òX⁄Ÿ‹õ›[ôàôÿòJããåÀçJN»BàúXKXÿ\ô»»X\ô⁄[éàú»õ€ù\⁄^ôNàM»BàúXKXÿ\ô»X\ô⁄[éà»õ€ù\⁄^ôNàL‹»€€‹éàÿÿôYLN»Bàò€€úŸ[ù]‹ò\»\‹^Nà‹öY»ÿ\àL»õ‹ô\éà\€€YôÿòJÕåLKåŒçJN»õ‹ô\ã\òY]\ŒàL»òX⁄Ÿ‹õ›[ôàôÿòJãLÃãNNKåLäN»Y[ôŒàLú»Bàò€€úŸ[ù\õ›»»\‹^Nàõ^»ÿ\àL»[Y€ãZ][\Œàõ^\›\ù»Bàò€€úŸ[ùXX›[€ú»»\‹^Nàõ^»õ^]‹ò\à‹ò\»ÿ\à»Bàò€€úŸ[ù\›]\»»€€‹éàÿÿôYLN»Z[ãZZY⁄àN»Bà‹›[OÇà⁄XYÇàõŸOÇà›[OÇàõŸKû[›]\ÿŸ[ôH¬àòX⁄Ÿ‹õ›[ôZ[XYŸNà[ôX\ãY‹òYY[ù
+NYÀôÿòJÀLMÀçé
+KôÿòJÀLMÀé
+JKò\äK^[›]\ÿŸ[ôK]\õ
+HZ[\‹ù[ù¬àòX⁄Ÿ‹õ›[ô\⁄^ôNà€›ô\àZ[\‹ù[ù¬àòX⁄Ÿ‹õ›[ô\‹⁄][€éàŸ[ù\à‹Z[\‹ù[ù¬àòX⁄Ÿ‹õ›[ôX]X⁄Y[ùàö^YZ[\‹ù[ù¬àBàõŸKû[›]\ÿŸ[ôHú[ô[»òX⁄Ÿõ‹Yö[\éàõ\ä
+N»]ŸXö⁄]XòX⁄Ÿõ‹Yö[\éàõ\ä
+N»Bà‹›[OÇàÿ‹ö\Çà
+ù[ò›[€ä
+^¬à€€ú›ÿŸ[ô\œV¬à	ÀÿY[ö‹òK[Xúò\ûKÃëL—êPÀLÃLêKMêÃPëÕKPMÕÕMÃÃçúô…Àà	ÀÿY[ö‹òK[Xúò\ûKÕ–—QçåLMÃŒMãMNMPMÀQNNMÕéMŒÃÀúô…Àà	ÀÿY[ö‹òK[Xúò\ûK—PŒPNLÃãMÀMPLãPëÕÀMÃ–P—PëMåPÀúô…¬àN¬à]OL¬àûH»OJù[Xô\äŸ\‹⁄[€î›‹òYŸKôŸ]][J	ﬁ[›]ÿŸ[ôR[ô^	 _	ÀLI JÃJI\ÿŸ[ô\Àõ[ô›‹Ÿ\‹⁄[€î›‹òYŸKúŸ]][J	ﬁ[›]ÿŸ[ôR[ô^	À›ö[ô JJN»Bàÿ]⁄
+ H»OSX]ôõ€‹äX]úò[ô€J
+JúÿŸ[ô\Àõ[ô›
+N»Bàÿ›[Y[ùòõŸKò€\‹”\›òY
+	ﬁ[›]\ÿŸ[ôI N¬àÿ›[Y[ùòõŸKú›[KúŸ]õ‹\ùJ	ÀK^[›]\ÿŸ[ôK]\õ	À	›\õ
+â ‹ÿŸ[ô\÷⁄WJ…»äI N¬àJJ
+N¬à‹ÿ‹ö\ÇàXZ[èÇàŸX›[€èÇà]à€\‹œHö[ùõÀZXY\àèÇà]èÇà€\‹œHúô]öY]ÀXò[õô\àèí[ù\õò[»ô]öY]»»\›[€õHRKàõ›HõŸX›[€à\Ÿ\àõ›Àè‹ÇàOñ[›]]ô[‹Y[ù[ùZŸH\›ù[õô\è⁄OÇàë[ô⁄[ùà€ŸHYHô[ô⁄[ùXô[èãÿ\Kﬁ[›]Y]ô[‹Y[ù⁄[ùZŸK›\⁄À\Ÿ\‹⁄[€èÿ€ŸOè‹ÇàŸ]èÇà]à€\‹œHú]ZX⁄ÀXX›[€ú»à\öXK[Xô[Hô\⁄õÿ\ô]ZX⁄»X›[€ú»èÇà]à€\‹œHúXKXÿ\ôèèœì€ôKX€X⁄»ô\öYûO⁄œèï\ŸHô\Ÿ]^[ÿY»[ôù[à\›»⁄]›]X]ö[ô»\»YŸKè‹èŸ]èÇà]à€\‹œHúXKXÿ\ôèèœïö\⁄XõH€€ôöY[òŸO⁄œèïòX⁄»ÿ\õö[ô‹À›ÀX€€ôöY[òŸH€›[ùÀ[ôòZ]ô[ô»[[YYX][Kè‹èŸ]èÇàŸ]èÇàŸ]èÇà‹ŸX›[€èÇÇàŸX›[€èÇà]à€\‹œHò€€úŸ[ù]‹ò\èÇàèî\õZ\‹⁄[€àô\]Z\ôYôYõ‹ôH\››\ù⁄èÇàï\»[ù\õò[ù[õô\àõÿŸ\‹Ÿ\»[›]Y]ô[‹Y[ù\›^[ÿYÀà€€ôö\õH\õZ\‹⁄[€àôYõ‹ôH›\ù[ô»Hù[ãè‹ÇàXô[€\‹œHò€€úŸ[ù\õ›»èÇà[ú]YHò€€úŸ[ù⁄X⁄»à\OHò⁄X⁄ÿõﬁàœÇà‹[èíH]ôH\õZ\‹⁄[€à»ù[à\»[›]Y]ô[‹Y[ù\›^[ÿYè‹‹[èÇà€Xô[Çà]à€\‹œHò€€úŸ[ùXX›[€ú»èÇàù]€àYHò€€úŸ[ùXÿŸ\ù]€àà\OHòù]€àèêXÿŸ\[ô€€ù[ùYOÿù]€èÇàù]€àYHò€€úŸ[ùX€[ôPù]€àà\OHòù]€àà€\‹œHúô\Ÿ]XùàèëX€[ôOÿù]€èÇàŸ]èÇà]àYHò€€úŸ[ù›]\»à€\‹œHò€€úŸ[ù\›]\»à\öXK[]ôOHú€]Hèî\õZ\‹⁄[€à\»ô\]Z\ôYôYõ‹ôH›\ù[ô»\›ÀèŸ]èÇàŸ]èÇà‹ŸX›[€èÇÇàŸX›[€èÇàèî^[ÿYY]‹è⁄èÇàëYò][^[ÿY\»ôYö[Yúõ€HH€õ›€ãY€€Ÿö^\ôH\ŸY[à[›][ùZŸH\›Àè‹Çà]à€\‹œHù€€ò\àèÇàù]€àYHúô\Ÿ]›õ€ô–ù]€àà€\‹œHúô\Ÿ]Xùàà\OHòù]€àèìÿYô\Ÿ]à›õ€ô»»Y⁄X€€ôöY[òŸOÿù]€èÇàù]€àYHúô\Ÿ]›\‹ùù]€àà€\‹œHúô\Ÿ]Xùàà\OHòù]€àèìÿYô\Ÿ]à›\‹ù[ôYYYÿù]€èÇàù]€àYHúô\Ÿ]›–€€ôöY[òŸPù]€àà€\‹œHúô\Ÿ]Xùàà\OHòù]€àèìÿYô\Ÿ]à›ÀX€€ôöY[òŸOÿù]€èÇàù]€àYHúô\Ÿ]^[ÿYù]€àà€\‹œHúô\Ÿ]Xùàà\OHòù]€àèîô\Ÿ]»€õ›€ãY€€Ÿ^[ÿYÿù]€èÇàŸ]èÇà^\ôXHYHú^[ÿYY]‹àà\öXK[Xô[Hï\⁄»Ÿ\‹⁄[€à^[ÿYèâŸö^\ô_O›^\ôXOÇàèù]€àYHúù[ï\›ù]€àà\OHòù]€àèîù[à\›ÿù]€èè‹Çà‹ŸX›[€èÇÇàŸX›[€èÇàèîô\‹€úŸH›[[X\ûO⁄èÇà]à€\‹œHú›]\À\[ô[èÇà]èÇà]à€\‹œHú›]\À[Xô[èí›]\œŸ]èÇà]àYHú›]\’^à€\‹œHú›]\ÀX€ŸHèõõ›ù[èŸ]èÇàŸ]èÇà]àYHú›]\”õ›Hà€\‹œHú›]\À[õ›Hèê]ÿZ][ô»ô\]Y\›èŸ]èÇàŸ]èÇà]à€\‹œHú›[[X\ûKY‹öYèÇà]èè›õ€ôœì[ŸNè‹›õ€ôœà‹[àYHõ[ŸU^èãO‹‹[èèŸ]èÇà]èè›õ€ôœîõÿŸ\‹ŸY⁄Y€ò[Œè‹›õ€ôœà‹[àYHú⁄Y€ò[€›[ù^èãO‹‹[èèŸ]èÇàŸ]èÇà]àYHùòZ]›[[X\ûPõÿ⁄»à€\‹œHùòZ]\›[[X\ûHèÇàœïòZ]›[[X\ûH
+€€\X›
+O⁄œÇàè›õ€ôœï›[õ›‹Œè‹›õ€ôœà‹[àYHùòZ]›[[X\ûP€›[ùèå‹‹[èè‹Çàè›õ€ôœï‹òZ]è‹›õ€ôœà‹[àYHùòZ]›[[X\ûU‹èãO‹‹[èè‹Çàè›õ€ôœì›ÀX€€ôöY[òŸHõ›‹»
+	õÕå
+Nè‹›õ€ôœà‹[àYHùòZ]›[[X\ûS›–€€ôöY[òŸHèå‹‹[èè‹ÇàŸ]èÇà]à€\‹œHòÿ[›]Y‹öYèÇà]à€\‹œHòÿ[›]èÇàïò[Y][€à\úõ‹úœ⁄Çà[YHùò[Y][€ë\úõ‹ú»à€\‹œHô\úã[\›èèOõõ€ôO€Oè›[ÇàŸ]èÇà]à€\‹œHòÿ[›]èÇàïÿ\õö[ô‹»»›ÀX€€ôöY[òŸHõ›XŸ\œ⁄Çà[YHùÿ\õö[ô‹”\›à€\‹œHùÿ\õã[\›èèOõõ€ôO€Oè›[ÇàŸ]èÇàŸ]èÇà‹ŸX›[€èÇÇàŸX›[€èÇàèïòZ]õ›‹œ⁄èÇàXõOÇàXYÇàèÇàïòZ]›Çàê›\úô[ù›Çàê⁄[ôŸO›Çàê€€ôöY[òŸO›Çàïô[ô›Çà›èÇà›XYÇàõŸHYHùòZ]õ›‹»èèèè€€‹[èHçHèõõ€ôO›è›èè›õŸOÇà›XõOÇà‹ŸX›[€èÇÇàŸX›[€èÇàèë\⁄õÿ\ô›[[X\ûO⁄èÇàôHYHô\⁄õÿ\ô›[[X\ûHèõõ›ù[è‹ôOÇà‹ŸX›[€èÇÇàŸX›[€èÇàèîYŸK[[Ÿ[›[[X\ûO⁄èÇàôHYHúYŸS[Ÿ[›[[X\ûHèõõ›ù[è‹ôOÇà‹ŸX›[€èÇÇàŸX›[€èÇàèëXùY»›]]⁄èÇà]Z[»‹[èÇà›[[X\ûOîò]»î””àô\‹€úŸH
+^[ôÿ€€\ŸJO‹›[[X\ûOÇàôHYHúò]“ú€€àèõõ›ù[è‹ôOÇàŸ]Z[œÇà‹ŸX›[€èÇà€XZ[èÇàÿ‹ö\Çà
+ù[ò›[€à
+
+H¬à€€ú›[ô⁄[ùHãÿ\Kﬁ[›]Y]ô[‹Y[ù⁄[ùZŸK›\⁄À\Ÿ\‹⁄[€àé¬à€€ú›€õ›€ë€€Ÿ^[ÿYH	Ÿö^\ô_N¬à€€ú›ô\Ÿ]^[ÿY»H¬à›õ€ôŒà¬àããö€õ›€ë€€Ÿ^[ÿYàŸ\‹⁄[€ó⁄YàúŸ\‹⁄[€ã\›õ€ô»ãà\⁄◊‹ô\›[Œà¬à¬àããö€õ›€ë€€Ÿ^[ÿYù\⁄◊‹ô\›[÷ÃKàò]◊⁄[ú]à¬àããö€õ›€ë€€Ÿ^[ÿYù\⁄◊‹ô\›[÷ÃKúò]◊⁄[ú]àY]öX‹Œà¬à[ú]Z\ûWŸ\ààù\›YöXÿ][€ó‹]X[]NààX⁄\⁄[€ó‹]X[]NààKàKàKàKàKà›\‹ùà¬àããö€õ›€ë€€Ÿ^[ÿYàŸ\‹⁄[€ó⁄YàúŸ\‹⁄[€ã\›\‹ùãà\⁄◊‹ô\›[Œà¬à¬àããö€õ›€ë€€Ÿ^[ÿYù\⁄◊‹ô\›[÷ÃKàò]◊⁄[ú]à¬àããö€õ›€ë€€Ÿ^[ÿYù\⁄◊‹ô\›[÷ÃKúò]◊⁄[ú]àY]öX‹Œà¬à[ú]Z\ûWŸ\àKàù\›YöXÿ][€ó‹]X[]NàKàX⁄\⁄[€ó‹]X[]NàKàKàKàKàKàKà›–€€ôöY[òŸNà¬àããö€õ›€ë€€Ÿ^[ÿYàŸ\‹⁄[€ó⁄YàúŸ\‹⁄[€ã[›ÀX€€ôöY[òŸHãà\⁄◊‹ô\›[Œà¬à¬àããö€õ›€ë€€Ÿ^[ÿYù\⁄◊‹ô\›[÷ÃKàò]◊⁄[ú]à¬àããö€õ›€ë€€Ÿ^[ÿYù\⁄◊‹ô\›[÷ÃKúò]◊⁄[ú]àY]öX‹Œà¬à[ú]Z\ûWŸ\àãàù\›YöXÿ][€ó‹]X[]NàãàX⁄\⁄[€ó‹]X[]NàãàKàKàKàKàKàN¬à€€ú›ù[êùàHÿ›[Y[ùôŸ][[Y[ùûRY
+úù[ï\›ù]€àäN¬à€€ú›ô\Ÿ]›õ€ô–ù]€àHÿ›[Y[ùôŸ][[Y[ùûRY
+úô\Ÿ]›õ€ô–ù]€àäN¬à€€ú›ô\Ÿ]›\‹ùù]€àHÿ›[Y[ùôŸ][[Y[ùûRY
+úô\Ÿ]›\‹ùù]€àäN¬à€€ú›ô\Ÿ]›–€€ôöY[òŸPù]€àHÿ›[Y[ùôŸ][[Y[ùûRY
+úô\Ÿ]›–€€ôöY[òŸPù]€àäN¬à€€ú›ô\Ÿ]^[ÿYù]€àHÿ›[Y[ùôŸ][[Y[ùûRY
+úô\Ÿ]^[ÿYù]€àäN¬à€€ú›€€úŸ[ù⁄X⁄»Hÿ›[Y[ùôŸ][[Y[ùûRY
+ò€€úŸ[ù⁄X⁄»äN¬à€€ú›€€úŸ[ùXÿŸ\ù]€àHÿ›[Y[ùôŸ][[Y[ùûRY
+ò€€úŸ[ùXÿŸ\ù]€àäN¬à€€ú›€€úŸ[ùX€[ôPù]€àHÿ›[Y[ùôŸ][[Y[ùûRY
+ò€€úŸ[ùX€[ôPù]€àäN¬à€€ú›€€úŸ[ù›]\»Hÿ›[Y[ùôŸ][[Y[ùûRY
+ò€€úŸ[ù›]\»äN¬à€€ú›^[ÿYY]‹àHÿ›[Y[ùôŸ][[Y[ùûRY
+ú^[ÿYY]‹àäN¬à€€ú››]\’^Hÿ›[Y[ùôŸ][[Y[ùûRY
+ú›]\’^äN¬à€€ú››]\”õ›HHÿ›[Y[ùôŸ][[Y[ùûRY
+ú›]\”õ›HäN¬à€€ú›[ŸU^Hÿ›[Y[ùôŸ][[Y[ùûRY
+õ[ŸU^äN¬à€€ú›⁄Y€ò[€›[ù^Hÿ›[Y[ùôŸ][[Y[ùûRY
+ú⁄Y€ò[€›[ù^äN¬à€€ú›òZ]›[[X\ûP€›[ùHÿ›[Y[ùôŸ][[Y[ùûRY
+ùòZ]›[[X\ûP€›[ùäN¬à€€ú›òZ]›[[X\ûU‹Hÿ›[Y[ùôŸ][[Y[ùûRY
+ùòZ]›[[X\ûU‹äN¬à€€ú›òZ]›[[X\ûS›–€€ôöY[òŸHHÿ›[Y[ùôŸ][[Y[ùûRY
+ùòZ]›[[X\ûS›–€€ôöY[òŸHäN¬à€€ú›ò[Y][€ë\úõ‹ú»Hÿ›[Y[ùôŸ][[Y[ùûRY
+ùò[Y][€ë\úõ‹ú»äN¬à€€ú›ÿ\õö[ô‹”\›Hÿ›[Y[ùôŸ][[Y[ùûRY
+ùÿ\õö[ô‹”\›äN¬à€€ú›òZ]õ›‹»Hÿ›[Y[ùôŸ][[Y[ùûRY
+ùòZ]õ›‹»äN¬à€€ú›\⁄õÿ\ô›[[X\ûHHÿ›[Y[ùôŸ][[Y[ùûRY
+ô\⁄õÿ\ô›[[X\ûHäN¬à€€ú›YŸS[Ÿ[›[[X\ûHHÿ›[Y[ùôŸ][[Y[ùûRY
+úYŸS[Ÿ[›[[X\ûHäN¬à€€ú›ò]“ú€€àHÿ›[Y[ùôŸ][[Y[ùûRY
+úò]“ú€€àäN¬à]\õZ\‹⁄[€êXÿŸ\YHò[ŸN¬Çàù[ò›[€àŸ]\›[ô—[òXõY
+[òXõY
+H¬à\õZ\‹⁄[€êXÿŸ\YH[òXõYOOHùYN¬à‹ù[êùãô\Ÿ]›õ€ô–ù]€ãô\Ÿ]›\‹ùù]€ãô\Ÿ]›–€€ôöY[òŸPù]€ãô\Ÿ]^[ÿYù]€ã^[ÿYY]‹óBàôõ‹ëXX⁄
+
+õŸJHOà¬àYà
+[õŸJHô]\õé¬àõŸKô\ÿXõYH\\õZ\‹⁄[€êXÿŸ\Y¬àJN¬àBÇàù[ò›[€àô\Ÿ]\›
+€€ùZ[ô\ãò[Y\ H¬à€€ùZ[ô\ãù^€€ù[ùHàé¬à€€ú›[ùöY\»H\úò^Kö\–\úò^Jò[Y\ H»ò[Y\Àôö[\äõ€€X[äHà◊N¬àYà
+Y[ùöY\Àõ[ô›
+H¬à€€ú›HHÿ›[Y[ùò‹ôX]Q[[Y[ù
+õHäN¬àKù^€€ù[ùHõõ€ôHé¬à€€ùZ[ô\ãò\[ô⁄[
+JN¬àô]\õé¬àBà[ùöY\Àôõ‹ëXX⁄
+
+ò[YJHOà¬à€€ú›HHÿ›[Y[ùò‹ôX]Q[[Y[ù
+õHäN¬àKù^€€ù[ùH›ö[ô ò[YJN¬à€€ùZ[ô\ãò\[ô⁄[
+JN¬àJN¬àBÇàù[ò›[€àô[ô\ïòZ]õ›‹ õ›‹ H¬àòZ]õ›‹Àù^€€ù[ùHàé¬à€€ú›€‹ùYõ›‹»H\úò^Kö\–\úò^Jõ›‹ Bà»õ›‹Àú€XŸJ
+Kú€‹ù
+
+KäHOà›ö[ô OÀùòZ]ÿ€ŸHàäKõÿÿ[P€€\\ôJ›ö[ô èÀùòZ]ÿ€ŸHàäJJBàà◊N¬àYà
+\€‹ùYõ›‹Àõ[ô›
+H¬à€€ú›àHÿ›[Y[ùò‹ôX]Q[[Y[ù
+ùàäN¬à€€ú›Hÿ›[Y[ùò‹ôX]Q[[Y[ù
+ùäN¬àúŸ]]öXù]Jò€€‹[àãçHäN¬àù^€€ù[ùHõõ€ôHé¬àãò\[ô⁄[
+
+N¬àòZ]õ›‹Àò\[ô⁄[
+äN¬àô]\õé¬àBÇà€‹ùYõ›‹Àôõ‹ëXX⁄
+
+õ› HOà¬à€€ú›àHÿ›[Y[ùò‹ôX]Q[[Y[ù
+ùàäN¬à‹õ›œÀùòZ]ÿ€ŸKõ›œÀò›\úô[ù‹ÿ€‹ôKõ›œÀò⁄[ôŸW‹ÿ€‹ôKõ›œÀò€€ôöY[òŸW‹ÿ€‹ôKõ›œÀùô[ôŸ\ôX›[€óKôõ‹ëXX⁄
+
+ò[YJHOà¬à€€ú›Hÿ›[Y[ùò‹ôX]Q[[Y[ù
+ùäN¬àù^€€ù[ùH›ö[ô ò[YHœ»àäN¬àãò\[ô⁄[
+
+N¬àJN¬àòZ]õ›‹Àò\[ô⁄[
+äN¬àJN¬àBÇàù[ò›[€àô[ô\ïòZ]›[[X\ûJõ›‹ H¬à€€ú›õ‹õX[^ôYH\úò^Kö\–\úò^Jõ›‹ H»õ›‹Àú€XŸJ
+Hà◊N¬àòZ]›[[X\ûP€›[ùù^€€ù[ùH›ö[ô õ‹õX[^ôYõ[ô›
+N¬àYà
+[õ‹õX[^ôYõ[ô›
+H¬àòZ]›[[X\ûU‹ù^€€ù[ùHãHé¬àòZ]›[[X\ûS›–€€ôöY[òŸKù^€€ù[ùHåé¬àô]\õé¬àBÇà€€ú›€‹ùYûTÿ€‹ôHHõ‹õX[^ôYàôö[\ä
+õ› HOà\[Ÿàõ›œÀò›\úô[ù‹ÿ€‹ôHOOHõù[Xô\àäBàú€‹ù
+
+KäHOàãò›\úô[ù‹ÿ€‹ôHHKò›\úô[ù‹ÿ€‹ôJN¬à€€ú›‹H€‹ùYûTÿ€‹ôVÃN¬àòZ]›[[X\ûU‹ù^€€ù[ùH‹à»›ö[ô ‹ùòZ]ÿ€ŸJH
+»à
+à
+»›ö[ô ‹ò›\úô[ù‹ÿ€‹ôJH
+»äHÇààãHé¬à€€ú››–€€ôöY[òŸP€›[ùHõ‹õX[^ôYôö[\ä
+õ› HOàù[Xô\äõ›œÀò€€ôöY[òŸW‹ÿ€‹ôJHå
+Kõ[ô›¬àòZ]›[[X\ûS›–€€ôöY[òŸKù^€€ù[ùH›ö[ô ›–€€ôöY[òŸP€›[ù
+N¬àBÇàù[ò›[€àô[ô\î›[[X\öY\ ^[ÿY
+H¬à€€ú›\⁄õÿ\ôH^[ÿYÀô\⁄õÿ\ôﬂN¬à€€ú›YŸS[Ÿ[H^[ÿYÀúYŸW€[Ÿ[ﬂN¬Çà€€ú›\⁄õÿ\ôöY]»H¬àY⁄‹ö[‹ö]W›òZ]Œà\⁄õÿ\ôöY⁄‹ö[‹ö]W›òZ]»◊Kà›ô[ô›◊ÿ€›[ùà\úò^Kö\–\úò^J\⁄õÿ\ôú›ô[ô› H»\⁄õÿ\ôú›ô[ô›Àõ[ô›àà›\‹ùÿ€›[ùà\úò^Kö\–\úò^J\⁄õÿ\ôú›\‹ù€ô^
+H»\⁄õÿ\ôú›\‹ù€ô^õ[ô›àà›◊ÿ€€ôöY[òŸWŸõY‹Œà\⁄õÿ\ôõ›◊ÿ€€ôöY[òŸWŸõY‹»◊KàN¬à\⁄õÿ\ô›[[X\ûKù^€€ù[ùHî””ãú›ö[ô⁄YûJ\⁄õÿ\ôöY]Àù[äN¬Çà€€ú›YŸS[Ÿ[öY]»H¬àYŸW›]NàYŸS[Ÿ[úYŸW›]Hù[àYŸW‹›Xù]NàYŸS[Ÿ[úYŸW‹›Xù]Hù[àŸX›[€ó€‹ô\éàYŸS[Ÿ[úô[ô\ö[ô◊‹ÿYô]OÀúŸX›[€ó€‹ô\à◊Kà›\‹ù⁄][\ŒàYŸS[Ÿ[ú›\‹ùÀö][\»◊KàN¬àYŸS[Ÿ[›[[X\ûKù^€€ù[ùHî””ãú›ö[ô⁄YûJYŸS[Ÿ[öY]Àù[äN¬àBÇà\ﬁ[ò»ù[ò›[€àù[ï\›
+
+H¬àYà
+\\õZ\‹⁄[€êXÿŸ\Y
+H¬à›]\’^ù^€€ù[ùHú\õZ\‹⁄[€àô\]Z\ôYé¬à›]\’^ò€\‹”ò[YHHú›]\ÀXòYé¬à›]\”õ›Kù^€€ù[ùHêXÿŸ\\õZ\‹⁄[€àôYõ‹ôH›\ù[ô»H\›àé¬àYà
+€€úŸ[ù›]\ H€€úŸ[ù›]\Àù^€€ù[ùHî\õZ\‹⁄[€à\»ô\]Z\ôYôYõ‹ôH›\ù[ô»\›Ààé¬àô]\õé¬àBà›]\’^ù^€€ù[ùHúù[õö[ôÀããàé¬à›]\’^ò€\‹”ò[YHHàé¬à›]\”õ›Kù^€€ù[ùHî›XõZ][ô»»[ùZŸH[ô⁄[ùããàé¬à]^[ÿYHù[¬àûH¬à^[ÿYHî””ãú\úŸJ^[ÿYY]‹ãùò[YJN¬àHÿ]⁄
+\úäH¬à›]\’^ù^€€ù[ùHö[ùò[Yî””à[à^[ÿYY]‹àé¬à›]\’^ò€\‹”ò[YHHú›]\ÀXòYé¬à›]\”õ›Kù^€€ù[ùHëö^î””àôYõ‹ôHù[õö[ôÀàé¬àô\Ÿ]\›
+ò[Y][€ë\úõ‹úÀ‘›ö[ô \úà	âà\úãõY\‹ÿYŸH»\úãõY\‹ÿYŸHà\úäWJN¬àô]\õé¬àBÇà€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+[ô⁄[ù¬àY]Ÿàî‘’ãàXY\úŒà»ò€€ù[ù]\Héàò\Xÿ][€ã⁄ú€€ààKàõŸNàî””ãú›ö[ô⁄YûJ^[ÿY
+KàJN¬à€€ú›ô\‹€úŸU^H]ÿZ]ô\‹€úŸKù^
+
+N¬à]]HHù[¬àûH¬à]HHî””ãú\úŸJô\‹€úŸU^
+N¬àHÿ]⁄
+ H¬à]HH»\úŸWŸ\úõ‹éàîô\‹€úŸHÿ\»õ›ò[Yî””àãò]Œàô\‹€úŸU^N¬àBÇà›]\’^ù^€€ù[ùH›ö[ô ô\‹€úŸKú›]\ N¬à›]\’^ò€\‹”ò[YHHô\‹€úŸKõ⁄»»ú›]\À[⁄»ààú›]\ÀXòYé¬à›]\”õ›Kù^€€ù[ùHô\‹€úŸKõ⁄¬à»îô\]Y\››XÿŸYYYàÇààîô\]Y\›òZ[Yà⁄X⁄»\úõ‹úÀ›ÿ\õö[ô‹»ô[›Ààé¬à[ŸU^ù^€€ù[ùH›ö[ô ]OÀõ[ŸHãHäN¬à⁄Y€ò[€›[ù^ù^€€ù[ùH›ö[ô ]OÀúõÿŸ\‹ŸY‹⁄Y€ò[ÿ€›[ùœ»ãHäN¬àô\Ÿ]\›
+ò[Y][€ë\úõ‹úÀ]OÀùò[Y][€óŸ\úõ‹ú»◊JN¬àô\Ÿ]\›
+ÿ\õö[ô‹”\›]OÀùÿ\õö[ô‹»◊JN¬àô[ô\ïòZ]õ›‹ ]OÀòYŸ‹ôYÿ]Y›òZ]‹õ›‹»◊JN¬àô[ô\ïòZ]›[[X\ûJ]OÀòYŸ‹ôYÿ]Y›òZ]‹õ›‹»◊JN¬àô[ô\î›[[X\öY\ ]HﬂJN¬àò]“ú€€ãù^€€ù[ùHî””ãú›ö[ô⁄YûJ]Kù[äN¬àBÇàù[ò›[€àŸ]^[ÿY
+ò[YJH¬à^[ÿYY]‹ãùò[YHHî””ãú›ö[ô⁄YûJò[YKù[äN¬àBÇàŸ]\›[ô—[òXõY
+ò[ŸJN¬à€€úŸ[ùXÿŸ\ù]€ãòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOà¬àYà
+X€€úŸ[ù⁄X⁄Àò⁄X⁄ŸY
+H¬à€€úŸ[ù›]\Àù^€€ù[ùHîX\ŸHXÿŸ\\õZ\‹⁄[€à»€€ù[ùYKàé¬àô]\õé¬àBàŸ]\›[ô—[òXõY
+ùYJN¬à€€úŸ[ù›]\Àù^€€ù[ùHî\õZ\‹⁄[€àXÿŸ\Yà[›Hÿ[àõ›»ù[à\›Ààé¬àJN¬à€€úŸ[ùX€[ôPù]€ãòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOà¬à€€úŸ[ù⁄X⁄Àò⁄X⁄ŸYHò[ŸN¬àŸ]\›[ô—[òXõY
+ò[ŸJN¬à€€úŸ[ù›]\Àù^€€ù[ùHî\õZ\‹⁄[€àX€[ôYà\›[ô»ô[XZ[ú»ÿ⁄ŸYàé¬àJN¬Çàô\Ÿ]›õ€ô–ù]€ãòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOàŸ]^[ÿY
+ô\Ÿ]^[ÿYÀú›õ€ô JN¬àô\Ÿ]›\‹ùù]€ãòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOàŸ]^[ÿY
+ô\Ÿ]^[ÿYÀú›\‹ù
+JN¬àô\Ÿ]›–€€ôöY[òŸPù]€ãòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOàŸ]^[ÿY
+ô\Ÿ]^[ÿYÀõ›–€€ôöY[òŸJJN¬àô\Ÿ]^[ÿYù]€ãòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOàŸ]^[ÿY
+€õ›€ë€€Ÿ^[ÿY
+JN¬Çàù[êùãòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOà¬àù[ï\›
+
+Kòÿ]⁄
+
+\úäHOà¬à›]\’^ù^€€ù[ùHúô\]Y\›òZ[Yé¬à›]\’^ò€\‹”ò[YHHú›]\ÀXòYé¬à›]\”õ›Kù^€€ù[ùHìô]€‹öÀ‹ô\]Y\›òZ[\ôHôYõ‹ôHî””àô\‹€úŸKàé¬àô\Ÿ]\›
+ò[Y][€ë\úõ‹úÀ‘›ö[ô \úà	âà\úãõY\‹ÿYŸH»\úãõY\‹ÿYŸHà\úäWJN¬àJN¬àJN¬àJ
+JN¬à‹ÿ‹ö\ÇàÿõŸOÇè⁄[ò¬üBÇôù[ò›[€àô[ô\ì]ôV[›]\‹Ÿ\‹€Y[ùYŸJ
+H¬à€€ú›[ú›Ÿ\îÿÿ[HHî””ãú›ö[ô⁄YûJS’U–Sî’—Tó‘––SJN¬àô]\õàYÿ›\H[Çè[[ôœHô[àèÇàXYÇàY]H⁄\úŸ]Hù]ãNàœÇàY]Hò[YOHùöY]‹‹ùà€€ù[ùHù⁄YY]öXŸK]⁄Y[ö]X[\ÿÿ[OLHàœÇà]Oñ[›][[ù]ô[‹Y[ù[ùZŸH8†%\ô[ùÿúŸ\ùò][€àÿ‹ôY[ô\àåO›]OÇà›[OÇàúõ€›»KXôŒàŸéòYòŒ»KXÿ\ôàŸôôôôôé»K[[ôNàÿÿôYLN»K]^àÃåMÃòN»K[]]YàÕÕMMéN»KXúò[ôàÃçÕçôN»BàõŸH»õ€ùYò[Z[Nà[ù\ãﬁ\›[K]ZKX\K\ﬁ\›[KŸY€ŸHRKÿ[úÀ\Ÿ\öYé»òX⁄Ÿ‹õ›[ôàò\äKXô N»€€‹éàò\äK]^
+N»X\ô⁄[éà»Y[ôŒàç»BàXZ[à»X^]⁄YàÕå»X\ô⁄[éà]]Œ»\‹^Nà‹öY»ÿ\àM»BàŸX›[€à»òX⁄Ÿ‹õ›[ôàò\äKXÿ\ô
+N»õ‹ô\éà\€€Yò\äK[[ôJN»õ‹ô\ã\òY]\ŒàLú»Y[ôŒàMú»BàùY»»õ€ù\⁄^ôNàLú»€€‹éàÃLMYMNN»òX⁄Ÿ‹õ›[ôàÿÿŸòôåN»õ‹ô\ã\òY]\ŒàNN\»Y[ôŒà»\‹^Nà[õ[ôKXõÿ⁄Œ»X\ô⁄[ãXõ›€Nà»Bàõ]]Y»€€‹éàò\äK[]]Y
+N»Bàõ‹[€ú»»\‹^Nà‹öY»ÿ\à»X\ô⁄[ã]‹àLú»Bàù]€ãò[ú›Ÿ\à»^X[Y€éàYù»õ‹ô\éà\€€Yò\äK[[ôJN»õ‹ô\ã\òY]\ŒàL»Y[ôŒàLú»òX⁄Ÿ‹õ›[ôàŸéòYòŒ»›\ú€‹éà⁄[ù\é»Bàù]€ãò[ú›Ÿ\éö›ô\à»õ‹ô\ãX€€‹éàò\äKXúò[ô
+N»Bàúõ›»»\‹^Nàõ^»ù\›YûKX€€ù[ùà‹XŸKXô]ŸY[é»[Y€ãZ][\ŒàŸ[ù\é»ÿ\àL»Bàò€€ùõ€»»\‹^Nàõ^»ÿ\à»õ^]‹ò\à‹ò\»Bàò€€ùõ€»ù]€à»õ‹ô\éà\€€YÃçÕçôN»òX⁄Ÿ‹õ›[ôàŸåôòN»õ‹ô\ã\òY]\ŒàNN\»Y[ôŒàLú»›\ú€‹éà⁄[ù\é»Bàúô\›[Xÿ\ô»õ‹ô\éà\€€Yò\äK[[ôJN»õ‹ô\ã\òY]\ŒàL»Y[ôŒàLú»òX⁄Ÿ‹õ›[ôàŸéòYòŒ»Bàú[»\‹^Nà[õ[ôKXõÿ⁄Œ»õ‹ô\éà\€€YŒNYçôM»òX⁄Ÿ‹õ›[ôàŸXŸôYôé»õ‹ô\ã\òY]\ŒàNN\»Y[ôŒà‹»X\ô⁄[éà‹‹»õ€ù\⁄^ôNàLú»Bà‹›[OÇà⁄XYÇàõŸOÇà›[OÇàõŸKû[›]\ÿŸ[ôH¬àòX⁄Ÿ‹õ›[ôZ[XYŸNà[ôX\ãY‹òYY[ù
+NYÀôÿòJÀLMÀçé
+KôÿòJÀLMÀé
+JKò\äK^[›]\ÿŸ[ôK]\õ
+HZ[\‹ù[ù¬àòX⁄Ÿ‹õ›[ô\⁄^ôNà€›ô\àZ[\‹ù[ù¬àòX⁄Ÿ‹õ›[ô\‹⁄][€éàŸ[ù\à‹Z[\‹ù[ù¬àòX⁄Ÿ‹õ›[ôX]X⁄Y[ùàö^YZ[\‹ù[ù¬àBàõŸKû[›]\ÿŸ[ôHú[ô[»òX⁄Ÿõ‹Yö[\éàõ\ä
+N»]ŸXö⁄]XòX⁄Ÿõ‹Yö[\éàõ\ä
+N»Bà‹›[OÇàÿ‹ö\Çà
+ù[ò›[€ä
+^¬à€€ú›ÿŸ[ô\œV¬à	ÀÿY[ö‹òK[Xúò\ûKÃëL—êPÀLÃLêKMêÃPëÕKPMÕÕMÃÃçúô…Àà	ÀÿY[ö‹òK[Xúò\ûKÕ–—QçåLMÃŒMãMNMPMÀQNNMÕéMŒÃÀúô…Àà	ÀÿY[ö‹òK[Xúò\ûK—PŒPNLÃãMÀMPLãPëÕÀMÃ–P—PëMåPÀúô…¬àN¬à]OL¬àûH»OJù[Xô\äŸ\‹⁄[€î›‹òYŸKôŸ]][J	ﬁ[›]ÿŸ[ôR[ô^	 _	ÀLI JÃJI\ÿŸ[ô\Àõ[ô›‹Ÿ\‹⁄[€î›‹òYŸKúŸ]][J	ﬁ[›]ÿŸ[ôR[ô^	À›ö[ô JJN»Bàÿ]⁄
+ H»OSX]ôõ€‹äX]úò[ô€J
+JúÿŸ[ô\Àõ[ô›
+N»Bàÿ›[Y[ùòõŸKò€\‹”\›òY
+	ﬁ[›]\ÿŸ[ôI N¬àÿ›[Y[ùòõŸKú›[KúŸ]õ‹\ùJ	ÀK^[›]\ÿŸ[ôK]\õ	À	›\õ
+â ‹ÿŸ[ô\÷⁄WJ…»äI N¬àJJ
+N¬à‹ÿ‹ö\ÇàXZ[èÇàŸX›[€èÇà€\‹œHùY»èëö\ú›]ôHò[ö»8†(à\ô[ùÿúŸ\ùò][€à8†(àõ›ö\⁄[€ò[òZ]⁄Y€ò[»€õO‹ÇàOñ[›][[ù]ô[‹Y[ù[ùZŸH8†%\ô[ùÿúŸ\ùò][€àÿ‹ôY[ô\àåO⁄OÇàâ÷S’U‘TëSï“Sî’ïP’S”îﬂO‹Çà€\‹œHõ]]Yèï\»ÿ‹ôY[ô\à\»]öY[òŸKZ[ôõ‹õYY[ô\⁄Y€ôYõ‹à]ô[‹Y[ù[›\‹ùà]\»õ›Hò[Y]YXY€õ‹›X»€€[ôŸ\»õ›ôYX›ù]\ôH›XÿŸ\‹Àè‹Çà]à€\‹œHõ‹[€ú»à›[OHõX\ô⁄[ã]‹åLú»èÇàXô[ê⁄[ò[YH
+ôX€€[Y[ôYõ‹à⁄[\ÿ€‹YÿY[ô Oúàœè[ú]YHò⁄[ò[YR[ú]à\OHù^àXŸZ€\èHôKôÀàX^XHà›[OHù⁄YåL	N‹Y[ôŒéÿõ‹ô\éå\€€YÿÿôYLNÿõ‹ô\ã\òY]\Œé»àœè€Xô[ÇàXô[ê⁄[YŸHò[ô
+‹[€ò[
+Oúàœè[ú]YHò⁄[YŸPò[ô[ú]à\OHù^àXŸZ€\èHôKôÀàLLà›[OHù⁄YåL	N‹Y[ôŒéÿõ‹ô\éå\€€YÿÿôYLNÿõ‹ô\ã\òY]\Œé»àœè€Xô[ÇàXô[ê⁄[‹òYHò[ô
+‹[€ò[
+Oúàœè[ú]YHò⁄[‹òYPò[ô[ú]à\OHù^àXŸZ€\èHôKôÀà‹òYHÀMà›[OHù⁄YåL	N‹Y[ôŒéÿõ‹ô\éå\€€YÿÿôYLNÿõ‹ô\ã\òY]\Œé»àœè€Xô[ÇàŸ]èÇà‹ŸX›[€èÇàŸX›[€èÇà]à€\‹œHúõ›»èè›õ€ô»YHúõŸ‹ô\‹”Xô[èî]Y\›[€àHŸàçO‹›õ€ôœè‹[àYHò€€\][€ìXô[à€\‹œHõ]]Yèå	H€€\]O‹‹[èèŸ]èÇààYHúõ€\èìÿY[ô»\‹Ÿ\‹€Y[ù8†)è⁄èÇà]àYHõ‹[€ú»à€\‹œHõ‹[€ú»èèŸ]èÇàYHö[ùZŸT›]\»à€\‹œHõ]]Yà\öXK[]ôOHú€]Hèê[ú›Ÿ\àH[ùZŸH]Y\›[€úÀ[à›XõZ]è‹Çà]à€\‹œHò€€ùõ€»èÇàù]€àYHúô]êùàà\OHòù]€àèîô]ö[›\œÿù]€èÇàù]€àYHõô^ùàà\OHòù]€àèìô^ÿù]€èÇàù]€àYHú›XõZ]ùàà\OHòù]€àèî›XõZ]\‹Ÿ\‹€Y[ùÿù]€èÇàŸ]èÇà‹ŸX›[€èÇàŸX›[€èÇàèê\‹Ÿ\‹€Y[ù›XõZ]Y⁄èÇà]àYHúô\›[ÿ\ôà€\‹œHúô\›[Xÿ\ôèÇà€\‹œHõ]]Yèê€€\]HH[ùZŸH[ô›XõZ]»Ÿ[ô\ò]HH\ô[ùYòX⁄[ô»\⁄õÿ\ôè‹ÇàŸ]èÇà]à€\‹œHò€€ùõ€»à›[OHõX\ô⁄[ã]‹åL»èÇàHYHõ‹[ì]ôQ\⁄õÿ\ôùààôYèHãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôà›[OHô\‹^Nõõ€ôNÿõ‹ô\éå\€€YÃçÕçôNÿòX⁄Ÿ‹õ›[ôàÃçÕçôNÿ€€‹éàŸôôéÿõ‹ô\ã\òY]\ŒéNN\‹Y[ôŒéLú›^YX€‹ò][€éõõ€ôN»èïöY]»\⁄õÿ\ôÿOÇàHYHú›\ùõŸ‹ò[PùààôYèHãﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[Hà›[OHô\‹^Nõõ€ôNÿõ‹ô\éå\€€YÃYYÿòX⁄Ÿ‹õ›[ôàÃYYÿ€€‹éàŸôôéÿõ‹ô\ã\òY]\ŒéNN\‹Y[ôŒéLú›^YX€‹ò][€éõõ€ôN»èî›\ùõŸ‹ò[OÿOÇàŸ]èÇà‹ŸX›[€èÇà€XZ[èÇàÿ‹ö\Çà
+\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›[ú›Ÿ\îÿÿ[HH	ÿ[ú›Ÿ\îÿÿ[_N¬à€€ú›õŸ‹ô\‹”Xô[Hÿ›[Y[ùôŸ][[Y[ùûRY
+úõŸ‹ô\‹”Xô[äN¬à€€ú›€€\][€ìXô[Hÿ›[Y[ùôŸ][[Y[ùûRY
+ò€€\][€ìXô[äN¬à€€ú›õ€\[Hÿ›[Y[ùôŸ][[Y[ùûRY
+úõ€\äN¬à€€ú›‹[€ú—[Hÿ›[Y[ùôŸ][[Y[ùûRY
+õ‹[€ú»äN¬à€€ú›[ùZŸT›]\»Hÿ›[Y[ùôŸ][[Y[ùûRY
+ö[ùZŸT›]\»äN¬à€€ú›ô\›[ÿ\ôHÿ›[Y[ùôŸ][[Y[ùûRY
+úô\›[ÿ\ôäN¬à€€ú›‹[ì]ôQ\⁄õÿ\ôùàHÿ›[Y[ùôŸ][[Y[ùûRY
+õ‹[ì]ôQ\⁄õÿ\ôùàäN¬à€€ú››\ùõŸ‹ò[PùàHÿ›[Y[ùôŸ][[Y[ùûRY
+ú›\ùõŸ‹ò[PùàäN¬à€€ú››]HH»]Y\›[€úŒà◊K[ô^à[ú›Ÿ\úŒàﬂHN¬à€€ú›]Y\ûHHô]»TìŸX\ò⁄\ò[\ ⁄[ô›Àõÿÿ][€ãúŸX\ò⁄
+N¬à€€ú›Xÿ€›[ù›H¬à[ò[ùà
+]Y\ûKôŸ]
+ù[ò[ùäHàäKùö[J
+Kà[XZ[à
+]Y\ûKôŸ]
+ô[XZ[äHàäKùö[J
+Kù”›Ÿ\êÿ\ŸJ
+Kàò[YNà
+]Y\ûKôŸ]
+õò[YHäHàäKùö[J
+Kà⁄Yà
+]Y\ûKôŸ]
+ò⁄YäHàäKùö[J
+Kà‹öYà
+]Y\ûKôŸ]
+ò‹öYäH]Y\ûKôŸ]
+úöYäHàäKùö[J
+Kà⁄[⁄Yà
+]Y\ûKôŸ]
+ò⁄[⁄YäH]Y\ûKôŸ]
+ò⁄[YäHàäKùö[J
+KàN¬àù[ò›[€à\Tÿ€‹Y⁄[ò]öYÿ][€äÿ€‹Y⁄[Y€›\òŸSXô[
+H¬à€€ú›⁄[YH›ö[ô ÿ€‹Y⁄[YàäKùö[J
+N¬àYà
+⁄[Y
+HXÿ€›[ù›ò⁄[⁄YH⁄[Y¬àYà
+JXÿ€›[ù›ù[ò[ùXÿ€›[ù›ô[XZ[
+JHô]\õé¬à€€ú›\⁄\õHô]»Tì
+ãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôã⁄[ô›Àõÿÿ][€ãõ‹öY⁄[äN¬àÿöôX›ô[ùöY\ Xÿ€›[ù›
+Kôõ‹ëXX⁄
+
+⁄Ÿ^Kò[YWJHOà»Yà
+ò[YJH\⁄\õúŸX\ò⁄\ò[\ÀúŸ]
+Ÿ^Kò[YJN»JN¬àYà
+XXÿ€›[ù›ò⁄[⁄Y
+H\⁄\õúŸX\ò⁄\ò[\Àô[]Jò⁄[⁄YäN¬à‹[ì]ôQ\⁄õÿ\ôùãöôYàH\⁄\õú]ò[YH
+»\⁄\õúŸX\ò⁄¬à€€ú›õŸ‹ò[U\õHô]»Tì
+ãﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[Hã⁄[ô›Àõÿÿ][€ãõ‹öY⁄[äN¬àÿöôX›ô[ùöY\ Xÿ€›[ù›
+Kôõ‹ëXX⁄
+
+⁄Ÿ^Kò[YWJHOà»Yà
+ò[YJHõŸ‹ò[U\õúŸX\ò⁄\ò[\ÀúŸ]
+Ÿ^Kò[YJN»JN¬àYà
+XXÿ€›[ù›ò⁄[⁄Y
+HõŸ‹ò[U\õúŸX\ò⁄\ò[\Àô[]Jò⁄[⁄YäN¬à›\ùõŸ‹ò[PùãöôYàHõŸ‹ò[U\õú]ò[YH
+»õŸ‹ò[U\õúŸX\ò⁄¬àYà
+Xÿ€›[ù›ò⁄[⁄Y
+H¬à€€ú€€Kö[ôõ û[›]ÿ\‹Ÿ\‹€Y[ùÿ€Y[ùÿ⁄[‹ÿ€‹WÿY‹Yã¬à€›\òŸNà›ö[ô €›\òŸSXô[ù[ö€õ›€àäKàY‹Yÿ⁄[⁄YàXÿ€›[ù›ò⁄[⁄YàJN¬àBàBàYà
+Xÿ€›[ù›ù[ò[ùXÿ€›[ù›ô[XZ[
+H¬à\Tÿ€‹Y⁄[ò]öYÿ][€äXÿ€›[ù›ò⁄[⁄Yàãú]Y\ûHäN¬àBÇàù[ò›[€à\ú⁄\›]\›€€ù[ùZ]T€ò\⁄›
+^[ÿY
+H¬àûH¬à€€ú›ÿ€‹Y⁄[YH›ö[ô 
+^[ÿYÀõ›€ô\ú⁄\Àò⁄[‹õŸö[OÀò⁄[⁄Y^[ÿYÀò⁄[⁄YàäJKùö[J
+N¬à€€ú›€ò\⁄›H¬àÿ]ôYÿ⁄[⁄Yàÿ€‹Y⁄[Yù[à›XõZ\‹⁄[€ó⁄Yà^[ÿYÀõ›€ô\ú⁄\Àú›XõZ\‹⁄[€ó⁄Yù[àÿ]ôYÿ]à^[ÿYÀõ›€ô\ú⁄\Àúÿ]ôYÿ]^[ÿYÀúÿ]ôYÿ]ù[àN¬àŸ\‹⁄[€î›‹òYŸKúŸ]][Jû[›]]ô[‹Y[ù]\›\‹Ÿ\‹€Y[ùãî””ãú›ö[ô⁄YûJ^[ÿY
+JN¬àŸ\‹⁄[€î›‹òYŸKúŸ]][Jû[›]]ô[‹Y[ù]\›€€ù[ùZ]Hãî””ãú›ö[ô⁄YûJ€ò\⁄›
+JN¬àHÿ]⁄
+Ÿ\úäHﬂBàBÇà€€ú›]Y\›[€îô\‹€úŸHH]ÿZ]ô]⁄
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹]Y\›[€ú»äN¬à€€ú›]Y\›[€î^[ÿYH]ÿZ]]Y\›[€îô\‹€úŸKöú€€ä
+N¬à›]Kú]Y\›[€ú»H\úò^Kö\–\úò^J]Y\›[€î^[ÿYú]Y\›[€ú H»]Y\›[€î^[ÿYú]Y\›[€ú»à◊N¬Çàù[ò›[€àô[ô\î]Y\›[€ä
+H¬à€€ú››\úô[ùH›]Kú]Y\›[€ú÷‹›]Kö[ô^N¬àYà
+X›\úô[ù
+Hô]\õé¬àõŸ‹ô\‹”Xô[ù^€€ù[ùHî]Y\›[€àà
+»
+›]Kö[ô^
+»JH
+»àŸàà
+»›]Kú]Y\›[€úÀõ[ô›¬à€€\][€ìXô[ù^€€ù[ùHX]úõ›[ô
+
+ÿöôX›öŸ^\ ›]Kò[ú›Ÿ\ú Kõ[ô›»›]Kú]Y\›[€úÀõ[ô›
+H
+àL
+H
+»âH€€\]Hé¬àõ€\[ù^€€ù[ùH›\úô[ùúõ€\¬à‹[€ú—[ù^€€ù[ùHàé¬à[ú›Ÿ\îÿÿ[Kôõ‹ëXX⁄
+
+‹[€äHOà¬à€€ú›ù]€àHÿ›[Y[ùò‹ôX]Q[[Y[ù
+òù]€àäN¬àù]€ãù\HHòù]€àé¬àù]€ãò€\‹”ò[YHHò[ú›Ÿ\àé¬à€€ú›Ÿ[X›YHù[Xô\ä›]Kò[ú›Ÿ\ú÷ÿ›\úô[ùöYJHOOH‹[€ãùò[YN¬àù]€ãö[õô\íSHè›õ€ôœàà
+»‹[€ãùò[YH
+»ãàà
+»‹[€ãõXô[
+»è‹›õ€ôœàà
+»
+Ÿ[X›Y»à8ß!HàààäN¬àù]€ãòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOà¬à›]Kò[ú›Ÿ\ú÷ÿ›\úô[ùöYHH‹[€ãùò[YN¬àô[ô\î]Y\›[€ä
+N¬àJN¬à‹[€ú—[ò\[ô⁄[
+ù]€äN¬àJN¬àBÇàÿ›[Y[ùôŸ][[Y[ùûRY
+úô]êùàäKòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOà¬à›]Kö[ô^HX]õX^
+›]Kö[ô^HJN¬àô[ô\î]Y\›[€ä
+N¬àJN¬àÿ›[Y[ùôŸ][[Y[ùûRY
+õô^ùàäKòY]ô[ù\›[ô\äò€X⁄»ã
+
+HOà¬à›]Kö[ô^HX]õZ[ä›]Kú]Y\›[€úÀõ[ô›HK›]Kö[ô^
+»JN¬àô[ô\î]Y\›[€ä
+N¬àJN¬àÿ›[Y[ùôŸ][[Y[ùûRY
+ú›XõZ]ùàäKòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»
+
+HOà¬à€€ú›[ú›Ÿ\ôY€›[ùHÿöôX›öŸ^\ ›]Kò[ú›Ÿ\ú Kõ[ô›¬àYà
+X[ú›Ÿ\ôY€›[ù
+H¬à[ùZŸT›]\Àù^€€ù[ùHîX\ŸH[ú›Ÿ\àH[ùZŸH]Y\›[€ú»ôYõ‹ôH›XõZ][ôÀàé¬àô\›[ÿ\ôö[õô\íSHèè›õ€ôœê\‹Ÿ\‹€Y[ùõ››XõZ]Yè‹›õ€ôœè‹è€\‹œWõ]]YèîX\ŸH[ú›Ÿ\àH[ùZŸH]Y\›[€ú»ôYõ‹ôH›XõZ][ôÀè‹àé¬à‹[ì]ôQ\⁄õÿ\ôùãú›[Kô\‹^HHõõ€ôHé¬à›\ùõŸ‹ò[Pùãú›[Kô\‹^HHõõ€ôHé¬àô]\õé¬àBà[ùZŸT›]\Àù^€€ù[ùHî›XõZ][ô»\‹Ÿ\‹€Y[ùããàé¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+ãÿ\Kﬁ[›]Y]ô[‹Y[ùÿ\‹Ÿ\‹»ã¬àY]Ÿàî‘’ãàXY\úŒà»ò€€ù[ù]\Héàò\Xÿ][€ã⁄ú€€ààKàõŸNàî””ãú›ö[ô⁄YûJ¬à[ú›Ÿ\úŒà›]Kò[ú›Ÿ\úÀà[ò[ùàXÿ€›[ù›ù[ò[ù[ôYö[ôYà[XZ[àXÿ€›[ù›ô[XZ[[ôYö[ôYàò[YNàXÿ€›[ù›õò[YH[ôYö[ôYà⁄YàXÿ€›[ù›ò⁄Y[ôYö[ôYà‹öYàXÿ€›[ù›ò‹öY[ôYö[ôYà⁄[€ò[YNà
+ÿ›[Y[ùôŸ][[Y[ùûRY
+ò⁄[ò[YR[ú]äHﬂJKùò[YH[ôYö[ôYà⁄[ÿYŸWÿò[ôà
+ÿ›[Y[ùôŸ][[Y[ùûRY
+ò⁄[YŸPò[ô[ú]äHﬂJKùò[YH[ôYö[ôYà⁄[Ÿ‹òYWÿò[ôà
+ÿ›[Y[ùôŸ][[Y[ùûRY
+ò⁄[‹òYPò[ô[ú]äHﬂJKùò[YH[ôYö[ôYàJKàJN¬à€€ú›^[ÿYH]ÿZ]ô\‹€úŸKöú€€ä
+N¬àYà
+\ô\‹€úŸKõ⁄ H¬àô\›[ÿ\ôö[õô\íSHèè›õ€ôœïŸH€›[õ››XõZ]\»\‹Ÿ\‹€Y[ùè‹›õ€ôœè‹è€\‹œWõ]]Yèàà
+»›ö[ô ^[ÿYô\úõ‹àîô\]Y\›òZ[YäH
+»è‹àé¬à[ùZŸT›]\Àù^€€ù[ùH›ö[ô ^[ÿYô\úõ‹àîô\]Y\›òZ[YäN¬à‹[ì]ôQ\⁄õÿ\ôùãú›[Kô\‹^HHõõ€ôHé¬à›\ùõŸ‹ò[Pùãú›[Kô\‹^HHõõ€ôHé¬àô]\õé¬àBà\ú⁄\›]\›€€ù[ùZ]T€ò\⁄›
+^[ÿY
+N¬à€€ú›ö[‹ö]Y\»H
+^[ÿYö[ù\úô]][€à	âà^[ÿYö[ù\úô]][€ãúö[‹ö]W›òZ] H◊N¬à€€ú›Y⁄\›H^[ÿYö[ù\úô]][€à	âà^[ÿYö[ù\úô]][€ãöY⁄\››òZ]¬à€€ú›€€\][€àH^[ÿYò€€\][€à	âà^[ÿYò€€\][€ãò€€\][€ó‹ò]W‹\òŸ[ù¬à€€ú›ÿ]ôY–Xÿ€›[ùHõ€€X[ä^[ÿY	âà^[ÿYõ›€ô\ú⁄\	âà^[ÿYõ›€ô\ú⁄\òXÿ€›[ùÿõ›[ô
+N¬àô\›[ÿ\ôö[õô\íSH¬àÿ]ôY–Xÿ€›[ùà»èè›õ€ôœê\‹Ÿ\‹€Y[ù€€\]Kè‹›õ€ôœà[›\àô\‹€úŸ\»\ôHõ›»]òZ[XõH[àH]ôH\ô[ù\⁄õÿ\ôè‹àÇààèè›õ€ôœê\‹Ÿ\‹€Y[ùÿ€‹ôYù]õ›ÿ]ôYè‹›õ€ôœà⁄Y€à[à⁄][ò[ùŸ[XZ[ÿ€‹HôYõ‹ôH€€ù[ùZ[ôÀè‹àãàÿ]ôY–Xÿ€›[ùà»èè›õ€ôœîÿ]ôY»Xÿ€›[ùè‹›õ€ôœàà
+»^[ÿYõ›€ô\ú⁄\ô[XZ[
+»è‹àÇàààãà^[ÿYõ›€ô\ú⁄\	âà^[ÿYõ›€ô\ú⁄\ò⁄[‹õŸö[H	âà^[ÿYõ›€ô\ú⁄\ò⁄[‹õŸö[Kò⁄[⁄Yà»èè›õ€ôœê⁄[ÿ€‹Nè‹›õ€ôœàà
+»
+^[ÿYõ›€ô\ú⁄\ò⁄[‹õŸö[Kò⁄[€ò[YHê⁄[äH
+»à
+à
+»^[ÿYõ›€ô\ú⁄\ò⁄[‹õŸö[Kò⁄[⁄Y
+»äO‹àÇààè€\‹œWõ]]Yèê⁄[Y[ù]H\»[ò€€\]KàY⁄[ò[YH»‹ôX]HHYXÿ]Y⁄[ÿ€‹Kè‹àãàY⁄\›»èè›õ€ôœï‹›\úô[ù⁄Y€ò[è‹›õ€ôœàà
+»Y⁄\›ùòZ]€ò[YH
+»à
+à
+»ù[Xô\äY⁄\›ò›\úô[ù‹ÿ€‹ôH
+Kù—ö^Y
+JH
+»äO‹ààààãàèè›õ€ôœê€€\][€éè‹›õ€ôœàà
+»ù[Xô\ä€€\][€à
+Kù—ö^Y
+
+H
+»âO‹àãàö[‹ö]Y\Àõ[ô›»è]èàà
+»ö[‹ö]Y\ÀõX\
+
+][JHOàè‹[à€\‹œWú[èàà
+»][KùòZ]€ò[YH
+»à0≠»à
+»ù[Xô\ä][Kò›\úô[ù‹ÿ€‹ôH
+Kù—ö^Y
+JH
+»è‹‹[èàäKöõ⁄[äàäH
+»èŸ]èààààÇàKöõ⁄[äàäN¬à[ùZŸT›]\Àù^€€ù[ùHî›XõZ]Yà
+»^[ÿYò[ú›Ÿ\ú◊ÿ€›[ù
+»àŸàà
+»^[ÿYú]Y\›[€óÿ€›[ù
+»à[ú›Ÿ\úÀàé¬à‹[ì]ôQ\⁄õÿ\ôùãú›[Kô\‹^HHÿ]ôY–Xÿ€›[ù»àààõõ€ôHé¬à€€ú›ÿ€‹Y⁄[YH
+
+
+
+^[ÿYﬂJKõ›€ô\ú⁄\ﬂJKò⁄[‹õŸö[HﬂJKò⁄[⁄YàäKùö[J
+N¬àYà
+ÿ]ôY–Xÿ€›[ù
+H¬à€€ú€€Kö[ôõ û[›]ÿ\‹Ÿ\‹€Y[ùÿ€Y[ù‹ÿ]ôW‹ô\‹€úŸHã¬à\ú⁄\›Yÿ⁄[⁄Yàÿ€‹Y⁄[Yù[à›XõZ\‹⁄[€ó⁄Yà^[ÿYÀõ›€ô\ú⁄\Àú›XõZ\‹⁄[€ó⁄Yù[àJN¬àBàYà
+ÿ]ôY–Xÿ€›[ù	âàÿ€‹Y⁄[Y
+H¬à\Tÿ€‹Y⁄[ò]öYÿ][€äÿ€‹Y⁄[Yò\‹Ÿ\‹◊‹ô\‹€úŸHäN¬à›\ùõŸ‹ò[Pùãú›[Kô\‹^HHàé¬àH[ŸH¬à›\ùõŸ‹ò[Pùãú›[Kô\‹^HHõõ€ôHé¬àBàJN¬Çà\ﬁ[ò»ù[ò›[€àYò]Q^\›[ô–Xÿ€›[ùô\›[
+
+H¬àYà
+XXÿ€›[ù›ù[ò[ùXXÿ€›[ù›ô[XZ[
+Hô]\õé¬à€€ú›[ô⁄[ùHô]»Tì
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ô€]\›ã⁄[ô›Àõÿÿ][€ãõ‹öY⁄[äN¬à[ô⁄[ùúŸX\ò⁄\ò[\ÀúŸ]
+ù[ò[ùãXÿ€›[ù›ù[ò[ù
+N¬à[ô⁄[ùúŸX\ò⁄\ò[\ÀúŸ]
+ô[XZ[ãXÿ€›[ù›ô[XZ[
+N¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+[ô⁄[ùú]ò[YH
+»[ô⁄[ùúŸX\ò⁄
+N¬àYà
+\ô\‹€úŸKõ⁄ Hô]\õé¬à€€ú›]\›H]ÿZ]ô\‹€úŸKöú€€ä
+Kòÿ]⁄
+
+
+HOàù[
+N¬àYà
+[]\›]\›õ⁄»OOHùYH]\›ö\◊‹ô\›[OOHùYJHô]\õé¬à€€ú›ÿ€‹Y⁄[YH›ö[ô ]\›ò⁄[⁄Y]\›Àú^[ÿYÀõ›€ô\ú⁄\Àò⁄[‹õŸö[OÀò⁄[⁄YàäKùö[J
+N¬à\Tÿ€‹Y⁄[ò]öYÿ][€äÿ€‹Y⁄[Yõ]\›€€⁄›\äN¬àô\›[ÿ\ôö[õô\íSH¬àèè›õ€ôœë^\›[ô»ÿ]ôY[›]\‹Ÿ\‹€Y[ùõ›[ôè‹›õ€ôœè‹àãàè€\‹œWõ]]Yèï\»⁄Y€ôYZ[àXÿ€›[ù[ôXYH\»Hÿ]ôYô\›[à[›Hÿ[àô[‹[àH\ô[ù\⁄õÿ\ôõ›»‹àô]ZŸHH[ùZŸH»ôYúô\⁄⁄Y€ò[Àè‹àãàèè›õ€ôœîÿ]ôYXÿ€›[ùè‹›õ€ôœàà
+»Xÿ€›[ù›ô[XZ[
+»è‹àÇàKöõ⁄[äàäN¬à‹[ì]ôQ\⁄õÿ\ôùãú›[Kô\‹^HHàé¬à‹[ì]ôQ\⁄õÿ\ôùãù^€€ù[ùHïöY]»\⁄õÿ\ôé¬à›\ùõŸ‹ò[Pùãú›[Kô\‹^HHàé¬à€€ú›úöYŸP›SXô[H]\›	âà]\›ú^[ÿY	âà]\›ú^[ÿYòúöYŸH	âà]\›ú^[ÿYòúöYŸKò›Bà»]\›ú^[ÿYòúöYŸKò›KõXô[àààé¬à›\ùõŸ‹ò[Pùãù^€€ù[ùH›ö[ô úöYŸP›SXô[î›\ùõŸ‹ò[HäN¬àBÇàô[ô\î]Y\›[€ä
+N¬àYò]Q^\›[ô–Xÿ€›[ùô\›[
+
+Kòÿ]⁄
+
+
+HOàù[
+N¬àJ
+JN¬à‹ÿ‹ö\ÇàÿõŸOÇè⁄[ò¬üBÇôù[ò›[€àô[ô\ì]ôV[›]\ô[ù\⁄õÿ\ôYŸJ
+H¬àô]\õàYÿ›\H[Çè[[ôœHô[àèÇàXYÇàY]H⁄\úŸ]Hù]ãNàœÇàY]Hò[YOHùöY]‹‹ùà€€ù[ùHù⁄YY]öXŸK]⁄Y[ö]X[\ÿÿ[OLHàœÇà]Oñ[›]]ô[‹Y[ù\ô[ù\⁄õÿ\ô›]OÇà›[OÇàúõ€›¬àKXôŒàÃÃŒ¬àK\[ô[à[ôX\ãY‹òYY[ù
+MYYÀôÿòJÀçç
+KôÿòJKÕåÀçMJJN¬àK[[ôNàôÿòJçKNMãÀçåäN¬àK]^àŸôôéN¬àK[]]YàŸXYòÃ¬àKXXÿŸ[ùàŸLÃLÃN¬àKXXÿŸ[ùLéàÃMMçé¬àKY€€àŸåXÕLŒ¬àKY€€ŸàÕçNN¬àK]ÿ]⁄àŸåXÕLŒ¬àKY‹õ›ŒàŸôçÿMçŒ¬àBà
+à»õﬁ\⁄^ö[ôŒàõ‹ô\ãXõﬁ»BàõŸH¬àX\ô⁄[éà¬àõ€ùYò[Z[Nà[ù\ãﬁ\›[K]ZKX\K\ﬁ\›[KŸY€ŸHRKÿ[úÀ\Ÿ\öYé¬à€€‹éàò\äK]^
+N¬àòX⁄Ÿ‹õ›[ôÇàòYX[Y‹òYY[ù
+⁄\ò€H]IH	KôÿòJåMåN
+Kò[ú‹\ô[ùÃâJKàòYX[Y‹òYY[ù
+⁄\ò€H]MIHLâKôÿòJåMLÕKåN
+Kò[ú‹\ô[ùÕIJKàò\äKXô N¬àY[ôŒàMú¬àBàXZ[à»X^]⁄Yà»X\ô⁄[éà]]Œ»\‹^Nà‹öY»ÿ\àLú»Bàú[ô[¬àòX⁄Ÿ‹õ›[ôàò\äK\[ô[
+N¬àõ‹ô\éà\€€Yò\äK[[ôJN¬àõ‹ô\ã\òY]\Œàå¬àõﬁ\⁄Y›ŒàMúôÿòJåÃäN¬àòX⁄Ÿõ‹Yö[\éàõ\ä
+N¬àY[ôŒàN¬àBàö\õÀ]]H»X\ô⁄[éà»õ€ù\⁄^ôNà€[\
+KçM\ô[KùÀãåç\ô[JN»]\ã\‹X⁄[ôŒàLå[N»Bàö\õÀ]ö\⁄[€à¬àZ[ãZZY⁄àZ[äŒ›öÕ
+N¬à‹⁄][€éàô[]]ôN¬à\‹^Nàõ^¬à[Y€ãZ][\Œàõ^Y[ô¬à›ô\ôõ›ŒàY[é¬àõ‹ô\éà\€€YôÿòJçKNMãÀçŒ
+N¬àõ‹ô\ã\òY]\Œàç¬àõﬁ\⁄Y›ŒàåM\ôÿòJçJN¬àBàö\õÀ]ö\⁄[€ãZ[XYŸH»\‹^Nàõÿ⁄Œ»⁄YàL	N»ZY⁄à]]Œ»ÿöôX›Yö]à€€ùZ[é»Bàö\õÀ]ö\⁄[€à»\‹^Nàõÿ⁄Œ»Z[ãZZY⁄à»Y[ôŒàL»òX⁄Ÿ‹õ›[ôàÃÃN»Bàö\õÀ]ö\⁄[€ãX€€ù[ù»‹⁄][€éàXú€€]N»[úŸ]à]]»LL»^X[Y€éàŸ[ù\é»Bàö\õÀ]ö\⁄[€ééòYù\à»[úŸ]àL»õ‹ô\ã\òY]\ŒàLú»Bàö\õÀ]ö\⁄[€ééòYù\à»€€ù[ùààé»‹⁄][€éàXú€€]N»[úŸ]à»òX⁄Ÿ‹õ›[ôà[ôX\ãY‹òYY[ù
+YÀôÿòJKãååäH	Kò[ú‹\ô[ùŒ	KôÿòJKãå
+HL	JN»⁄[ù\ãY]ô[ùŒàõ€ôN»Bàö\õÀ]ö\⁄[€ãX€€ù[ù»‹⁄][€éàô[]]ôN»ãZ[ô^àN»⁄YàL	N»Y[ôŒàç»òX⁄Ÿ‹õ›[ôàõ€ôN»Hàö\õÀY]H»\‹^Nà[õ[ôKXõÿ⁄Œ»X\ô⁄[éà»Y[ôŒàLMú»õ‹ô\éà\€€YôÿòJçKNMãÀççJN»õ‹ô\ã\òY]\ŒàNN\»òX⁄Ÿ‹õ›[ôàôÿòJKKååäN»òX⁄Ÿõ‹Yö[\éàõ\ä‹
+N»€€‹éàŸôôéN»õ€ù\⁄^ôNà€[\
+\ô[K›ùÀKåç\ô[JN»õ€ù]ŸZY⁄àÃ»^\⁄Y›Œàú‹ôÿòJç N»Bàö\õÀZ⁄X⁄Ÿ\à»X\ô⁄[éà»€€‹éàò\äKY€€
+N»õ€ù\⁄^ôNàçŒô[N»õ€ù]ŸZY⁄à»]\ã\‹X⁄[ôŒàåLŸ[N»^]ò[úŸõ‹õNà\\òÿ\ŸN»Bàõ]]Y»€€‹éàò\äK[]]Y
+N»Bàù[ûH»õ€ù\⁄^ôNàLú»€€‹éàò\äK[]]Y
+N»Bàò⁄\¬à\‹^Nà[õ[ôKYõ^¬à[Y€ãZ][\ŒàŸ[ù\é¬àõ‹ô\éà\€€Yò\äK[[ôJN¬àõ‹ô\ã\òY]\ŒàNN\¬àY[ôŒàL¬àõ€ù\⁄^ôNàLú¬àX\ô⁄[ã\öY⁄àú¬àX\ô⁄[ãXõ›€Nàú¬àBàô‹öY»\‹^Nà‹öY»ÿ\àL»Bàòÿ]Y€‹ûK\›ö\»‹öY][\]KX€€[[úŒàô\X]
+]]ÀYö]Z[õX^
+Mç\YúäJN»BàôŸ[ö]\ÀYõÿ›\»»òX⁄Ÿ‹õ›[ôàôÿòJKKçäN»õ‹ô\éà\€€YôÿòJçKNMãÀçÃäN»õ‹ô\ã\òY]\ŒàMú»Y[ôŒàMú»BàôŸ[ö]\ÀYõÿ›\»»»X\ô⁄[éà»õ€ù\⁄^ôNàKåç\ô[N»BàôŸ[ö]\ÀYõÿ›\»úÿ€‹ôH»X\ô⁄[éà»õ€ù\⁄^ôNàKå\ô[N»€€‹éàŸôôåòÃé»BàôŸ[ö]\À[ò]öYÿ][€à»\‹^Nàõ^»ù\›YûKX€€ù[ùà‹XŸKXô]ŸY[é»ÿ\à»X\ô⁄[ã]‹àM»BàôŸ[ö]\À[ò]öYÿ][€àù]€à»›\ú€‹éà⁄[ù\é»Bàòÿ]Y€‹ûK\[¬àõ‹ô\éà\€€Yò\äK[[ôJN¬àõ‹ô\ã\òY]\ŒàLú¬àòX⁄Ÿ‹õ›[ôàôÿòJKKç
+N¬àY[ôŒàL¬àBàòÿ]Y€‹ûK\[»»X\ô⁄[éàú»õ€ù\⁄^ôNàM»[ôKZZY⁄àKåçN»BàùX⁄]Y»»€€‹éàò\äK[]]Y
+N»õ€ù\⁄^ôNàL\»X\ô⁄[éà»Bàö[Xùà¬à⁄Yàç¬àZY⁄àç¬àõ‹ô\ã\òY]\ŒàNN\¬àõ‹ô\éà\€€YôÿòJçKNMãÀç N¬àòX⁄Ÿ‹õ›[ôàôÿòJåMLÕKç
+N¬à€€‹éàŸôôéN¬àõ€ù]ŸZY⁄àÃ¬à›\ú€‹éà⁄[ù\é¬àBàú[ZXY»\‹^Nàõ^»ù\›YûKX€€ù[ùà‹XŸKXô]ŸY[é»[Y€ãZ][\Œàõ^\›\ù»ÿ\à»Bàòÿ\ô»»‹öY][\]KX€€[[úŒàô\X]
+]]ÀYö]Z[õX^
+ç\YúäJN»BàõY]öXÀY‹öY»\‹^Nà‹öY»‹öY][\]KX€€[[úŒàô\X]
+]]ÀYö]Z[õX^
+MLYúäJN»ÿ\à»X\ô⁄[éàL»BàõY]öXÀXÿ\ô»õ‹ô\éà\€€Yò\äK[[ôJN»õ‹ô\ã\òY]\ŒàLú»òX⁄Ÿ‹õ›[ôàôÿòJKKç
+N»Y[ôŒàL»BàõY]öXÀXÿ\ô›õ€ô»»\‹^Nàõÿ⁄Œ»õ€ù\⁄^ôNàå»€€‹éàŸôôéN»Bàò⁄[\›⁄]⁄\à»\‹^Nà‹öY»ÿ\à»Bàò⁄[\›⁄]⁄\ãXù]€à¬à\X\ò[òŸNàõ€ôN¬àõ‹ô\éà\€€Yò\äK[[ôJN¬àõ‹ô\ã\òY]\ŒàLú¬àòX⁄Ÿ‹õ›[ôàôÿòJããåÀçLäN¬à€€‹éàò\äK]^
+N¬à›\ú€‹éà⁄[ù\é¬àZ[ã]⁄YàML¬àY[ôŒàLLú¬à^X[Y€éàYù¬àBàò⁄[\›⁄]⁄\ãXù]€éö›ô\ãò⁄[\›⁄]⁄\ãXù]€éôõÿ›\À]ö\⁄XõH»õ‹ô\ãX€€‹éàò\äKXXÿŸ[ù
+N»›][ôNàõ€ôN»Bàò⁄[\›⁄]⁄\ãXù]€ñÿ\öXK\ô\‹ŸYHùùYHóH»òX⁄Ÿ‹õ›[ôàôÿòJMKMŒåé
+N»õ‹ô\ãX€€‹éàò\äKXXÿŸ[ù
+N»Bàò⁄[\›⁄]⁄\ãXù]€à›õ€ôÀò⁄[\›⁄]⁄\ãXù]€à‹[à»\‹^Nàõÿ⁄Œ»Bàò⁄[\›⁄]⁄\ãXù]€à‹[à»€€‹éàò\äK[]]Y
+N»õ€ù\⁄^ôNàLú»X\ô⁄[ã]‹à‹»Bàò⁄[\Ÿ[X›»⁄YàL	N»õ‹ô\éà\€€Yò\äKY€€
+N»õ‹ô\ã\òY]\ŒàM»òX⁄Ÿ‹õ›[ôàôÿòJKKçM
+N»€€‹éàò\äK]^
+N»Y[ôŒàLú»õ€ùà[ö\ö]»BàòY\]ôK]XõK]‹ò\»›ô\ôõ›À^à]]Œ»BàòY\]ôK]XõH»⁄YàL	N»õ‹ô\ãX€€\ŸNà€€\ŸN»Z[ã]⁄Yàé»BàòY\]ôK]XõHòY\]ôK]XõH»^X[Y€éàYù»õ‹ô\ãXõ›€Nà\€€Yò\äK[[ôJN»Y[ôŒà»ô\ùXÿ[X[Y€éà‹»BàòY\]ôK]XõH»€€‹éàò\äK[]]Y
+N»õ€ù\⁄^ôNàL\»^]ò[úŸõ‹õNà\\òÿ\ŸN»]\ã\‹X⁄[ôŒàåY[N»BàòX›]ö]K[\›»X\ô⁄[éà»Y[ôÀ[YùàN»\‹^Nà‹öY»ÿ\àú»BàõX\õö[ôÀ\›[[X\ûH»\‹^Nà‹öY»ÿ\àLú»BàõX\õö[ôÀZ[ú⁄Y⁄\[ô[»õ‹ô\éà\€€YôÿòJÕKåMÀMåãçMJN»õ‹ô\ã\òY]\ŒàN¬àòX⁄Ÿ‹õ›[ôà[ôX\ãY‹òYY[ù
+LÕYYÀôÿòJLKçãMÀçäKôÿòJåKÃãçå
+JN»Y[ôŒàN»BàõX\õö[ôÀZ[ú⁄Y⁄\[ô[»»X\ô⁄[éàLú»€€‹éàÿçôçŸN»BàõX\õö[ôÀZ[ú⁄Y⁄\[ô[»X\ô⁄[éàMú»BàõX\õö[ôÀZ[ú⁄Y⁄\[ô[H»X\ô⁄[ãXõ›€NàL»[ôKZZY⁄àKçMN»BàõX\õö[ôÀZ[ú⁄Y⁄\[ô[òùà»X\ô⁄[ã[Yùà»õ€ù\⁄^ôNàéŸ[N»BÇàõX\õö[ôÀ\›[[X\ûH»»X\ô⁄[éà»Bàú€ò\⁄›Xÿ\ô¬àõ‹ô\éà\€€Yò\äK[[ôJN¬àõ‹ô\ã\òY]\ŒàM¬àòX⁄Ÿ‹õ›[ôàôÿòJKKçäN¬àY[ôŒàMú¬à\‹^Nà‹öY¬àÿ\à¬àBàú€ò\⁄›Xÿ\ô»[ôKZZY⁄àKçMN»X\ô⁄[éà»Bàú€ò\⁄›Xÿ\ôú\ô[ù[ô^\›\»õ‹ô\ã]‹à\€€Yò\äK[[ôJN»X\ô⁄[ã]‹à»Y[ôÀ]‹àLú»Bàô]ô[‹\ãYXY€õ‹›X‹»»\‹^Nàõ€ôN»BàõY]\à¬àZY⁄à¬àõ‹ô\ã\òY]\ŒàNN\¬àòX⁄Ÿ‹õ›[ôàôÿòJçMKçåÃãååäN¬à›ô\ôõ›ŒàY[é¬àBàõY]\àà‹[à¬à\‹^Nàõÿ⁄Œ¬àZY⁄àL	N¬àòX⁄Ÿ‹õ›[ôà[ôX\ãY‹òYY[ù
+LYÀŸåééŸåXÕLÀÃMMçäN¬àBàú›]\ÀXòYŸH¬à\‹^Nà[õ[ôKXõÿ⁄Œ¬àõ‹ô\ã\òY]\ŒàNN\¬àõ‹ô\éà\€€Yò\äK[[ôJN¬àY[ôŒà‹¬àõ€ù\⁄^ôNàL\¬àBàú›]\À\›õ€ô»»õ‹ô\ãX€€‹éàôÿòJåMLÕKéJN»€€‹éàÿéYçXŒN»Bàú›]\À]ÿ]⁄»õ‹ô\ãX€€‹éàôÿòJçKNMãÀéJN»€€‹éàŸôôåXé»Bàú›]\ÀY‹õ›»»õ‹ô\ãX€€‹éàôÿòJåMéJN»€€‹éàŸôôŒN»Bàõ\›»X\ô⁄[éà»Y[ôÀ[YùàN»\‹^Nà‹öY»ÿ\à»BàòX›[€ú»»\‹^Nàõ^»õ^]‹ò\à‹ò\»ÿ\à»Bàòùà¬àõ‹ô\éà\€€Yò[ú‹\ô[ù¬àõ‹ô\ã\òY]\ŒàNN\¬à^YX€‹ò][€éàõ€ôN¬àY[ôŒàLú¬àõ€ù\⁄^ôNàM¬àBàòùã\ö[X\ûH»òX⁄Ÿ‹õ›[ôàÿŒLçç»€€‹éàŸôôéN»õ‹ô\ãX€€‹éàŸåXÕLŒ»Bàòùã\ŸX€€ô\ûH»òX⁄Ÿ‹õ›[ôàôÿòJåMLÕKçÃäN»€€‹éàŸôôéN»õ‹ô\ãX€€‹éàôÿòJçKNMãÀçÃäN»BàòùãY⁄‹›»òX⁄Ÿ‹õ›[ôàôÿòJKKååäN»€€‹éàŸôôåXé»õ‹ô\ãX€€‹éàôÿòJçKNMãÀç N»Bàùõ⁄XŸKX€€ùõ€»»\‹^Nàõ^»õ^]‹ò\à‹ò\»ÿ\à»[Y€ãZ][\ŒàŸ[ù\é»X\ô⁄[éàúL»Bàùõ⁄XŸKX€€ùõ€»Ÿ]K]õ⁄XŸKXX›[€óH»\‹^Nàõ€ôN»Bàùõ⁄XŸKXùà»õ€ù\⁄^ôNàLú»Y[ôŒàúL»BàX[Ÿ»¬àõ‹ô\éà\€€Yò\äK[[ôJN¬àõ‹ô\ã\òY]\ŒàM¬àòX⁄Ÿ‹õ›[ôàÃLLåŒ¬à€€‹éàò\äK]^
+N¬àX^]⁄Yà¬àBàX[ŸŒéòòX⁄Ÿõ‹»òX⁄Ÿ‹õ›[ôàôÿòJÀÀçÃäN»BàYYXH
+X^]⁄Yàç
+H¬àõŸH»Y[ôŒàLú»Bàú[ô[»Y[ôŒàMú»Bàö\õÀ]ö\⁄[€à»Z[ãZZY⁄à»õ‹ô\ã\òY]\Œàå»Bàö\õÀ]ö\⁄[€ãX€€ù[ù»Y[ôŒàN»Bàòÿ\ô»»‹öY][\]KX€€[[úŒàYúé»Bàòÿ]Y€‹ûK\›ö\»‹öY][\]KX€€[[úŒàYúàYúé»BàBà‹›[OÇà⁄XYÇàõŸOÇà›[OÇàõŸKû[›]\ÿŸ[ôH¬àòX⁄Ÿ‹õ›[ôZ[XYŸNà[ôX\ãY‹òYY[ù
+NYÀôÿòJÀLMÀçé
+KôÿòJÀLMÀé
+JKò\äK^[›]\ÿŸ[ôK]\õ
+HZ[\‹ù[ù¬àòX⁄Ÿ‹õ›[ô\⁄^ôNà€›ô\àZ[\‹ù[ù¬àòX⁄Ÿ‹õ›[ô\‹⁄][€éàŸ[ù\à‹Z[\‹ù[ù¬àòX⁄Ÿ‹õ›[ôX]X⁄Y[ùàö^YZ[\‹ù[ù¬àBàõŸKû[›]\ÿŸ[ôHú[ô[»òX⁄Ÿõ‹Yö[\éàõ\ä
+N»]ŸXö⁄]XòX⁄Ÿõ‹Yö[\éàõ\ä
+N»Bà‹›[OÇàÿ‹ö\Çà
+ù[ò›[€ä
+^¬à€€ú›ÿŸ[ô\œV¬à	ÀÿY[ö‹òK[Xúò\ûKÃëL—êPÀLÃLêKMêÃPëÕKPMÕÕMÃÃçúô…Àà	ÀÿY[ö‹òK[Xúò\ûKÕ–—QçåLMÃŒMãMNMPMÀQNNMÕéMŒÃÀúô…Àà	ÀÿY[ö‹òK[Xúò\ûK—PŒPNLÃãMÀMPLãPëÕÀMÃ–P—PëMåPÀúô…¬àN¬à]OL¬àûH»OJù[Xô\äŸ\‹⁄[€î›‹òYŸKôŸ]][J	ﬁ[›]ÿŸ[ôR[ô^	 _	ÀLI JÃJI\ÿŸ[ô\Àõ[ô›‹Ÿ\‹⁄[€î›‹òYŸKúŸ]][J	ﬁ[›]ÿŸ[ôR[ô^	À›ö[ô JJN»Bàÿ]⁄
+ H»OSX]ôõ€‹äX]úò[ô€J
+JúÿŸ[ô\Àõ[ô›
+N»Bàÿ›[Y[ùòõŸKò€\‹”\›òY
+	ﬁ[›]\ÿŸ[ôI N¬àÿ›[Y[ùòõŸKú›[KúŸ]õ‹\ùJ	ÀK^[›]\ÿŸ[ôK]\õ	À	›\õ
+â ‹ÿŸ[ô\÷⁄WJ…»äI N¬àJJ
+N¬à‹ÿ‹ö\ÇàXZ[èÇàŸX›[€à€\‹œHö\õÀ]ö\⁄[€àà\öXK[Xô[Hëÿ\ùô^HŸ[ö]\»ò[Z[H\ù€‹ö»èÇà[Y»€\‹œHö\õÀ]ö\⁄[€ãZ[XYŸHà‹òœHãÿY[ö‹òK[Xúò\ûKÕLQLÃLÃÕãNÀMQKNNQNMMMKúô»à[HêHù]\ôKYõÿ›\ŸYYúöXÿ[àò[Z[H€⁄⁄[ô»›ÿ\ôHúöY⁄⁄]HàœÇà]à€\‹œHö\õÀ]ö\⁄[€ãX€€ù[ùèÇà€\‹œHö\õÀY]HàYHö\õ’Ÿ^Q]Hà\öXK[Xô[HïŸ^I‹»]Hèè‹ÇàŸ]èÇà‹ŸX›[€èÇàò]à\öXK[Xô[HêXÿ€›[ùà›[OHô\‹^Nôõ^⁄ù\›YûKX€€ù[ùôõ^Y[ôÿ[Y€ãZ][\ŒòŸ[ù\éŸÿ\åLú€X\ô⁄[éåLú»èÇàH€\‹œHòùàùã\ŸX€€ô\ûHàôYèHã›]‹ö[ôÀö[èìX\õö[ô»€YOÿOÇàù]€à€\‹œHòùàùã\ŸX€€ô\ûHàYHú\ô[ù\⁄õÿ\ô⁄Y€ì›]à\OHòù]€àèî⁄Y€à›]ÿù]€èÇà€ò]èÇàÿ‹ö\Çàÿ›[Y[ùôŸ][[Y[ùûRY
+	‹\ô[ù\⁄õÿ\ô⁄Y€ì›]	 KòY]ô[ù\›[ô\ä	ÿ€X⁄…À\ﬁ[ò»ù[ò›[€à
+
+H¬à\Àô\ÿXõYHùYN¬àûH¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+	Àÿ\KŸÿ]\Àÿ]]‹⁄Y€õ›]	À»Y]Ÿà	‘‘’	À‹ôY[ùX[Œà	‹ÿ[YK[‹öY⁄[â»JN¬àYà
+\ô\‹€úŸKõ⁄ Hõ›»ô]»\úõ‹ä	‘⁄Y€à›]òZ[Y	 N¬àŸ\‹⁄[€î›‹òYŸKú∫◊m}∂âûÀk∫wµÁYY[Tô]öY] ÿ⁄Y[Y
+N¬àY\ô[òŸT›[[X\ûKù^€€ù[ùHî[õôY\»ŸYZŒàà
+»›ö[ô Xÿ€›[ùXö[]Kú[õôY›\◊›ŸYZ»
+Bà
+»à0≠»€€\]Y\»ŸYZŒàà
+»›ö[ô Xÿ€›[ùXö[]Kò€€\]Y›\◊›ŸYZ»
+Bà
+»à0≠»€€ú⁄\›[òﬁNàà
+»›ö[ô Xÿ€›[ùXö[]Kò€€ú⁄\›[òﬁW€Xô[ôX\õHäN¬à€€\][€ê€›[ù›[[X\ûKù^€€ù[ùHïŸYZ€H€€\][€à€›[ùàà
+»›ö[ô [õô\ãò€€\]Y€›[ù
+H
+»àŸàà
+»›ö[ô [õô\ãú[õôY€›[ù
+H
+»à[õôYŸ\‹⁄[€ú»€€\]Kàé¬àY\ô[òŸQö[ú›[Kù⁄YH›ö[ô X]úõ›[ô
+[õô\ãòY\ô[òŸTò][»
+àL
+JH
+»âHé¬àYŸ[ôS\›ö[õô\íSH\‘Ÿ\‹⁄[€ú»	âàÿ⁄Y[Yõ[ô›»ÿ⁄Y[YõX\
+
+[ùûJHOà¬à€€ú›\‘Ÿ[X›YH›ö[ô [ùûKúŸ\‹⁄[€ó⁄YàäHOOH›ö[ô Ÿ[X›YŸ\‹⁄[€íYàäN¬àô]\õà	œH€\‹œHúŸ\‹⁄[€ã\õ›…»
+»
+\‘Ÿ[X›Y»àŸ[X›YàààäH
+»	»à]K\Ÿ[X›Y\Ÿ\‹⁄[€èHâ»
+»
+\‘Ÿ[X›Y»ùùYHààôò[ŸHäH
+»	»èè›õ€ôœâ»
+»\ÿ ›ö[ô [ùûKô^W€Xô[[ùûKô^HîŸ\‹⁄[€àäJH
+»	œ‹›õ€ôœà	»
+»\ÿ ÃLí›\ä[ùûKù[YHàäJBà
+»	»0≠»‹[à€\‹œHú›]\À\[›]\ÀI»
+»\ÿ [ùûKõõ‹õX[^ôY‹›]\ H
+»	»èâ»
+»\ÿ ›ö[ô [ùûKõõ‹õX[^ôY‹›]\»ú[õôYäKúô\XŸJó»ãàäJH
+»è‹‹[èàÇà
+»	»0≠»€‹ôNà	»
+»\ÿ ›ö[ô [ùûKò€‹ôWÿX›]ö]W›]Hò]]»äJBà
+»	œ]à€\‹œHúŸ\‹⁄[€ãXX›[€ú»èèù]€à€\‹œHòùàùãY⁄‹›à\OHòù]€àà]KXX›[€èHõ‹[ã\Ÿ\‹⁄[€àà]K\Ÿ\‹⁄[€ãZYHâ»
+»\ÿ ›ö[ô [ùûKúŸ\‹⁄[€ó⁄YàäJH
+»	»èî›\ùŸ\‹⁄[€èÿù]€èâ¬à
+»	œù]€à€\‹œHòùàùãY⁄‹›à\OHòù]€àà]KXX›[€èHùöY]À[\‹€€ã\[àà]K\Ÿ\‹⁄[€ãZYHâ»
+»\ÿ ›ö[ô [ùûKúŸ\‹⁄[€ó⁄YàäJH
+»	»èïöY]»\‹€€à[èÿù]€èâ¬à
+»	œù]€à€\‹œHòùàùã\ŸX€€ô\ûHà\OHòù]€àà]KXX›[€èHò€€\]K\Ÿ\‹⁄[€àà]K\Ÿ\‹⁄[€ãZYHâ»
+»\ÿ ›ö[ô [ùûKúŸ\‹⁄[€ó⁄YàäJH
+»	»â»
+»
+[ùûKõõ‹õX[^ôY‹›]\»OOHò€€\]Yà»à\ÿXõYàààäH
+»	œìX\ö»Ÿ\‹⁄[€à€€\]Oÿù]€èâ¬à
+»	œù]€à€\‹œHòùàùã\ö[X\ûHà\OHòù]€àà]KXX›[€èHúô\›[YK\Ÿ\‹⁄[€àà]K\Ÿ\‹⁄[€ãZYHâ»
+»\ÿ ›ö[ô [ùûKúŸ\‹⁄[€ó⁄YàäJH
+»	»èîô\›[YHŸ\‹⁄[€èÿù]€èèŸ]èâ¬à
+»	œ€OâŒ¬àJKöõ⁄[äàäHà	œH€\‹œHõ]]Yèâ»
+»
+Ÿ]\€€\]H»ìõ»Ÿ\‹⁄[€ú»ÿ⁄Y[YY]àôK\ÿ]ôHùZ[[›\àŸYZ€H[à»ôYŸ[ô\ò]H\»ŸYZÀàààê€€\]HùZ[[›\àŸYZ€H[à»[õÿ⁄»ÿ[[ô\àŸ\‹⁄[€úÀàäH
+»	œ€OâŒ¬à€€ú›ô^H[õô\ãõô^Ÿ\‹⁄[€é¬à€€ú›Ÿ^HH[õô\ãùŸ^TŸ\‹⁄[€é¬àŸ^TŸ\‹⁄[€êÿ\ôù^€€ù[ùH\‘Ÿ\‹⁄[€ú»	âàŸ^Bà»›ö[ô Ÿ^Kô^W€Xô[Ÿ^Kô^HïŸ^HäH
+»à]à
+»ÃLí›\äŸ^Kù[YHàäH
+»à0≠»à
+»›ö[ô Ÿ^Kò€‹ôWÿX›]ö]W›]Hë›ZYYŸ\‹⁄[€àäBàà
+\‘Ÿ\‹⁄[€ú»	âàô^»ìõ»Ÿ\‹⁄[€àŸ^Kàô^àà
+»›ö[ô ô^ô^W€Xô[ô^ô^HàäH
+»à]à
+»ÃLí›\äô^ù[YHàäHàìõ»Ÿ\‹⁄[€à]òZ[XõKàäN¬àô^Ÿ\‹⁄[€êÿ\ôù^€€ù[ùH\‘Ÿ\‹⁄[€ú»	âàô^à»›ö[ô ô^ô^W€Xô[ô^ô^HàäH
+»à]à
+»ÃLí›\äô^ù[YHàäH
+»à0≠»à
+»›ö[ô ô^ò€‹ôWÿX›]ö]W›]Hë›ZYYŸ\‹⁄[€àäBààìõ»\€€Z[ô»Ÿ\‹⁄[€à›\úô[ùH[õôYàé¬à€€ú››\ù\ôŸ]H\‘Ÿ\‹⁄[€ú»»
+Ÿ^Hô^ù[
+Hàù[¬à›\ùŸ^TŸ\‹⁄[€êùãô\ÿXõYHZ\‘Ÿ\‹⁄[€ú»\›\ù\ôŸ]¬à›\ùŸ^TŸ\‹⁄[€êùãô]\Ÿ]úŸ\‹⁄[€íYH›\ù\ôŸ]»›ö[ô ›\ù\ôŸ]úŸ\‹⁄[€ó⁄YàäHààé¬àô\›[YUŸ^TŸ\‹⁄[€êùãô\ÿXõYHZ\‘Ÿ\‹⁄[€ú»\›\ù\ôŸ]¬àô\›[YUŸ^TŸ\‹⁄[€êùãô]\Ÿ]úŸ\‹⁄[€íYH›\ù\ôŸ]»›ö[ô ›\ù\ôŸ]úŸ\‹⁄[€ó⁄YàäHààé¬àŸYZ–]€[òŸPÿ\ôù^€€ù[ùH›ö[ô [õô\ãò€€\]Y€›[ù
+H
+»ã»à
+»›ö[ô [õô\ãú[õôY€›[ù
+H
+»àŸ\‹⁄[€ú»€€\]Y0≠»€€ú⁄\›[òﬁHà
+»›ö[ô Xÿ€›[ùXö[]Kò€€ú⁄\›[òﬁW€Xô[ôX\õHäH
+»ãàé¬àŸYZ”X\öŸ\êÿ\ôù^€€ù[ùHïŸYZ»à
+»›ö[ô ŸYZÀùŸYZ◊€ù[Xô\àJH
+»àŸàÕà
+à
+»›ö[ô ŸYZÀúõŸ‹ô\‹œÀú\òŸ[ùÿ€€\]H
+H
+»âHõŸ‹ò[HõŸ‹ô\‹ Kàé¬à[õô\êÿ[[ô\ë‹öYö[õô\íSH\‘Ÿ\‹⁄[€ú»»VTÀõX\
+
+^Sò[YJHOà¬à€€ú›Ÿ\‹⁄[€ú»Hÿ⁄Y[Yôö[\ä
+[ùûJHOà›ö[ô [ùûKô^HàäKù”›Ÿ\êÿ\ŸJ
+HOOH^Sò[YJN¬à€€ú›\’Ÿ^HHõ€€X[äŸ^H	âà›ö[ô Ÿ^Kô^HàäKù”›Ÿ\êÿ\ŸJ
+HOOH^Sò[YJN¬à€€ú›\‘Ÿ[X›YHŸ\‹⁄[€úÀú€€YJ
+[ùûJHOà›ö[ô [ùûKúŸ\‹⁄[€ó⁄YàäHOOH›ö[ô Ÿ[X›YŸ\‹⁄[€íYàäJN¬àô]\õà	œ\ùX€H€\‹œHòÿ[[ô\ãY^I»
+»
+\’Ÿ^H»àŸ^HàààäH
+»
+\‘Ÿ[X›Y»àŸ[X›YàààäH
+»	»à]K\Ÿ[X›YY^OHâ»
+»
+\‘Ÿ[X›Y»ùùYHààôò[ŸHäH
+»	»èèâ»
+»\ÿ ^Sò[YKú€XŸJJKù’\\êÿ\ŸJ
+H
+»^Sò[YKú€XŸJJJH
+»	œ⁄â¬à
+»
+Ÿ\‹⁄[€úÀõ[ô›à»Ÿ\‹⁄[€úÀõX\
+
+[ùûJHOà	œ]à€\‹œHúŸ\‹⁄[€ã\õ›…»
+»
+›ö[ô [ùûKúŸ\‹⁄[€ó⁄YàäHOOH›ö[ô Ÿ[X›YŸ\‹⁄[€íYàäH»àŸ[X›YàààäH
+»	»èè‹[èâ»
+»\ÿ ÃLí›\ä[ùûKù[YHàäJH
+»à0≠»à
+»\ÿ ›ö[ô [ùûKò€‹ôWÿX›]ö]W›]HîŸ\‹⁄[€àäJH
+»	œ‹‹[èâ¬à
+»	œ‹[à€\‹œHú›]\À\[›]\ÀI»
+»\ÿ [ùûKõõ‹õX[^ôY‹›]\ H
+»	»èâ»
+»\ÿ [ùûKõõ‹õX[^ôY‹›]\Àúô\XŸJó»ãàäJH
+»è‹‹[èèŸ]èàäKöõ⁄[äàäBàà	œ€\‹œHù[ûH]]Yèìõ»[õôYŸ\‹⁄[€è‹â Bà
+»
+Ÿ\‹⁄[€ú÷ÃH»	œ]à€\‹œHúŸ\‹⁄[€ãXX›[€ú»èèù]€à€\‹œHòùàùãY⁄‹›à\OHòù]€àà]KXX›[€èHõ‹[ã\Ÿ\‹⁄[€àà]K\Ÿ\‹⁄[€ãZYHâ»
+»\ÿ ›ö[ô Ÿ\‹⁄[€ú÷ÃKúŸ\‹⁄[€ó⁄YàäJH
+»	»èì‹[à\‹€€à[èÿù]€èèŸ]èâ»ààäBà
+»èÿ\ùX€Oàé¬àJKöõ⁄[äàäHà	œ]à€\‹œHòÿ[[ô\ãY^Hèè€\‹œHù[ûH]]Yèâ»
+»\ÿ [õô\î›]KõY\‹ÿYŸJH
+»	œ‹èŸ]èâŒ¬àô^ÿ⁄Y[YŸ\‹⁄[€ãù^€€ù[ùH\‘Ÿ\‹⁄[€ú»	âàô^à»ìô^ÿ⁄Y[YŸ\‹⁄[€éàà
+»›ö[ô ô^ô^W€Xô[ô^ô^HàäH
+»àà
+»ÃLí›\äô^ù[YHàäH
+»à
+à
+»›ö[ô ô^úŸ\‹⁄[€ó⁄YàäH
+»äHÇààìõ»\€€Z[ô»Ÿ\‹⁄[€úÀàé¬àX\ö”ô^Ÿ\‹⁄[€ê€€\]Pùãô\ÿXõYHZ\‘Ÿ\‹⁄[€ú»[ô^¬àX\ö”ô^Ÿ\‹⁄[€ê€€\]Pùãô]\Ÿ]úŸ\‹⁄[€íYH\‘Ÿ\‹⁄[€ú»	âàô^»›ö[ô ô^úŸ\‹⁄[€ó⁄YàäHààé¬à‹[ìô^Ÿ\‹⁄[€êùãô\ÿXõYHZ\‘Ÿ\‹⁄[€ú»[ô^¬à‹[ìô^Ÿ\‹⁄[€êùãô]\Ÿ]úŸ\‹⁄[€íYH\‘Ÿ\‹⁄[€ú»	âàô^»›ö[ô ô^úŸ\‹⁄[€ó⁄YàäHààé¬à€€ú›Ÿ[X›YH\‘Ÿ\‹⁄[€ú»	âà
+
+Ÿ[X›YŸ\‹⁄[€íY	âàÿ⁄Y[Yôö[ô
+
+[ùûJHOà›ö[ô [ùûKúŸ\‹⁄[€ó⁄Y
+HOOH›ö[ô Ÿ[X›YŸ\‹⁄[€íY
+JJBàô^àŸ^Bàÿ⁄Y[YÃBàù[
+N¬àŸ[X›YŸ\‹⁄[€íYHŸ[X›Y»›ö[ô Ÿ[X›YúŸ\‹⁄[€ó⁄YàäHààé¬à€€\]TŸ[X›YŸ\‹⁄[€êùãô\ÿXõYH\Ÿ[X›YŸ[X›Yõõ‹õX[^ôY‹›]\»OOHò€€\]Yé¬àô[ô\ì\‹€€î[äŸ[X›YŸYZ N¬àô[ô\îõŸ‹ô\‹—\⁄õÿ\ô
+ŸYZÀ[õô\ã]\›ŸYZ‘^[ÿYÀô^X›][€ó‹›]Hù[[õô\î›]JN¬àBÇàù[ò›[€àô[ô\ë^X›][€î›]J^X›][€î›]JH¬à€€ú››]HH^X›][€î›]HﬂN¬à€€ú›€€\]YH\úò^Kö\–\úò^J›]Kò€€\]Y‹›\⁄Ÿ^\ H»›]Kò€€\]Y‹›\⁄Ÿ^\Àõ[ô›à¬à^X›][€î›]P\ôXKù^€€ù[ùHî›]\Œàà
+»›ö[ô ›]KùŸYZ◊‹›]\»õõ›‹›\ùYäBà
+»à0≠»€€\]Y›\Œàà
+»›ö[ô €€\]Y
+H
+»ãÕÇà
+»à0≠»ô\›[YHôXYNàà
+»›ö[ô ›]Kúô\›[YW‹ôXYHOOHùYH»ûY\»ààõõ»äBà
+»
+›]Kòõÿ⁄ŸY‹ôX\€€à»à0≠»õÿ⁄ŸYàà
+»›ö[ô ›]Kòõÿ⁄ŸY‹ôX\€€äHààäN¬à€€ú››\úô[ùŸYZ»H]\›ŸYZ‘^[ÿY	âà]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ùà»ù[Xô\ä]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ùùŸYZ◊€ù[Xô\à]\›ŸYZ‘^[ÿYò›\úô[ù›ŸYZ»JBààN¬à›\ùô\›[YUŸYZ–ùãù^€€ù[ùH›]KùŸYZ◊‹›]\»OOHõõ›‹›\ùYÇà»î›\ùõŸ‹ò[HÇàà
+îô\›[YHŸYZ»à
+»›ö[ô ›]KùŸYZ◊€ù[Xô\à›\úô[ùŸYZ»JJN¬à€€ù[ùYSô^ŸYZ–ùãô\ÿXõYH›]Kõô^›ŸYZ◊ÿ]òZ[XõHOOHùYN¬à€€ù[ùYT›\ùãô\ÿXõYH›]KùŸYZ◊‹›]\»OOHòõÿ⁄ŸYé¬àX\ö‘›\€€\]Pùãô\ÿXõYH›]KùŸYZ◊‹›]\»OOHúôXYWŸõ‹ó€ô^›ŸYZ»à›]KùŸYZ◊‹›]\»OOHò€€\]Yé¬à\ô[ùôYõX›[€í[ú]ùò[YHH›ö[ô ›]KúôYõX›[€ó€õ›HàäN¬à\ô[ùÿúŸ\ùò][€í[ú]ùò[YHH›ö[ô ›]KõÿúŸ\ùò][€ó€õ›HàäN¬àBÇà\ﬁ[ò»ù[ò›[€àÿ]ôQ^X›][€êX›[€äX›[€ï\K^òJH¬àYà
+[]\›ŸYZ‘^[ÿY[]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬à€€ú›õŸHHÿöôX›ò\‹⁄Y€ä¬à[ò[ùàXÿ€›[ù›ù[ò[ùà[XZ[àXÿ€›[ù›ô[XZ[à⁄[⁄YàXÿ€›[ù›ò⁄[⁄YàŸYZ◊€ù[Xô\éàù[Xô\ä]\›ŸYZ‘^[ÿYò›\úô[ù›ŸYZ»]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ùùŸYZ◊€ù[Xô\àJKàX›[€ó›\NàX›[€ï\KàK^òHﬂJN¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àã¬àY]Ÿàî‘’ãàXY\úŒà»ò€€ù[ù]\Héàò\Xÿ][€ã⁄ú€€ààKàõŸNàî””ãú›ö[ô⁄YûJõŸJKàJN¬à€€ú›^[ÿYHô\‹€úŸKõ⁄»»]ÿZ]ô\‹€úŸKöú€€ä
+Kòÿ]⁄
+
+
+HOàù[
+Hàù[¬àYà
+\^[ÿY^[ÿYõ⁄»OOHùYJH¬àŸ]ô^X›[€î›]\ êX›[€àõÿ⁄ŸYã›ö[ô 
+^[ÿY	âà
+^[ÿYõY\‹ÿYŸH^[ÿYô\úõ‹äJHï[òXõH»õÿŸ\‹»X›[€ãàäJN¬àYà
+^[ÿY	âà^[ÿYô^X›][€ó‹›]JHô[ô\ë^X›][€î›]J^[ÿYô^X›][€ó‹›]JN¬àô]\õé¬àBà]\›ŸYZ‘^[ÿYô^X›][€ó‹›]HH^[ÿYô^X›][€ó‹›]N¬àYà
+^[ÿYòúöYŸW‹›]H	âà\[Ÿà^[ÿYòúöYŸW‹›]Kò›\úô[ù›ŸYZ»OOHõù[Xô\àäH¬à]\›ŸYZ‘^[ÿYò›\úô[ù›ŸYZ»H^[ÿYòúöYŸW‹›]Kò›\úô[ù›ŸYZŒ¬àBàô[ô\ë^X›][€î›]J^[ÿYô^X›][€ó‹›]JN¬à€€ú›[õô\ì[Ÿ[HùZ[[õô\ì[Ÿ[
+]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+N¬à€€ú›[õô\î›]HH\ö]ôT[õô\î›\ôòXŸT›]J]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù[õô\ì[Ÿ[^[ÿYô^X›][€ó‹›]Hù[
+N¬àô[ô\îõŸ‹ô\‹—\⁄õÿ\ô
+]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù[õô\ì[Ÿ[^[ÿYô^X›][€ó‹›]HﬂK[õô\î›]JN¬àŸ]ô^X›[€î›]\ êX›[€à€€\]HãP’S”ó–””ëíTìPUS”î÷ÿX›[€ï\WHï\]Hÿ]ôYàäN¬àBÇà\ﬁ[ò»ù[ò›[€à›XõZ]Ÿ\‹⁄[€ê€€\]JŸ\‹⁄[€íY
+H¬àYà
+[]\›ŸYZ‘^[ÿY\Ÿ\‹⁄[€íY
+Hô]\õà»⁄Œàò[ŸK\úõ‹éàúŸ\‹⁄[€ó⁄Y‹ô\]Z\ôYàN¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K‹Ÿ\‹⁄[€ãX€€\]Hã¬àY]Ÿàî‘’ãàXY\úŒà»ò€€ù[ù]\Héàò\Xÿ][€ã⁄ú€€ààKàõŸNàî””ãú›ö[ô⁄YûJ¬à[ò[ùàXÿ€›[ù›ù[ò[ùà[XZ[àXÿ€›[ù›ô[XZ[à⁄[⁄YàXÿ€›[ù›ò⁄[⁄YàŸYZ◊€ù[Xô\éà]\›ŸYZ‘^[ÿYò›\úô[ù›ŸYZÀàŸ\‹⁄[€ó⁄YàŸ\‹⁄[€íYàJKàJN¬à€€ú›^[ÿYHô\‹€úŸKõ⁄»»]ÿZ]ô\‹€úŸKöú€€ä
+Kòÿ]⁄
+
+
+HOàù[
+Hàù[¬àYà
+\^[ÿY^[ÿYõ⁄»OOHùYJH¬àô]\õà»⁄Œàò[ŸK\úõ‹éà›ö[ô ^[ÿYÀô\úõ‹à^[ÿYÀõY\‹ÿYŸHúŸ\‹⁄[€óÿ€€\]WŸòZ[YäHN¬àBàô]\õà»⁄ŒàùYK^[ÿYN¬àBÇà\ﬁ[ò»ù[ò›[€àÿYŸYZ—^\öY[òŸJ
+H¬à€€ú›\õHô]»Tì
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀX€€ù[ùã⁄[ô›Àõÿÿ][€ãõ‹öY⁄[äN¬àYà
+Xÿ€›[ù›ù[ò[ù
+H\õúŸX\ò⁄\ò[\ÀúŸ]
+ù[ò[ùãXÿ€›[ù›ù[ò[ù
+N¬àYà
+Xÿ€›[ù›ô[XZ[
+H\õúŸX\ò⁄\ò[\ÀúŸ]
+ô[XZ[ãXÿ€›[ù›ô[XZ[
+N¬àYà
+Xÿ€›[ù›ò⁄[⁄Y
+H\õúŸX\ò⁄\ò[\ÀúŸ]
+ò⁄[⁄YãXÿ€›[ù›ò⁄[⁄Y
+N¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+\õú]ò[YH
+»\õúŸX\ò⁄
+N¬à€€ú›^[ÿYHô\‹€úŸKõ⁄»»]ÿZ]ô\‹€úŸKöú€€ä
+Kòÿ]⁄
+
+
+HOàù[
+Hàù[¬àYà
+\^[ÿY^[ÿYõ⁄»OOHùYJH¬àô[ô\î›]Pÿ\ô
+ï[òXõH»ÿYŸYZ»€€ù[ùã¬àïŸYZ»€€ù[ù€›[õ›ôHÿYYõ‹à\»⁄[ÿ€‹Kàãàïô\öYûH[ò[ù\ô[ù[XZ[[ô⁄[Ÿ[X›[€ãàãàK◊Kîô]\õà»\ô[ù\⁄õÿ\ôäN¬àô]\õé¬àBàYà
+^[ÿYú›]HOOHò€€ù[ù‹ôXYHà\^[ÿYùŸYZ◊ÿ€€ù[ù
+H¬à€€ú›ô\€€ôYÿ€‹HH›ö[ô ^[ÿYÀò⁄[⁄Y^[ÿYÀú\ô[ù‹õŸ‹ò[W‹›]OÀò⁄[‹ÿ€‹OÀúŸ[X›Yÿ⁄[⁄YàäKùö[J
+N¬àYà
+ô\€€ôYÿ€‹H	âàXXÿ€›[ù›ò⁄[⁄Y
+H¬àXÿ€›[ù›ò⁄[⁄YHô\€€ôYÿ€‹N¬à\⁄õÿ\ôùãöôYàH⁄]›
+ãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôäN¬àBàô[ô\î›]Pÿ\ô
+à^[ÿYú›]W€Xô[ïŸYZ»€€ù[ù[ò]òZ[XõHãà\úò^Kö\–\úò^J^[ÿYõY\‹ÿYŸ\ H»^[ÿYõY\‹ÿYŸ\»à»ìõ»ŸYZÀX€€ù[ù[Ÿ[H\»]òZ[XõHõ‹àH›\úô[ù›]KàóKà\úò^Kö\–\úò^J^[ÿYò⁄[‹ÿ€‹W€‹[€ú H»^[ÿYò⁄[‹ÿ€‹W€‹[€úÀõX\
+
+[ùûJHOàê⁄[àà
+»›ö[ô [ùûKò⁄[€ò[YH[ùûKò⁄[⁄Yï[ö€õ›€àäJHà◊Kà^[ÿYõô^ÿX›[€àîô\€€ôH⁄[ÿ€‹H[à€€ù[ùYHÇà
+N¬àô]\õé¬àBà]\›ŸYZ‘^[ÿYH^[ÿY¬àXÿ€›[ù›ò⁄[⁄YH›ö[ô ^[ÿYò⁄[⁄YXÿ€›[ù›ò⁄[⁄YàäKùö[J
+N¬à\⁄õÿ\ôùãöôYàH⁄]›
+ãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôäN¬à]ÿZ]ÿYõŸ‹ò[Uõ⁄XŸT›]\ 
+N¬àô[ô\ïŸYZ—]Z[ ^[ÿYùŸYZ◊ÿ€€ù[ù^[ÿYõô^ÿX›[€ãò]ïŸYZ”ŸôúŸ]
+N¬àô[ô\î[õô\ä^[ÿYùŸYZ◊ÿ€€ù[ù
+N¬àô[ô\ë^X›][€î›]J^[ÿYô^X›][€ó‹›]Hù[
+N¬àBÇà\⁄õÿ\ôùãöôYàH⁄]›
+ãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôäN¬Çà\ﬁ[ò»ù[ò›[€àÿYúöYŸJ
+H¬à€€ú›úöYŸU\õHô]»Tì
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[KÿúöYŸHã⁄[ô›Àõÿÿ][€ãõ‹öY⁄[äN¬àYà
+Xÿ€›[ù›ù[ò[ù
+HúöYŸU\õúŸX\ò⁄\ò[\ÀúŸ]
+ù[ò[ùãXÿ€›[ù›ù[ò[ù
+N¬àYà
+Xÿ€›[ù›ô[XZ[
+HúöYŸU\õúŸX\ò⁄\ò[\ÀúŸ]
+ô[XZ[ãXÿ€›[ù›ô[XZ[
+N¬àYà
+Xÿ€›[ù›ò⁄[⁄Y
+HúöYŸU\õúŸX\ò⁄\ò[\ÀúŸ]
+ò⁄[⁄YãXÿ€›[ù›ò⁄[⁄Y
+N¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+úöYŸU\õú]ò[YH
+»úöYŸU\õúŸX\ò⁄
+N¬à€€ú›^[ÿYHô\‹€úŸKõ⁄»»]ÿZ]ô\‹€úŸKöú€€ä
+Kòÿ]⁄
+
+
+HOàù[
+Hàù[¬àYà
+\^[ÿY^[ÿYõ⁄»OOHùYJH¬à\õÀù^€€ù[ùHîõŸ‹ò[HúöYŸH€›[õ›ÿYà[ú›\ôH[ò[ùŸ[XZ[ÿ⁄[ÿ€‹H\»ô\Ÿ[ùàé¬àŸ]\›
+»ìZ\‹⁄[ô»‹à[ùò[YXÿ€›[ù€€ù^àãíYà\‹Ÿ\‹€Y[ù\»[ò€€\]Kô]\õà»[ùZŸHö\ú›àóJN¬àô]\õàù[¬àBàXÿ€›[ù›ò⁄[⁄YH›ö[ô ^[ÿYò⁄[⁄YXÿ€›[ù›ò⁄[⁄YàäKùö[J
+N¬à\⁄õÿ\ôùãöôYàH⁄]›
+ãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôäN¬à\õÀù^€€ù[ùH›ö[ô ^[ÿYú\ô[ù‹›[[X\ûHîõŸ‹ò[HúöYŸHôXYKàäN¬à]\›úöYŸHH^[ÿY¬àŸ]\›
+¬àî›]\Œàà
+»›ö[ô ^[ÿYúõŸ‹ò[W‹›]\◊€Xô[îŸ]\ôYYYäKàê›\úô[ù\ŸNàà
+»›ö[ô ^[ÿYò›\úô[ù‹\ŸW€ò[YHìõ›\‹⁄Y€ôYäKàê›\úô[ùŸYZŒàà
+»›ö[ô ^[ÿYò›\úô[ù›ŸYZ»ìõ›\‹⁄Y€ôYäKàìô^X›[€éàà
+»›ö[ô ^[ÿYõô^‹ôX€€[Y[ôYÿX›[€àê€€\]HŸ]\äKàJN¬àYà
+^[ÿYõ][ò⁄ÿ[›ŸYOOHùYJH¬à][ò⁄ùãú›[Kô\‹^HHàé¬à][ò⁄ùãù^€€ù[ùH›ö[ô 
+^[ÿYò›H	âà^[ÿYò›KõXô[
+Hî›\ùõŸ‹ò[HäN¬àH[ŸH¬à][ò⁄ùãú›[Kô\‹^HHõõ€ôHé¬àBàô]\õà^[ÿY¬àBÇàù[ò›[€à‹[ïŸYZ—õ› 
+H¬àYà
+[]\›ŸYZ‘^[ÿY[]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬àò]ïŸYZ”ŸôúŸ]H¬àô[ô\ïŸYZ—]Z[ ]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù]\›ŸYZ‘^[ÿYõô^ÿX›[€ãò]ïŸYZ”ŸôúŸ]
+N¬à[õô\êÿ[[ô\ë‹öYúÿ‹õ€[ù’öY] »ôZ]ö[‹éàú€[€›ãõÿ⁄Œàú›\ùàJN¬àBÇà][ò⁄ùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àYà
+]\›úöYŸH	âà]\›úöYŸKö\◊Ÿ[úõ€Y[ùOOHùYJH¬à‹[ïŸYZ—õ› 
+N¬àô]\õé¬àBà]ÿZ]⁄]ù]€êù\ﬁJ][ò⁄ùãî›\ù[ô»õŸ‹ò[x†)àã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú€€Kö[ôõ ñ‹õŸ‹ò[K[][ò⁄YXùY◊H€X⁄»ã¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à⁄[⁄YàXÿ€›[ù›ò⁄[⁄Yù[àJN¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K€][ò⁄ã¬àY]Ÿàî‘’ãàXY\úŒà»ò€€ù[ù]\Héàò\Xÿ][€ã⁄ú€€ààKàõŸNàî””ãú›ö[ô⁄YûJXÿ€›[ù›
+KàJN¬à€€ú›^[ÿYHô\‹€úŸKõ⁄»»]ÿZ]ô\‹€úŸKöú€€ä
+Kòÿ]⁄
+
+
+HOàù[
+Hàù[¬à€€ú€€Kö[ôõ ñ‹õŸ‹ò[K[][ò⁄YXùY◊Hô\‹€úŸHã¬à›]\Œàô\‹€úŸKú›]\Àà⁄Œàõ€€X[ä^[ÿY	âà^[ÿYõ⁄»OOHùYJKà\úõ‹éà^[ÿYÀô\úõ‹àù[àôX\€€éà^[ÿYÀúôX\€€àù[à⁄[⁄Yà^[ÿYÀò⁄[⁄Yù[àJN¬àYà
+\^[ÿY^[ÿYõ⁄»OOHùYJH¬à\õÀù^€€ù[ùHîõŸ‹ò[H][ò⁄òZ[Yàà
+»›ö[ô ^[ÿYÀô\úõ‹à^[ÿYÀúôX\€€àù[ö€õ›€óŸ\úõ‹àäH
+»ãàé¬àô]\õé¬àBàXÿ€›[ù›ò⁄[⁄YH›ö[ô ^[ÿYò⁄[⁄YXÿ€›[ù›ò⁄[⁄YàäN¬à\õÀù^€€ù[ùH›ö[ô ^[ÿYú\ô[ù‹›[[X\ûHîõŸ‹ò[H][ò⁄€€ôö\õYYàäN¬àŸ]\›
+¬àî›]\Œàà
+»›ö[ô ^[ÿYúõŸ‹ò[W‹›]\◊€Xô[êX›]ôHäKàê›\úô[ù\ŸNàà
+»›ö[ô ^[ÿYò›\úô[ù‹\ŸW€ò[YHëõ›[ô][€àäKàê›\úô[ùŸYZŒàà
+»›ö[ô ^[ÿYò›\úô[ù›ŸYZ»JKàìô^X›[€éàà
+»›ö[ô ^[ÿYõô^‹ôX€€[Y[ôYÿX›[€àêôY⁄[à›\úô[ùŸYZ»äKàJN¬à][ò⁄ùãù^€€ù[ùHïöY]»ŸYZ€H[àé¬à\⁄õÿ\ôùãöôYàH⁄]›
+ãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôäN¬à]ÿZ]ÿYŸYZ—^\öY[òŸJ
+N¬à‹[ïŸYZ—õ› 
+N¬àJN¬àJN¬Çàô]ïŸYZ–ùãòY]ô[ù\›[ô\äò€X⁄»ãù[ò›[€à
+
+H¬àYà
+[]\›ŸYZ‘^[ÿY[]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬à€€ú››\úô[ùŸYZ»Hù[Xô\ä]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ùùŸYZ◊€ù[Xô\àJN¬àò]ïŸYZ”ŸôúŸ]HX]õX^
+HH›\úô[ùŸYZÀò]ïŸYZ”ŸôúŸ]HJN¬àô[ô\ïŸYZ—]Z[ ]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù]\›ŸYZ‘^[ÿYõô^ÿX›[€ãò]ïŸYZ”ŸôúŸ]
+N¬àJN¬àô^ŸYZ–ùãòY]ô[ù\›[ô\äò€X⁄»ãù[ò›[€à
+
+H¬àYà
+[]\›ŸYZ‘^[ÿY[]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬à€€ú››\úô[ùŸYZ»Hù[Xô\ä]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ùùŸYZ◊€ù[Xô\àJN¬àò]ïŸYZ”ŸôúŸ]HX]õZ[äÕàH›\úô[ùŸYZÀò]ïŸYZ”ŸôúŸ]
+»JN¬àô[ô\ïŸYZ—]Z[ ]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù]\›ŸYZ‘^[ÿYõô^ÿX›[€ãò]ïŸYZ”ŸôúŸ]
+N¬àJN¬Çà›\ùô\›[YUŸYZ–ùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãî›\ù[ôÀ‹ô\›[Z[ô»›\úô[ùŸYZ¯†)àäN¬à]ÿZ]⁄]ù]€êù\ﬁJ›\ùô\›[YUŸYZ–ùãî›\ù[ô¯†)àã\ﬁ[ò»
+
+HOàÿ]ôQ^X›][€êX›[€äú›\ù›ŸYZ»äJN¬àJN¬àÿ]ôTôYõX›[€êùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãîÿ]ö[ô»ôYõX›[€∏†)àäN¬à]ÿZ]⁄]ù]€êù\ﬁJÿ]ôTôYõX›[€êùãîÿ]ö[ô¯†)àã\ﬁ[ò»
+
+HOàÿ]ôQ^X›][€êX›[€äúÿ]ôW‹ôYõX›[€àã»õ›Nà›ö[ô \ô[ùôYõX›[€í[ú]ùò[YHàäHJJN¬àJN¬àÿ]ôSÿúŸ\ùò][€êùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãîÿ]ö[ô»ÿúŸ\ùò][€∏†)àäN¬à]ÿZ]⁄]ù]€êù\ﬁJÿ]ôSÿúŸ\ùò][€êùãîÿ]ö[ô¯†)àã\ﬁ[ò»
+
+HOàÿ]ôQ^X›][€êX›[€äúÿ]ôW€ÿúŸ\ùò][€àã»õ›Nà›ö[ô \ô[ùÿúŸ\ùò][€í[ú]ùò[YHàäHJJN¬àJN¬àX\ö‘›\€€\]PùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú››]HH]\›ŸYZ‘^[ÿYÀô^X›][€ó‹›]HﬂN¬à€€ú››\‹ô\àH»ò€‹ôWÿX›]ö]Hãú›ô]⁄ÿ⁄[[ôŸHãúôYõX›[€óÿ⁄X⁄⁄[àãõÿúŸ\ùò][€ó‹›\‹ùóN¬à€€ú›YHù[Xô\ä›]KòX›]ôW‹›\⁄[ô^
+N¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãìX\ö⁄[ô»›\úô[ù›\€€\]x†)àäN¬à]ÿZ]⁄]ù]€êù\ﬁJX\ö‘›\€€\]PùãìX\ö⁄[ô¯†)àã\ﬁ[ò»
+
+HOàÿ]ôQ^X›][€êX›[€äõX\ö◊‹›\ÿ€€\]Hã»›\⁄Ÿ^Nà›\‹ô\ñ”X]õX^
+X]õZ[ä›\‹ô\ãõ[ô›HKY
+JWHJJN¬àJN¬à€€ù[ùYT›\ùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãì[›ö[ô»»ô^›\8†)àäN¬à]ÿZ]⁄]ù]€êù\ﬁJ€€ù[ùYT›\ùãê€€ù[ùZ[ô¯†)àã\ﬁ[ò»
+
+HOàÿ]ôQ^X›][€êX›[€äò€€ù[ùYW›◊€ô^‹›\äJN¬àJN¬à€€ù[ùYSô^ŸYZ–ùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãì[›ö[ô»»ô^ŸYZ¯†)àäN¬à]ÿZ]⁄]ù]€êù\ﬁJ€€ù[ùYSô^ŸYZ–ùãê€€ù[ùZ[ô¯†)àã\ﬁ[ò»ù[ò›[€à
+
+H¬à]ÿZ]ÿ]ôQ^X›][€êX›[€äò€€ù[ùYW€ô^›ŸYZ»äN¬à]ÿZ]ÿYúöYŸJ
+N¬à]ÿZ]ÿYŸYZ—^\öY[òŸJ
+N¬àJN¬àJN¬àô^ô\›X›[€êùãòY]ô[ù\›[ô\äò€X⁄»ãù[ò›[€à
+
+H¬à€€ú›ô^X›[€àH›ö[ô ô^ô\›X›[€êùãô]\Ÿ]òX›[€ï\HàäN¬àYà
+ô^X›[€àOOHú›\ù›Ÿ^W‹Ÿ\‹⁄[€ààô^X›[€àOOHúô\›[YW‹Ÿ\‹⁄[€àäH¬àYà
+\›\ùŸ^TŸ\‹⁄[€êùãô\ÿXõY
+H¬à›\ùŸ^TŸ\‹⁄[€êùãò€X⁄ 
+N¬àô]\õé¬àBàYà
+\ô\›[YUŸ^TŸ\‹⁄[€êùãô\ÿXõY
+H¬àô\›[YUŸ^TŸ\‹⁄[€êùãò€X⁄ 
+N¬àô]\õé¬àBàBàYà
+ô^X›[€àOOHò€€\]W‹ôYõX›[€àäH¬à\ô[ùôYõX›[€í[ú]ôõÿ›\ 
+N¬àŸ]ô^X›[€î›]\ ìô^X›[€àãêYHôYõX›[€àõ›K[àŸ[X›ÿ]ôHôYõX›[€ãàäN¬àô]\õé¬àBàYà
+ô^X›[€àOOHò€€ù[ùYW€ô^›ŸYZ»äH¬à€€ù[ùYSô^ŸYZ–ùãò€X⁄ 
+N¬àô]\õé¬àBàŸ]ô^X›[€î›]\ êX›[€àõÿ⁄ŸYãëö[ö\⁄\»ŸYZ»»[õÿ⁄»ô^ŸYZÀàäN¬àJN¬à€€ú›€îôYô\úôY[YTX⁄Ÿ\ê⁄[ôŸHHù[ò›[€à
+
+H¬àﬁ[ò‘ôYô\úôY[YT›]J
+N¬à€€[Z][YQ\úõ‹ãù^€€ù[ùHàé¬àN¬àYà
+€€[Z][YR›\í[ú]
+H€€[Z][YR›\í[ú]òY]ô[ù\›[ô\äö[ú]ã€îôYô\úôY[YTX⁄Ÿ\ê⁄[ôŸJN¬àYà
+€€[Z][YR›\í[ú]
+H€€[Z][YR›\í[ú]òY]ô[ù\›[ô\äò⁄[ôŸHã€îôYô\úôY[YTX⁄Ÿ\ê⁄[ôŸJN¬àYà
+€€[Z][YSZ[ù]R[ú]
+H€€[Z][YSZ[ù]R[ú]òY]ô[ù\›[ô\äö[ú]ã€îôYô\úôY[YTX⁄Ÿ\ê⁄[ôŸJN¬àYà
+€€[Z][YSZ[ù]R[ú]
+H€€[Z][YSZ[ù]R[ú]òY]ô[ù\›[ô\äò⁄[ôŸHã€îôYô\úôY[YTX⁄Ÿ\ê⁄[ôŸJN¬àYà
+€€[Z][YSY\öYY[R[ú]
+H€€[Z][YSY\öYY[R[ú]òY]ô[ù\›[ô\äö[ú]ã€îôYô\úôY[YTX⁄Ÿ\ê⁄[ôŸJN¬àYà
+€€[Z][YSY\öYY[R[ú]
+H€€[Z][YSY\öYY[R[ú]òY]ô[ù\›[ô\äò⁄[ôŸHã€îôYô\úôY[YTX⁄Ÿ\ê⁄[ôŸJN¬à€€[Z]ôYô\úôY^\—‹õ›\òY]ô[ù\›[ô\äò⁄[ôŸHãù[ò›[€à
+
+H¬à€€[Z]ôYô\úôY^\—\úõ‹ãù^€€ù[ùHàé¬àJN¬àYà
+ôXYŸYZ€Q€ÿ[–ùäH¬àôXYŸYZ€Q€ÿ[–ùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›ò[òX⁄’^H¬à›ö[ô ŸYZ€Q€ÿ[Àù^€€ù[ùàäKùö[J
+Kà›ö[ô ŸYZ€Q›ZY[òŸKù^€€ù[ùàäKùö[J
+KàKôö[\äõ€€X[äKöõ⁄[äãàäN¬à€€ú›Ÿ[X›[€àHŸ]õŸ‹ò[Uõ⁄XŸTŸ[X›[€ä»ú›[[X\ûHãõô^‹›\»ãú›ô[ô›»óKò[òX⁄’^
+N¬àõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀúŸ[X›[€êûTÿ€‹KùŸYZ€Q€ÿ[»HŸ[X›[€é¬àõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀòX›]ôTÿ€‹HHùŸYZ€Q€ÿ[»é¬à]ÿZ]^TõŸ‹ò[Uõ⁄XŸTŸ[X›[€äŸ[X›[€ãîôXYX[›Y[ò]òZ[XõH[à\»úõ›‹Ÿ\ãà^ô[XZ[ú»ö\⁄XõKàäN¬àJN¬àBàYà
+ôXYõŸ‹ò[T›\‹ùùäH¬àôXYõŸ‹ò[T›\‹ùùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›ò[òX⁄’^H¬à›ö[ô Ÿ\‹⁄[€ëõ›”\›ù^€€ù[ùàäKùö[J
+Kà›ö[ô X›]ö]Pò[ö‘›\ôòXŸKù^€€ù[ùàäKùö[J
+Kà›ö[ô ÿúŸ\ùò][€î›\‹ùù^€€ù[ùàäKùö[J
+KàKôö[\äõ€€X[äKöõ⁄[äãàäN¬à€€ú›Ÿ[X›[€àHŸ]õŸ‹ò[Uõ⁄XŸTŸ[X›[€ä»ô‹õ››ãô[ùö\õ€õY[ùãú›[ÿùZ[[ô»óKò[òX⁄’^
+N¬àõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀúŸ[X›[€êûTÿ€‹KúõŸ‹ò[T›\‹ùHŸ[X›[€é¬àõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀòX›]ôTÿ€‹HHúõŸ‹ò[T›\‹ùé¬à]ÿZ]^TõŸ‹ò[Uõ⁄XŸTŸ[X›[€äŸ[X›[€ãîôXYX[›Y[ò]òZ[XõH[à\»úõ›‹Ÿ\ãà^ô[XZ[ú»ö\⁄XõKàäN¬àJN¬àBàYà
+ôXYõŸ‹ô\‹‘›[[X\ûPùäH¬àôXYõŸ‹ô\‹‘›[[X\ûPùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›ò[òX⁄’^H¬à›ö[ô [›]ò][€î›[[X\ûKù^€€ù[ùàäKùö[J
+Kà›ö[ô ŸYZ–€€\\ö\€€î›[[X\ûKù^€€ù[ùàäKùö[J
+Kà›ö[ô ô^ô\›X›[€ê€‹Kù^€€ù[ùàäKùö[J
+KàKôö[\äõ€€X[äKöõ⁄[äãàäN¬à€€ú›Ÿ[X›[€àHŸ]õŸ‹ò[Uõ⁄XŸTŸ[X›[€ä»ú›[ÿùZ[[ô»ãõô^‹›\»ãú›[[X\ûHóKò[òX⁄’^
+N¬àõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀúŸ[X›[€êûTÿ€‹KúõŸ‹ô\‹‘›[[X\ûHHŸ[X›[€é¬àõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀòX›]ôTÿ€‹HHúõŸ‹ô\‹‘›[[X\ûHé¬à]ÿZ]^TõŸ‹ò[Uõ⁄XŸTŸ[X›[€äŸ[X›[€ãîôXYX[›Y[ò]òZ[XõH[à\»úõ›‹Ÿ\ãà^ô[XZ[ú»ö\⁄XõKàäN¬àJN¬àBàÿ›[Y[ùòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+]ô[ù
+H¬à€€ú›ù]€àH]ô[ùù\ôŸ]	âà]ô[ùù\ôŸ]ò€‹Ÿ\›»]ô[ùù\ôŸ]ò€‹Ÿ\›
+ñŸ]K\õŸ‹ò[K]õ⁄XŸKXX›[€óHäHàù[¬àYà
+Xù]€äHô]\õé¬à€€ú›X›[€àH›ö[ô ù]€ãôŸ]]öXù]Jô]K\õŸ‹ò[K]õ⁄XŸKXX›[€àäHàäKùö[J
+N¬à€€ú›ÿ€‹HH›ö[ô ù]€ãôŸ]]öXù]Jô]K\õŸ‹ò[K]õ⁄XŸK\ÿ€‹HäHàäKùö[J
+N¬à€€ú›]Y[»HõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀòX›]ôP]Y[Œ¬àYà
+X›[€àOOHú]\ŸHäH¬àYà
+]Y[»	âà\[Ÿà]Y[Àú]\ŸHOOHôù[ò›[€àäH¬à]Y[Àú]\ŸJ
+N¬àõŸ‹ò[Uõ⁄XŸT›]Kõ\›^XòX⁄”[ŸHHúõ›öY\àé¬àH[ŸH¬à€€ú›‹YX⁄H\[Ÿà⁄[ô›»OOHù[ôYö[ôYà»⁄[ô›Àú‹YX⁄ﬁ[ù\⁄\»àù[¬àYà
+‹YX⁄	âà\[Ÿà‹YX⁄ú]\ŸHOOHôù[ò›[€àäH‹YX⁄ú]\ŸJ
+N¬àõŸ‹ò[Uõ⁄XŸT›]Kõ\›^XòX⁄”[ŸHHôò[òX⁄◊›»é¬àõŸ‹ò[Uõ⁄XŸT›]Kú›]\—]Z[Hëò[òX⁄»úõ›‹Ÿ\à‹YX⁄]\ŸYàé¬àBàõŸ‹ò[Uõ⁄XŸT›]Kú^XòX⁄‘›]HHú]\ŸYé¬à\]TõŸ‹ò[Uõ⁄XŸT›]\ 
+N¬àô]\õé¬àBàYà
+X›[€àOOHòòX⁄ÃLàX›[€àOOHôõ‹ùÿ\ôLäH¬àYà
+]Y[»	âà\[Ÿà]Y[Àò›\úô[ù[YHOOHõù[Xô\àäH¬à€€ú›[HHX›[€àOOHòòX⁄ÃLà»LLàL¬à]Y[Àò›\úô[ù[YHHX]õX^
+X]õZ[ä
+]Y[Àô\ò][€àù[Xô\ãìPV‘–QëW“SïQ—TäK]Y[Àò›\úô[ù[YH
+»[JJN¬àõŸ‹ò[Uõ⁄XŸT›]Kú^XòX⁄‘›]HHú^Z[ô»é¬àH[ŸH¬àõŸ‹ò[Uõ⁄XŸT›]Kú›]\—]Z[Hëò[òX⁄»úõ›‹Ÿ\à‹YX⁄ÿ[õõ›ŸYZ»ûHLŸX€€ôÀàé¬àBà\]TõŸ‹ò[Uõ⁄XŸT›]\ 
+N¬àô]\õé¬àBàYà
+X›[€àOOHú^Hà	âàÿ€‹JH¬àYà
+]Y[»	âà]Y[Àú]\ŸY	âàÿ€‹HOOHõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀòX›]ôTÿ€‹JH¬à]ÿZ]]Y[Àú^J
+Kòÿ]⁄
+
+
+HOàù[
+N¬àõŸ‹ò[Uõ⁄XŸT›]Kõ\›^XòX⁄”[ŸHHúõ›öY\àé¬àõŸ‹ò[Uõ⁄XŸT›]Kú^XòX⁄‘›]HHú^Z[ô»é¬à\]TõŸ‹ò[Uõ⁄XŸT›]\ 
+N¬àô]\õé¬àBà€€ú›Ÿ[X›[€àHõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀúŸ[X›[€êûTÿ€‹V‹ÿ€‹WN¬àYà
+Ÿ[X›[€äH¬àõŸ‹ò[Uõ⁄XŸT^XòX⁄ÀòX›]ôTÿ€‹HHÿ€‹N¬à]ÿZ]^TõŸ‹ò[Uõ⁄XŸTŸ[X›[€äŸ[X›[€ãîôXYX[›Y[ò]òZ[XõH[à\»úõ›‹Ÿ\ãà^ô[XZ[ú»ö\⁄XõKàäN¬àBàBàJN¬àÿ]ôP€€[Z]Y[ùùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›€X⁄’òXŸHH¬à[ô\éà[õô\îù[ù[YKö[ô\ãàù]€óŸ\ÿXõYàõ€€X[äÿ]ôP€€[Z]Y[ùùãô\ÿXõY
+Kà]\››ŸYZ◊‹^[ÿY‹ôXYNàõ€€X[ä]\›ŸYZ‘^[ÿY	âà]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+KàN¬à€€[Z]Y[ùX›[€ïòXŸKù^€€ù[ùHú[õô\àX›[€àòXŸNà€X⁄»[ô\àö\ôYàé¬à€€ú€€Kö[ôõ ñ‹[õô\ãX€€[Z]Y[ùYXùY◊H€X⁄»ã€X⁄’òXŸJN¬àYà
+[]\›ŸYZ‘^[ÿY[]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+H¬à€€[Z]Y[ùÿ]ôQôYYòX⁄Àù^€€ù[ùHïŸYZ€H[àÿ]ôHõÿ⁄ŸYàŸYZ»€€ù[ù\»õ›ÿYYY]àô[ÿY\»YŸH[ôô]ûKàé¬à€€[Z]Y[ùX›[€ïòXŸKù^€€ù[ùHú[õô\àX›[€àòXŸNàõÿ⁄ŸYÿôYõ‹ôW›ò[Y][€à
+ŸYZ◊ÿ€€ù[ù€Z\‹⁄[ô Kàé¬à€€ú€€Kö[ôõ ñ‹[õô\ãX€€[Z]Y[ùYXùY◊Hõÿ⁄ŸYã»ããò€X⁄’òXŸKôX\€€éàùŸYZ◊ÿ€€ù[ù€Z\‹⁄[ô»àJN¬àô]\õé¬àBà€€ú›ò[Y][€àHò[Y]P€€[Z]Y[ùõ‹õR[ú] 
+N¬à€€[Z]Y[ùÿ]ôQôYYòX⁄Àù^€€ù[ùHàé¬àŸ][õô\ëöY[\úõ‹ú ò[Y][€ãôöY[\úõ‹ú»ﬂJN¬à€€[Z]Y[ùX›[€ïòXŸKù^€€ù[ùHú[õô\àX›[€àòXŸNàò[Y][€óÿ⁄X⁄ŸY
+⁄œHà
+»›ö[ô ò[Y][€ãõ⁄ H
+»äKàé¬à€€ú€€Kö[ôõ ñ‹[õô\ãX€€[Z]Y[ùYXùY◊Hò[Y][€ó‹›]Hã¬àããò€X⁄’òXŸKàò[Y][€ó€⁄Œàò[Y][€ãõ⁄Ààò[Y][€óŸ\úõ‹úŒàò[Y][€ãô\úõ‹úÀàŸYZ€WŸúô\]Y[òﬁNàò[Y][€ãùŸYZ€Qúô\]Y[òﬁKàôYô\úôYŸ^\◊ÿ€›[ùàò[Y][€ãúôYô\úôY^\Àõ[ô›àJN¬àYà
+]ò[Y][€ãõ⁄ H¬à€€[Z]Y[ùÿ]ôQôYYòX⁄Àù^€€ù[ùHï[òXõH»ÿ]ôHY]à⁄X⁄»HY⁄Y⁄YöY[»[ôô]ûKàé¬à€€[Z]Y[ùX›[€ïòXŸKù^€€ù[ùHú[õô\àX›[€àòXŸNàõÿ⁄ŸYÿôYõ‹ôW‹ô\]Y\›
+ò[Y][€óŸòZ[Y
+Kàé¬àô]\õé¬àBà]ÿZ]⁄]ù]€êù\ﬁJÿ]ôP€€[Z]Y[ùùãîÿ]ö[ô»[∏†)àã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›ô\]Y\›õŸHH¬à[ò[ùàXÿ€›[ù›ù[ò[ùà[XZ[àXÿ€›[ù›ô[XZ[à⁄[⁄YàXÿ€›[ù›ò⁄[⁄YàŸYZ◊€ù[Xô\éà]\›ŸYZ‘^[ÿYò›\úô[ù›ŸYZÀàŸYZ€WŸúô\]Y[òﬁNàò[Y][€ãùŸYZ€Qúô\]Y[òﬁKà^\◊‹\ó›ŸYZŒàò[Y][€ãùŸYZ€Qúô\]Y[òﬁKà€€[Z]YŸ^\◊‹\ó›ŸYZŒàò[Y][€ãùŸYZ€Qúô\]Y[òﬁKàôYô\úôYŸ^\Œàò[Y][€ãúôYô\úôY^\ÀàôYô\úôY›[YNàò[Y][€ãúôYô\úôY[YKàôYô\úôY›[YW›⁄[ô›Œàò[Y][€ãúôYô\úôY[YKàŸ\‹⁄[€ó€[ô›àò[Y][€ãúŸ\‹⁄[€ì[ô›à\ôŸ]‹Ÿ\‹⁄[€ó€[ô›àò[Y][€ãúŸ\‹⁄[€ì[ô›àŸ\‹⁄[€óŸ\ò][€ó€Z[ù]\Œàò[Y][€ãúŸ\‹⁄[€ì[ô›à[ô\ôﬁW›\Nà›ö[ô €€[Z][ô\ôﬁU\R[ú]ùò[YHòò[[òŸYäKà›\ùŸ]Nàò[Y][€ãú›\ù]KàN¬à€€[Z]Y[ùX›[€ïòXŸKù^€€ù[ùHú[õô\àX›[€àòXŸNàô\]Y\›‹ôXYH
+õ›]OHà
+»[õô\îù[ù[YKúõ›]H
+»äKàé¬à€€ú€€Kö[ôõ ñ‹[õô\ãX€€[Z]Y[ùYXùY◊H›XõZ]€€[Z]Y[ùã¬àôYô\úôY›[YW‹›XõZ]Yàô\]Y\›õŸKúôYô\úôY›[YKàôYô\úôY›[YW›⁄[ô›◊‹›XõZ]Yàô\]Y\›õŸKúôYô\úôY›[YW›⁄[ô›Ààô\]Y\›‹õ›]Nà[õô\îù[ù[YKúõ›]Kàô\]Y\›‹^[ÿYàô\]Y\›õŸKàJN¬à€€ú›ô\‹€úŸHH]ÿZ]ô]⁄
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[Kÿ€€[Z]Y[ùã¬àY]Ÿàî‘’ãàXY\úŒà»ò€€ù[ù]\Héàò\Xÿ][€ã⁄ú€€ààKàõŸNàî””ãú›ö[ô⁄YûJô\]Y\›õŸJKàJN¬à€€ú›^[ÿYHô\‹€úŸKõ⁄»»]ÿZ]ô\‹€úŸKöú€€ä
+Kòÿ]⁄
+
+
+HOàù[
+Hàù[¬à€€ú€€Kö[ôõ ñ‹[õô\ãX€€[Z]Y[ùYXùY◊Hô\‹€úŸHã¬àõ›]Nà[õô\îù[ù[YKúõ›]Kà‹›]\Œàô\‹€úŸKú›]\Àà⁄Œàõ€€X[ä^[ÿY	âà^[ÿYõ⁄»OOHùYJKà^[ÿYàJN¬àYà
+\^[ÿY^[ÿYõ⁄»OOHùYJH¬à\]TôYô\úôY[YQXY€õ‹›X‹ ¬àôYô\úôY[YT›XõZ]Yàô\]Y\›õŸKúôYô\úôY›[YKàJN¬à€€ú›Y\‹ÿYŸU⁄Ÿ[ú»H\úò^Kö\–\úò^J^[ÿYÀõY\‹ÿYŸ\ H»^[ÿYõY\‹ÿYŸ\»à‘›ö[ô ^[ÿYÀõY\‹ÿYŸH^[ÿYÀô\úõ‹àù[òXõW›◊‹ÿ]ôW›ŸYZ€W‹[àäWN¬à€€ú›öY[X\H—öY[\úõ‹ìX\
+Y\‹ÿYŸU⁄Ÿ[ú N¬àŸ][õô\ëöY[\úõ‹ú öY[X\
+N¬à€€ú›Y\‹ÿYŸ\»HÿöôX›ùò[Y\ öY[X\
+Kõ[ô›»ÿöôX›ùò[Y\ öY[X\
+Köõ⁄[äàäHàY\‹ÿYŸU⁄Ÿ[úÀöõ⁄[äãäN¬à€€[Z]Y[ùÿ]ôQôYYòX⁄Àù^€€ù[ùHïŸYZ€H[àÿ]ôHòZ[Yàà
+»Y\‹ÿYŸ\Œ¬à€€[Z]Y[ùX›[€ïòXŸKù^€€ù[ùHú[õô\àX›[€àòXŸNàô\‹€úŸWŸòZ[Y
+à
+»›ö[ô ^[ÿYÀô\úõ‹àù[ö€õ›€óŸ\úõ‹àäH
+»äKàé¬àô]\õé¬àBà\]TôYô\úôY[YQXY€õ‹›X‹ ¬àôYô\úôY[YT›XõZ]Yàô\]Y\›õŸKúôYô\úôY›[YKàJN¬àŸ][õô\ëöY[\úõ‹ú ﬂJN¬à€€[Z]Y[ùÿ]ôQôYYòX⁄Àù^€€ù[ùHñ[›\àŸYZ€H[à\»Ÿ]àé¬à€€[Z]Y[ùX›[€ïòXŸKù^€€ù[ùHú[õô\àX›[€àòXŸNàô\‹€úŸW€⁄»
+ÿ⁄Y[Y‹Ÿ\‹⁄[€úœHà
+»›ö[ô 
+^[ÿYúÿ⁄Y[Y‹Ÿ\‹⁄[€ú»◊JKõ[ô›
+H
+»äKàé¬àô[ô\ê€€[Z]Y[ùÿ⁄Y[Tô]öY] ^[ÿYúÿ⁄Y[Y‹Ÿ\‹⁄[€ú»◊JN¬à]ÿZ]ÿYŸYZ—^\öY[òŸJ
+N¬àJN¬àJN¬àX\ö”ô^Ÿ\‹⁄[€ê€€\]PùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›Ÿ\‹⁄[€íYH›ö[ô X\ö”ô^Ÿ\‹⁄[€ê€€\]Pùãô]\Ÿ]úŸ\‹⁄[€íYàäN¬àYà
+\Ÿ\‹⁄[€íY[]\›ŸYZ‘^[ÿY
+Hô]\õé¬à]ÿZ]⁄]ù]€êù\ﬁJX\ö”ô^Ÿ\‹⁄[€ê€€\]Pùãê€€\][ô¯†)àã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›ô\›[H]ÿZ]›XõZ]Ÿ\‹⁄[€ê€€\]JŸ\‹⁄[€íY
+N¬àYà
+\ô\›[õ⁄ H¬àŸ]ô^X›[€î›]\ êX›[€àõÿ⁄ŸYãê€›[õ›X\ö»Ÿ\‹⁄[€à€€\]Nàà
+»›ö[ô ô\›[ô\úõ‹àù[ö€õ›€óŸ\úõ‹àäJN¬àô]\õé¬àBà]ÿZ]ÿYŸYZ—^\öY[òŸJ
+N¬àJN¬àJN¬à‹[ìô^Ÿ\‹⁄[€êùãòY]ô[ù\›[ô\äò€X⁄»ãù[ò›[€à
+
+H¬à€€ú›Ÿ\‹⁄[€íYH›ö[ô ‹[ìô^Ÿ\‹⁄[€êùãô]\Ÿ]úŸ\‹⁄[€íYàäN¬àYà
+\Ÿ\‹⁄[€íY[]\›ŸYZ‘^[ÿYÀùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬àŸ[X›YŸ\‹⁄[€íYHŸ\‹⁄[€íY¬àô[ô\î[õô\ä]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+N¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãì‹[ôYÿ⁄Y[YŸ\‹⁄[€à\‹€€à[ãàäN¬àõÿ›\”\‹€€î[ä
+N¬àJN¬à›\ùŸ^TŸ\‹⁄[€êùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àYà
+[]\›ŸYZ‘^[ÿYÀùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬àYà
+›\ùŸ^TŸ\‹⁄[€êùãô]\Ÿ]úŸ\‹⁄[€íY
+HŸ[X›YŸ\‹⁄[€íYH›ö[ô ›\ùŸ^TŸ\‹⁄[€êùãô]\Ÿ]úŸ\‹⁄[€íY
+N¬àô[ô\î[õô\ä]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+N¬àYà
+Ÿ[X›YŸ\‹⁄[€íY
+H¬à]ÿZ]⁄]ù]€êù\ﬁJ›\ùŸ^TŸ\‹⁄[€êùãî›\ù[ô¯†)àã\ﬁ[ò»ù[ò›[€à
+
+H¬à]ÿZ]ÿ]ôQ^X›][€êX›[€äú›\ù›ŸYZ»äN¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãî›\ù[ô»Ÿ^x†&\»Ÿ[X›YŸ\‹⁄[€ãàäN¬àõÿ›\”\‹€€î[ä
+N¬àJN¬àH[ŸH¬àŸ]ô^X›[€î›]\ êX›[€àõÿ⁄ŸYãêùZ[[›\àŸYZ€H[à[ôÿ⁄Y[HHŸ\‹⁄[€àö\ú›àäN¬àBàJN¬àô\›[YUŸ^TŸ\‹⁄[€êùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àYà
+[]\›ŸYZ‘^[ÿYÀùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬àYà
+ô\›[YUŸ^TŸ\‹⁄[€êùãô]\Ÿ]úŸ\‹⁄[€íY
+HŸ[X›YŸ\‹⁄[€íYH›ö[ô ô\›[YUŸ^TŸ\‹⁄[€êùãô]\Ÿ]úŸ\‹⁄[€íY
+N¬àô[ô\î[õô\ä]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+N¬àYà
+Ÿ[X›YŸ\‹⁄[€íY
+H¬à]ÿZ]⁄]ù]€êù\ﬁJô\›[YUŸ^TŸ\‹⁄[€êùãîô\›[Z[ô¯†)àã\ﬁ[ò»ù[ò›[€à
+
+H¬à]ÿZ]ÿ]ôQ^X›][€êX›[€äò€€ù[ùYW›◊€ô^‹›\äN¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãîô\›[Z[ô»Ÿ[X›YŸ\‹⁄[€ãàäN¬àõÿ›\”\‹€€î[ä
+N¬àJN¬àH[ŸH¬àŸ]ô^X›[€î›]\ êX›[€àõÿ⁄ŸYãìõ»Ÿ\‹⁄[€à»ô\›[YKàäN¬àBàJN¬àöY]’ŸYZ€T[êùãòY]ô[ù\›[ô\äò€X⁄»ãù[ò›[€à
+
+H¬à[õô\êÿ[[ô\ë‹öYúÿ‹õ€[ù’öY] »ôZ]ö[‹éàú€[€›ãõÿ⁄Œàú›\ùàJN¬àJN¬à[õô\êÿ[[ô\ë‹öYòY]ô[ù\›[ô\äò€X⁄»ãù[ò›[€à
+]ô[ù
+H¬à€€ú›\ôŸ]H]ô[ùù\ôŸ]¬àYà
+]\ôŸ]]\ôŸ]ô]\Ÿ]
+Hô]\õé¬à€€ú›X›[€àH›ö[ô \ôŸ]ô]\Ÿ]òX›[€ààäN¬àYà
+X›[€àOOHõ‹[ã\Ÿ\‹⁄[€àäHô]\õé¬à€€ú›Ÿ\‹⁄[€íYH›ö[ô \ôŸ]ô]\Ÿ]úŸ\‹⁄[€íYàäN¬àYà
+\Ÿ\‹⁄[€íY[]\›ŸYZ‘^[ÿYÀùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬àŸ[X›YŸ\‹⁄[€íYHŸ\‹⁄[€íY¬àô[ô\î[õô\ä]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+N¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãì‹[ôY\‹€€à[àõ‹àŸ[X›YŸ\‹⁄[€ãàäN¬àõÿ›\”\‹€€î[ä
+N¬àJN¬àYŸ[ôS\›òY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+]ô[ù
+H¬à€€ú›\ôŸ]H]ô[ùù\ôŸ]¬àYà
+]\ôŸ]]\ôŸ]ô]\Ÿ]
+Hô]\õé¬à€€ú›X›[€àH›ö[ô \ôŸ]ô]\Ÿ]òX›[€ààäN¬à€€ú›Ÿ\‹⁄[€íYH›ö[ô \ôŸ]ô]\Ÿ]úŸ\‹⁄[€íYàäN¬àYà
+XX›[€à\Ÿ\‹⁄[€íY[]\›ŸYZ‘^[ÿYÀùŸYZ◊ÿ€€ù[ù
+Hô]\õé¬àŸ[X›YŸ\‹⁄[€íYHŸ\‹⁄[€íY¬àYà
+X›[€àOOHò€€\]K\Ÿ\‹⁄[€àäH¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãìX\ö⁄[ô»Ÿ[X›YŸ\‹⁄[€à€€\]x†)àäN¬à€€ú›ô\›[H]ÿZ]›XõZ]Ÿ\‹⁄[€ê€€\]JŸ\‹⁄[€íY
+N¬àYà
+\ô\›[õ⁄ H¬àŸ]ô^X›[€î›]\ êX›[€àõÿ⁄ŸYãê€›[õ›X\ö»Ÿ\‹⁄[€à€€\]Nàà
+»›ö[ô ô\›[ô\úõ‹àù[ö€õ›€óŸ\úõ‹àäJN¬àô]\õé¬àBà]ÿZ]ÿYŸYZ—^\öY[òŸJ
+N¬àô]\õé¬àBàYà
+X›[€àOOHúô\›[YK\Ÿ\‹⁄[€àäH¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãîô\›[Z[ô»Ÿ[X›YŸ\‹⁄[€∏†)àäN¬à]ÿZ]ÿ]ôQ^X›][€êX›[€äú›\ù›ŸYZ»äN¬àBàô[ô\î[õô\ä]\›ŸYZ‘^[ÿYùŸYZ◊ÿ€€ù[ù
+N¬àõÿ›\”\‹€€î[ä
+N¬àJN¬àô\›[YTŸ\‹⁄[€êùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àYà
+\Ÿ[X›YŸ\‹⁄[€íY
+Hô]\õé¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãîô\›[Z[ô»Ÿ[X›Y\‹€€ã\[àŸ\‹⁄[€∏†)àäN¬à]ÿZ]⁄]ù]€êù\ﬁJô\›[YTŸ\‹⁄[€êùãîô\›[Z[ô¯†)àã\ﬁ[ò»
+
+HOàÿ]ôQ^X›][€êX›[€äú›\ù›ŸYZ»äJN¬àJN¬à€€\]TŸ[X›YŸ\‹⁄[€êùãòY]ô[ù\›[ô\äò€X⁄»ã\ﬁ[ò»ù[ò›[€à
+
+H¬àYà
+\Ÿ[X›YŸ\‹⁄[€íY[]\›ŸYZ‘^[ÿY
+Hô]\õé¬àŸ]ô^X›[€î›]\ êX›[€à[àõŸ‹ô\‹»ãê€€\][ô»Ÿ[X›Y\‹€€ã\[àŸ\‹⁄[€∏†)àäN¬à]ÿZ]⁄]ù]€êù\ﬁJ€€\]TŸ[X›YŸ\‹⁄[€êùãê€€\][ô¯†)àã\ﬁ[ò»ù[ò›[€à
+
+H¬à€€ú›ô\›[H]ÿZ]›XõZ]Ÿ\‹⁄[€ê€€\]JŸ[X›YŸ\‹⁄[€íY
+N¬àYà
+\ô\›[õ⁄ H¬àŸ]ô^X›[€î›]\ êX›[€àõÿ⁄ŸYãê€›[õ›X\ö»Ÿ\‹⁄[€à€€\]Nàà
+»›ö[ô ô\›[ô\úõ‹àù[ö€õ›€óŸ\úõ‹àäJN¬àô]\õé¬àBà]ÿZ]ÿYŸYZ—^\öY[òŸJ
+N¬àJN¬àJN¬àô]\õïŸYZ€S›ô\ùöY]–ùãòY]ô[ù\›[ô\äò€X⁄»ãù[ò›[€à
+
+H¬àŸYZ—^\öY[òŸKúÿ‹õ€[ù’öY] »ôZ]ö[‹éàú€[€›ãõÿ⁄Œàú›\ùàJN¬àJN¬Çà€€ú›úöYŸHH]ÿZ]ÿYúöYŸJ
+N¬à]ÿZ]ÿYŸYZ—^\öY[òŸJ
+N¬àYà
+úöYŸH	âàúöYŸKö\◊Ÿ[úõ€Y[ùOOHùYJH‹[ïŸYZ—õ› 
+N¬àJ
+JN¬à‹ÿ‹ö\ÇàÿõŸOÇè⁄[ò¬üBÇôù[ò›[€àùZ[]\õZ[ö\›X”ò\úò]]ôJ[ù\úô]][€àHﬂJH¬àYà
+[ù\úô]][€èÀö[ò€€\]JH¬àô]\õà¬à‹[ö[ôŒàì[‹ôHô\‹€úŸ\»\ôHôYYYôYõ‹ôHòZ][ù\úô]][€àÿ[àôH⁄›€ãàãàõÿ›\◊ÿ\ôXNàîX\ŸH€€\]HY][€ò[]Y\›[€ú»€»Hÿ‹ôY[ô\à\»[õ›Y⁄›\úô[ù]öY[òŸKàãàô^‹›\à[ù\úô]][€ãõY\‹ÿYŸKàN¬àBÇà€€ú›Y⁄\›H[ù\úô]][€ãöY⁄\››òZ]¬à€€ú››Ÿ\›H[ù\úô]][€ãõ›Ÿ\››òZ]¬à€€ú›€€ôõX›H[ù\úô]][€ãò€€ôõX›¬Çà€€ú›‹[ö[ô»HY⁄\›à»[›\à⁄[›\úô[ùH⁄›‹»H›õ€ôŸ\›]\õà[à	⁄Y⁄\›ùòZ]€ò[Y_H
+	”ù[Xô\äY⁄\›ò›\úô[ù‹ÿ€‹ôH
+Kù—ö^Y
+J_JKòààïòZ]›ô[ô›»⁄[‹[]HYù\à[[ùZŸH[ú›Ÿ\ú»\ôH›XõZ]Yàé¬à€€ú›õÿ›\–\ôXHH›Ÿ\›à»HòX›Xÿ[›\‹ùõÿ›\»\»	€›Ÿ\›ùòZ]€ò[Y_H
+	”ù[Xô\ä›Ÿ\›ò›\úô[ù‹ÿ€‹ôH
+Kù—ö^Y
+J_JK⁄\ôH›ùX›\ôYô\]][€àÿ[à[\õ›ôH€€ú⁄\›[òﬁKòààìõ»[[YYX]H›»òZ]⁄Y€ò[\»]òZ[XõHY]àé¬à€€ú›ô^›\H€€ôõX›à»ÿ]⁄H	ÿ€€ôõX›ò€€ôõX›⁄Ÿ^_Hÿ\à	ÿ€€ôõX›ö[ú⁄Y⁄Xààìõ»XZõ‹àòZ]€€ôõX›\»›\úô[ùH]X›Yàé¬Çàô]\õà»‹[ö[ôÀõÿ›\◊ÿ\ôXNàõÿ›\–\ôXKô^‹›\àô^›\N¬üBÇôù[ò›[€àùZ[[›]\‹Ÿ\‹‘^[ÿY
+[ú›Ÿ\îZ\úÀ‹[€ú»HﬂJH¬à€€ú›ÿ€‹ö[ô»Hù[ñ[›][ùZŸTÿ€‹ö[ô [ú›Ÿ\îZ\úÀ¬à[ò[ú›Ÿ\ôY€›[ùà‹[€úÀù[ò[ú›Ÿ\ôY€›[ùà›[]Y\›[€úŒàS’U‘UQT’S”ó–êSíÀõ[ô›àJN¬à€€ú›ô\›[HùZ[[›]]ô[‹Y[ùô\›[
+ÿ€‹ö[ôÀùòZ]‹õ›‹À¬àŸ[ô\ò]Y]à‹[€úÀôŸ[ô\ò]Y]ååçãLLM’åååàãà]öY[òŸT›[[X\ûNà¬à€›\òŸ\◊›\ŸYà»ú\ô[ù€ÿúŸ\ùò][€àóKà€€ôöY[òŸWÿÿ]ôX]Œà¬àî\ô[ù[ÿúŸ\ùò][€à[ùZŸH€õNà[›]]»\ôHõ›ö\⁄[€ò[]ô[‹Y[ù[⁄Y€ò[Ààãàï\»ÿ‹ôY[ô\à\»]öY[òŸKZ[ôõ‹õYY[ô\⁄Y€ôYõ‹àò[Y][€ãõ›HﬁX⁄€Y]öXÿ[Hò[Y]Y[ú›ù[Y[ùàãàKàKàJN¬à€€ú›\⁄õÿ\ôHùZ[[›]]ô[‹Y[ù\⁄õÿ\ô
+ô\›[»X^][\ŒàHJN¬à€€ú›YŸS[Ÿ[HùZ[\ô[ù\⁄õÿ\ôYŸS[Ÿ[
+\⁄õÿ\ô¬àYŸW›]Nàñ[›]]ô[‹Y[ù\ô[ù\⁄õÿ\ôãàYŸW‹›Xù]Nàê\‹Ÿ\‹€Y[ùŸ[ô\ò]Yúõ€H]\õZ[ö\›X»\ô[ù[ùZŸHô\‹€úŸ\ÀàãàX^][\ŒàKàJN¬Çà€€ú›[ú⁄Y⁄ò\úò]]ôHHùZ[]\õZ[ö\›X”ò\úò]]ôJÿ€‹ö[ôÀö[ù\úô]][€äN¬à€€ú›[úöX⁄YYŸS[Ÿ[H¬àããúYŸS[Ÿ[à[ú⁄Y⁄€ò\úò]]ôNà¬àããúYŸS[Ÿ[ö[ú⁄Y⁄€ò\úò]]ôKàããö[ú⁄Y⁄ò\úò]]ôKàKàN¬Çàô]\õà¬àÿ€‹ö[ôÀàô\›[à\⁄õÿ\ôàYŸW€[Ÿ[à[úöX⁄YYŸS[Ÿ[àô[ô\ôY⁄[àô[ô\ñ[›]]ô[‹Y[ù\ô[ù\⁄õÿ\ôYŸJ[úöX⁄YYŸS[Ÿ[
+KàòZ]‹ô\‹ùŒàÿ€‹ö[ôÀùòZ]‹ô\‹ùÀàN¬üBÇôù[ò›[€àùZ[ô]öY]‘^[ÿY
+
+H¬à€€ú›ô\›[HùZ[[›]]ô[‹Y[ùô\›[
+ëUíQU◊–Q—‘ëQ–UQ‘ì’‘ÀëUíQU◊”‘S”î N¬à€€ú›\⁄õÿ\ôHùZ[[›]]ô[‹Y[ù\⁄õÿ\ô
+ô\›[»X^][\ŒàHJN¬à€€ú›YŸS[Ÿ[HùZ[\ô[ù\⁄õÿ\ôYŸS[Ÿ[
+\⁄õÿ\ô¬àYŸW›]Nàñ[›]]ô[‹Y[ù\ô[ù\⁄õÿ\ô
+ô]öY] HãàYŸW‹›Xù]Nàîô]öY]»»\›[€õHô[ô\ö[ô»úõ€H]\õZ[ö\›X»ö^\ôH]KàãàX^][\ŒàKàJN¬Çàô]\õà¬àö^\ôWÿYŸ‹ôYÿ]Y‹õ›‹ŒàëUíQU◊–Q—‘ëQ–UQ‘ì’‘Ààô\›[à\⁄õÿ\ôàYŸW€[Ÿ[àYŸS[Ÿ[àN¬üBÇôù[ò›[€àô[ô\ì]ôV[›]‹õ››[îYŸJ
+H¬àô]\õàYÿ›\H[Çè[[ôœHô[àèèXYèY]H⁄\úŸ]Hù]ãNèèY]Hò[YOHùöY]‹‹ùà€€ù[ùHù⁄YY]öXŸK]⁄Y[ö]X[\ÿÿ[OLHèè]OëŸ[ö]\»‹õ››[è›]OÇè›[OÇéúõ€›ÀKZ[öŒàÃLåÿŒÀK\\\éàŸçŸòôôéÀK[ò]ûNàÃÃMôÀKXÿ\ôàŸôôéÀKX\]XNàÕåôMYéÀKXõYNàÃÃMXôNÀK[]]YàÕåMÃéÀK[[ôNàŸôMYåŒÀKY€€àŸçXôŸ_Jûÿõﬁ\⁄^ö[ôŒòõ‹ô\ãXõﬁXõŸ^€X\ô⁄[éåÿòX⁄Ÿ‹õ›[ôõ[ôX\ãY‹òYY[ù
+LÕYYÀŸYYéòãŸçŸçYôàMIKŸôôéäNÿ€€‹éùò\äKZ[ö NŸõ€ùåM‹ÃKçHﬁ\›[K]ZKX\K\ﬁ\›[Kõ[ö”XX‘ﬁ\›[Qõ€ùîŸY€ŸHRHãÿ[úÀ\Ÿ\öYüKú⁄[€X^]⁄Yé€X\ô⁄[éò]]Œ‹Y[ôŒååKö\õﬁÿ€€‹éàŸôôéÿòX⁄Ÿ‹õ›[ôúòYX[Y‹òYY[ù
+⁄\ò€H]IHMIKÃÃMXôHÃLôMåHçIKò\äK[ò]ûJHÃ	JNÿõ‹ô\ã\òY]\Œåé‹Y[ôŒåÃúÿõﬁ\⁄Y›ŒåN\ÃMççLÃKô^YXúõ›ﬁ€X\ô⁄[éå›^]ò[úŸõ‹õNù\\òÿ\ŸN€]\ã\‹X⁄[ôŒãåLŸ[NŸõ€ù\⁄^ôNãéô[NŸõ€ù]ŸZY⁄éÿ€€‹éàŒYôçôMﬂKö\õ»^Ÿõ€ù\⁄^ôNò€[\
+úô[K›ùÀÀç‹ô[JN€[ôKZZY⁄åN€X\ô⁄[éåMKö\õ»€X^]⁄Yçç€X\ô⁄[éåÿ€€‹éàŸŸNôéŸõ€ù\⁄^ôNåKå\ô[_Kù‹ò]ûŸ\‹^Nôõ^Ÿÿ\åLŸõ^]‹ò\ù‹ò\€X\ô⁄[ã]‹ååúKòù]€ûÿõ‹ô\éåÿõ‹ô\ã\òY]\ŒåM‹Y[ôŒåL‹M‹Ÿõ€ùö[ö\ö]Ÿõ€ù]ŸZY⁄éÿ›\ú€‹éú⁄[ù\é›^YX€‹ò][€éõõ€ôNŸ\‹^Nö[õ[ôKXõÿ⁄ﬂKúö[X\û^ÿòX⁄Ÿ‹õ›[ôùò\äKX\]XJNÿ€€‹éàÃåLÿ_KúŸX€€ô\û^ÿòX⁄Ÿ‹õ›[ôàŸôôôôôåYéÿ€€‹éàŸôôéÿõ‹ô\éå\€€YŸôôôôôççüKö[ùõﬁ€X\ô⁄[éååúLúKö[ùõ»û€X\ô⁄[éåŸõ€ù\⁄^ôNåKç\ô[_Kö[ùõ»€X\ô⁄[éç\ÿ€€‹éùò\äK[]]Y
+_Kô‹öYŸ\‹^Nô‹öYŸ‹öY][\]KX€€[[úŒúô\X]
+ãZ[õX^
+YúäJNŸÿ\åMúKòÿ\ôÿòX⁄Ÿ‹õ›[ôùò\äKXÿ\ô
+Nÿõ‹ô\éå\€€Yò\äK[[ôJNÿõ‹ô\ã\òY]\Œååú‹Y[ôŒååúÿõﬁ\⁄Y›ŒåçÃXåÃçåÃLﬂKòÿ\ôù⁄Y^Ÿ‹öYX€€[[éåKÀL_KõXô[Ÿõ€ù\⁄^ôNãçŒô[N€]\ã\‹X⁄[ôŒãåY[N›^]ò[úŸõ‹õNù\\òÿ\ŸNŸõ€ù]ŸZY⁄éLÿ€€‹éàÃÃMXôN€X\ô⁄[éå‹Kòÿ\ôﬁŸõ€ù\⁄^ôNåKåÕ\ô[N€[ôKZZY⁄åKåé€X\ô⁄[éå\Kòÿ\ô€X\ô⁄[éåÿ€€‹éàÕMMMÃ_KùYﬁŸ\‹^Nö[õ[ôKXõÿ⁄Œÿõ‹ô\ã\òY]\ŒéNN\ÿòX⁄Ÿ‹õ›[ôàŸMôéçÿ€€‹éàÃLçôçåŒ‹Y[ôŒç\LŸõ€ù\⁄^ôNãéô[NŸõ€ù]ŸZY⁄é€X\ô⁄[ã]‹åLúKòX›[€ûÿõ‹ô\ã[Yùç\€€Yò\äKY€€
+NÿòX⁄Ÿ‹õ›[ôàŸôôòYåKúôYõX›[€à^\ôX^›⁄YåL	N€Z[ãZZY⁄åLLÿõ‹ô\éå\€€YÿYXôYNÿõ‹ô\ã\òY]\ŒåM‹Y[ôŒåLúŸõ€ùö[ö\ö]ÿ€€‹éùò\äKZ[ö N€X\ô⁄[éåLKúôYõX›[€àòù]€ûÿòX⁄Ÿ‹õ›[ôùò\äKXõYJNÿ€€‹éàŸôôüKõõ›XŸ^ÿòX⁄Ÿ‹õ›[ôàŸYôéôéÿõ‹ô\ãX€€‹éàÿòŸôüKô[\^€X\ô⁄[ã]‹ååúÿòX⁄Ÿ‹õ›[ôàŸôôéÿõ‹ô\éå\€€Yò\äK[[ôJNÿõ‹ô\ã\òY]\Œåå‹Y[ôŒååúKöY[ûŸ\‹^Nõõ€ô_KõÿY[ôﬁÿ€€‹éùò\äK[]]Y
+_PYYXJX^]⁄Yçåå
+^Àú⁄[‹Y[ôŒåMKö\õﬁ‹Y[ôŒåç\Kô‹öYŸ‹öY][\]KX€€[[úŒåYúüKòÿ\ôù⁄Y^Ÿ‹öYX€€[[éò]]ﬂ_Bè‹›[Oè⁄XYèõŸOÇà›[OÇàõŸKû[›]\ÿŸ[ôH¬àòX⁄Ÿ‹õ›[ôZ[XYŸNà[ôX\ãY‹òYY[ù
+NYÀôÿòJÀLMÀçé
+KôÿòJÀLMÀé
+JKò\äK^[›]\ÿŸ[ôK]\õ
+HZ[\‹ù[ù¬àòX⁄Ÿ‹õ›[ô\⁄^ôNà€›ô\àZ[\‹ù[ù¬àòX⁄Ÿ‹õ›[ô\‹⁄][€éàŸ[ù\à‹Z[\‹ù[ù¬àòX⁄Ÿ‹õ›[ôX]X⁄Y[ùàö^YZ[\‹ù[ù¬àBàõŸKû[›]\ÿŸ[ôHú[ô[»òX⁄Ÿõ‹Yö[\éàõ\ä
+N»]ŸXö⁄]XòX⁄Ÿõ‹Yö[\éàõ\ä
+N»Bà‹›[OÇàÿ‹ö\Çà
+ù[ò›[€ä
+^¬à€€ú›ÿŸ[ô\œV¬à	ÀÿY[ö‹òK[Xúò\ûKÃëL—êPÀLÃLêKMêÃPëÕKPMÕÕMÃÃçúô…Àà	ÀÿY[ö‹òK[Xúò\ûKÕ–—QçåLMÃŒMãMNMPMÀQNNMÕéMŒÃÀúô…Àà	ÀÿY[ö‹òK[Xúò\ûK—PŒPNLÃãMÀMPLãPëÕÀMÃ–P—PëMåPÀúô…¬àN¬à]OL¬àûH»OJù[Xô\äŸ\‹⁄[€î›‹òYŸKôŸ]][J	ﬁ[›]ÿŸ[ôR[ô^	 _	ÀLI JÃJI\ÿŸ[ô\Àõ[ô›‹Ÿ\‹⁄[€î›‹òYŸKúŸ]][J	ﬁ[›]ÿŸ[ôR[ô^	À›ö[ô JJN»Bàÿ]⁄
+ H»OSX]ôõ€‹äX]úò[ô€J
+JúÿŸ[ô\Àõ[ô›
+N»Bàÿ›[Y[ùòõŸKò€\‹”\›òY
+	ﬁ[›]\ÿŸ[ôI N¬àÿ›[Y[ùòõŸKú›[KúŸ]õ‹\ùJ	ÀK^[›]\ÿŸ[ôK]\õ	À	›\õ
+â ‹ÿŸ[ô\÷⁄WJ…»äI N¬àJJ
+N¬à‹ÿ‹ö\èXZ[à€\‹œHú⁄[èÇèŸX›[€à€\‹œHö\õ»èè€\‹œHô^YXúõ›»èî\ô[ù€€\[ö[€è‹èHYHù]HèëŸ[ö]\»‹õ››[è⁄OèYHö\õ–€‹HèêH€X[€X\à[àùZ[úõ€H⁄][›H]ôHÿúŸ\ùôY[ô⁄][›\à⁄[\»X\õö[ôÀè‹èò]à€\‹œHù‹ò]àèèHYHô\⁄õÿ\ô[ö»à€\‹œHòù]€àŸX€€ô\ûHàôYèHãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôè∏°§Ÿ[ö]\»\⁄õÿ\ôÿOèHYHõX\õö[ô”[ö»à€\‹œHòù]€àö[X\ûHàôYèHãﬁ[›]Y]ô[‹Y[ùÿY\]ôK[X\õö[ô»èì‹[àY\]ôHX\õö[ô»8°§èÿOè€ò]èè‹ŸX›[€èÇèŸX›[€àYHú[àà€\‹œHöY[àèè]à€\‹œHö[ùõ»èèèï\»ŸYZÀŸY\]⁄[\Kè⁄èèï\ŸH€ôH›ô[ô›òX›XŸH€ôH‹õ››\ôXK[ôõ›XŸH⁄][Àà\ôH\»õ»ÿ[[ô\à»X[òYŸH[ôõ»\⁄[ùY[ù[YH»Ÿ]è‹èŸ]èè]à€\‹œHô‹öYèè\ùX€H€\‹œHòÿ\ôèè€\‹œHõXô[èî›ô[ô›»ùZ[úõ€O‹è»YHú›ô[ô›]Hè∏†%⁄œèYHú›ô[ô›€‹Hè∏†%‹è‹[à€\‹œHùY»èï\ŸH\»\»H[ùûH⁄[ù‹‹[èèÿ\ùX€Oè\ùX€H€\‹œHòÿ\ôèè€\‹œHõXô[èë‹õ››õÿ›\œ‹è»YHôõÿ›\’]Hè∏†%⁄œèYHôõÿ›\–€‹Hè∏†%‹è‹[à€\‹œHùY»èîòX›XŸH⁄][ò€›\òYŸ[Y[ù‹‹[èèÿ\ùX€Oè\ùX€H€\‹œHòÿ\ô⁄YHX›[€àèè€\‹œHõXô[èïûH\»]€YO‹è»YHòX›[€ï]Hèì€ôHYX[ö[ôŸù[[€Y[ù\»[õ›Y⁄è⁄œèYHòX›[€ê€‹Hèê⁄€‹ŸHH⁄‹ùX›]ö]H⁄\ôH[›\à⁄[ÿ[à\ŸHH›\úô[ù›ô[ô›⁄[HòX›X⁄[ô»Hõÿ›\»\ôXKàõ›XŸHYôõ‹ù›ò]YﬁK[ô⁄]^H[öõﬁKè‹èÿ\ùX€Oè\ùX€H€\‹œHòÿ\ôõ›XŸHèè€\‹œHõXô[èìX\õö[ô»€€õôX›[€è‹èœîòX›XŸHHÿ⁄€€⁄⁄[ŸŸ]\è⁄œèì‹[àY\]ôHX\õö[ô»»][›\à⁄[€€ù[ùYHúõ€HHöY⁄X\õö[ô»]ô[àZ\àX\õö[ô»õŸ‹ô\‹»›^\»Ÿ\\ò]Húõ€HHŸ[ö]\»€ò\⁄›ù]õ›ÿ[à›ZYH[›\à›\‹ùè‹èÿ\ùX€Oè\ùX€H€\‹œHòÿ\ôôYõX›[€àèè€\‹œHõXô[èî\ô[ùôYõX›[€è‹èœï⁄]Y[›Hõ›XŸOœ⁄œèîÿ]ôH€ôHÿúŸ\ùò][€àõ‹à[›\àò[Z[Kà]\»Hõ›Kõ›Hÿ€‹ôH‹àXY€õ‹⁄\Àè‹è^\ôXHYHúôYõX›[€ààX^[ô›HåLåàXŸZ€\èHë^[\Nà⁄H›^YY⁄]HúòX›[€à[Ÿ[€ôŸ\à⁄[à⁄H€›[^Z[à]›]›Yàèè›^\ôXOèù]€àYHúÿ]ôTôYõX›[€àà€\‹œHòù]€àà\OHòù]€àèîÿ]ôH^Hõ›Oÿù]€èèYHúÿ]ôT›]\»à\öXK[]ôOHú€]Hà€\‹œHõÿY[ô»èè‹èÿ\ùX€OèŸ]èè‹ŸX›[€èÇèŸX›[€àYHô[\Hà€\‹œHô[\HY[àèèèî›\ù⁄]HŸ[ö]\»\‹Ÿ\‹€Y[ù⁄èèì€òŸHH\ô[ù\‹Ÿ\‹€Y[ù\»ÿ]ôYõ‹à\»⁄[\»YŸH⁄[\õà][ù»HòX›Xÿ[‹õ››[ãè‹èHYHò\‹Ÿ\‹€Y[ù[ö»à€\‹œHòù]€àö[X\ûHàôYèHãﬁ[›]Y]ô[‹Y[ù⁄[ùZŸHèêôY⁄[à\ô[ù\‹Ÿ\‹€Y[ù8°§èÿOè‹ŸX›[€èèYHõÿY[ô»à€\‹œHõÿY[ô»èìÿY[ô»[›\à⁄[8†&\»[∏†)è‹è€XZ[èÇèÿ‹ö\äù[ò›[€ä
+^ÿ€€ú›O[ô]»TìŸX\ò⁄\ò[\ ÿÿ][€ãúŸX\ò⁄
+K›^›[ò[ùäKôŸ]
+	›[ò[ù	 _	… Kùö[J
+K[XZ[äKôŸ]
+	Ÿ[XZ[	 _	… Kùö[J
+K⁄[⁄YäKôŸ]
+	ÿ⁄[⁄Y	 _KôŸ]
+	ÿ⁄[Y	 _	… Kùö[J
+_Nÿ€€ú›Y]O^‘‘éâ‘Ÿ[ãTôY›[][€âÀ‘Nâ–›\ö[‹⁄]H	à]Y\›[€ö[ô…À‘éâ–‹ôX]]ôHôX\€€ö[ô…ÀîŒâ‘ô\⁄[Y[òŸIÀŒâ‘õÿõ[H€€ö[ô…Àêéâ—õÿ›\»	àõ€›ÀUõ›Y⁄	ÀNâ“[ù\ô\›»	à\‹⁄[€à\ôX\…ﬂNÿ€€ú›\ÿœ]èOî›ö[ô èO[ù[……ŒùäKúô\XŸJ÷…èàâ◊KŸÀœOä……âŒâ…ò[\…À	œ	Œâ…õ…À	œâŒâ…ô›…À	»âŒâ…ú][›…Àâ»éâ…àÃŒN…ﬂVÿ◊JJNŸù[ò›[€àÿ€‹Y
+]
+^ÿ€€ú›O[ô]»Tì
+]ÿÿ][€ãõ‹öY⁄[äN”ÿöôX›ô[ùöY\ ›
+Kôõ‹ëXX⁄
+
+⁄ÀóJOOùââùKúŸX\ò⁄\ò[\ÀúŸ]
+ÀäJN‹ô]\õàKú]ò[YJ›KúŸX\ò⁄Yù[ò›[€àX⁄ ÿ\ôÀ‹ô\ä^‹ô]\õàÿ\ôÀú€XŸJ
+Kú€‹ù
+
+KäOOõ‹ô\ääù[Xô\äãò›\úô[ù‹ÿ€‹ô_
+KSù[Xô\äKò›\úô[ù‹ÿ€‹ô_
+JJVÃ_ﬂ_Yù[ò›[€àò[YJÿ\ô
+^‹ô]\õàY]V‘›ö[ô ÿ\ôùòZ]ÿ€Ÿ_	… Kù’\\êÿ\ŸJ
+W_	÷[›\à⁄[8†&\»ô^\ôXIﬂYù[ò›[€à^
+ÿ\ôŸ^\Àò[òX⁄ ^Ÿõ‹ä€€ú›»ŸàŸ^\ ^⁄Yäÿ\ô	âòÿ\ô⁄◊J\ô]\õà›ö[ô ÿ\ô⁄◊J_\ô]\õàò[òX⁄ﬂYù[ò›[€àô[ô\ä^[ÿY
+^ÿ€€ú›ÿ\ôœJ
+
+
+^[ÿYﬂJKúYŸW€[Ÿ[ﬂJKùòZ]ÿÿ\ôﬂﬂJKòÿ\ô _◊Nÿ€€ú›⁄[J
+
+
+^[ÿYﬂJKõ›€ô\ú⁄\ﬂJKò⁄[‹õŸö[_ﬂJKò⁄[€ò[YJ_	÷[›\à⁄[	ŒŸÿ›[Y[ùôŸ][[Y[ùûRY
+	›]I Kù^€€ù[ùX⁄[
+…¯†&\»Ÿ[ö]\»‹õ››[âŒŸÿ›[Y[ùôŸ][[Y[ùûRY
+	⁄\õ–€‹I Kù^€€ù[ùI–H€X\àŸYZ€H›\‹ù[à⁄\YûH⁄][›H]ôHõ›XŸYXõ›]	 ÿ⁄[
+…ÀâŒ⁄YäXÿ\ôÀõ[ô›
+^Ÿÿ›[Y[ùôŸ][[Y[ùûRY
+	Ÿ[\I Kò€\‹”\›úô[[›ôJ	⁄Y[â N‹ô]\õüX€€ú››ô[ô›\X⁄ ÿ\ôÀJKõÿ›\œ\X⁄ ÿ\ôÀLJNŸÿ›[Y[ùôŸ][[Y[ùûRY
+	‹›ô[ô›]I Kù^€€ù[ù[ò[YJ›ô[ô›
+NŸÿ›[Y[ùôŸ][[Y[ùûRY
+	‹›ô[ô›€‹I Kù^€€ù[ù]^
+›ô[ô›…›⁄]›\◊€YX[ú…À	‹õŸ‹ô\‹◊€€⁄◊Ÿõ‹ú…◊K	’\»\»H›\úô[ù›ô[ô›»[ò€›\òYŸH[ô\ŸH\ö[ô»òX›XŸKâ NŸÿ›[Y[ùôŸ][[Y[ùûRY
+	Ÿõÿ›\’]I Kù^€€ù[ù[ò[YJõÿ›\ NŸÿ›[Y[ùôŸ][[Y[ùûRY
+	Ÿõÿ›\–€‹I Kù^€€ù[ù]^
+õÿ›\À…›⁄]›\◊€YX[ú…À	Ÿ[[›[€ò[ÿ€€ù^	À	‹õŸ‹ô\‹◊€€⁄◊Ÿõ‹ú…◊K	’\ŸH⁄‹ù›\‹ù]ôHòX›XŸH[ôõ›XŸH€X[⁄Y€ú»Ÿà‹õ››â NŸÿ›[Y[ùôŸ][[Y[ùûRY
+	ÿX›[€ï]I Kù^€€ù[ùI’\ŸH	 €ò[YJ›ô[ô›
+J…»»›\‹ù	 €ò[YJõÿ›\ J…ÀâŒŸÿ›[Y[ùôŸ][[Y[ùûRY
+	ÿX›[€ê€‹I Kù^€€ù[ù]^
+õÿ›\À…‹õŸ‹ô\‹◊€€⁄◊Ÿõ‹ú…À	ÿôZ]ö[‹ó€€⁄◊Ÿõ‹ú…◊K	”Ÿôô\à€ôH⁄‹ùX›]ö]K][›\à⁄[XZŸHH⁄⁄XŸK[ôòZ\ŸHH›ò]YﬁH^H\Ÿx†%õ›ù\›Hô\›[â NŸÿ›[Y[ùôŸ][[Y[ùûRY
+	‹[â Kò€\‹”\›úô[[›ôJ	⁄Y[â _X\ﬁ[ò»ù[ò›[€àÿY
+
+^Ÿÿ›[Y[ùôŸ][[Y[ùûRY
+	Ÿ\⁄õÿ\ô[ö… KöôYè\ÿ€‹Y
+	Àﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ô	 NŸÿ›[Y[ùôŸ][[Y[ùûRY
+	ÿ\‹Ÿ\‹€Y[ù[ö… KöôYè\ÿ€‹Y
+	Àﬁ[›]Y]ô[‹Y[ù⁄[ùZŸI N›û^Ÿÿ›[Y[ùôŸ][[Y[ùûRY
+	‹ôYõX›[€â Kùò[YO[ÿÿ[›‹òYŸKôŸ]][J	ﬁ[›]Y‹õ››[õ›Nâ ÿ›ò⁄[⁄Y
+_	…ﬂXÿ]⁄
+ ^ﬂX€€ú›X\õè[ô]»Tì
+	Àﬁ[›]Y]ô[‹Y[ùÿY\]ôK[X\õö[ô…Àÿÿ][€ãõ‹öY⁄[äN”ÿöôX›ô[ùöY\ ›
+Kôõ‹ëXX⁄
+
+⁄ÀóJOOùââõX\õãúŸX\ò⁄\ò[\ÀúŸ]
+ÀäJN€X\õãúŸX\ò⁄\ò[\ÀúŸ]
+	‹õŸ‹ò[Wÿ€€ù^	À	ﬁ[›]Ÿ]ô[‹Y[ù	 N€X\õãúŸX\ò⁄\ò[\ÀúŸ]
+	‹ô]\õó›\õ	Àÿ€‹Y
+	Àﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[I JNŸÿ›[Y[ùôŸ][[Y[ùûRY
+	€X\õö[ô”[ö… KöôYè[X\õãú]ò[YJ€X\õãúŸX\ò⁄⁄YäX›ù[ò[ùX›ô[XZ[
+^Ÿÿ›[Y[ùôŸ][[Y[ùûRY
+	Ÿ[\I Kò€\‹”\›úô[[›ôJ	⁄Y[â NŸÿ›[Y[ùôŸ][[Y[ùûRY
+	€ÿY[ô… Kù^€€ù[ùI‘⁄Y€à[à[ô⁄€‹ŸHH⁄[»ŸYHH\ú€€ò[^ôY[ãâŒ‹ô]\õü]û^ÿ€€ú›èX]ÿZ]ô]⁄
+ÿ€‹Y
+	Àÿ\Kﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ô€]\›	 JNÿ€€ú›]OX]ÿZ]ãöú€€ä
+N⁄Yä]Iâô]Kõ⁄…âô]Kö\◊‹ô\›[
+\ô[ô\ä]Kú^[ÿY
+NŸ[ŸHÿ›[Y[ùôŸ][[Y[ùûRY
+	Ÿ[\I Kò€\‹”\›úô[[›ôJ	⁄Y[â _Xÿ]⁄
+ ^Ÿÿ›[Y[ùôŸ][[Y[ùûRY
+	Ÿ[\I Kò€\‹”\›úô[[›ôJ	⁄Y[â _Yö[ò[^Ÿÿ›[Y[ùôŸ][[Y[ùûRY
+	€ÿY[ô… Kò€\‹”\›òY
+	⁄Y[â __Yÿ›[Y[ùôŸ][[Y[ùûRY
+	‹ÿ]ôTôYõX›[€â KòY]ô[ù\›[ô\ä	ÿ€X⁄…À
+
+OOûÿ€€ú›õ›OYÿ›[Y[ùôŸ][[Y[ùûRY
+	‹ôYõX›[€â Kùò[YKùö[J
+K›]\œYÿ›[Y[ùôŸ][[Y[ùûRY
+	‹ÿ]ôT›]\… N⁄Yä[õ›J^‹›]\Àù^€€ù[ùI’‹ö]H€ôHÿúŸ\ùò][€àö\ú›âŒ‹ô]\õü]û^€ÿÿ[›‹òYŸKúŸ]][J	ﬁ[›]Y‹õ››[õ›Nâ ÿ›ò⁄[⁄Yõ›JN‹›]\Àù^€€ù[ùI÷[›\àõ›H\»ÿ]ôY€à\»]öXŸKâﬂXÿ]⁄
+ ^‹›]\Àù^€€ù[ùI÷[›\àõ›H€›[õ›ôHÿ]ôY€à\»]öXŸKâﬂ_JN€ÿY
+
+_JJ
+O‹ÿ‹ö\èÿõŸOè⁄[ò¬üBÇôù[ò›[€à‹ôX]V[›]]ô[‹Y[ùõ›]\ä‹[€ú»HﬂJH¬à€€ú›õ›]\àH^ô\‹Àîõ›]\ä
+N¬à€€ú›\ú⁄\›[›]\‹Ÿ\‹€Y[ùH\[Ÿà‹[€úÀú\ú⁄\›[›]\‹Ÿ\‹€Y[ùOOHôù[ò›[€àà»‹[€úÀú\ú⁄\›[›]\‹Ÿ\‹€Y[ùàù[¬à€€ú›ÿY]\›[›]\‹Ÿ\‹€Y[ùH\[Ÿà‹[€úÀõÿY]\›[›]\‹Ÿ\‹€Y[ùOOHôù[ò›[€àà»‹[€úÀõÿY]\›[›]\‹Ÿ\‹€Y[ùàù[¬à€€ú›\›[›]⁄[õŸö[\»H\[Ÿà‹[€úÀõ\›[›]⁄[õŸö[\»OOHôù[ò›[€àà»‹[€úÀõ\›[›]⁄[õŸö[\»àù[¬à€€ú›Ÿ]õŸ‹ò[PúöYŸT›]HH\[Ÿà‹[€úÀôŸ]õŸ‹ò[PúöYŸT›]HOOHôù[ò›[€àà»‹[€úÀôŸ]õŸ‹ò[PúöYŸT›]Hàù[¬à€€ú›][ò⁄õŸ‹ò[Qõ‹ê⁄[H\[Ÿà‹[€úÀõ][ò⁄õŸ‹ò[Qõ‹ê⁄[OOHôù[ò›[€àà»‹[€úÀõ][ò⁄õŸ‹ò[Qõ‹ê⁄[àù[¬à€€ú›Ÿ]õŸ‹ò[UŸYZ—^X›][€àH\[Ÿà‹[€úÀôŸ]õŸ‹ò[UŸYZ—^X›][€àOOHôù[ò›[€àà»‹[€úÀôŸ]õŸ‹ò[UŸYZ—^X›][€ààù[¬à€€ú›ÿ]ôTõŸ‹ò[UŸYZ—^X›][€àH\[Ÿà‹[€úÀúÿ]ôTõŸ‹ò[UŸYZ—^X›][€àOOHôù[ò›[€àà»‹[€úÀúÿ]ôTõŸ‹ò[UŸYZ—^X›][€ààù[¬à€€ú›Ÿ]õŸ‹ò[UŸYZ‘[õö[ô»H\[Ÿà‹[€úÀôŸ]õŸ‹ò[UŸYZ‘[õö[ô»OOHôù[ò›[€àà»‹[€úÀôŸ]õŸ‹ò[UŸYZ‘[õö[ô»àù[¬à€€ú›ÿ]ôTõŸ‹ò[P€€[Z]Y[ù[àH\[Ÿà‹[€úÀúÿ]ôTõŸ‹ò[P€€[Z]Y[ù[àOOHôù[ò›[€àà»‹[€úÀúÿ]ôTõŸ‹ò[P€€[Z]Y[ù[ààù[¬à€€ú›ÿ]ôTõŸ‹ò[TŸ\‹⁄[€î[àH\[Ÿà‹[€úÀúÿ]ôTõŸ‹ò[TŸ\‹⁄[€î[àOOHôù[ò›[€àà»‹[€úÀúÿ]ôTõŸ‹ò[TŸ\‹⁄[€î[ààù[¬à€€ú›X\ö‘õŸ‹ò[TŸ\‹⁄[€ê€€\]HH\[Ÿà‹[€úÀõX\ö‘õŸ‹ò[TŸ\‹⁄[€ê€€\]HOOHôù[ò›[€àà»‹[€úÀõX\ö‘õŸ‹ò[TŸ\‹⁄[€ê€€\]Hàù[¬à€€ú›Ÿ]õ⁄XŸTŸX›[€ú—õ‹ê⁄[H\[Ÿà‹[€úÀôŸ]õ⁄XŸTŸX›[€ú—õ‹ê⁄[OOHôù[ò›[€àà»‹[€úÀôŸ]õ⁄XŸTŸX›[€ú—õ‹ê⁄[àù[¬à€€ú›ô\€€ôUõ⁄XŸP\‹Ÿ]ûTôYàH\[Ÿà‹[€úÀúô\€€ôUõ⁄XŸP\‹Ÿ]ûTôYàOOHôù[ò›[€àà»‹[€úÀúô\€€ôUõ⁄XŸP\‹Ÿ]ûTôYààù[¬à€€ú›Ÿ]õ⁄XŸTﬁ[ù\⁄\—õ‹îŸX›[€àH\[Ÿà‹[€úÀôŸ]õ⁄XŸTﬁ[ù\⁄\—õ‹îŸX›[€àOOHôù[ò›[€àà»‹[€úÀôŸ]õ⁄XŸTﬁ[ù\⁄\—õ‹îŸX›[€ààù[¬à€€ú›Y\]ôT›[[X\ûT€€H‹[€úÀú€€	âà\[Ÿà‹[€úÀú€€ú]Y\ûHOOHôù[ò›[€àà»‹[€úÀú€€àù[¬Çàõ›]\ãôŸ]
+ãﬁ[›]Y]ô[‹Y[ù⁄[ùZŸHã
+ô\Kô\ HOà
+àô\Àú›]\ å
+Kù\Jö[äKúŸ[ô
+ô[ô\ì]ôV[›]\‹Ÿ\‹€Y[ùYŸJ
+JBà
+JN¬Çàõ›]\ãôŸ]
+ãﬁ[›]Y]ô[‹Y[ù⁄[ùZŸK›\›ã
+ô\Kô\ HOà
+à
+\“[ù\õò[›\ôòXŸTô\]Y\›[›ŸY
+ô\JBà»ô\Àú›]\ å
+Kù\Jö[äKúŸ[ô
+ô[ô\ñ[›]]ô[‹Y[ù[ùZŸU\›YŸJ
+JBààô\Àú›]\ 
+Kù\Jö[äKúŸ[ô
+èOìõ›õ›[ô⁄OàäJBà
+JN¬Çàõ›]\ãôŸ]
+ãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôã
+ô\Kô\ HOà
+àô\Àú›]\ å
+Kù\Jö[äKúŸ[ô
+ô[ô\ì]ôV[›]\ô[ù\⁄õÿ\ôYŸJ
+JBà
+JN¬àõ›]\ãôŸ]
+ãﬁ[›]Y]ô[‹Y[ùÿY\]ôK[X\õö[ô»ã
+ô\Kô\ HOà
+àô\Àú›]\ å
+KúŸ[ôö[Jô\]Z\ôJú]äKöõ⁄[ä◊Ÿ\õò[YKããàãúXõX»ãôÿ[YZXàãòY\]ôK]åãZXãö[äJBà
+JN¬àõ›]\ãôŸ]
+ãﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[Hã
+ô\Kô\ HOà
+àô\Àú›]\ å
+Kù\Jö[äKúŸ[ô
+ô[ô\ì]ôV[›]‹õ››[îYŸJ
+JBà
+JN¬Çàõ›]\ãôŸ]
+ãﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ô‹ô]öY]»ã
+ô\Kô\ HOà¬àYà
+Z\“[ù\õò[›\ôòXŸTô\]Y\›[›ŸY
+ô\JJH¬àô]\õàô\Àú›]\ 
+Kù\Jö[äKúŸ[ô
+èOìõ›õ›[ô⁄OàäN¬àBà€€ú›^[ÿYHùZ[ô]öY]‘^[ÿY
+
+N¬à€€ú›[Hô[ô\ñ[›]]ô[‹Y[ù\ô[ù\⁄õÿ\ôYŸJ^[ÿYúYŸW€[Ÿ[¬àô]öY]”Xô[àîô]öY]»»\›[€õH›]]
+]\õZ[ö\›X»ö^\ôKõ»õŸX›[€à]JHãàJN¬àô]\õàô\Àú›]\ å
+Kù\Jö[äKúŸ[ô
+[
+N¬àJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹]Y\›[€ú»ã
+ô\Kô\ HOà¬à€€ú›õ›»HŸ]]Y\›[€ëõ›‘›]J»[ú›Ÿ\úŒàﬂHJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄ŒàùYKàò[ö◊⁄Yàû[›]›[[ùŸ]ô[‹Y[ù‹\ô[ù€ÿúŸ\ùò][€ó‹ÿ‹ôY[ô\ó›åHãàò[ö◊€ò[YNàñ[›][[ù]ô[‹Y[ù[ùZŸH8†%\ô[ùÿúŸ\ùò][€àÿ‹ôY[ô\àåHãàô\‹€ô[ùàú\ô[ùŸ›X\ôX[àãà[ú›ùX›[€úŒàS’U‘TëSï“Sî’ïP’S”îÀà]Y\›[€óÿ€›[ùàS’U‘UQT’S”ó–êSíÀõ[ô›à]Y\›[€úŒàS’U‘UQT’S”ó–êSíÀàõ›ÀàJN¬àJN¬Çàõ›]\ãú‹›
+ãÿ\Kﬁ[›]Y]ô[‹Y[ùÿ\‹Ÿ\‹»ã\ﬁ[ò»
+ô\Kô\ HOà¬à€€ú›ò[Y][€àHò[Y]P[ú›Ÿ\ú ô\KòõŸHﬂJN¬àYà
+]ò[Y][€ãõ⁄ H¬àô]\õàô\Àú›]\ 
+Köú€€ä¬à⁄Œàò[ŸKà\úõ‹éàö[ùò[Yﬁ[›]⁄[ùZŸWÿ[ú›Ÿ\ú»ãàò[Y][€óŸ\úõ‹úŒàò[Y][€ãô\úõ‹úÀàJN¬àBàûH¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\KòõŸHﬂJN¬à€€ú€€Kö[ôõ û[›]ÿ\‹Ÿ\‹€Y[ù‹›XõZ]‹ôXŸZ]ôYã¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à[ú›Ÿ\óÿ€›[ùàò[Y][€ãò[ú›Ÿ\úÀõ[ô›à[ò[ú›Ÿ\ôYÿ€›[ùàò[Y][€ãù[ò[ú›Ÿ\ôY‹]Y\›[€ó⁄YÀõ[ô›àô\]Y\›Yÿ⁄[⁄YàÿYôUö[Jô\KòõŸOÀò⁄[⁄Yô\KòõŸOÀò⁄[Y
+Hù[àJN¬à€€ú›^[ÿYHùZ[[›]\‹Ÿ\‹‘^[ÿY
+ò[Y][€ãò[ú›Ÿ\úÀ¬à[ò[ú›Ÿ\ôY€›[ùàò[Y][€ãù[ò[ú›Ÿ\ôY‹]Y\›[€ó⁄YÀõ[ô›àJN¬à€€ú€€Kö[ôõ û[›]ÿ\‹Ÿ\‹€Y[ù‹ô\›[ŸŸ[ô\ò]Yã¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à[ú›Ÿ\óÿ€›[ùàò[Y][€ãò[ú›Ÿ\úÀõ[ô›àY⁄\››òZ]à^[ÿYÀúÿ€‹ö[ôœÀö[ù\úô]][€èÀöY⁄\››òZ]ÀùòZ]ÿ€ŸHù[à›Ÿ\››òZ]à^[ÿYÀúÿ€‹ö[ôœÀö[ù\úô]][€èÀõ›Ÿ\››òZ]ÀùòZ]ÿ€ŸHù[àJN¬à€€ú›⁄[õŸö[HH¬à⁄[⁄YàÿYôUö[Jô\KòõŸOÀò⁄[⁄Yô\KòõŸOÀò⁄[Y
+Hù[à⁄[€ò[YNàÿYôUö[Jô\KòõŸOÀò⁄[€ò[YHô\KòõŸOÀò⁄[ò[YJHù[à⁄[ÿYŸWÿò[ôàÿYôUö[Jô\KòõŸOÀò⁄[ÿYŸWÿò[ôô\KòõŸOÀò⁄[YŸPò[ô
+Hù[à⁄[Ÿ‹òYWÿò[ôàÿYôUö[Jô\KòõŸOÀò⁄[Ÿ‹òYWÿò[ôô\KòõŸOÀò⁄[‹òYPò[ô
+Hù[àN¬à]›€ô\ú⁄\H¬àXÿ€›[ùÿõ›[ôàò[ŸKà[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à⁄[‹õŸö[Nà⁄[õŸö[KàN¬à€€ú›Xÿ€›[ùÿ€‹Tô\Ÿ[ùHõ€€X[äXÿ€›[ù›ù[ò[ù	âàXÿ€›[ù›ô[XZ[
+N¬à]\ú⁄\›[òŸQXY€õ‹›X‹»H¬à\ú⁄\›[òŸWŸ[òXõYàõ€€X[ä\ú⁄\›[›]\‹Ÿ\‹€Y[ù
+KàXÿ€›[ù‹ÿ€‹W‹ô\Ÿ[ùàXÿ€›[ùÿ€‹Tô\Ÿ[ùà][\Yàò[ŸKà[úŸ\ùYàò[ŸKà\úõ‹éàù[àN¬àYà
+\ú⁄\›[›]\‹Ÿ\‹€Y[ù	âàXÿ€›[ù›ù[ò[ù	âàXÿ€›[ù›ô[XZ[
+H¬à\ú⁄\›[òŸQXY€õ‹›X‹Àò][\YHùYN¬à€€ú›ÿ]ôYH]ÿZ]\ú⁄\›[›]\‹Ÿ\‹€Y[ù
+¬àXÿ€›[ù›àô\]Y\›àô\Kàô\]Y\›õŸNàô\KòõŸHﬂKàô\‹€úŸT^[ÿYà^[ÿYàò[Y][€ãà[ú›Ÿ\úŒàò[Y][€ãò[ú›Ÿ\úÀà[ò[ú›Ÿ\ôY]Y\›[€íYŒàò[Y][€ãù[ò[ú›Ÿ\ôY‹]Y\›[€ó⁄YÀàJN¬àYà
+ÿ]ôY	âà\[Ÿàÿ]ôYOOHõÿöôX›äH›€ô\ú⁄\HÿöôX›ò\‹⁄Y€ä›€ô\ú⁄\ÿ]ôY
+N¬à\ú⁄\›[òŸQXY€õ‹›X‹Àö[úŸ\ùYH›€ô\ú⁄\òXÿ€›[ùÿõ›[ôOOHùYH	âàõ€€X[ä›€ô\ú⁄\ú›XõZ\‹⁄[€ó⁄Y
+N¬à\ú⁄\›[òŸQXY€õ‹›X‹Àú›XõZ\‹⁄[€ó⁄YH›€ô\ú⁄\ú›XõZ\‹⁄[€ó⁄Yù[¬à\ú⁄\›[òŸQXY€õ‹›X‹Àúÿ]ôYÿ⁄[⁄YH›€ô\ú⁄\Àò⁄[‹õŸö[OÀò⁄[⁄Yù[¬àBàYà
+Xÿ€›[ùÿ€‹Tô\Ÿ[ù	âà\ú⁄\›[òŸQXY€õ‹›X‹Àú\ú⁄\›[òŸWŸ[òXõY	âà\ú⁄\›[òŸQXY€õ‹›X‹Àö[úŸ\ùYOOHùYJH¬à€€ú€€Kô\úõ‹äû[›]ÿ\‹Ÿ\‹€Y[ù‹\ú⁄\›‹ô\]Z\ôYŸòZ[Yã¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à[ú›Ÿ\óÿ€›[ùàò[Y][€ãò[ú›Ÿ\úÀõ[ô›à⁄[⁄Yà›€ô\ú⁄\Àò⁄[‹õŸö[OÀò⁄[⁄Yù[à›XõZ\‹⁄[€ó⁄Yà›€ô\ú⁄\Àú›XõZ\‹⁄[€ó⁄Yù[àJN¬àô]\õàô\Àú›]\ L
+Köú€€ä¬à⁄Œàò[ŸKà\úõ‹éàû[›]ÿ\‹Ÿ\‹€Y[ù‹\ú⁄\›‹ô\]Z\ôYŸòZ[Yãà›€ô\ú⁄\àXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ùÿ\‹Ÿ\‹»ãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãò\‹Ÿ\‹»ãà€€ù[ùZ]Nà¬à›XõZ]‹ôXŸZ]ôYàùYKà[ú›Ÿ\óÿ€›[ùàò[Y][€ãò[ú›Ÿ\úÀõ[ô›à[ò[ú›Ÿ\ôYÿ€›[ùàò[Y][€ãù[ò[ú›Ÿ\ôY‹]Y\›[€ó⁄YÀõ[ô›àô\›[ŸŸ[ô\ò]YàùYKà\ú⁄\›ÿ][\Yà\ú⁄\›[òŸQXY€õ‹›X‹Àò][\Yà\ú⁄\›⁄[úŸ\ùYàò[ŸKà]\›€€⁄›\‹ôXYNàò[ŸKà\›‹ûW€€⁄›\‹ôXYNàò[ŸKàKàKàJN¬àBà€€ú€€Kö[ôõ û[›]ÿ\‹Ÿ\‹€Y[ù‹\ú⁄\›‹ô\›[ã¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à\ú⁄\›ÿ][\Yà\ú⁄\›[òŸQXY€õ‹›X‹Àò][\Yà\ú⁄\›⁄[úŸ\ùYà\ú⁄\›[òŸQXY€õ‹›X‹Àö[úŸ\ùYà›XõZ\‹⁄[€ó⁄Yà›€ô\ú⁄\Àú›XõZ\‹⁄[€ó⁄Yù[à⁄[⁄Yà›€ô\ú⁄\Àò⁄[‹õŸö[OÀò⁄[⁄Yù[àJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄ŒàùYKà]Y\›[€óÿ€›[ùàS’U‘UQT’S”ó–êSíÀõ[ô›à[ú›Ÿ\ú◊ÿ€›[ùàò[Y][€ãò[ú›Ÿ\úÀõ[ô›à[ò[ú›Ÿ\ôYÿ€›[ùàò[Y][€ãù[ò[ú›Ÿ\ôY‹]Y\›[€ó⁄YÀõ[ô›àõ›ŒàŸ]]Y\›[€ëõ›‘›]Jô\KòõŸHﬂJKà[ù\úô]][€éà^[ÿYúÿ€‹ö[ôÀö[ù\úô]][€ãà€€\][€éà^[ÿYúÿ€‹ö[ôÀò€€\][€ãàYŸ‹ôYÿ]Y›òZ]‹õ›‹Œà^[ÿYúÿ€‹ö[ôÀùòZ]‹õ›‹ÀàòZ]‹ô\‹ùŒà^[ÿYùòZ]‹ô\‹ùÀàô\›[à^[ÿYúô\›[à\⁄õÿ\ôà^[ÿYô\⁄õÿ\ôàYŸW€[Ÿ[à^[ÿYúYŸW€[Ÿ[àô[ô\ôY⁄[à^[ÿYúô[ô\ôY⁄[à›€ô\ú⁄\àXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ùÿ\‹Ÿ\‹»ãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãò\‹Ÿ\‹»ãà€€ù[ùZ]Nà¬à›XõZ]‹ôXŸZ]ôYàùYKà[ú›Ÿ\óÿ€›[ùàò[Y][€ãò[ú›Ÿ\úÀõ[ô›à[ò[ú›Ÿ\ôYÿ€›[ùàò[Y][€ãù[ò[ú›Ÿ\ôY‹]Y\›[€ó⁄YÀõ[ô›àô\›[ŸŸ[ô\ò]YàùYKà\ú⁄\›ÿ][\Yà\ú⁄\›[òŸQXY€õ‹›X‹Àò][\Yà\ú⁄\›⁄[úŸ\ùYà\ú⁄\›[òŸQXY€õ‹›X‹Àö[úŸ\ùYà›XõZ\‹⁄[€ó⁄Yà›€ô\ú⁄\Àú›XõZ\‹⁄[€ó⁄Yù[à\ú⁄\›Yÿ⁄[⁄Yà›€ô\ú⁄\Àò⁄[‹õŸö[OÀò⁄[⁄Yù[àKàKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]ÿ\‹Ÿ\‹◊ŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä¬à⁄Œàò[ŸKà\úõ‹éàû[›]ÿ\‹Ÿ\‹◊ŸòZ[YãàJN¬àBàJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ô€]\›ã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+[ÿY]\›[›]\‹Ÿ\‹€Y[ù
+H¬àô]\õàô\Àú›]\ å
+Köú€€ä»⁄ŒàùYK\◊‹ô\›[àò[ŸK^[ÿYàù[ôX\€€éàú\ú⁄\›[òŸW€õ›Ÿ[òXõYàJN¬àBà€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\Kú]Y\ûHﬂJN¬àYà
+XXÿ€›[ù›ù[ò[ùXXÿ€›[ù›ô[XZ[
+H¬àô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàù[ò[ù[ô[XZ[\ôHô\]Z\ôYàJN¬àBàûH¬à€€ú›⁄[YHÿYôUö[Jô\Kú]Y\ûOÀò⁄[⁄Yô\Kú]Y\ûOÀò⁄[Y
+N¬à€€ú›]\›H]ÿZ]ÿY]\›[›]\‹Ÿ\‹€Y[ù
+»Xÿ€›[ù›ô\]Y\›àô\K⁄[YJN¬àYà
+[]\›
+H¬à]ôX\€€àHõõ◊‹ÿ]ôY‹\ô[ùÿ\‹Ÿ\‹€Y[ùé¬àYà
+⁄[Y	âà\›[›]⁄[õŸö[\ H¬à€€ú›⁄[õŸö[\»H]ÿZ]\›[›]⁄[õŸö[\ »Xÿ€›[ù›ô\]Y\›àô\HJN¬à€€ú›X]⁄Y⁄[H⁄[õŸö[\Àôö[ô
+
+[ùûJHOà›ö[ô [ùûOÀò⁄[⁄YàäHOOH›ö[ô ⁄[Y
+JN¬àôX\€€àHX]⁄Y⁄[»õõ◊‹ÿ]ôY‹\ô[ùÿ\‹Ÿ\‹€Y[ùŸõ‹óÿ⁄[‹ÿ€‹Hààúô\]Y\›Yÿ⁄[‹ÿ€‹W€õ›Ÿõ›[ôé¬àBà€€ú€€Kö[ôõ û[›]‹\ô[ùŸ\⁄õÿ\ô€]\›Ÿ[\Hã¬à[ò[ùàXÿ€›[ù›ù[ò[ùà[XZ[àXÿ€›[ù›ô[XZ[àô\]Y\›Yÿ⁄[⁄Yà⁄[Yù[àôX\€€ãàJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄ŒàùYKà\◊‹ô\›[àò[ŸKà^[ÿYàù[à⁄[⁄Yà⁄[Yù[àôX\€€ãà]\›‹›XõZ\‹⁄[€ó⁄Yàù[à]\›ÿ‹ôX]Yÿ]àù[àÿ[ôY]W‹›XõZ\‹⁄[€ó⁄YŒà◊KàŸ[X›[€ó€‹ô\ö[ôŒàò‹ôX]Yÿ]T–À›XõZ\‹⁄[€ó⁄YT–»ãàŸ[X›[€ó‹ôX\€€éàôX\€€ãàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ô€]\›ãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãú\ô[ù\⁄õÿ\ô]\›ãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[àô\]Y\›Yÿ⁄[⁄Yà⁄[Yù[àKà€€ù[ùZ]Nà¬àŸ[X›Y€]\›‹ô\›[àù[àŸ[X›Y⁄\›‹ûWÿ€›[ùààôX\€€ãàKàKàJN¬àBàô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄ŒàùYKà\◊‹ô\›[àùYKà^[ÿYà]\›à⁄[⁄Yà⁄[Y]\›Àõ›€ô\ú⁄\Àò⁄[‹õŸö[OÀò⁄[⁄Yù[à]\›‹›XõZ\‹⁄[€ó⁄Yà]\›ÀôXY€õ‹›X‹œÀõ]\›‹›XõZ\‹⁄[€ó⁄Yù[à]\›ÿ‹ôX]Yÿ]à]\›ÀôXY€õ‹›X‹œÀõ]\›ÿ‹ôX]Yÿ]ù[àÿ[ôY]W‹›XõZ\‹⁄[€ó⁄YŒà]\›ÀôXY€õ‹›X‹œÀòÿ[ôY]W‹›XõZ\‹⁄[€ó⁄Y»◊KàŸ[X›[€ó€‹ô\ö[ôŒà]\›ÀôXY€õ‹›X‹œÀúŸ[X›[€ó€‹ô\ö[ô»ò‹ôX]Yÿ]T–À›XõZ\‹⁄[€ó⁄YT–»ãàŸ[X›[€ó‹ôX\€€éà]\›ÀôXY€õ‹›X‹œÀúŸ[X›[€ó‹ôX\€€àù[àXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ô€]\›ãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãú\ô[ù\⁄õÿ\ô]\›ãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[àô\]Y\›Yÿ⁄[⁄Yà⁄[Yù[àKà€€ù[ùZ]Nà¬àŸ[X›Y€]\›‹ô\›[à]\›ÀôXY€õ‹›X‹œÀõ]\›‹›XõZ\‹⁄[€ó⁄Yù[àŸ[X›Y⁄\›‹ûWÿ€›[ùàù[Xô\ä]\›ÀôXY€õ‹›X‹œÀúŸ[X›Y⁄\›‹ûWÿ€›[ù
+Kà]\›‹Ÿ[X›[€ó‹]à]\›ÀôXY€õ‹›X‹œÀõ]\›‹Ÿ[X›[€ó‹]ù[àKàKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]€]\›€€⁄›\ŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]€]\›€€⁄›\ŸòZ[YàJN¬àBàJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ùÿ⁄[ô[àã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+[\›[›]⁄[õŸö[\ H¬àô]\õàô\Àú›]\ å
+Köú€€ä»⁄ŒàùYK\◊ÿ⁄[ô[éàò[ŸK⁄[ô[éà◊KôX\€€éàú\ú⁄\›[òŸW€õ›Ÿ[òXõYàJN¬àBà€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\Kú]Y\ûHﬂJN¬àYà
+XXÿ€›[ù›ù[ò[ùXXÿ€›[ù›ô[XZ[
+H¬àô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàù[ò[ù[ô[XZ[\ôHô\]Z\ôYàJN¬àBàûH¬à€€ú›⁄[ô[àH]ÿZ]\›[›]⁄[õŸö[\ »Xÿ€›[ù›ô\]Y\›àô\HJN¬àô]\õàô\Àú›]\ å
+Köú€€ä»⁄ŒàùYK\◊ÿ⁄[ô[éà⁄[ô[ãõ[ô›à⁄[ô[àJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]ÿ⁄[ô[ó€€⁄›\ŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]ÿ⁄[ô[ó€€⁄›\ŸòZ[YàJN¬àBàJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀX€€ù[ùã\ﬁ[ò»
+ô\Kô\ HOà¬à€€ú›⁄[YHÿYôUö[Jô\Kú]Y\ûOÀò⁄[⁄Yô\Kú]Y\ûOÀò⁄[Y
+N¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\Kú]Y\ûHﬂJN¬àûH¬à€€ú›ÿúöYŸT›]K⁄[õŸö[\◊HH]ÿZ]õ€Z\ŸKò[
+¬àŸ]õŸ‹ò[PúöYŸT›]Bà»Ÿ]õŸ‹ò[PúöYŸT›]J»Xÿ€›[ù›ô\]Y\›àô\K⁄[Yà⁄[Yù[JBààõ€Z\ŸKúô\€€ôJù[
+Kà
+X⁄[Y	âà\›[›]⁄[õŸö[\»	âàXÿ€›[ù›ù[ò[ù	âàXÿ€›[ù›ô[XZ[
+Bà»\›[›]⁄[õŸö[\ »Xÿ€›[ù›ô\]Y\›àô\HJBààõ€Z\ŸKúô\€€ôJ◊JKàJN¬à€€ú›^[ÿYHùZ[õŸ‹ò[UŸYZ–€€ù[ù›]J¬àúöYŸT›]Kà⁄[Yà⁄[õŸö[\Œà\úò^Kö\–\úò^J⁄[õŸö[\ H»⁄[õŸö[\»à◊Kà^X›][€î›]NàŸ]õŸ‹ò[UŸYZ—^X›][€Çà»]ÿZ]Ÿ]õŸ‹ò[UŸYZ—^X›][€ä¬àXÿ€›[ù›àô\]Y\›àô\Kà⁄[YàŸYZ”ù[Xô\éàù[Xô\äúöYŸT›]OÀò›\úô[ù›ŸYZ»JKàJBààù[à[õö[ô‘›]NàŸ]õŸ‹ò[UŸYZ‘[õö[ô¬à»]ÿZ]Ÿ]õŸ‹ò[UŸYZ‘[õö[ô ¬àXÿ€›[ù›àô\]Y\›àô\Kà⁄[YàŸYZ”ù[Xô\éàù[Xô\äúöYŸT›]OÀò›\úô[ù›ŸYZ»JKàJBààù[àJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããú^[ÿYàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀX€€ù[ùãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãúõŸ‹ò[UŸYZ–€€ù[ùãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[àô\]Y\›Yÿ⁄[⁄Yà⁄[Yù[àKà\[ô◊€€éà¬àúöYŸW‹›]Wÿ]òZ[XõNàõ€€X[äúöYŸT›]H	âàúöYŸT›]Kõ⁄»OOHùYJKà^X›][€ó‹›]Wÿ]òZ[XõNàõ€€X[ä^[ÿYÀô^X›][€ó‹›]JKà[õö[ô◊‹›]Wÿ]òZ[XõNàõ€€X[ä^[ÿYÀùŸYZ◊ÿ€€ù[ùÀò€€[Z]Y[ù‹[à^[ÿYÀùŸYZ◊ÿ€€ù[ùÀúÿ⁄Y[Y‹Ÿ\‹⁄[€ú KàKà€€ù[ùZ]W‹›]Nà›ö[ô ^[ÿYÀú›]Hù[ö€õ›€àäKàKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[W›ŸYZ◊ÿ€€ù[ùŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[W›ŸYZ◊ÿ€€ù[ùŸòZ[YàJN¬àBàJN¬ÇÇàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Yã\ﬁ[ò»
+ô\Kô\ HOà¬à€€ú›⁄[YHÿYôUö[Jô\Kú\ò[\œÀò⁄[Y
+N¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\Kú]Y\ûHﬂJN¬àYà
+X⁄[Y
+H¬àô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàò⁄[⁄Y‹ô\]Z\ôYàJN¬àBàYà
+YŸ]õ⁄XŸTŸX›[€ú—õ‹ê⁄[
+H¬àô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄ŒàùYKà⁄[⁄Yà⁄[YàŸX›[€úŒà◊Kà\‹^W‹›]\Œàùõ⁄XŸWŸò[òX⁄◊ÿX›]ôHãàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Yãà[›[ùYàùYKàõ›öY\óŸ[òXõYàò[ŸKàKàJN¬àBàûH¬à€€ú›^[ÿYH]ÿZ]Ÿ]õ⁄XŸTŸX›[€ú—õ‹ê⁄[
+»Xÿ€›[ù›ô\]Y\›àô\K⁄[YJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããä^[ÿY»⁄ŒàùYK⁄[⁄Yà⁄[YŸX›[€úŒà◊K\‹^W‹›]\Œàùõ⁄XŸWŸò[òX⁄◊ÿX›]ôHàJKàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹ŸX›[€úÀŒò⁄[Yãà[›[ùYàùYKàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à⁄[⁄Yà⁄[YàKàKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]›õ⁄XŸW‹ŸX›[€ú◊ŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]›õ⁄XŸW‹ŸX›[€ú◊ŸòZ[YàJN¬àBàJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸKÿ\‹Ÿ]À‹ô\€€ôHã\ﬁ[ò»
+ô\Kô\ HOà¬à€€ú›⁄[YHÿYôUö[Jô\Kú]Y\ûOÀò⁄[⁄Y
+N¬à€€ú›\‹Ÿ]ôYàHÿYôUö[Jô\Kú]Y\ûOÀò\‹Ÿ]‹ôYäN¬àYà
+X\‹Ÿ]ôYäHô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàò\‹Ÿ]‹ôYó‹ô\]Z\ôYàJN¬àYà
+\ô\€€ôUõ⁄XŸP\‹Ÿ]ûTôYäH¬àô]\õàô\Àú›]\ å
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàùõ⁄XŸWÿ\‹Ÿ]‹ô\€€ô\ó€õ›Ÿ[òXõYàJN¬àBàûH¬à€€ú›^[ÿYH]ÿZ]ô\€€ôUõ⁄XŸP\‹Ÿ]ûTôYä»⁄[⁄Yà⁄[Yù[\‹Ÿ]‹ôYéà\‹Ÿ]ôYàJN¬àô]\õàô\Àú›]\ å
+Köú€€ä^[ÿY»⁄Œàò[ŸK\úõ‹éàùõ⁄XŸWÿ\‹Ÿ]›[ò]òZ[XõHàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]›õ⁄XŸWÿ\‹Ÿ]‹ô\€€ôWŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]›õ⁄XŸWÿ\‹Ÿ]‹ô\€€ôWŸòZ[YàJN¬àBàJN¬Çàõ›]\ãú‹›
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹‹XZ»ã\ﬁ[ò»
+ô\Kô\ HOà¬à€€ú›⁄[YHÿYôUö[Jô\KòõŸOÀò⁄[⁄Yô\KòõŸOÀò⁄[Y
+N¬à€€ú›ŸX›[€íŸ^HHÿYôUö[Jô\KòõŸOÀúŸX›[€ó⁄Ÿ^Hô\KòõŸOÀúŸX›[€íŸ^JHúŸX›[€àé¬à€€ú›^€€ù[ùHÿYôUö[Jô\KòõŸOÀù^ÿ€€ù[ùô\KòõŸOÀù^€€ù[ùô\KòõŸOÀùõ⁄XŸW›^
+N¬àYà
+X⁄[Y
+Hô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàò⁄[⁄Y‹ô\]Z\ôYàJN¬àYà
+]^€€ù[ù
+Hô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàù^ÿ€€ù[ù‹ô\]Z\ôYàJN¬àYà
+YŸ]õ⁄XŸTﬁ[ù\⁄\—õ‹îŸX›[€äH¬àô]\õàô\Àú›]\ å
+Köú€€ä»⁄Œàò[ŸK›]\Œàúõ›öY\ó›[ò]òZ[XõHãò[òX⁄◊‹ôX\€€éàùõ⁄XŸW‹ﬁ[ù\⁄\◊€õ›Ÿ[òXõYàJN¬àBàûH¬à€€ú›^[ÿYH]ÿZ]Ÿ]õ⁄XŸTﬁ[ù\⁄\—õ‹îŸX›[€ä¬à⁄[⁄Yà⁄[YàŸX›[€ó⁄Ÿ^NàŸX›[€íŸ^Kà^ÿ€€ù[ùà^€€ù[ùàõ⁄XŸNàÿYôUö[Jô\KòõŸOÀùõ⁄XŸJH[ôYö[ôYàJN¬à€€ú›õ›öY\ëXY€õ‹›X‹»H^[ÿYÀôXY€õ‹›X‹»	âà\[Ÿà^[ÿYôXY€õ‹›X‹»OOHõÿöôX›à»^[ÿYôXY€õ‹›X‹»àﬂN¬à€€ú›\›ôX[T›]\»Hõ›öY\ëXY€õ‹›X‹Àôÿ]]ÿ^W⁄‹›]\»œ»ù[¬à€€ú›\›ôX[P€€ù[ù\HHõ›öY\ëXY€õ‹›X‹Àôÿ]]ÿ^Wÿ€€ù[ù›\Bàõ›öY\ëXY€õ‹›X‹Àúõ›öY\óÿ]Y[◊ÿ€€ù[ù›\Bàù[¬à€€ú›\›ôX[Pû]P€›[ùHù[Xô\äõ›öY\ëXY€õ‹›X‹Àúõ›öY\óÿ]Y[◊ÿû]\»
+N¬à€€ú›õ›öY\ê]Y[–]òZ[XõHHõ€€X[ä^[ÿYÀõ⁄»	âà
+ÿYôUö[J^[ÿYÀò]Y[◊›\õ
+HÿYôUö[J^[ÿYÀò\‹Ÿ]‹ôYäJJN¬à€€ú›õ›öY\ê]òZ[Xö[]QX⁄\⁄[€àHõ›öY\ê]Y[–]òZ[XõH»úõ›öY\óÿ]Y[◊ÿ]òZ[XõHààúõ›öY\óÿ]Y[◊›[ò]òZ[XõHé¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããä^[ÿY»⁄Œàò[ŸK›]\Œàúõ›öY\ó›[ò]òZ[XõHãò[òX⁄◊‹ôX\€€éàúõ›öY\ó›[ò]òZ[XõHàJKàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù›õ⁄XŸK‹‹XZ»ãàY]Ÿàî‘’ãàŸX›[€ó⁄Ÿ^NàŸX›[€íŸ^Kà^€[ô›à^€€ù[ùõ[ô›à\›ôX[W‹õ›]Nàã‹‹XZ»ãà\›ôX[W‹›]\Œà\›ôX[T›]\Àà\›ôX[Wÿ€€ù[ù›\Nà\›ôX[P€€ù[ù\Kà\›ôX[Wÿû]Wÿ€›[ùà\›ôX[Pû]P€›[ùàõ›öY\óÿ]Y[◊ÿ]òZ[XõNàõ›öY\ê]Y[–]òZ[XõKàõ›öY\óÿ]òZ[Xö[]WŸX⁄\⁄[€éàõ›öY\ê]òZ[Xö[]QX⁄\⁄[€ãàõ›öY\ó‹›]\Œà^[ÿYÀúõ›öY\ó‹›]\»ù[àò[òX⁄◊‹ôX\€€éà^[ÿYÀôò[òX⁄◊‹ôX\€€àù[àKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]›õ⁄XŸW‹‹XZ◊ŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]›õ⁄XŸW‹‹XZ◊ŸòZ[YàJN¬àBàJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[KÿúöYŸHã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+YŸ]õŸ‹ò[PúöYŸT›]JH¬àô]\õàô\Àú›]\ å
+Köú€€ä»⁄ŒàùYK][ò⁄ÿ[›ŸYàò[ŸKôX\€€éàúõŸ‹ò[WÿúöYŸW€õ›Ÿ[òXõYàJN¬àBàûH¬à€€ú›⁄[YHÿYôUö[Jô\Kú]Y\ûOÀò⁄[⁄Yô\Kú]Y\ûOÀò⁄[Y
+N¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\KòõŸHﬂJN¬à€€ú››]HH]ÿZ]Ÿ]õŸ‹ò[PúöYŸT›]J»Xÿ€›[ù›ô\]Y\›àô\K⁄[YJN¬à€€ú›úöYŸT^[ÿYH›]H»⁄ŒàùYK][ò⁄ÿ[›ŸYàò[ŸKôX\€€éàúõŸ‹ò[W‹›]W›[ò]òZ[XõHàN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããòúöYŸT^[ÿYàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[KÿúöYŸHãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãúõŸ‹ò[PúöYŸHãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[àô\]Y\›Yÿ⁄[⁄Yà⁄[Yù[àô\€€ôYÿ⁄[⁄YàúöYŸT^[ÿYÀò⁄[⁄Yù[àKà€€ù[ùZ]Nà¬à][ò⁄ÿ[›ŸYàúöYŸT^[ÿYÀõ][ò⁄ÿ[›ŸYOOHùYKà\◊Ÿ[úõ€Y[ùàúöYŸT^[ÿYÀö\◊Ÿ[úõ€Y[ùOOHùYKàôX\€€éàúöYŸT^[ÿYÀúôX\€€àù[àKàKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[WÿúöYŸWŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[WÿúöYŸWŸòZ[YàJN¬àBàJN¬Çàõ›]\ãú‹›
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K€][ò⁄ã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+[][ò⁄õŸ‹ò[Qõ‹ê⁄[
+H¬àô]\õàô\Àú›]\ å
+Köú€€ä»⁄ŒàùYK][ò⁄ÿ[›ŸYàò[ŸKôX\€€éàúõŸ‹ò[W€][ò⁄€õ›Ÿ[òXõYàJN¬àBàûH¬à€€ú›⁄[YHÿYôUö[Jô\KòõŸOÀò⁄[⁄Yô\KòõŸOÀò⁄[Yô\Kú]Y\ûOÀò⁄[⁄Yô\Kú]Y\ûOÀò⁄[Y
+N¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\KòõŸHﬂJN¬à€€ú›][ò⁄YH]ÿZ]][ò⁄õŸ‹ò[Qõ‹ê⁄[
+»Xÿ€›[ù›ô\]Y\›àô\K⁄[YJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããä][ò⁄Y»⁄Œàò[ŸK\úõ‹éàúõŸ‹ò[W€][ò⁄›[ò]òZ[XõHàJKàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K€][ò⁄ãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãúõŸ‹ò[S][ò⁄ãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[àô\]Y\›Yÿ⁄[⁄Yà⁄[Yù[àô\€€ôYÿ⁄[⁄Yà][ò⁄YÀò⁄[⁄Yù[àKàKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[W€][ò⁄ŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[W€][ò⁄ŸòZ[YàJN¬àBàJN¬Çàõ›]\ãú‹›
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+\ÿ]ôTõŸ‹ò[UŸYZ—^X›][€äH¬àô]\õàô\Àú›]\ å
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàùŸYZ◊Ÿ^X›][€ó€õ›Ÿ[òXõYàJN¬àBàûH¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\KòõŸHﬂJN¬à€€ú›⁄[YHÿYôUö[Jô\KòõŸOÀò⁄[⁄Yô\KòõŸOÀò⁄[Yô\Kú]Y\ûOÀò⁄[⁄Yô\Kú]Y\ûOÀò⁄[Y
+N¬à€€ú›ò[Y][€àHò[Y]UŸYZ€Q^X›][€êX›[€î^[ÿY
+¬à[ò[ùàXÿ€›[ù›ù[ò[ùà[XZ[àXÿ€›[ù›ô[XZ[à⁄[⁄Yà⁄[YàŸYZ◊€ù[Xô\éàù[Xô\äô\KòõŸOÀùŸYZ◊€ù[Xô\àô\KòõŸOÀùŸYZ”ù[Xô\àJKàX›[€ó›\NàÿYôUö[Jô\KòõŸOÀòX›[€ó›\Hô\KòõŸOÀòX›[€ï\JKà›\⁄Ÿ^NàÿYôUö[Jô\KòõŸOÀú›\⁄Ÿ^Hô\KòõŸOÀú›\Ÿ^JKàõ›Nà›ö[ô ô\KòõŸOÀõõ›HàäKàÿ\ŸW‹õŸö[W›\NàÿYôUö[Jô\KòõŸOÀòÿ\ŸW‹õŸö[W›\Hô\KòõŸOÀòÿ\ŸTõŸö[U\JKà[ö]X]YÿûNàÿYôUö[Jô\KòõŸOÀö[ö]X]YÿûHô\KòõŸOÀö[ö]X]YûJKàÿ\ŸW‹ö[‹ö]NàÿYôUö[Jô\KòõŸOÀòÿ\ŸW‹ö[‹ö]Hô\KòõŸOÀòÿ\ŸTö[‹ö]JKàôYô\úò[‹€›\òŸNàÿYôUö[Jô\KòõŸOÀúôYô\úò[‹€›\òŸHô\KòõŸOÀúôYô\úò[€›\òŸJKà›\‹ùÿ⁄[õô[àÿYôUö[Jô\KòõŸOÀú›\‹ùÿ⁄[õô[ô\KòõŸOÀú›\‹ù⁄[õô[
+Kà\›[ò][€ó›X[NàÿYôUö[Jô\KòõŸOÀô\›[ò][€ó›X[Hô\KòõŸOÀô\›[ò][€ïX[JKàõ›][ô◊‹ôX\€€éà›ö[ô ô\KòõŸOÀúõ›][ô◊‹ôX\€€àô\KòõŸOÀúõ›][ô‘ôX\€€ààäKà\ôŸ[òﬁW€]ô[àÿYôUö[Jô\KòõŸOÀù\ôŸ[òﬁW€]ô[ô\KòõŸOÀù\ôŸ[òﬁS]ô[
+Kà›X⁄⁄[ù›\NàÿYôUö[Jô\KòõŸOÀù›X⁄⁄[ù›\Hô\KòõŸOÀù›X⁄⁄[ù\JKà›X⁄⁄[ù€›]€€YNàÿYôUö[Jô\KòõŸOÀù›X⁄⁄[ù€›]€€YHô\KòõŸOÀù›X⁄⁄[ù›]€€YJKà›X⁄⁄[ù€õ›Nà›ö[ô ô\KòõŸOÀù›X⁄⁄[ù€õ›Hô\KòõŸOÀù›X⁄⁄[ùõ›HàäKàJN¬àYà
+]ò[Y][€ãõ⁄ H¬àô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄Œàò[ŸKà\úõ‹éàùŸYZ◊Ÿ^X›][€óÿ€€ùòX›⁄[ùò[YãàY\‹ÿYŸ\Œàò[Y][€ãô\úõ‹úÀà[›ŸYÿX›[€úŒà—QR”W—VP’US”ó–P’S”îÀàJN¬àBà€€ú›ô\›[H]ÿZ]ÿ]ôTõŸ‹ò[UŸYZ—^X›][€ä¬àXÿ€›[ù›àô\]Y\›àô\Kà⁄[YàŸYZ”ù[Xô\éàò[Y][€ãõõ‹õX[^ôYùŸYZ◊€ù[Xô\ãàX›[€ï\Nàò[Y][€ãõõ‹õX[^ôYòX›[€ó›\Kà›\Ÿ^Nàò[Y][€ãõõ‹õX[^ôYú›\⁄Ÿ^Kàõ›Nàò[Y][€ãõõ‹õX[^ôYõõ›KàX›[€î^[ÿYàò[Y][€ãõõ‹õX[^ôYòX›[€ó‹^[ÿYàJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããäô\›[ﬂJKàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€àãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãúõŸ‹ò[UŸYZ—^X›][€àãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à⁄[⁄Yà⁄[Yù[àŸYZ◊€ù[Xô\éàò[Y][€ãõõ‹õX[^ôYùŸYZ◊€ù[Xô\ãàKàX›[€ó›\Nàò[Y][€ãõõ‹õX[^ôYòX›[€ó›\KàKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[W›ŸYZ◊Ÿ^X›][€óŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[W›ŸYZ◊Ÿ^X›][€óŸòZ[YàJN¬àBàJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K›ŸYZÀY^X›][€ãÿ]Y]ã\ﬁ[ò»
+ô\Kô\ HOà¬àûH¬à€€ú›ÿúŸ\ùôYX›[€ú»H›ö[ô ô\Kú]Y\ûOÀõÿúŸ\ùôYÿX›[€ú»àäBàú‹]
+ãäBàõX\
+
+ò[YJHOàÿYôUö[Jò[YJKù”›Ÿ\êÿ\ŸJ
+JBàôö[\äõ€€X[äN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄ŒàùYKà]Y]àùZ[ŸYZ€Q^X›][€ê€›ô\òYŸTô\‹ù
+»ÿúŸ\ùôYX›[€ú»JKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[W›ŸYZ◊Ÿ^X›][€óÿ]Y]ŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[W›ŸYZ◊Ÿ^X›][€óÿ]Y]ŸòZ[YàJN¬àBàJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[Kÿ€€õôX›]ö]KX]Y]ã\ﬁ[ò»
+‹ô\Kô\ HOà¬àûH¬àô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄ŒàùYKà€€ùòX›àú\ô[ù‹õŸ‹ò[Wÿ€€õôX›]ö]Wÿ]Y]›åHãà€€ùõ€Œàì—‘êSW–””ìëP’UíUW–””ïì”Àà›[Œà¬à€€ùõ€Œàì—‘êSW–””ìëP’UíUW–””ïì”Àõ[ô›à€‹ö⁄[ôŒàì—‘êSW–””ìëP’UíUW–””ïì”Àôö[\ä
+[ùûJHOà[ùûKú›]\»OOHù€‹ö⁄[ô»äKõ[ô›à\ùX[àì—‘êSW–””ìëP’UíUW–””ïì”Àôö[\ä
+[ùûJHOà[ùûKú›]\»OOHú\ùX[äKõ[ô›àúõ⁄Ÿ[éàì—‘êSW–””ìëP’UíUW–””ïì”Àôö[\ä
+[ùûJHOà[ùûKú›]\»OOHòúõ⁄Ÿ[àäKõ[ô›àKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[Wÿ€€õôX›]ö]Wÿ]Y]ŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[Wÿ€€õôX›]ö]Wÿ]Y]ŸòZ[YàJN¬àBàJN¬Çàõ›]\ãú‹›
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[Kÿ€€[Z]Y[ùã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+\ÿ]ôTõŸ‹ò[P€€[Z]Y[ù[äHô]\õàô\Àú›]\ å
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàò€€[Z]Y[ù‹[ó€õ›Ÿ[òXõYàJN¬àûH¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\KòõŸHﬂJN¬à€€ú›⁄[YHÿYôUö[Jô\KòõŸOÀò⁄[⁄Yô\KòõŸOÀò⁄[Y
+N¬à€€ú€€Kö[ôõ ñ‹[õô\ãX€€[Z]Y[ùYXùY◊HôXŸZ]ôY€€[Z]Y[ùô\]Y\›ã¬àôYô\úôY›[YW‹ôXŸZ]ôYàÿYôUö[Jô\KòõŸOÀúôYô\úôY›[YJKàôYô\úôY›[YW›⁄[ô›◊‹ôXŸZ]ôYàÿYôUö[Jô\KòõŸOÀúôYô\úôY›[YW›⁄[ô› KàJN¬à€€ú›ò[Y][€àHò[Y]T\ô[ù€€[Z]Y[ùŸ]\
+ô\KòõŸHﬂJN¬àYà
+]ò[Y][€ãõ⁄ H¬àô]\õàô\Àú›]\ å
+Köú€€ä¬à⁄Œàò[ŸKà\úõ‹éàò€€[Z]Y[ù‹Ÿ]\⁄[ùò[YãàY\‹ÿYŸ\Œàò[Y][€ãô\úõ‹úÀàô\]Z\ôYŸöY[Œà»ùŸYZ€WŸúô\]Y[òﬁHãúôYô\úôYŸ^\»ãúŸ\‹⁄[€ó€[ô›ãô[ô\ôﬁW›\Hãú›\ùŸ]HóKàJN¬àBà€€ú›õ‹õX[^ôY€€[Z]Y[ùHõ‹õX[^ôT\ô[ù€€[Z]Y[ù[ä¬àããùò[Y][€ãõõ‹õX[^ôYà⁄[⁄Yà⁄[Yò[Y][€ãõõ‹õX[^ôYò⁄[⁄YàJN¬à€€ú€€Kö[ôõ ñ‹[õô\ãX€€[Z]Y[ùYXùY◊Hõ‹õX[^ôY€€[Z]Y[ùã¬àôYô\úôY›[YW€õ‹õX[^ôYàõ‹õX[^ôY€€[Z]Y[ùúôYô\úôY›[YKàôYô\úôY›[YW›⁄[ô›◊€õ‹õX[^ôYàõ‹õX[^ôY€€[Z]Y[ùúôYô\úôY›[YW›⁄[ô›ÀàJN¬à€€ú›ô\›[H]ÿZ]ÿ]ôTõŸ‹ò[P€€[Z]Y[ù[ä»Xÿ€›[ù›ô\]Y\›àô\K⁄[Y€€[Z]Y[ùàõ‹õX[^ôY€€[Z]Y[ùJN¬à€€ú›õ‹õX[^ôYô\›[Hô\›[	âà\[Ÿàô\›[OOHõÿöôX›Çà»¬àããúô\›[à€€[Z]Y[ù‹Ÿ]\‹›]\Œà›ö[ô ô\›[ò€€[Z]Y[ù‹Ÿ]\‹›]\»
+ô\›[õ⁄»OOHùYH»ò€€\]Hààúô\]Z\ôYäJKà[õô\ó‹Ÿ]\‹ô\]Z\ôYàô\›[õ⁄»OOHùYH»ò[ŸHàõ€€X[äô\›[ú[õô\ó‹Ÿ]\‹ô\]Z\ôY
+Kàÿ⁄Y[Y‹Ÿ\‹⁄[€úŒà\úò^Kö\–\úò^Jô\›[úÿ⁄Y[Y‹Ÿ\‹⁄[€ú H»ô\›[úÿ⁄Y[Y‹Ÿ\‹⁄[€ú»à◊KàBàà»⁄Œàò[ŸK\úõ‹éàò€€[Z]Y[ù‹[ó‹ÿ]ôW⁄[ùò[Y‹ô\›[ã€€[Z]Y[ù‹Ÿ]\‹›]\Œàúô\]Z\ôYã[õô\ó‹Ÿ]\‹ô\]Z\ôYàùYKÿ⁄Y[Y‹Ÿ\‹⁄[€úŒà◊HN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããõõ‹õX[^ôYô\›[àXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[Kÿ€€[Z]Y[ùãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãúõŸ‹ò[P€€[Z]Y[ùãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à⁄[⁄Yà⁄[Yù[àKà€€[Z]Y[ù‹Ÿ]\‹›]\Œàõ‹õX[^ôYô\›[ò€€[Z]Y[ù‹Ÿ]\‹›]\»ù[àÿ⁄Y[Y‹Ÿ\‹⁄[€óÿ€›[ùà\úò^Kö\–\úò^Jõ‹õX[^ôYô\›[úÿ⁄Y[Y‹Ÿ\‹⁄[€ú H»õ‹õX[^ôYô\›[úÿ⁄Y[Y‹Ÿ\‹⁄[€úÀõ[ô›ààKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[Wÿ€€[Z]Y[ù‹ÿ]ôWŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[Wÿ€€[Z]Y[ù‹ÿ]ôWŸòZ[YàJN¬àBàJN¬Çàõ›]\ãú‹›
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K‹Ÿ\‹⁄[€ã\[àã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+\ÿ]ôTõŸ‹ò[TŸ\‹⁄[€î[äHô]\õàô\Àú›]\ å
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàúŸ\‹⁄[€ó‹[ó€õ›Ÿ[òXõYàJN¬àûH¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\KòõŸHﬂJN¬à€€ú›⁄[YHÿYôUö[Jô\KòõŸOÀò⁄[⁄Yô\KòõŸOÀò⁄[Y
+N¬à€€ú›ŸYZ”ù[Xô\àHù[Xô\äô\KòõŸOÀùŸYZ◊€ù[Xô\àô\KòõŸOÀùŸYZ”ù[Xô\àJN¬à€€ú›ô\›[H]ÿZ]ÿ]ôTõŸ‹ò[TŸ\‹⁄[€î[ä»Xÿ€›[ù›ô\]Y\›àô\K⁄[YŸYZ”ù[Xô\ã^[ÿYàô\KòõŸHﬂHJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããäô\›[ﬂJKàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K‹Ÿ\‹⁄[€ã\[àãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãúõŸ‹ò[TŸ\‹⁄[€î[àãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à⁄[⁄Yà⁄[Yù[àŸYZ◊€ù[Xô\éàŸYZ”ù[Xô\ãàKàÿ⁄Y[Y‹Ÿ\‹⁄[€óÿ€›[ùà\úò^Kö\–\úò^Jô\›[Àúÿ⁄Y[Y‹Ÿ\‹⁄[€ú H»ô\›[úÿ⁄Y[Y‹Ÿ\‹⁄[€úÀõ[ô›ààKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[W‹Ÿ\‹⁄[€ó‹[ó‹ÿ]ôWŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[W‹Ÿ\‹⁄[€ó‹[ó‹ÿ]ôWŸòZ[YàJN¬àBàJN¬Çàõ›]\ãú‹›
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K‹Ÿ\‹⁄[€ãX€€\]Hã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+[X\ö‘õŸ‹ò[TŸ\‹⁄[€ê€€\]JHô]\õàô\Àú›]\ å
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàúŸ\‹⁄[€óÿ€€\]W€õ›Ÿ[òXõYàJN¬àûH¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\KòõŸHﬂJN¬à€€ú›⁄[YHÿYôUö[Jô\KòõŸOÀò⁄[⁄Yô\KòõŸOÀò⁄[Y
+N¬à€€ú›ŸYZ”ù[Xô\àHù[Xô\äô\KòõŸOÀùŸYZ◊€ù[Xô\àô\KòõŸOÀùŸYZ”ù[Xô\àJN¬à€€ú›Ÿ\‹⁄[€íYHÿYôUö[Jô\KòõŸOÀúŸ\‹⁄[€ó⁄Yô\KòõŸOÀúŸ\‹⁄[€íY
+N¬à€€ú›^HHÿYôUö[Jô\KòõŸOÀô^JN¬à€€ú›[YHHÿYôUö[Jô\KòõŸOÀù[YJN¬à€€ú›ÿ⁄Y[Y]HÿYôUö[Jô\KòõŸOÀúÿ⁄Y[Yÿ]ô\KòõŸOÀúÿ⁄Y[Y]
+N¬à€€ú›ô\›[H]ÿZ]X\ö‘õŸ‹ò[TŸ\‹⁄[€ê€€\]J»Xÿ€›[ù›ô\]Y\›àô\K⁄[YŸYZ”ù[Xô\ãŸ\‹⁄[€íY^K[YKÿ⁄Y[Y]JN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããäô\›[ﬂJKàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹õŸ‹ò[K‹Ÿ\‹⁄[€ãX€€\]Hãà[ô\éàò‹ôX]V[›]]ô[‹Y[ùõ›]\ãúõŸ‹ò[TŸ\‹⁄[€ê€€\]Hãàÿ€‹Nà¬à[ò[ùàXÿ€›[ù›ù[ò[ùù[à[XZ[àXÿ€›[ù›ô[XZ[ù[à⁄[⁄Yà⁄[Yù[àŸYZ◊€ù[Xô\éàŸYZ”ù[Xô\ãàŸ\‹⁄[€ó⁄YàŸ\‹⁄[€íYù[àKàKàJN¬àHÿ]⁄
+\úäH¬à€€ú€€Kô\úõ‹äû[›]‹õŸ‹ò[W‹Ÿ\‹⁄[€óÿ€€\]WŸòZ[Yã\úäN¬àô]\õàô\Àú›]\ L
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàû[›]‹õŸ‹ò[W‹Ÿ\‹⁄[€óÿ€€\]WŸòZ[YàJN¬àBàJN¬ÇÇàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôÿY\]ôK\›[[X\ûHã\ﬁ[ò»
+ô\Kô\ HOà¬àYà
+XY\]ôT›[[X\ûT€€
+Hô]\õàô\Àú›]\ å
+Köú€€ä»⁄ŒàùYK[\W‹›]NàùYKôX\€€éàòY\]ôW‹›[[X\ûW‹€€€õ›ÿ€€ôöY›\ôYàJN¬à€€ú›Xÿ€›[ù›Hô\€€ôTô\]Y\›Xÿ€›[ù€€ù^
+ô\Kô\Kú]Y\ûHﬂJN¬à€€ú›⁄[YHÿYôUö[Jô\Kú]Y\ûOÀò⁄[⁄Yô\Kú]Y\ûOÀò⁄[Y
+N¬àYà
+XXÿ€›[ù›ù[ò[ùXXÿ€›[ù›ô[XZ[X⁄[Y
+Hô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàù[ò[ùŸ[XZ[ÿ⁄[⁄Y‹ô\]Z\ôYàJN¬àYà
+[\›[›]⁄[õŸö[\ Hô]\õàô\Àú›]\ å
+Köú€€ä»⁄ŒàùYK[\W‹›]NàùYK⁄[⁄Yà⁄[YôX\€€éàò⁄[‹õŸö[W€€⁄›\€õ›ÿ€€ôöY›\ôYàJN¬à€€ú›⁄[õŸö[\»H]ÿZ]\›[›]⁄[õŸö[\ »Xÿ€›[ù›ô\]Y\›àô\HJN¬à€€ú›⁄[H⁄[õŸö[\Àôö[ô
+
+[ùûJHOà›ö[ô [ùûOÀò⁄[⁄YàäHOOH›ö[ô ⁄[Y
+JN¬àYà
+X⁄[
+Hô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàúô\]Y\›Yÿ⁄[‹ÿ€‹W€õ›Ÿõ›[ôàJN¬àYà
+\—òZŸSX\õô\ìò[YJ⁄[ò⁄[€ò[YJJHô]\õàô\Àú›]\ JKöú€€ä»⁄Œàò[ŸK\úõ‹éàù\›€‹óŸ›Y\›ÿ⁄[‹ÿ€‹W€õ›ÿ[›ŸYã⁄[⁄Yà⁄[YJN¬à]Y\]ôT\ô[ùõŸö[RYH⁄[ú\ô[ù‹õŸö[W⁄Y⁄[ú\ô[ù⁄Yù[¬àYà
+XY\]ôT\ô[ùõŸö[RY
+H¬à€€ú››€ô\ì€⁄›\H]ÿZ]Y\]ôT›[[X\ûT€€ú]Y\ûJî—SP’\ô[ù⁄Yéù^T»\ô[ù‹õŸö[W⁄Yîì”Hÿ]\◊ÿ⁄[‹õŸö[\»“TëHYéù^IHSRUHãÿ⁄[YJKòÿ]⁄
+
+
+HOà
+»õ›‹Œà◊HJJN¬àY\]ôT\ô[ùõŸö[RYH›€ô\ì€⁄›\úõ›‹œÀñÃOÀú\ô[ù‹õŸö[W⁄Yù[¬àBà€€ú››[[X\ûHH]ÿZ]ùZ[Y\]ôT\ô[ù\⁄õÿ\ô›[[X\ûJY\]ôT›[[X\ûT€€¬à⁄[Yà\ô[ùõŸö[RYàY\]ôT\ô[ùõŸö[RYà⁄[ò[YNà⁄[ò⁄[€ò[YHàãàJN¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àããú›[[X\ûKàXY€õ‹›X‹Œà¬àõ›]Nàãÿ\Kﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ôÿY\]ôK\›[[X\ûHãàÿ€‹Nà»[ò[ùàXÿ€›[ù›ù[ò[ù[XZ[àXÿ€›[ù›ô[XZ[⁄[⁄Yà⁄[YKà€›\òŸW›Xõ\Œà»ò\‹Ÿ\‹€Y[ù‹Ÿ\‹⁄[€ú»ãòY\]ôW›åó‹⁄⁄[‹õŸ‹ô\‹»ãòY\]ôW›åóÿ⁄X⁄‹⁄[ùÿ][\»ãú⁄⁄[›€‹õ‹õŸ‹ô\‹»óKàKàJN¬àJN¬Çàõ›]\ãôŸ]
+ãÿ\Kﬁ[›]Y]ô[‹Y[ù‹\ô[ùY\⁄õÿ\ô‹ô]öY]»ã
+ô\Kô\ HOà¬àYà
+Z\“[ù\õò[›\ôòXŸTô\]Y\›[›ŸY
+ô\JJH¬àô]\õàô\Àú›]\ 
+Köú€€ä»⁄Œàò[ŸK\úõ‹éàõõ›Ÿõ›[ôàJN¬àBà€€ú›^[ÿYHùZ[ô]öY]‘^[ÿY
+
+N¬àô]\õàô\Àú›]\ å
+Köú€€ä¬àô]öY]ŒàùYKà\›€€õNàùYKàõ›\Œà¬àë]\õZ[ö\›X»ö^\ôH]H€õKàãàìõ»]Xò\ŸHXÿŸ\‹Ààãàìõ»[ò[ù‹ö]\ÀàãàKàããú^[ÿYàJN¬àJN¬Çàô]\õàõ›]\é¬üBÇõ[Ÿ[Kô^‹ù»H¬à‹ôX]V[›]]ô[‹Y[ùõ›]\ãàëUíQU◊–Q—‘ëQ–UQ‘ì’‘ÀàSïR—W’T’—íVTëKüN¬
