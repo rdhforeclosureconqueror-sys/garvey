@@ -3,7 +3,7 @@
 // All identities and caregiver consent must be server-resolved.
 const { verifyLearningHistoryConsent, PURPOSE } = require("./verifyLearningHistoryConsent");
 const { resolveStoredChildConsent } = require("./childConsentRepository");
-const AREAS = Object.freeze({"rainbow-syllables":"phonics","rainbow-writing":"writing","rainbow-grammar":"grammar","mission-planner":"executive_support"});
+const AREAS = Object.freeze({"rainbow-syllables":"phonics","rainbow-writing":"writing","rainbow-grammar":"grammar","word-power":"vocabulary","word-detective":"vocabulary","mission-planner":"executive_support"});
 const TYPES = new Set(["task_started","rule_changed","answer_submitted","retry","hint_used","support_used","plan_revised","reflection_submitted","activity_completed"]);
 const OUTCOMES = new Set(["correct","incorrect","unscored","not_applicable"]);
 const TAGS = new Set(["sequencing","rule_switching","working_hold","selective_attention","self_reflection","persistence","language_explanation","symbolic_translation"]);

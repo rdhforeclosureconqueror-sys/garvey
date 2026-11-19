@@ -1,1 +1,188 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Garvey Learning Activity Center</title><style>body{font-family:system-ui,sans-serif;background:#08142b;color:#f5f8ff;margin:0;padding:24px;line-height:1.5}main{max-width:860px;margin:auto}.card{background:#12264b;border:1px solid #37628e;border-radius:18px;padding:20px;margin:16px 0}.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}a,button{display:inline-block;border:0;border-radius:12px;padding:12px 14px;background:#74efdf;color:#062137;font-weight:800;text-decoration:none;cursor:pointer}button[disabled]{opacity:.5}select{padding:10px;border-radius:9px;width:100%;margin:8px 0 12px}small,#status{color:#b7c7df}</style><main><p>GARVEY LEARNING · PARENT ACTIVITY CENTER</p><h1>Practice, observe, grow.</h1><p>Choose your child, grant learning-history permission, then launch a practice world. This is developmental learning evidence—not a diagnosis or permanent label.</p><section class="card"><label>Child<select id="children"><option>Loading your children…</option></select></label><button id="consent" disabled>Allow activity history for this child</button><p id="status" role="status">Checking your secure parent session…</p></section><section class="card"><h2>Practice worlds</h2><div class="games" id="games" hidden><a data-game="/garvey-learning/rainbow-syllable-academy.html">Rainbow Syllable Academy</a><a data-game="/garvey-learning/rainbow-writing-adventure.html">Rainbow Writing Adventure</a><a data-game="/garvey-learning/rainbow-grammar-kingdom.html">Rainbow Grammar Kingdom</a><a data-game="/genius-practice/mission-planner.html">Mission Planner</a></div><small>Game events save only after permission is granted. Story text and raw answers are not sent as activity evidence.</small></section></main><script>(()=>{const pick=document.querySelector('#children'),btn=document.querySelector('#consent'),status=document.querySelector('#status'),games=document.querySelector('#games');let childId='',csrf='';async function json(url,options){const r=await fetch(url,{credentials:'include',...options});return {r,d:await r.json().catch(()=>({}))}}async function loadContext(){childId=pick.value;games.hidden=true;btn.disabled=true;if(!childId)return;status.textContent='Checking permission…';const {r,d}=await json(`/api/garvey-learning/children/${encodeURIComponent(childId)}/context`);if(!r.ok){status.textContent=d.error==='unauthenticated'?'Please sign in through the Garvey parent experience first.':'We could not open this child’s activity center.';return}csrf=d.csrf_token||'';if(d.consent_status==='granted'){status.textContent='Activity history is on. Launch a practice world.';games.hidden=false;return}status.textContent='Permission is off for this child. A parent can turn it on below.';btn.disabled=false}async function start(){btn.disabled=true;const {r,d}=await json(`/api/garvey-learning/children/${encodeURIComponent(childId)}/consent`,{method:'POST',headers:{'Content-Type':'application/json','X-Garvey-Consent-CSRF':csrf},body:JSON.stringify({action:'grant',acknowledged:true})});if(!r.ok){status.textContent='Permission could not be saved. Please refresh and try again.';btn.disabled=false;return}await loadContext()}async function init(){const {r,d}=await json('/api/garvey-learning/children');if(!r.ok){status.textContent='Please sign in through the Garvey parent experience first.';pick.innerHTML='<option>Parent sign-in required</option>';return}pick.innerHTML='<option value="">Choose a child</option>'+d.children.map(c=>`<option value="${c.child_id}">${c.child_name||'Child'}${c.child_grade_band?' · '+c.child_grade_band:''}</option>`).join('');status.textContent='Choose a child to begin.'}pick.addEventListener('change',loadContext);btn.addEventListener('click',start);document.querySelectorAll('[data-game]').forEach(a=>a.addEventListener('click',e=>{if(!childId)return e.preventDefault();a.href=a.dataset.game+'?child_id='+encodeURIComponent(childId)}));init()})()</script></html>
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Garvey Learning Activity Center</title
+  ><style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #08142b;
+      color: #f5f8ff;
+      margin: 0;
+      padding: 24px;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 860px;
+      margin: auto;
+    }
+    .card {
+      background: #12264b;
+      border: 1px solid #37628e;
+      border-radius: 18px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+    a,
+    button {
+      display: inline-block;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #74efdf;
+      color: #062137;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    button[disabled] {
+      opacity: 0.5;
+    }
+    select {
+      padding: 10px;
+      border-radius: 9px;
+      width: 100%;
+      margin: 8px 0 12px;
+    }
+    small,
+    #status {
+      color: #b7c7df;
+    }
+  </style>
+  <main>
+    <p>GARVEY LEARNING · PARENT ACTIVITY CENTER</p>
+    <h1>Practice, observe, grow.</h1>
+    <p>
+      Choose your child, grant learning-history permission, then launch a
+      practice world. This is developmental learning evidence—not a diagnosis or
+      permanent label.
+    </p>
+    <section class="card">
+      <label
+        >Child<select id="children">
+          <option>Loading your children…</option>
+        </select></label
+      ><button id="consent" disabled>
+        Allow activity history for this child
+      </button>
+      <p id="status" role="status">Checking your secure parent session…</p>
+    </section>
+    <section class="card">
+      <h2>Practice worlds</h2>
+      <div class="games" id="games" hidden>
+        <a data-game="/garvey-learning/rainbow-syllable-academy.html"
+          >Rainbow Syllable Academy</a
+        ><a data-game="/garvey-learning/rainbow-writing-adventure.html"
+          >Rainbow Writing Adventure</a
+        ><a data-game="/garvey-learning/rainbow-grammar-kingdom.html"
+          >Rainbow Grammar Kingdom</a
+        ><a data-game="/genius-practice/word-power-adventure.html"
+          >Word Power Adventure</a
+        ><a data-game="/genius-practice/word-detective-adventure.html"
+          >Word Detective Adventure</a
+        ><a data-game="/genius-practice/mission-planner.html"
+          >Mission Planner</a
+        >
+      </div>
+      <small
+        >Game events save only after permission is granted. Story text and raw
+        answers are not sent as activity evidence.</small
+      >
+    </section>
+  </main>
+  <script>
+    (() => {
+      const pick = document.querySelector("#children"),
+        btn = document.querySelector("#consent"),
+        status = document.querySelector("#status"),
+        games = document.querySelector("#games");
+      let childId = "",
+        csrf = "";
+      async function json(url, options) {
+        const r = await fetch(url, { credentials: "include", ...options });
+        return { r, d: await r.json().catch(() => ({})) };
+      }
+      async function loadContext() {
+        childId = pick.value;
+        games.hidden = true;
+        btn.disabled = true;
+        if (!childId) return;
+        status.textContent = "Checking permission…";
+        const { r, d } = await json(
+          `/api/garvey-learning/children/${encodeURIComponent(childId)}/context`,
+        );
+        if (!r.ok) {
+          status.textContent =
+            d.error === "unauthenticated"
+              ? "Please sign in through the Garvey parent experience first."
+              : "We could not open this child’s activity center.";
+          return;
+        }
+        csrf = d.csrf_token || "";
+        if (d.consent_status === "granted") {
+          status.textContent =
+            "Activity history is on. Launch a practice world.";
+          games.hidden = false;
+          return;
+        }
+        status.textContent =
+          "Permission is off for this child. A parent can turn it on below.";
+        btn.disabled = false;
+      }
+      async function start() {
+        btn.disabled = true;
+        const { r, d } = await json(
+          `/api/garvey-learning/children/${encodeURIComponent(childId)}/consent`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Garvey-Consent-CSRF": csrf,
+            },
+            body: JSON.stringify({ action: "grant", acknowledged: true }),
+          },
+        );
+        if (!r.ok) {
+          status.textContent =
+            "Permission could not be saved. Please refresh and try again.";
+          btn.disabled = false;
+          return;
+        }
+        await loadContext();
+      }
+      async function init() {
+        const { r, d } = await json("/api/garvey-learning/children");
+        if (!r.ok) {
+          status.textContent =
+            "Please sign in through the Garvey parent experience first.";
+          pick.innerHTML = "<option>Parent sign-in required</option>";
+          return;
+        }
+        pick.innerHTML =
+          '<option value="">Choose a child</option>' +
+          d.children
+            .map(
+              (c) =>
+                `<option value="${c.child_id}">${c.child_name || "Child"}${c.child_grade_band ? " · " + c.child_grade_band : ""}</option>`,
+            )
+            .join("");
+        status.textContent = "Choose a child to begin.";
+      }
+      pick.addEventListener("change", loadContext);
+      btn.addEventListener("click", start);
+      document.querySelectorAll("[data-game]").forEach((a) =>
+        a.addEventListener("click", (e) => {
+          if (!childId) return e.preventDefault();
+          a.href = a.dataset.game + "?child_id=" + encodeURIComponent(childId);
+        }),
+      );
+      init();
+    })();
+  </script>
+</html>

@@ -3,9 +3,9 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const bridge = require("../public/garvey-learning/garvey-activity-bridge");
 
-test("one shared bridge supports all four existing Garvey activities", () => {
+test("one shared bridge supports the six Garvey activities in the parent center", () => {
   assert.deepEqual(Object.keys(bridge.ACTIVITY_AREA).sort(), [
-    "mission-planner", "rainbow-grammar", "rainbow-syllables", "rainbow-writing",
+    "mission-planner", "rainbow-grammar", "rainbow-syllables", "rainbow-writing", "word-detective", "word-power",
   ]);
   for (const activityId of Object.keys(bridge.ACTIVITY_AREA)) {
     const activity = bridge.createBridge({ activityId });
