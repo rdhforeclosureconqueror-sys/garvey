@@ -5,7 +5,8 @@
     "completion_plan": "docs/grade2_english_completion_plan.md",
     "alignment_checkpoint": "docs/curriculum_alignment_checkpoint_grade1_grade2.md",
     "production_proof_package": true,
-    "created_at": "2026-05-30"
+    "created_at": "2026-05-30",
+    "reviewed_at": "2026-07-22"
   },
   "skill_id": "G2E_FL_001",
   "grade": 2,
@@ -27,12 +28,12 @@
       "punctuation",
       "fluency"
     ],
-    "concept_explanation": "Fluent readers recognize many words quickly, group words into phrases, and use punctuation to guide their voice.",
+    "concept_explanation": "Fluent readers recognize common words automatically, read meaningful groups of words together, and use punctuation to make their voices match the text.",
     "visual_model": "word_card",
     "common_misconception": "Readers may skip small words, pause after every word, or ignore punctuation at the end of a sentence.",
     "real_world_connection": "Fluency helps with reading directions, stories, poems, and classroom messages.",
     "lesson_summary": "Read each word accurately, group words in phrases, and stop or change voice for punctuation.",
-    "mini_lesson": "First read the word card. Then read a phrase smoothly. Last, read the whole sentence and check the end mark."
+    "mini_lesson": "First, check every letter in an unfamiliar word. Next, group words that make one idea. Then reread the whole sentence, using the punctuation to guide your pauses and expression."
   },
   "worked_examples": [
     {
@@ -938,356 +939,380 @@
       "questions": [
         {
           "question_id": "G2E_FL_001_LVL1_Q01",
-          "prompt": "Which word says because?",
+          "prompt": "The class stayed inside ___ it was raining.",
           "question_type": "short_response",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "because",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Notice the words on both sides of the blank: stayed inside and it was raining.",
+            "The missing word should connect an event to its reason.",
+            "Read the completed rainy-day sentence; the two parts should have a clear reason link."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "because is correct for this fluency item.",
-          "feedback": "Yes — read because smoothly.",
+          "explanation": "Because connects what happened with the reason it happened.",
+          "feedback": "Because connects what happened with the reason it happened.",
           "choices": [
             "because",
-            "esuaceb",
-            "before"
+            "before",
+            "around",
+            "found"
           ],
+          "target_word": "because",
+          "topic": "rainy-day recess",
           "word": "because",
           "acceptable_answers": [
-            "because",
-            "because",
             "because"
           ],
           "question_audio": {
-            "text": "Which word says because?",
+            "text": "The class stayed inside ___ it was raining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "because",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "The class stayed inside ___ it was raining.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q02",
-          "prompt": "Which word says before?",
+          "prompt": "Wash your hands ___ you eat lunch.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "before",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Picture the order of the two actions: washing hands and eating lunch.",
+            "The missing word should show that washing happens earlier.",
+            "Reread both actions in order and confirm that the time word fits."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "before is correct for this fluency item.",
-          "feedback": "Yes — read before smoothly.",
+          "explanation": "Before tells that washing happens earlier than eating.",
+          "feedback": "Before tells that washing happens earlier than eating.",
           "choices": [
+            "around",
             "before",
-            "erofeb",
-            "been"
+            "sleep",
+            "green"
           ],
+          "target_word": "before",
+          "topic": "lunch routine",
           "word": "before",
           "question_audio": {
-            "text": "Which word says before?",
+            "text": "Wash your hands ___ you eat lunch.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "before",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Wash your hands ___ you eat lunch.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q03",
-          "prompt": "Which word says been?",
+          "prompt": "We have ___ to this library many times.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "been",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Read the helper word have before the blank.",
+            "Have pairs with a past-participle word to tell about an experience.",
+            "Read have plus your choice as one smooth verb phrase."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "been is correct for this fluency item.",
-          "feedback": "Yes — read been smoothly.",
+          "explanation": "Been works with have to tell about a place visited in the past.",
+          "feedback": "Been works with have to tell about a place visited in the past.",
           "choices": [
+            "does",
+            "right",
             "been",
-            "neeb",
-            "does"
+            "wash"
           ],
+          "target_word": "been",
+          "topic": "library visit",
           "word": "been",
           "question_audio": {
-            "text": "Which word says been?",
+            "text": "We have ___ to this library many times.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "been",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "We have ___ to this library many times.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q04",
-          "prompt": "Which word says does?",
+          "prompt": "What ___ this button do?",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "does",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Notice that the sentence asks about one button.",
+            "A question about one person or thing often uses a helper ending in s.",
+            "Say the whole question and listen for standard classroom English."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "does is correct for this fluency item.",
-          "feedback": "Yes — read does smoothly.",
+          "explanation": "Does helps ask what one thing can do.",
+          "feedback": "Does helps ask what one thing can do.",
           "choices": [
-            "does",
-            "seod",
-            "found"
+            "found",
+            "around",
+            "sleep",
+            "does"
           ],
+          "target_word": "does",
+          "topic": "science button",
           "word": "does",
           "question_audio": {
-            "text": "Which word says does?",
+            "text": "What ___ this button do?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "does",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "What ___ this button do?",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q05",
-          "prompt": "Which word says found?",
+          "prompt": "Mina ___ her missing mitten under the bench.",
           "question_type": "short_response",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "found",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Use the clue missing mitten under the bench.",
+            "Choose the past-tense action that means located.",
+            "Replace the blank and make sure the sentence tells where the mitten was located."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "found is correct for this fluency item.",
-          "feedback": "Yes — read found smoothly.",
+          "explanation": "Found means Mina located the mitten she had been seeking.",
+          "feedback": "Found means Mina located the mitten she had been seeking.",
           "choices": [
             "found",
-            "dnuof",
-            "around"
+            "before",
+            "green",
+            "because"
           ],
+          "target_word": "found",
+          "topic": "missing mitten",
           "word": "found",
           "acceptable_answers": [
-            "found",
-            "found",
             "found"
           ],
           "question_audio": {
-            "text": "Which word says found?",
+            "text": "Mina ___ her missing mitten under the bench.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "found",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Mina ___ her missing mitten under the bench.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q06",
-          "prompt": "Which word says around?",
+          "prompt": "We walked ___ the puddle to keep our shoes dry.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "around",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Picture the puddle and the goal of keeping shoes dry.",
+            "The direction word should show going beside the puddle, not through it.",
+            "Trace the imagined path, then reread to confirm the direction keeps shoes dry."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "around is correct for this fluency item.",
-          "feedback": "Yes — read around smoothly.",
+          "explanation": "Around shows that the walkers went beside the puddle instead of through it.",
+          "feedback": "Around shows that the walkers went beside the puddle instead of through it.",
           "choices": [
+            "right",
             "around",
-            "dnuora",
-            "right"
+            "wash",
+            "been"
           ],
+          "target_word": "around",
+          "topic": "puddle walk",
           "word": "around",
           "question_audio": {
-            "text": "Which word says around?",
+            "text": "We walked ___ the puddle to keep our shoes dry.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "around",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "We walked ___ the puddle to keep our shoes dry.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q07",
-          "prompt": "Which word says right?",
+          "prompt": "Turn ___ at the corner to reach the garden.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "right",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Look for the direction named after the word Turn.",
+            "Choose the direction that is the opposite of left.",
+            "Face an imaginary corner and confirm the chosen direction matches the garden route."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "right is correct for this fluency item.",
-          "feedback": "Yes — read right smoothly.",
+          "explanation": "Right names the direction to turn at the corner.",
+          "feedback": "Right names the direction to turn at the corner.",
           "choices": [
+            "sleep",
+            "because",
             "right",
-            "thgir",
-            "wash"
+            "before"
           ],
+          "target_word": "right",
+          "topic": "garden directions",
           "word": "right",
           "question_audio": {
-            "text": "Which word says right?",
+            "text": "Turn ___ at the corner to reach the garden.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "right",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Turn ___ at the corner to reach the garden.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q08",
-          "prompt": "Which word says wash?",
+          "prompt": "Please ___ the paintbrushes at the sink.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "wash",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Think about what removes paint from brushes at a sink.",
+            "Select the action verb that means clean with water.",
+            "Act out the direction mentally and confirm it makes sense at a sink."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "wash is correct for this fluency item.",
-          "feedback": "Yes — read wash smoothly.",
+          "explanation": "Wash is the action that cleans paint from the brushes.",
+          "feedback": "Wash is the action that cleans paint from the brushes.",
           "choices": [
-            "wash",
-            "hsaw",
-            "green"
+            "found",
+            "does",
+            "green",
+            "wash"
           ],
+          "target_word": "wash",
+          "topic": "art cleanup",
           "word": "wash",
           "question_audio": {
-            "text": "Which word says wash?",
+            "text": "Please ___ the paintbrushes at the sink.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "wash",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Please ___ the paintbrushes at the sink.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q09",
-          "prompt": "Which word says green?",
+          "prompt": "The new leaves are bright ___.",
           "question_type": "short_response",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "green",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Look for the word that names the leaves’ color.",
+            "Only a color word can describe how the leaves look.",
+            "Read the noun and describing word together and check that the description is possible."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "green is correct for this fluency item.",
-          "feedback": "Yes — read green smoothly.",
+          "explanation": "Green is the color word that describes the new leaves.",
+          "feedback": "Green is the color word that describes the new leaves.",
           "choices": [
             "green",
-            "neerg",
-            "sleep"
+            "around",
+            "been",
+            "right"
           ],
+          "target_word": "green",
+          "topic": "spring leaves",
           "word": "green",
           "acceptable_answers": [
-            "green",
-            "green",
             "green"
           ],
           "question_audio": {
-            "text": "Which word says green?",
+            "text": "The new leaves are bright ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "green",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "The new leaves are bright ___.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL1_Q10",
-          "prompt": "Which word says sleep?",
+          "prompt": "Bats ___ during much of the day.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "sleep",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Use the clue rest during much of the day.",
+            "Choose the verb that names resting with eyes closed.",
+            "Reread the bat fact and confirm the action matches daytime rest."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "sleep is correct for this fluency item.",
-          "feedback": "Yes — read sleep smoothly.",
+          "explanation": "Sleep names what bats do while they rest during the day.",
+          "feedback": "Sleep names what bats do while they rest during the day.",
           "choices": [
+            "before",
             "sleep",
-            "peels",
-            "because"
+            "found",
+            "wash"
           ],
+          "target_word": "sleep",
+          "topic": "resting bats",
           "word": "sleep",
           "question_audio": {
-            "text": "Which word says sleep?",
+            "text": "Bats ___ during much of the day.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "sleep",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Bats ___ during much of the day.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         }
@@ -1303,351 +1328,377 @@
       "questions": [
         {
           "question_id": "G2E_FL_001_LVL2_Q01",
-          "prompt": "Read the word card. Which choice matches their?",
+          "prompt": "Choose the correctly spelled word that completes the sentence: ___ puppy is playful.",
           "question_type": "short_response",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "their",
+          "support_type": "audio_optional",
+          "correct_answer": "Their",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Look at the apostrophe-free choices and the word puppy after the blank.",
+            "The possessive word means belonging to them and follows the spelling t-h-e-i-r.",
+            "Compare every letter once more, then read the complete possessive phrase."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "their is correct for this fluency item.",
-          "feedback": "Yes — read their smoothly.",
+          "explanation": "Their is the correctly spelled word that shows the puppy belongs to them.",
+          "feedback": "Their is the correctly spelled word that shows the puppy belongs to them.",
           "choices": [
-            "their",
-            "write",
-            "many"
+            "Thier",
+            "There",
+            "Their",
+            "Theyre"
           ],
+          "target_word": "their",
+          "topic": "playful puppy",
           "word": "their",
           "acceptable_answers": [
-            "their",
-            "their",
-            "their"
+            "Their"
           ],
           "question_audio": {
-            "text": "Read the word card. Which choice matches their?",
+            "text": "Choose the correctly spelled word that completes the sentence: ___ puppy is playful.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "their",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Choose the correctly spelled word that completes the sentence: ___ puppy is playful.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q02",
-          "prompt": "Read the word card. Which choice matches would?",
+          "prompt": "Choose the word that completes the polite question: ___ you share a crayon?",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "would",
+          "support_type": "audio_optional",
+          "correct_answer": "Would",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Say the opening of the polite question slowly.",
+            "A polite request begins with the word spelled w-o-u-l-d.",
+            "Read the question aloud and check that it sounds polite and correctly spelled."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "would is correct for this fluency item.",
-          "feedback": "Yes — read would smoothly.",
+          "explanation": "Would begins a polite question; its letters appear in the correct order.",
+          "feedback": "Would begins a polite question; its letters appear in the correct order.",
           "choices": [
-            "would",
-            "many",
-            "those"
+            "Wold",
+            "Woud",
+            "Wood",
+            "Would"
           ],
+          "target_word": "would",
+          "topic": "sharing crayons",
           "word": "would",
           "question_audio": {
-            "text": "Read the word card. Which choice matches would?",
+            "text": "Choose the word that completes the polite question: ___ you share a crayon?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "would",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Choose the word that completes the polite question: ___ you share a crayon?",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q03",
-          "prompt": "Read the word card. Which choice matches write?",
+          "prompt": "Which word correctly completes the direction? ___ one fact about bees.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "write",
+          "support_type": "audio_optional",
+          "correct_answer": "Write",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Think about the action you do to put a fact on paper.",
+            "The writing action begins with the silent-letter team wr.",
+            "Spell the chosen action letter by letter, then reread the direction."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "write is correct for this fluency item.",
-          "feedback": "Yes — read write smoothly.",
+          "explanation": "Write means to put words on paper and begins with the silent-letter spelling wr.",
+          "feedback": "Write means to put words on paper and begins with the silent-letter spelling wr.",
           "choices": [
-            "write",
-            "those",
-            "always"
+            "Write",
+            "Right",
+            "Rite",
+            "Wright"
           ],
+          "target_word": "write",
+          "topic": "bee facts",
           "word": "write",
           "question_audio": {
-            "text": "Read the word card. Which choice matches write?",
+            "text": "Which word correctly completes the direction? ___ one fact about bees.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "write",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Which word correctly completes the direction? ___ one fact about bees.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q04",
-          "prompt": "Read the word card. Which choice matches many?",
+          "prompt": "The word card says many. Which sentence uses that exact word?",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "many",
+          "support_type": "audio_optional",
+          "correct_answer": "Many ants marched.",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Scan the four sentences for the exact five-letter word on the card.",
+            "Ignore sentences that change, remove, or add a letter to the card word.",
+            "Point to each letter in the card word and in the selected sentence to confirm a match."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "many is correct for this fluency item.",
-          "feedback": "Yes — read many smoothly.",
+          "explanation": "Many is read quickly as one word and tells that there were a large number of ants.",
+          "feedback": "Many is read quickly as one word and tells that there were a large number of ants.",
           "choices": [
-            "many",
-            "always",
-            "both"
+            "Manny ants marched.",
+            "Many ants marched.",
+            "Any ants marched.",
+            "Main ants marched."
           ],
+          "target_word": "many",
+          "topic": "marching ants",
           "word": "many",
           "question_audio": {
-            "text": "Read the word card. Which choice matches many?",
+            "text": "The word card says many. Which sentence uses that exact word?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "many",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "The word card says many. Which sentence uses that exact word?",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q05",
-          "prompt": "Read the word card. Which choice matches those?",
+          "prompt": "Choose the exact word shown in this sentence: Those kites fly high.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "those",
+          "support_type": "audio_optional",
+          "correct_answer": "Those",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Compare each spelling with the word printed in the model sentence.",
+            "Track the letters t-h-o-s-e in that order.",
+            "Match the sentence word letter for letter before choosing."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "those is correct for this fluency item.",
-          "feedback": "Yes — read those smoothly.",
+          "explanation": "Those is the correctly spelled word in the sentence and points to more than one kite.",
+          "feedback": "Those is the correctly spelled word in the sentence and points to more than one kite.",
           "choices": [
-            "those",
-            "both",
-            "cold"
+            "These",
+            "Though",
+            "Those",
+            "Thoes"
           ],
+          "target_word": "those",
+          "topic": "flying kites",
           "word": "those",
           "question_audio": {
-            "text": "Read the word card. Which choice matches those?",
+            "text": "Choose the exact word shown in this sentence: Those kites fly high.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "those",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Choose the exact word shown in this sentence: Those kites fly high.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q06",
-          "prompt": "Read the word card. Which choice matches always?",
+          "prompt": "Which choice correctly spells the word that means every time?",
           "question_type": "short_response",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "always",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Look for one word that means every time.",
+            "The correct spelling has one l before ways and is written as one word.",
+            "Cover the choices, spell the word from memory, and compare."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "always is correct for this fluency item.",
-          "feedback": "Yes — read always smoothly.",
+          "explanation": "Always is one word with one l in the middle and means every time.",
+          "feedback": "Always is one word with one l in the middle and means every time.",
           "choices": [
-            "always",
-            "cold",
-            "fast"
+            "allways",
+            "alway",
+            "all ways",
+            "always"
           ],
+          "target_word": "always",
+          "topic": "daily music",
           "word": "always",
           "acceptable_answers": [
-            "always",
-            "always",
             "always"
           ],
           "question_audio": {
-            "text": "Read the word card. Which choice matches always?",
+            "text": "Which choice correctly spells the word that means every time?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "always",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Which choice correctly spells the word that means every time?",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q07",
-          "prompt": "Read the word card. Which choice matches both?",
+          "prompt": "___ teams carried water for the garden.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "both",
+          "support_type": "audio_optional",
+          "correct_answer": "Both",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "The sentence is about two teams acting together.",
+            "The word for two together ends with th, not ht.",
+            "Reread the subject and verb; the choice should clearly refer to the two teams."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "both is correct for this fluency item.",
-          "feedback": "Yes — read both smoothly.",
+          "explanation": "Both means the two teams together and is spelled b-o-t-h.",
+          "feedback": "Both means the two teams together and is spelled b-o-t-h.",
           "choices": [
-            "both",
-            "fast",
-            "pull"
+            "Both",
+            "Bothe",
+            "Bath",
+            "Boht"
           ],
+          "target_word": "both",
+          "topic": "garden teams",
           "word": "both",
           "question_audio": {
-            "text": "Read the word card. Which choice matches both?",
+            "text": "___ teams carried water for the garden.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "both",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "___ teams carried water for the garden.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q08",
-          "prompt": "Read the word card. Which choice matches cold?",
+          "prompt": "Wear a coat because the wind feels ___.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "cold",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Use the coat and chilly-wind clues.",
+            "The describing word needs the letters c-o-l-d in order.",
+            "Read the weather sentence and confirm both meaning and spelling."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "cold is correct for this fluency item.",
-          "feedback": "Yes — read cold smoothly.",
+          "explanation": "Cold describes the chilly wind and is the correctly spelled word.",
+          "feedback": "Cold describes the chilly wind and is the correctly spelled word.",
           "choices": [
+            "could",
             "cold",
-            "pull",
-            "their"
+            "colt",
+            "coled"
           ],
+          "target_word": "cold",
+          "topic": "windy weather",
           "word": "cold",
           "question_audio": {
-            "text": "Read the word card. Which choice matches cold?",
+            "text": "Wear a coat because the wind feels ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "cold",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Wear a coat because the wind feels ___.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q09",
-          "prompt": "Read the word card. Which choice matches fast?",
+          "prompt": "The rabbit can run very ___.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "fast",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask how the rabbit runs.",
+            "The word meaning quickly uses the vowel a.",
+            "Put the choice after very and check that it tells how."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "fast is correct for this fluency item.",
-          "feedback": "Yes — read fast smoothly.",
+          "explanation": "Fast tells how quickly the rabbit runs.",
+          "feedback": "Fast tells how quickly the rabbit runs.",
           "choices": [
+            "first",
+            "fest",
             "fast",
-            "their",
-            "would"
+            "fats"
           ],
+          "target_word": "fast",
+          "topic": "running rabbit",
           "word": "fast",
           "question_audio": {
-            "text": "Read the word card. Which choice matches fast?",
+            "text": "The rabbit can run very ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "fast",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "The rabbit can run very ___.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL2_Q10",
-          "prompt": "Read the word card. Which choice matches pull?",
+          "prompt": "Use both hands to ___ the heavy door.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
+          "support_type": "audio_optional",
           "correct_answer": "pull",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Picture moving the heavy door toward you.",
+            "The action word ends with two l letters.",
+            "Pretend to use the door and confirm the chosen action moves it toward you."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "pull is correct for this fluency item.",
-          "feedback": "Yes — read pull smoothly.",
+          "explanation": "Pull means to move the door toward you and ends with two l letters.",
+          "feedback": "Pull means to move the door toward you and ends with two l letters.",
           "choices": [
-            "pull",
-            "would",
-            "write"
+            "pool",
+            "pall",
+            "pul",
+            "pull"
           ],
+          "target_word": "pull",
+          "topic": "heavy door",
           "word": "pull",
           "question_audio": {
-            "text": "Read the word card. Which choice matches pull?",
+            "text": "Use both hands to ___ the heavy door.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "pull",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Use both hands to ___ the heavy door.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         }
@@ -1663,355 +1714,376 @@
       "questions": [
         {
           "question_id": "G2E_FL_001_LVL3_Q01",
-          "prompt": "Read this phrase smoothly: around the tree. Which phrase matches?",
-          "question_type": "multiple_choice",
+          "prompt": "Read the sentence in smooth groups. Which words belong together? We packed | ___ | for the hike.",
+          "question_type": "short_response",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "around the tree",
+          "support_type": "audio_optional",
+          "correct_answer": "a map and snacks",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask what the hikers packed.",
+            "A smooth phrase keeps the complete list of supplies together.",
+            "Read We packed plus the phrase without unnecessary stops."
           ],
-          "misconception_tag": "skips_function_words",
-          "explanation": "around the tree is correct for this fluency item.",
-          "feedback": "Yes — read around the tree smoothly.",
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "A map and snacks forms one meaningful phrase naming what was packed.",
+          "feedback": "A map and snacks forms one meaningful phrase naming what was packed.",
           "choices": [
-            "around the tree",
-            "tree the around",
-            "the and of"
+            "a map and snacks",
+            "a map | and | snacks",
+            "map snacks a",
+            "and a map snacks"
           ],
-          "phrase": "around the tree",
+          "target_word": "a map and snacks",
+          "topic": "hiking supplies",
+          "phrase": "a map and snacks",
+          "acceptable_answers": [
+            "a map and snacks"
+          ],
           "question_audio": {
-            "text": "Read this phrase smoothly: around the tree. Which phrase matches?",
+            "text": "Read the sentence in smooth groups. Which words belong together? We packed | ___ | for the hike.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: around the tree. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Read the sentence in smooth groups. Which words belong together? We packed | ___ | for the hike.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q02",
-          "prompt": "Read this phrase smoothly: before we go. Which phrase matches?",
-          "question_type": "short_response",
+          "prompt": "Which phrase smoothly completes the sentence? The kitten curled up ___.",
+          "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "before we go",
+          "support_type": "audio_optional",
+          "correct_answer": "under the warm blanket",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask where the kitten curled up.",
+            "A location phrase begins with a position word and stays together as one idea.",
+            "Read the complete sentence and listen for one smooth where group."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "before we go is correct for this fluency item.",
-          "feedback": "Yes — read before we go smoothly.",
+          "explanation": "Under the warm blanket is a meaningful group that tells where the kitten curled up.",
+          "feedback": "Under the warm blanket is a meaningful group that tells where the kitten curled up.",
           "choices": [
-            "before we go",
-            "go we before",
-            "the and of"
+            "under | the | warm | blanket",
+            "under the warm blanket",
+            "blanket warm the under",
+            "the under blanket warm"
           ],
-          "phrase": "before we go",
-          "acceptable_answers": [
-            "before we go",
-            "before we go",
-            "before we go"
-          ],
+          "target_word": "under the warm blanket",
+          "topic": "sleepy kitten",
+          "phrase": "under the warm blanket",
           "question_audio": {
-            "text": "Read this phrase smoothly: before we go. Which phrase matches?",
+            "text": "Which phrase smoothly completes the sentence? The kitten curled up ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: before we go. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Which phrase smoothly completes the sentence? The kitten curled up ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q03",
-          "prompt": "Read this phrase smoothly: their green boat. Which phrase matches?",
+          "prompt": "Choose the phrase that sounds natural: We cheered ___.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "their green boat",
+          "support_type": "audio_optional",
+          "correct_answer": "after the final goal",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask when the cheering happened.",
+            "A time phrase can answer when without scrambling its words.",
+            "Clap once for the main sentence and once for the time phrase; both should be meaningful."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "their green boat is correct for this fluency item.",
-          "feedback": "Yes — read their green boat smoothly.",
+          "explanation": "After the final goal belongs together because the words tell when the cheering happened.",
+          "feedback": "After the final goal belongs together because the words tell when the cheering happened.",
           "choices": [
-            "their green boat",
-            "boat green their",
-            "the and of"
+            "after | the | final | goal",
+            "goal the final after",
+            "after the final goal",
+            "the goal after final"
           ],
-          "phrase": "their green boat",
+          "target_word": "after the final goal",
+          "topic": "soccer cheer",
+          "phrase": "after the final goal",
           "question_audio": {
-            "text": "Read this phrase smoothly: their green boat. Which phrase matches?",
+            "text": "Choose the phrase that sounds natural: We cheered ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: their green boat. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Choose the phrase that sounds natural: We cheered ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q04",
-          "prompt": "Read this phrase smoothly: would you help. Which phrase matches?",
+          "prompt": "Read in a smooth phrase: Dad set the bowl ___.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "would you help",
+          "support_type": "audio_optional",
+          "correct_answer": "on the kitchen table",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask where Dad set the bowl.",
+            "Keep the position word, describing words, and place in natural English order.",
+            "Reread from Dad through the final word and check that the location sounds natural."
           ],
-          "misconception_tag": "skips_function_words",
-          "explanation": "would you help is correct for this fluency item.",
-          "feedback": "Yes — read would you help smoothly.",
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "On the kitchen table is a natural phrase that tells where Dad set the bowl.",
+          "feedback": "On the kitchen table is a natural phrase that tells where Dad set the bowl.",
           "choices": [
-            "would you help",
-            "help you would",
-            "the and of"
+            "on | the kitchen | table",
+            "table kitchen the on",
+            "the on table kitchen",
+            "on the kitchen table"
           ],
-          "phrase": "would you help",
+          "target_word": "on the kitchen table",
+          "topic": "breakfast bowl",
+          "phrase": "on the kitchen table",
           "question_audio": {
-            "text": "Read this phrase smoothly: would you help. Which phrase matches?",
+            "text": "Read in a smooth phrase: Dad set the bowl ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: would you help. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Read in a smooth phrase: Dad set the bowl ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q05",
-          "prompt": "Read this phrase smoothly: many small shells. Which phrase matches?",
+          "prompt": "Which group completes the idea smoothly? The frogs croaked ___.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "many small shells",
+          "support_type": "audio_optional",
+          "correct_answer": "beside the quiet pond",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask where the frogs croaked.",
+            "The whole location group should sound like one answer to where.",
+            "Read the phrase in one breath and verify that it answers where."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "many small shells is correct for this fluency item.",
-          "feedback": "Yes — read many small shells smoothly.",
+          "explanation": "Beside the quiet pond is one meaningful group that tells where the frogs croaked.",
+          "feedback": "Beside the quiet pond is one meaningful group that tells where the frogs croaked.",
           "choices": [
-            "many small shells",
-            "shells small many",
-            "the and of"
+            "beside the quiet pond",
+            "beside | the | quiet | pond",
+            "pond quiet beside the",
+            "quiet the pond beside"
           ],
-          "phrase": "many small shells",
+          "target_word": "beside the quiet pond",
+          "topic": "pond frogs",
+          "phrase": "beside the quiet pond",
           "question_audio": {
-            "text": "Read this phrase smoothly: many small shells. Which phrase matches?",
+            "text": "Which group completes the idea smoothly? The frogs croaked ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: many small shells. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Which group completes the idea smoothly? The frogs croaked ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q06",
-          "prompt": "Read this phrase smoothly: both of us. Which phrase matches?",
+          "prompt": "Select the natural phrase: Our bus arrived ___.",
           "question_type": "short_response",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "both of us",
+          "support_type": "audio_optional",
+          "correct_answer": "early in the morning",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask when the bus arrived.",
+            "Keep the time words together instead of pausing after every small word.",
+            "Reread the sentence with one gentle pause before the time group."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "both of us is correct for this fluency item.",
-          "feedback": "Yes — read both of us smoothly.",
+          "explanation": "Early in the morning flows as a phrase that tells when the bus arrived.",
+          "feedback": "Early in the morning flows as a phrase that tells when the bus arrived.",
           "choices": [
-            "both of us",
-            "us of both",
-            "the and of"
+            "early | in | the | morning",
+            "early in the morning",
+            "morning the in early",
+            "in early morning the"
           ],
-          "phrase": "both of us",
+          "target_word": "early in the morning",
+          "topic": "morning bus",
+          "phrase": "early in the morning",
           "acceptable_answers": [
-            "both of us",
-            "both of us",
-            "both of us"
+            "early in the morning"
           ],
           "question_audio": {
-            "text": "Read this phrase smoothly: both of us. Which phrase matches?",
+            "text": "Select the natural phrase: Our bus arrived ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: both of us. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Select the natural phrase: Our bus arrived ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q07",
-          "prompt": "Read this phrase smoothly: write your name. Which phrase matches?",
+          "prompt": "Which phrase should be read together? Kai carried ___.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "write your name",
+          "support_type": "audio_optional",
+          "correct_answer": "three books to class",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask what Kai carried and where he took it.",
+            "A clear phrase keeps the number, object, and destination in sensible order.",
+            "Read the full sentence and confirm that every word contributes to the idea."
           ],
-          "misconception_tag": "skips_function_words",
-          "explanation": "write your name is correct for this fluency item.",
-          "feedback": "Yes — read write your name smoothly.",
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "Three books to class groups the object and destination into a clear idea.",
+          "feedback": "Three books to class groups the object and destination into a clear idea.",
           "choices": [
-            "write your name",
-            "name your write",
-            "the and of"
+            "three | books | to | class",
+            "class books three to",
+            "three books to class",
+            "to three class books"
           ],
-          "phrase": "write your name",
+          "target_word": "three books to class",
+          "topic": "classroom books",
+          "phrase": "three books to class",
           "question_audio": {
-            "text": "Read this phrase smoothly: write your name. Which phrase matches?",
+            "text": "Which phrase should be read together? Kai carried ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: write your name. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Which phrase should be read together? Kai carried ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q08",
-          "prompt": "Read this phrase smoothly: found a cold drink. Which phrase matches?",
+          "prompt": "Complete the sentence with the smooth phrase: Birds rested ___.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "found a cold drink",
+          "support_type": "audio_optional",
+          "correct_answer": "on a snowy branch",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask where the birds rested.",
+            "A location phrase starts with on and ends with the place.",
+            "Say the location phrase smoothly and check that its word order sounds natural."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "found a cold drink is correct for this fluency item.",
-          "feedback": "Yes — read found a cold drink smoothly.",
+          "explanation": "On a snowy branch is a meaningful phrase telling where the birds rested.",
+          "feedback": "On a snowy branch is a meaningful phrase telling where the birds rested.",
           "choices": [
-            "found a cold drink",
-            "drink cold a found",
-            "the and of"
+            "on | a | snowy | branch",
+            "branch a snowy on",
+            "snowy on branch a",
+            "on a snowy branch"
           ],
-          "phrase": "found a cold drink",
+          "target_word": "on a snowy branch",
+          "topic": "winter birds",
+          "phrase": "on a snowy branch",
           "question_audio": {
-            "text": "Read this phrase smoothly: found a cold drink. Which phrase matches?",
+            "text": "Complete the sentence with the smooth phrase: Birds rested ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: found a cold drink. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Complete the sentence with the smooth phrase: Birds rested ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q09",
-          "prompt": "Read this phrase smoothly: always read carefully. Which phrase matches?",
+          "prompt": "Choose the phrase that makes sense as one group: We listened ___.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "always read carefully",
+          "support_type": "audio_optional",
+          "correct_answer": "to the gentle rain",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask what the group listened to.",
+            "The phrase should name the sound being heard in normal word order.",
+            "Reread the sentence and make sure the phrase clearly answers what was heard."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "always read carefully is correct for this fluency item.",
-          "feedback": "Yes — read always read carefully smoothly.",
+          "explanation": "To the gentle rain belongs together because it tells what we listened to.",
+          "feedback": "To the gentle rain belongs together because it tells what we listened to.",
           "choices": [
-            "always read carefully",
-            "carefully read always",
-            "the and of"
+            "to the gentle rain",
+            "to | the | gentle | rain",
+            "rain gentle to the",
+            "gentle the rain to"
           ],
-          "phrase": "always read carefully",
+          "target_word": "to the gentle rain",
+          "topic": "rain sounds",
+          "phrase": "to the gentle rain",
           "question_audio": {
-            "text": "Read this phrase smoothly: always read carefully. Which phrase matches?",
+            "text": "Choose the phrase that makes sense as one group: We listened ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: always read carefully. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Choose the phrase that makes sense as one group: We listened ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL3_Q10",
-          "prompt": "Read this phrase smoothly: pull the wagon. Which phrase matches?",
-          "question_type": "short_response",
+          "prompt": "Read smoothly: Nia shared ___. Which phrase completes the sentence?",
+          "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "pull the wagon",
+          "support_type": "audio_optional",
+          "correct_answer": "her markers with Luis",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask what Nia shared and with whom.",
+            "Keep the object and the with whom part in one meaningful group.",
+            "Read the completed sentence and confirm both the object and partner are clear."
           ],
-          "misconception_tag": "skips_function_words",
-          "explanation": "pull the wagon is correct for this fluency item.",
-          "feedback": "Yes — read pull the wagon smoothly.",
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "Her markers with Luis is a clear phrase naming what Nia shared and with whom.",
+          "feedback": "Her markers with Luis is a clear phrase naming what Nia shared and with whom.",
           "choices": [
-            "pull the wagon",
-            "wagon the pull",
-            "the and of"
+            "her | markers | with | Luis",
+            "her markers with Luis",
+            "Luis markers her with",
+            "with her Luis markers"
           ],
-          "phrase": "pull the wagon",
-          "acceptable_answers": [
-            "pull the wagon",
-            "pull the wagon",
-            "pull the wagon"
-          ],
+          "target_word": "her markers with Luis",
+          "topic": "marker sharing",
+          "phrase": "her markers with Luis",
           "question_audio": {
-            "text": "Read this phrase smoothly: pull the wagon. Which phrase matches?",
+            "text": "Read smoothly: Nia shared ___. Which phrase completes the sentence?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: pull the wagon. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Read smoothly: Nia shared ___. Which phrase completes the sentence?",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
@@ -2028,379 +2100,376 @@
       "questions": [
         {
           "question_id": "G2E_FL_001_LVL4_Q01",
-          "prompt": "Read the sentence and notice the punctuation: The dog found a bone.",
+          "prompt": "Which end mark tells your voice to ask? Did you feed the fish___",
           "question_type": "sentence_completion",
-          "visual_model": "sentence_highlight",
-          "support_type": "sentence_highlight",
-          "correct_answer": "The dog found a bone.",
+          "visual_model": "sentence_card",
+          "support_type": "audio_optional",
+          "correct_answer": "question mark (?)",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Read the sentence as a request for information.",
+            "A direct question ends with the mark that signals an asking voice.",
+            "Read the complete fish sentence with an asking voice and check the end mark."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "The dog found a bone. is correct for this fluency item.",
-          "feedback": "Yes — read The dog found a bone. smoothly.",
+          "explanation": "A question mark ends a direct question and signals an asking voice.",
+          "feedback": "A question mark ends a direct question and signals an asking voice.",
           "choices": [
-            "The dog found a bone.",
-            "The dog found a bone.",
-            "the dog found a bone."
+            "period (.)",
+            "exclamation point (!)",
+            "question mark (?)",
+            "comma (,)"
           ],
-          "sentence": "The dog found a bone.",
-          "target_word": ".",
-          "acceptable_answers": [
-            "The dog found a bone.",
-            "the dog found a bone.",
-            "The dog found a bone"
-          ],
+          "target_word": "question mark",
+          "topic": "feeding fish",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: The dog found a bone.",
+            "text": "Which end mark tells your voice to ask? Did you feed the fish___",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "The dog found a bone.",
-            "label": "Hear the sentence",
+            "text": "Which end mark tells your voice to ask? Did you feed the fish___",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "question mark (?)"
+          ]
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q02",
-          "prompt": "Read the sentence and notice the punctuation: Can you help me?",
+          "prompt": "Which sentence should be read with strong excitement?",
           "question_type": "multiple_choice",
-          "visual_model": "sentence_card",
-          "support_type": "sentence_card",
-          "correct_answer": "?",
+          "visual_model": "sentence_highlight",
+          "support_type": "audio_optional",
+          "correct_answer": "excited: We won the relay!",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Think about how your voice sounds after winning a relay.",
+            "Strong excitement is shown by an exclamation point, not a period.",
+            "Try each labeled voice; choose the one that matches both the event and punctuation."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "? is correct for this fluency item.",
-          "feedback": "Yes — read ? smoothly.",
+          "explanation": "The exclamation point shows excitement, so the reader uses an energetic voice.",
+          "feedback": "The exclamation point shows excitement, so the reader uses an energetic voice.",
           "choices": [
-            "?",
-            ".",
-            "?",
-            "!"
+            "calm statement: We won the relay.",
+            "asking: Did we win the relay?",
+            "pause: We won, the relay.",
+            "excited: We won the relay!"
           ],
-          "sentence": "Can you help me?",
-          "target_word": "?",
+          "target_word": "exclamation point",
+          "topic": "relay win",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Can you help me?",
+            "text": "Which sentence should be read with strong excitement?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Can you help me?",
-            "label": "Hear the sentence",
+            "text": "Which sentence should be read with strong excitement?",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q03",
-          "prompt": "Read the sentence and notice the punctuation: We will go before lunch.",
+          "prompt": "Choose the sentence with punctuation that signals a calm stop.",
           "question_type": "multiple_choice",
-          "visual_model": "sentence_highlight",
-          "support_type": "sentence_highlight",
-          "correct_answer": ".",
+          "visual_model": "sentence_card",
+          "support_type": "audio_optional",
+          "correct_answer": "calm stop: The moon looks bright.",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Decide whether the moon sentence tells, asks, or exclaims.",
+            "A calm telling sentence ends with a period.",
+            "Lower your voice at the end and confirm the sentence makes a calm statement."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": ". is correct for this fluency item.",
-          "feedback": "Yes — read . smoothly.",
+          "explanation": "A period ends this telling sentence and signals a full, calm stop.",
+          "feedback": "A period ends this telling sentence and signals a full, calm stop.",
           "choices": [
-            ".",
-            ".",
-            "?",
-            "!"
+            "calm stop: The moon looks bright.",
+            "asking voice: The moon looks bright?",
+            "excited voice: The moon looks bright!",
+            "unfinished pause: The moon looks bright,"
           ],
-          "sentence": "We will go before lunch.",
-          "target_word": ".",
+          "target_word": "period",
+          "topic": "bright moon",
+          "word": "period",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: We will go before lunch.",
+            "text": "Choose the sentence with punctuation that signals a calm stop.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "We will go before lunch.",
-            "label": "Hear the sentence",
+            "text": "Choose the sentence with punctuation that signals a calm stop.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q04",
-          "prompt": "Read the sentence and notice the punctuation: Look at those bright stars!",
+          "prompt": "Which punctuation helps a reader pause after First? ___ mix the flour and water.",
           "question_type": "sentence_completion",
-          "visual_model": "sentence_card",
-          "support_type": "sentence_card",
-          "correct_answer": "Look at those bright stars!",
+          "visual_model": "sentence_highlight",
+          "support_type": "audio_optional",
+          "correct_answer": "brief pause: First,",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Notice the opening transition word First.",
+            "A comma after an opening transition signals a short pause.",
+            "Pause briefly after the transition, then continue the direction."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "Look at those bright stars! is correct for this fluency item.",
-          "feedback": "Yes — read Look at those bright stars! smoothly.",
+          "explanation": "A comma after First marks a short pause before the rest of the direction.",
+          "feedback": "A comma after First marks a short pause before the rest of the direction.",
           "choices": [
-            "Look at those bright stars!",
-            "Look at those bright stars.",
-            "look at those bright stars!"
+            "strong feeling: First!",
+            "brief pause: First,",
+            "questioning: First?",
+            "full stop: First."
           ],
-          "sentence": "Look at those bright stars!",
-          "target_word": "!",
-          "acceptable_answers": [
-            "Look at those bright stars!",
-            "look at those bright stars!",
-            "Look at those bright stars"
-          ],
+          "target_word": "comma after first",
+          "topic": "mixing dough",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Look at those bright stars!",
+            "text": "Which punctuation helps a reader pause after First? ___ mix the flour and water.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Look at those bright stars!",
-            "label": "Hear the sentence",
+            "text": "Which punctuation helps a reader pause after First? ___ mix the flour and water.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "brief pause: First,"
+          ]
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q05",
-          "prompt": "Read the sentence and notice the punctuation: Their boat is green.",
+          "prompt": "Which sentence should end with an asking voice?",
           "question_type": "multiple_choice",
-          "visual_model": "sentence_highlight",
-          "support_type": "sentence_highlight",
-          "correct_answer": ".",
+          "visual_model": "sentence_card",
+          "support_type": "audio_optional",
+          "correct_answer": "asking voice: Where is my blue cap?",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "The word Where signals that the speaker wants information.",
+            "A question mark matches the asking purpose of a Where sentence.",
+            "Read the cap sentence aloud and confirm that your voice asks at the end."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": ". is correct for this fluency item.",
-          "feedback": "Yes — read . smoothly.",
+          "explanation": "Where begins a question, and the question mark tells the voice to rise or sound curious.",
+          "feedback": "Where begins a question, and the question mark tells the voice to rise or sound curious.",
           "choices": [
-            ".",
-            ".",
-            "?",
-            "!"
+            "telling voice: Where is my blue cap.",
+            "excited voice: Where is my blue cap!",
+            "asking voice: Where is my blue cap?",
+            "pause in the middle: Where is, my blue cap?"
           ],
-          "sentence": "Their boat is green.",
-          "target_word": ".",
+          "target_word": "asking voice",
+          "topic": "lost cap",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Their boat is green.",
+            "text": "Which sentence should end with an asking voice?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Their boat is green.",
-            "label": "Hear the sentence",
+            "text": "Which sentence should end with an asking voice?",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q06",
-          "prompt": "Read the sentence and notice the punctuation: Would you read this page?",
+          "prompt": "Select the sentence whose end mark matches a surprised voice.",
           "question_type": "multiple_choice",
-          "visual_model": "sentence_card",
-          "support_type": "sentence_card",
-          "correct_answer": "?",
+          "visual_model": "sentence_highlight",
+          "support_type": "audio_optional",
+          "correct_answer": "surprised: A rainbow appeared!",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Picture the sudden appearance of a rainbow.",
+            "An exclamation point can show strong surprise.",
+            "Use a surprised voice and verify that the end mark supports it."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "? is correct for this fluency item.",
-          "feedback": "Yes — read ? smoothly.",
+          "explanation": "The exclamation point matches the speaker’s strong surprise about the rainbow.",
+          "feedback": "The exclamation point matches the speaker’s strong surprise about the rainbow.",
           "choices": [
-            "?",
-            ".",
-            "?",
-            "!"
+            "questioning: A rainbow appeared?",
+            "calm: A rainbow appeared.",
+            "pause: A rainbow, appeared!",
+            "surprised: A rainbow appeared!"
           ],
-          "sentence": "Would you read this page?",
-          "target_word": "?",
+          "target_word": "surprised voice",
+          "topic": "surprise rainbow",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Would you read this page?",
+            "text": "Select the sentence whose end mark matches a surprised voice.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Would you read this page?",
-            "label": "Hear the sentence",
+            "text": "Select the sentence whose end mark matches a surprised voice.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q07",
-          "prompt": "Read the sentence and notice the punctuation: I always wash my hands.",
+          "prompt": "Where should the reader make a brief pause? After lunch we planted seeds.",
           "question_type": "sentence_completion",
-          "visual_model": "sentence_highlight",
-          "support_type": "sentence_highlight",
-          "correct_answer": "I always wash my hands.",
+          "visual_model": "sentence_card",
+          "support_type": "audio_optional",
+          "correct_answer": "lunch",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Read the opening time phrase After lunch.",
+            "An opening time phrase is grouped together before a brief pause.",
+            "Pause after the full time phrase, not between its two words."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "I always wash my hands. is correct for this fluency item.",
-          "feedback": "Yes — read I always wash my hands. smoothly.",
+          "explanation": "The introductory words After lunch form one group, so a brief pause comes after lunch.",
+          "feedback": "The introductory words After lunch form one group, so a brief pause comes after lunch.",
           "choices": [
-            "I always wash my hands.",
-            "I always wash my hands.",
-            "i always wash my hands."
+            "lunch",
+            "After",
+            "we",
+            "seeds"
           ],
-          "sentence": "I always wash my hands.",
-          "target_word": ".",
-          "acceptable_answers": [
-            "I always wash my hands.",
-            "i always wash my hands.",
-            "I always wash my hands"
-          ],
+          "target_word": "pause after lunch",
+          "topic": "planting seeds",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: I always wash my hands.",
+            "text": "Where should the reader make a brief pause? After lunch we planted seeds.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "I always wash my hands.",
-            "label": "Hear the sentence",
+            "text": "Where should the reader make a brief pause? After lunch we planted seeds.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "lunch"
+          ]
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q08",
-          "prompt": "Read the sentence and notice the punctuation: Both friends ran fast!",
+          "prompt": "Which version helps a reader hear two items clearly?",
           "question_type": "multiple_choice",
-          "visual_model": "sentence_card",
-          "support_type": "sentence_card",
-          "correct_answer": "!",
+          "visual_model": "sentence_highlight",
+          "support_type": "audio_optional",
+          "correct_answer": "We need paper and glue.",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Find the clearest way to join the two craft supplies.",
+            "The joining word and makes the two-item list smooth and complete.",
+            "Read the supply sentence and confirm that both needed items are easy to hear."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "! is correct for this fluency item.",
-          "feedback": "Yes — read ! smoothly.",
+          "explanation": "And joins the final two items so the reader can group the complete list clearly.",
+          "feedback": "And joins the final two items so the reader can group the complete list clearly.",
           "choices": [
-            "!",
-            ".",
-            "?",
-            "!"
+            "We need paper glue.",
+            "We need paper and glue.",
+            "We need, paper glue.",
+            "We need paper, glue."
           ],
-          "sentence": "Both friends ran fast!",
-          "target_word": "!",
+          "target_word": "joined items",
+          "topic": "craft supplies",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Both friends ran fast!",
+            "text": "Which version helps a reader hear two items clearly?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Both friends ran fast!",
-            "label": "Hear the sentence",
+            "text": "Which version helps a reader hear two items clearly?",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q09",
-          "prompt": "Read the sentence and notice the punctuation: Write your name here.",
+          "prompt": "Which sentence uses punctuation to show that Ana is speaking?",
           "question_type": "multiple_choice",
-          "visual_model": "sentence_highlight",
-          "support_type": "sentence_highlight",
-          "correct_answer": ".",
+          "visual_model": "sentence_card",
+          "support_type": "audio_optional",
+          "correct_answer": "exact words: Ana said “I am ready.”",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Find the words Ana actually says.",
+            "Quotation marks belong immediately before and after a speaker’s exact words.",
+            "Read only the words inside the marks and verify that they are Ana’s speech."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": ". is correct for this fluency item.",
-          "feedback": "Yes — read . smoothly.",
+          "explanation": "Quotation marks surround Ana’s exact words, and the period closes what she says.",
+          "feedback": "Quotation marks surround Ana’s exact words, and the period closes what she says.",
           "choices": [
-            ".",
-            ".",
-            "?",
-            "!"
+            "no quotation marks: Ana said I am ready.",
+            "comma only: Ana said, I am ready.",
+            "exact words: Ana said “I am ready.”",
+            "question ending: Ana said “I am ready”?"
           ],
-          "sentence": "Write your name here.",
-          "target_word": ".",
+          "target_word": "quotation marks",
+          "topic": "ready speaker",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Write your name here.",
+            "text": "Which sentence uses punctuation to show that Ana is speaking?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Write your name here.",
-            "label": "Hear the sentence",
+            "text": "Which sentence uses punctuation to show that Ana is speaking?",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_LVL4_Q10",
-          "prompt": "Read the sentence and notice the punctuation: Pull the red wagon.",
+          "prompt": "How should you read Stop! in the sentence “Stop! The ball is rolling away”?",
           "question_type": "sentence_completion",
-          "visual_model": "sentence_card",
-          "support_type": "sentence_card",
-          "correct_answer": "Pull the red wagon.",
+          "visual_model": "sentence_highlight",
+          "support_type": "audio_optional",
+          "correct_answer": "in a strong warning voice",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Think about why someone shouts Stop when a ball rolls away.",
+            "An exclamation point makes the one-word command sound urgent.",
+            "Say Stop as a safety warning, pause, and then read the next sentence."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "Pull the red wagon. is correct for this fluency item.",
-          "feedback": "Yes — read Pull the red wagon. smoothly.",
+          "explanation": "The exclamation point makes Stop a strong warning, followed by a clear pause.",
+          "feedback": "The exclamation point makes Stop a strong warning, followed by a clear pause.",
           "choices": [
-            "Pull the red wagon.",
-            "Pull the red wagon.",
-            "pull the red wagon."
+            "in a quiet questioning voice",
+            "with no pause afterward",
+            "as one word with The",
+            "in a strong warning voice"
           ],
-          "sentence": "Pull the red wagon.",
-          "target_word": ".",
-          "acceptable_answers": [
-            "Pull the red wagon.",
-            "pull the red wagon.",
-            "Pull the red wagon"
-          ],
+          "target_word": "warning voice",
+          "topic": "rolling ball",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Pull the red wagon.",
+            "text": "How should you read Stop! in the sentence “Stop! The ball is rolling away”?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Pull the red wagon.",
-            "label": "Hear the sentence",
+            "text": "How should you read Stop! in the sentence “Stop! The ball is rolling away”?",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "in a strong warning voice"
+          ]
         }
       ]
     },
@@ -2414,369 +2483,379 @@
       "questions": [
         {
           "question_id": "G2E_FL_001_MIXED_Q01",
-          "prompt": "Which word says because?",
+          "prompt": "The baker will ___ the rolls on a tray.",
           "question_type": "short_response",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "because",
+          "support_type": "audio_optional",
+          "correct_answer": "place",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Use the action clue: the baker puts rolls onto a tray.",
+            "Choose the verb that means put, not a sound-alike noun.",
+            "Read the bakery sentence and check that the action makes sense with on a tray."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "because is correct for this fluency item.",
-          "feedback": "Yes — read because smoothly.",
+          "explanation": "Place is the high-frequency word meaning to put something in a position.",
+          "feedback": "Place is the high-frequency word meaning to put something in a position.",
           "choices": [
-            "because",
-            "esuaceb",
-            "before"
+            "place",
+            "peace",
+            "plate",
+            "plays"
           ],
-          "word": "because",
+          "target_word": "place",
+          "topic": "bakery tray",
+          "word": "place",
           "acceptable_answers": [
-            "because",
-            "because",
-            "because"
+            "place"
           ],
           "question_audio": {
-            "text": "Which word says because?",
+            "text": "The baker will ___ the rolls on a tray.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "because",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "The baker will ___ the rolls on a tray.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q02",
-          "prompt": "Read the word card. Which choice matches would?",
+          "prompt": "Choose the correctly spelled word: We ___ our neighbors at the picnic.",
           "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "would",
+          "support_type": "audio_optional",
+          "correct_answer": "knew",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "The picnic happened in the past, so look for the past-tense word.",
+            "The silent-k spelling is the past tense of know.",
+            "Use the word in the picnic sentence and verify that it tells about past knowledge."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "would is correct for this fluency item.",
-          "feedback": "Yes — read would smoothly.",
+          "explanation": "Knew is the past-tense word meaning already had knowledge of someone.",
+          "feedback": "Knew is the past-tense word meaning already had knowledge of someone.",
           "choices": [
-            "would",
-            "many",
-            "those"
+            "new",
+            "knew",
+            "knwe",
+            "nu"
           ],
-          "word": "would",
+          "target_word": "knew",
+          "topic": "neighborhood picnic",
+          "word": "knew",
           "question_audio": {
-            "text": "Read the word card. Which choice matches would?",
+            "text": "Choose the correctly spelled word: We ___ our neighbors at the picnic.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "would",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Choose the correctly spelled word: We ___ our neighbors at the picnic.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q03",
-          "prompt": "Read this phrase smoothly: their green boat. Which phrase matches?",
+          "prompt": "Which smooth phrase completes the sentence? The turtle moved ___.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "their green boat",
+          "support_type": "audio_optional",
+          "correct_answer": "across the sandy path",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask where the turtle moved.",
+            "Keep the direction phrase in normal order as one where group.",
+            "Read the whole turtle sentence and listen for a smooth location group."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "their green boat is correct for this fluency item.",
-          "feedback": "Yes — read their green boat smoothly.",
+          "explanation": "Across the sandy path is a meaningful phrase telling where the turtle moved.",
+          "feedback": "Across the sandy path is a meaningful phrase telling where the turtle moved.",
           "choices": [
-            "their green boat",
-            "boat green their",
-            "the and of"
+            "across | the | sandy | path",
+            "path sandy across the",
+            "across the sandy path",
+            "the across path sandy"
           ],
-          "phrase": "their green boat",
+          "target_word": "across the sandy path",
+          "topic": "moving turtle",
+          "phrase": "across the sandy path",
           "question_audio": {
-            "text": "Read this phrase smoothly: their green boat. Which phrase matches?",
+            "text": "Which smooth phrase completes the sentence? The turtle moved ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: their green boat. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Which smooth phrase completes the sentence? The turtle moved ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q04",
-          "prompt": "Read the sentence and notice the punctuation: Look at those bright stars!",
-          "question_type": "sentence_completion",
+          "prompt": "Which end mark tells the reader this is a question? May I open the window___",
+          "question_type": "multiple_choice",
           "visual_model": "sentence_card",
-          "support_type": "sentence_card",
-          "correct_answer": "Look at those bright stars!",
+          "support_type": "audio_optional",
+          "correct_answer": "asking end mark (?)",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Decide whether May I asks, tells, or exclaims.",
+            "A polite request still needs a question mark.",
+            "Read the window request aloud and confirm that the end mark matches your asking voice."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "Look at those bright stars! is correct for this fluency item.",
-          "feedback": "Yes — read Look at those bright stars! smoothly.",
+          "explanation": "A question mark fits the request and signals an asking voice.",
+          "feedback": "A question mark fits the request and signals an asking voice.",
           "choices": [
-            "Look at those bright stars!",
-            "Look at those bright stars.",
-            "look at those bright stars!"
+            "excited end mark (!)",
+            "brief-pause mark (,)",
+            "telling end mark (.)",
+            "asking end mark (?)"
           ],
-          "sentence": "Look at those bright stars!",
-          "target_word": "!",
-          "acceptable_answers": [
-            "Look at those bright stars!",
-            "look at those bright stars!",
-            "Look at those bright stars"
-          ],
+          "target_word": "window question",
+          "topic": "classroom window",
+          "phrase": "window question",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Look at those bright stars!",
+            "text": "Which end mark tells the reader this is a question? May I open the window___",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Look at those bright stars!",
-            "label": "Hear the sentence",
+            "text": "Which end mark tells the reader this is a question? May I open the window___",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q05",
-          "prompt": "Which word says found?",
+          "prompt": "Choose the word that completes the sentence: The children made the cards by ___.",
           "question_type": "short_response",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "found",
+          "support_type": "audio_optional",
+          "correct_answer": "themselves",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "The children made the cards without someone doing it for them.",
+            "The plural reflexive word ends in selves and is written as one word.",
+            "Reread the sentence and verify that the word refers back to more than one child."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "found is correct for this fluency item.",
-          "feedback": "Yes — read found smoothly.",
+          "explanation": "Themselves means the children did the work without someone doing it for them.",
+          "feedback": "Themselves means the children did the work without someone doing it for them.",
           "choices": [
-            "found",
-            "dnuof",
-            "around"
+            "themselves",
+            "themselfs",
+            "theirselves",
+            "them selfs"
           ],
-          "word": "found",
+          "target_word": "themselves",
+          "topic": "handmade cards",
+          "word": "themselves",
           "acceptable_answers": [
-            "found",
-            "found",
-            "found"
+            "themselves"
           ],
           "question_audio": {
-            "text": "Which word says found?",
+            "text": "Choose the word that completes the sentence: The children made the cards by ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "found",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Choose the word that completes the sentence: The children made the cards by ___.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q06",
-          "prompt": "Read the word card. Which choice matches always?",
-          "question_type": "short_response",
+          "prompt": "Select the sentence with the correctly spelled word.",
+          "question_type": "multiple_choice",
           "visual_model": "word_card",
-          "support_type": "word_card",
-          "correct_answer": "always",
+          "support_type": "audio_optional",
+          "correct_answer": "Please carry the basket.",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Look closely at the middle letters in the action word.",
+            "The standard spelling doubles the r before the y.",
+            "Spell the action aloud, then check it in the complete basket sentence."
           ],
           "misconception_tag": "sight_word_automaticity_gap",
-          "explanation": "always is correct for this fluency item.",
-          "feedback": "Yes — read always smoothly.",
+          "explanation": "Carry is spelled with two r letters and means to hold something while moving it.",
+          "feedback": "Carry is spelled with two r letters and means to hold something while moving it.",
           "choices": [
-            "always",
-            "cold",
-            "fast"
+            "Please cary the basket.",
+            "Please carry the basket.",
+            "Please carrye the basket.",
+            "Please carrie the basket."
           ],
-          "word": "always",
-          "acceptable_answers": [
-            "always",
-            "always",
-            "always"
-          ],
+          "target_word": "carry",
+          "topic": "market basket",
+          "word": "carry",
           "question_audio": {
-            "text": "Read the word card. Which choice matches always?",
+            "text": "Select the sentence with the correctly spelled word.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "always",
-            "label": "Hear the word",
-            "type": "word",
+            "text": "Select the sentence with the correctly spelled word.",
+            "label": "Hear the text",
+            "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q07",
-          "prompt": "Read this phrase smoothly: write your name. Which phrase matches?",
+          "prompt": "Which words form a natural phrase? The family ate ___.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "write your name",
+          "support_type": "audio_optional",
+          "correct_answer": "beneath the shady oak",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask where the family ate.",
+            "A location group beginning with beneath should stay in natural order.",
+            "Read the complete picnic sentence and confirm that the phrase answers where."
           ],
-          "misconception_tag": "skips_function_words",
-          "explanation": "write your name is correct for this fluency item.",
-          "feedback": "Yes — read write your name smoothly.",
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "Beneath the shady oak belongs together as a phrase telling where the family ate.",
+          "feedback": "Beneath the shady oak belongs together as a phrase telling where the family ate.",
           "choices": [
-            "write your name",
-            "name your write",
-            "the and of"
+            "beneath | the | shady | oak",
+            "oak shady beneath the",
+            "beneath the shady oak",
+            "the oak beneath shady"
           ],
-          "phrase": "write your name",
+          "target_word": "beneath the shady oak",
+          "topic": "family picnic",
+          "phrase": "beneath the shady oak",
           "question_audio": {
-            "text": "Read this phrase smoothly: write your name. Which phrase matches?",
+            "text": "Which words form a natural phrase? The family ate ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: write your name. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Which words form a natural phrase? The family ate ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q08",
-          "prompt": "Read the sentence and notice the punctuation: Both friends ran fast!",
+          "prompt": "Which sentence should be read with joyful excitement?",
           "question_type": "multiple_choice",
-          "visual_model": "sentence_card",
-          "support_type": "sentence_card",
-          "correct_answer": "!",
+          "visual_model": "sentence_highlight",
+          "support_type": "audio_optional",
+          "correct_answer": "joyful: The ducklings hatched!",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Picture how a reader might react when ducklings hatch.",
+            "An exclamation point matches a joyful reaction.",
+            "Try the joyful voice and make sure its end mark fits the happy event."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "! is correct for this fluency item.",
-          "feedback": "Yes — read ! smoothly.",
+          "explanation": "The exclamation point signals the joyful, excited voice that matches the event.",
+          "feedback": "The exclamation point signals the joyful, excited voice that matches the event.",
           "choices": [
-            "!",
-            ".",
-            "?",
-            "!"
+            "questioning: The ducklings hatched?",
+            "calm: The ducklings hatched.",
+            "pause: The ducklings, hatched!",
+            "joyful: The ducklings hatched!"
           ],
-          "sentence": "Both friends ran fast!",
-          "target_word": "!",
+          "target_word": "joyful hatching",
+          "topic": "duckling hatch",
+          "phrase": "joyful hatching",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Both friends ran fast!",
+            "text": "Which sentence should be read with joyful excitement?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Both friends ran fast!",
-            "label": "Hear the sentence",
+            "text": "Which sentence should be read with joyful excitement?",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q09",
-          "prompt": "Read this phrase smoothly: always read carefully. Which phrase matches?",
-          "question_type": "multiple_choice",
+          "prompt": "Read smoothly. Which phrase completes the direction? Put your folder ___.",
+          "question_type": "short_response",
           "visual_model": "phrase_builder",
-          "support_type": "phrase_builder",
-          "correct_answer": "always read carefully",
+          "support_type": "audio_optional",
+          "correct_answer": "next to the red bin",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Ask exactly where the folder should go.",
+            "Keep next to and the named place together as one location phrase.",
+            "Follow the direction in your mind and confirm that the folder’s location is exact."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "always read carefully is correct for this fluency item.",
-          "feedback": "Yes — read always read carefully smoothly.",
+          "explanation": "Next to the red bin is a smooth phrase telling exactly where to put the folder.",
+          "feedback": "Next to the red bin is a smooth phrase telling exactly where to put the folder.",
           "choices": [
-            "always read carefully",
-            "carefully read always",
-            "the and of"
+            "next to the red bin",
+            "next | to | the | red | bin",
+            "bin red next to the",
+            "to next the bin red"
           ],
-          "phrase": "always read carefully",
+          "target_word": "next to the red bin",
+          "topic": "folder cleanup",
+          "phrase": "next to the red bin",
+          "acceptable_answers": [
+            "next to the red bin"
+          ],
           "question_audio": {
-            "text": "Read this phrase smoothly: always read carefully. Which phrase matches?",
+            "text": "Read smoothly. Which phrase completes the direction? Put your folder ___.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Read this phrase smoothly: always read carefully. Which phrase matches?",
-            "label": "Hear the sentence",
+            "text": "Read smoothly. Which phrase completes the direction? Put your folder ___.",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
         },
         {
           "question_id": "G2E_FL_001_MIXED_Q10",
-          "prompt": "Read the sentence and notice the punctuation: Pull the red wagon.",
-          "question_type": "sentence_completion",
+          "prompt": "Which punctuation marks Jamal’s exact words? Jamal said ___The show begins now.___",
+          "question_type": "multiple_choice",
           "visual_model": "sentence_card",
-          "support_type": "sentence_card",
-          "correct_answer": "Pull the red wagon.",
+          "support_type": "audio_optional",
+          "correct_answer": "“ ”",
           "hints": [
-            "Look at every word, including small function words.",
-            "Read the words together in a smooth phrase.",
-            "Let punctuation tell your voice when to stop or ask."
+            "Find the two marks that surround Jamal’s spoken words.",
+            "A matched pair of quotation marks identifies exact speech.",
+            "Read the words between the marks and verify that only Jamal’s exact speech is enclosed."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "Pull the red wagon. is correct for this fluency item.",
-          "feedback": "Yes — read Pull the red wagon. smoothly.",
+          "explanation": "Quotation marks go before and after Jamal’s exact spoken words.",
+          "feedback": "Quotation marks go before and after Jamal’s exact spoken words.",
           "choices": [
-            "Pull the red wagon.",
-            "Pull the red wagon.",
-            "pull the red wagon."
+            "( )",
+            "“ ”",
+            ", ,",
+            "? ?"
           ],
-          "sentence": "Pull the red wagon.",
-          "target_word": ".",
-          "acceptable_answers": [
-            "Pull the red wagon.",
-            "pull the red wagon.",
-            "Pull the red wagon"
-          ],
+          "target_word": "spoken quotation",
+          "topic": "school show",
+          "phrase": "spoken quotation",
           "question_audio": {
-            "text": "Read the sentence and notice the punctuation: Pull the red wagon.",
+            "text": "Which punctuation marks Jamal’s exact words? Jamal said ___The show begins now.___",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Pull the red wagon.",
-            "label": "Hear the sentence",
+            "text": "Which punctuation marks Jamal’s exact words? Jamal said ___The show begins now.___",
+            "label": "Hear the text",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
           }
