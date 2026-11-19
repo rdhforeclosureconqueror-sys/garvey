@@ -103,6 +103,7 @@ const { createSimbaWajumaRouter, buildAssessmentCompletionPayload, verifyTransfe
 const { queueExternalEvent, retryQueuedExternalEvents } = require("./simbawajumaEvents");
 const { createLeaderWithinRouter } = require("./leaderWithinRoutes");
 const { createGatesV2ChildRouter } = require("./gatesV2ChildUiRoute");
+const { createGarveyActivityEvidenceRouter } = require("./garveyActivityEvidenceRoutes");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -305,6 +306,19 @@ app.use("/generated-audio/skill-world", express.static(path.join(__dirname, ".."
 app.use(createLeaderWithinRouter(pool));
 // Public launch-ready child route remains explicitly scoped before general static serving.
 app.use('/gates-v2-child', createGatesV2ChildRouter());
+const garveyActivityEvidenceEnabled = ["1", "true"].includes(String(process.env.GARVEY_ACTIVITY_EVIDENCE_ENABLED || "").trim().toLowerCase());
+const garveyActivityCsrfSecret = String(process.env.GARVEY_ACTIVITY_CSRF_SECRET || process.env.SESSION_SECRET || "");
+if (garveyActivityEvidenceEnabled && Buffer.byteLength(garveyActivityCsrfSecret, "utf8") >= 32) {
+  app.use("/api/garvey-learning", createGarveyActivityEvidenceRouter({
+    pool,
+    enabled: true,
+    expectedOrigin: String(process.env.GARVEY_ACTIVITY_ORIGIN || "https://garveybackend.onrender.com"),
+    csrfSecret: garveyActivityCsrfSecret,
+  }));
+  console.log(JSON.stringify({ ts: new Date().toISOString(), event: "garvey_activity_evidence_enabled" }));
+} else {
+  console.log(JSON.stringify({ ts: new Date().toISOString(), event: "garvey_activity_evidence_disabled", reason: garveyActivityEvidenceEnabled ? "csrf_secret_missing_or_short" : "feature_flag_off" }));
+}
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());
