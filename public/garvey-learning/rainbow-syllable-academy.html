@@ -348,17 +348,18 @@ const SENTENCES = {
   "off": ["Turn off the light.", "Take off your hat."],
   "form": ["Make a line in this form.", "The clay can form a ball."]
 };
-let matchFirst=null,matchLock=false,matchedPairs=0,matchTurn=0;
+let matchFirst=null,matchLock=false,matchedPairs=0,matchTurn=0,matchAttempts=0;
 function renderMatch(){
  const grid=$('matchGrid');grid.replaceChildren();matchFirst=null;matchLock=false;matchedPairs=0;matchTurn++;
  let total=+$('matchSize').value,pairs=total/2,words=shuffle([...LEVELS[levelIndex]]).slice(0,pairs),deck=shuffle([...words,...words]),turn=matchTurn;
+ observeSyllable('task_started',{taskId:'rainbow_word_match',skillId:'visual_word_memory',practiceTags:['working_hold','selective_attention'],geniusDimensionCodes:['SR','RS']});
  $('matchStatus').textContent='0 / '+pairs+' pairs';$('matchFeedback').textContent='Turn over two cards to find a match.';
  deck.forEach(w=>{let b=document.createElement('button');b.type='button';b.className='matchCard';b.textContent=w.word;b.setAttribute('aria-label','Hidden word card');grid.append(b);
  b.onclick=()=>{if(matchLock||b.classList.contains('revealed')||b.classList.contains('matched'))return;b.classList.add('revealed');b.setAttribute('aria-label',w.word);
   if(!matchFirst){matchFirst={b,w};return}
   let first=matchFirst;matchFirst=null;
-  if(first.w.word===w.word){first.b.classList.add('matched');b.classList.add('matched');matchedPairs++;score(w.word,true);speak(w.word);$('matchFeedback').textContent='🎉 Match! '+w.word;$('matchStatus').textContent=matchedPairs+' / '+pairs+' pairs';if(matchedPairs===pairs)$('matchFeedback').textContent='👑 All matches found! Try another set.'}
-  else{matchLock=true;setTimeout(()=>{if(turn!==matchTurn)return;first.b.classList.remove('revealed');b.classList.remove('revealed');first.b.setAttribute('aria-label','Hidden word card');b.setAttribute('aria-label','Hidden word card');matchLock=false},820)}
+  if(first.w.word===w.word){matchAttempts++;observeSyllable('answer_submitted',{taskId:'rainbow_word_match',skillId:'visual_word_memory',attemptNumber:matchAttempts,outcome:'correct',practiceTags:['working_hold','selective_attention'],geniusDimensionCodes:['SR','RS']});first.b.classList.add('matched');b.classList.add('matched');matchedPairs++;score(w.word,true);speak(w.word);$('matchFeedback').textContent='🎉 Match! '+w.word;$('matchStatus').textContent=matchedPairs+' / '+pairs+' pairs';if(matchedPairs===pairs)$('matchFeedback').textContent='👑 All matches found! Try another set.'}
+  else{matchAttempts++;observeSyllable('answer_submitted',{taskId:'rainbow_word_match',skillId:'visual_word_memory',attemptNumber:matchAttempts,outcome:'incorrect',practiceTags:['working_hold','selective_attention'],geniusDimensionCodes:['SR','RS','FB']});observeSyllable('retry',{taskId:'rainbow_word_match',skillId:'visual_word_memory',attemptNumber:matchAttempts,practiceTags:['persistence'],geniusDimensionCodes:['PS','FB']});matchLock=true;setTimeout(()=>{if(turn!==matchTurn)return;first.b.classList.remove('revealed');b.classList.remove('revealed');first.b.setAttribute('aria-label','Hidden word card');b.setAttribute('aria-label','Hidden word card');matchLock=false},820)}
  }})
 }
 $('newMatch').onclick=renderMatch;$('matchSize').onchange=renderMatch;
